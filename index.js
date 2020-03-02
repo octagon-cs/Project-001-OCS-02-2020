@@ -1,7 +1,21 @@
-const express = require('express')
-const app = express()
-const port = 3000
+var express = require('express');
+var app = express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.json({
+    limit: '50mb'
+}));
 
-app.get('/', (req, res) => res.send('<center><h1>waena-desa on develop!</h1></center>'))
+const maintenance = true;
+require('./server/routers')(app);
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+var path = require('path');
+app.use('/', express.static('./'));
+app.get('/', function (req, res) {
+    if (!maintenance)
+        res.sendFile(path.join(__dirname + '/client/index.html'));
+    else
+        res.sendFile(path.join(__dirname + '/maintenance.html'));
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log('Listening on ' + PORT));

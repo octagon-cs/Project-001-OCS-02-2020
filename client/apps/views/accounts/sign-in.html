@@ -1,0 +1,32 @@
+<div class="row">
+	<div class="col-md-4"></div>
+	<div class="col-md-4">
+		<div class="card bg-dark text-light">
+			<div class="card-header">
+				<div class="card-title text-center">
+					<h3>Login</h3>
+				</div>
+			</div>
+			<form class="form-group">
+				<div class="card-body">
+
+					<div class="form-group">
+						<label class="control-label">Username</label>
+						<input class="form-control" ng-model="model.username" type="text" name=""
+							placeholder="example rein@gmail.com" required="">
+					</div>
+					<div class="form-group">
+						<label class="control-label">Password</label>
+						<input class="form-control" ng-model="model.password" type="password" name=""
+							placeholder="Example 12345678" required="">
+					</div>
+				</div>
+				<div class="card-footer mb-5">
+					<button ng-click="login(model)" class="btn btn-primary btn-block" name="" id="">Login</button>
+				</div>
+			</form>
+		</div>
+
+
+	</div>
+</div>
