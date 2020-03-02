@@ -1,0 +1,12 @@
+@controller=auth
+@host=http://localhost:3000/api/{{controller}}
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNTc5NTI4ODA3LCJleHAiOjE1Nzk2MTUyMDd9.LhqJZgK-j97rHRGPobBR_RkAFMGPu9azfTMApwwQRs8
+
+####
+POST {{host}}/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"admin@gmail.com",
+    "password":"admin"
+}

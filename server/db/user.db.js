@@ -26,7 +26,7 @@ UserDb.login = async (user) => {
                                     });
                                 } else {
                                     if (result.length <= 0) {
-                                        var sql = 'insert into role (name) values ? ';
+                                        var sql = 'insert into roles (name) values ? ';
                                         var values = [];
                                         config.Roles.forEach(x => {
                                             values.push([x]);
@@ -38,7 +38,7 @@ UserDb.login = async (user) => {
                                                     return reject(err);
                                                 });
                                             } else {
-                                                user.username = "admin@waena-desa.id";
+                                                user.username = "admin@gmail.com";
                                                 var password = bcrypt.hashSync("admin", 8);
                                                 connection.query(
                                                     'insert into users (username,password,email) values(?,?,?)',
@@ -53,7 +53,7 @@ UserDb.login = async (user) => {
                                                             if (result.insertId > 0) {
                                                                 user.idUser = result.insertId;
                                                                 connection.query(
-                                                                    'select * from role where name=?',
+                                                                    'select * from roles where name=?',
                                                                     ['admin'],
                                                                     (err, roleResult) => {
                                                                         if (err) {
@@ -64,8 +64,8 @@ UserDb.login = async (user) => {
                                                                         } else {
                                                                             var data = roleResult[0];
                                                                             connection.query(
-                                                                                'insert into userinrole(idusers,idrole) values(?,?)',
-                                                                                [user.idUser, data.idrole],
+                                                                                'insert into userinrole(idusers,idroles) values(?,?)',
+                                                                                [user.idUser, data.idroles],
                                                                                 (err, result) => {
                                                                                     if (err) {
                                                                                         connection.rollback(function () {
@@ -95,12 +95,11 @@ UserDb.login = async (user) => {
                                         });
                                     } else {
                                         pool.query(
-                                            `SELECT users.idusers, users.username, users.password, users.email, users.photo,
-                                                role.name as role
+                                            `SELECT *, roles.name as roles
                                             FROM
                                                 users LEFT JOIN
                                                 userinrole ON users.idusers = userinrole.idusers LEFT JOIN
-                                                role ON userinrole.idrole = role.idrole where users.username=? or users.email=?`,
+                                                roles ON userinrole.idroles = roles.idroles where users.username=? or users.email=?`,
                                             [user.username, user.username],
                                             (err, result) => {
                                                 if (err) {
