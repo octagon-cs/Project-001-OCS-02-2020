@@ -4,7 +4,7 @@ const model = {};
 
 model.get = () => {
     return new Promise((resolve, reject) => {
-        return resolve(["administrator", "admin"]);
+        return resolve(["pemohon", "admin", "kasi", "seklur", "lurah"]);
     });
 };
 

@@ -16,7 +16,9 @@ permit = (...allowed) => {
 		if (request.userId && isAllowed(request.roles)) next();
 		else {
 			// role is allowed, so continue on the next middleware
-			response.status(401).json({ message: 'Unauthorized' }); // user is forbidden
+			response.status(401).json({
+				message: 'Unauthorized'
+			}); // user is forbidden
 		}
 	};
 };

@@ -1,4 +1,4 @@
 module.exports = {
 	secret: 'ocph-secret-key',
-	Roles: ['administrator', 'admin']
+	Roles: ["pemohon", "admin", "kasi", "seklur", "lurah"]
 };

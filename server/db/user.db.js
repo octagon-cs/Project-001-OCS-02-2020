@@ -1,6 +1,7 @@
 const pool = require('./dbconnection');
 const bcrypt = require('bcryptjs');
 const helper = require('../helper');
+const config = require('../auth/config');
 const UserDb = {};
 
 UserDb.login = async (user) => {
@@ -25,15 +26,11 @@ UserDb.login = async (user) => {
                                     });
                                 } else {
                                     if (result.length <= 0) {
-                                        var sql = 'insert into role (name,deskripsi) values ? ';
-                                        var values = [
-                                            ['admin', 'Admin'],
-                                            ['administrator', 'Administrator'],
-                                            ['dosen', 'Dosen'],
-                                            ['kaprodi', 'Kaprodi'],
-                                            ['pemeriksa', 'Pemeriksa Penelitian'],
-                                            ['rektor', 'Rektor']
-                                        ];
+                                        var sql = 'insert into role (name) values ? ';
+                                        var values = [];
+                                        config.Roles.forEach(x => {
+                                            values.push([x]);
+                                        })
                                         connection.query(sql, [values], (err, result) => {
                                             if (err) {
                                                 connection.rollback(function () {
@@ -41,7 +38,7 @@ UserDb.login = async (user) => {
                                                     return reject(err);
                                                 });
                                             } else {
-                                                user.username = "reinsemboari@gmail.com";
+                                                user.username = "admin@waena-desa.id";
                                                 var password = bcrypt.hashSync("admin", 8);
                                                 connection.query(
                                                     'insert into users (username,password,email) values(?,?,?)',
@@ -99,11 +96,11 @@ UserDb.login = async (user) => {
                                     } else {
                                         pool.query(
                                             `SELECT users.idusers, users.username, users.password, users.email, users.photo,
-									role.name as role
-								  FROM
-									users LEFT JOIN
-									userinrole ON users.idusers = userinrole.idusers LEFT JOIN
-									role ON userinrole.idrole = role.idrole where users.username=? or users.email=?`,
+                                                role.name as role
+                                            FROM
+                                                users LEFT JOIN
+                                                userinrole ON users.idusers = userinrole.idusers LEFT JOIN
+                                                role ON userinrole.idrole = role.idrole where users.username=? or users.email=?`,
                                             [user.username, user.username],
                                             (err, result) => {
                                                 if (err) {
