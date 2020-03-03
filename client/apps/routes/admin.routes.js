@@ -9,15 +9,16 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
             parent: 'admin',
 			controller: 'adminHomeController',
 			templateUrl: '../client/apps/views/admin/home.html'
-        }).state('admin-tambahdatadesa', {
-            url: '/tambahdatadesa',
+        }).state('admin-datakepaladesa', {
+            url: '/datakepaladesa',
             parent: 'admin',
-			controller: 'admintambahdatadesaController',
-			templateUrl: '../client/apps/views/admin/tambahdatadesa.html'
-		}).state('admin-datakeuangan', {
-            url: '/datakeuangan',
+			controller: 'admindatakepaladesaController',
+			templateUrl: '../client/apps/views/admin/datakepaladesa.html'
+		}).state('admin-dataumumdesa', {
+            url: '/dataumumdesa',
             parent: 'admin',
-			controller: 'admindatakeuanganController',
-			templateUrl: '../client/apps/views/admin/datakeuangan.html'
+			controller: 'admindataumumdesaController',
+			templateUrl: '../client/apps/views/admin/dataumumdesa.html'
 		});
+		
 });
