@@ -3,8 +3,8 @@ angular.module('admin.controller',[])
 .controller('admindatakepaladesaController', admindatakepaladesaController)
 .controller('admindataumumdesaController', admindataumumdesaController)
 .controller('adminsuratpengantarkkController', adminsuratpengantarkkController)
-.controller('adminsuratpengantarktp', adminsuratpengantarktp);
-
+.controller('admindatapendudukController', admindatapendudukController)
+.controller('adminsuratpengantarktpController', adminsuratpengantarktpController);
 
 function adminHomeController() {
     
@@ -18,6 +18,9 @@ function admindataumumdesaController() {
 function adminsuratpengantarkkController() {
     
 }
-function adminsuratpengantarktp(){
+function adminsuratpengantarktpController(){
 
+}
+function admindatapendudukController(){
+    
 }
