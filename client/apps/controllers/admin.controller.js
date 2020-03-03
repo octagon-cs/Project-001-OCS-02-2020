@@ -1,5 +1,5 @@
 angular.module('admin.controller',[])
-.controller('adminHomeController', adminHomeController);
+.controller('adminHomeController', adminHomeController)
 .controller('admintambahdatadesaController',admintambahdatadesaController);
 function adminHomeController() {
     
