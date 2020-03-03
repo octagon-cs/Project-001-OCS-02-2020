@@ -10,8 +10,12 @@ profile.get = async () => {
             (err, result) => {
                 if (err) {
                     return reject(err);
-                } else
+                } else {
+                    result.forEach(element => {
+                        element.data = JSON.parse(element.data)
+                    });
                     resolve(result);
+                }
             }
         );
     });
