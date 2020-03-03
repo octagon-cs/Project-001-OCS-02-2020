@@ -29,6 +29,16 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
             parent: 'admin',
 			controller: 'adminsuratpengantarktpController',
 			templateUrl: '../client/apps/views/admin/suratpengantarktp.html'
+		}).state('admin-datapenduduk', {
+            url: '/datapenduduk',
+            parent: 'admin',
+			controller: 'admindatapendudukController',
+			templateUrl: '../client/apps/views/admin/datapenduduk.html'
+		}).state('admin-inputdatapenduduk', {
+            url: '/inputdatapenduduk',
+            parent: 'admin',
+			controller: 'admininputdatapendudukController',
+			templateUrl: '../client/apps/views/admin/inputdatapenduduk.html'
 		});
 		
 });
