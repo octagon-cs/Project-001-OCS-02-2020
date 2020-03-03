@@ -12,12 +12,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Status Kepemilikan KTP</label>
-                                <select class="form-control select2" style="width: 100%;">
-                                    <option selected="selected">Pilih Salah Satu</option>
-                                    <option>Sudah Memiliki KTP</option>
-                                    <option>Belum Memiliki KTP</option>
-                                    <option>Pembuatan KTP Dalam Proses</option>
-                                </select>
+                                <select ng-options="item for item in KepemilikanKTP" class="form-control select2" ng-model="StatusKTP"></select>
                             </div>
                             <!-- /.form-group -->
                             <div class="form-group">
