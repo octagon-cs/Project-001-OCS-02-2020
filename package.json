@@ -4,7 +4,10 @@
   "description": "app info desa & surat menyurat",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "pm2 start server.config.js --env production",
+    "stop": "pm2 stop server.config.js --env production",
+     "startdev": "pm2 start server.config.js --env development",
+    "stopdev": "pm2 stop server.config.js --env development"
   },
   "repository": {
     "type": "git",
