@@ -1,22 +1,22 @@
-<section class="content-header">
+<section class="content-header" ng-init="Init()">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Fixed Header Table</h3>
+                  <h3 class="card-title">Data Surat</h3>
                   <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
-                      <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                        <select ng-model="JenisPermohonan" ng-options="item.nama for item in JenisPermohonan" class="form-control" ng-change="SelectedPermohonan()"></select>
   
-                      <div class="input-group-append">
-                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                      </div>
+                      <!-- <div class="input-group-append">
+                        
+                      </div> -->
                     </div>
                   </div>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body">
+                <div class="card-body" ng-if="ShowTable==true">
                     <table datatable="" class="table hover">
                         <thead>
                             <tr>
