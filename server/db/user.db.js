@@ -2,6 +2,7 @@ const pool = require('./dbconnection');
 const bcrypt = require('bcryptjs');
 const helper = require('../helper');
 const config = require('../auth/config');
+const jwt = require('jsonwebtoken');
 const UserDb = {};
 
 UserDb.login = async (user) => {
@@ -26,7 +27,7 @@ UserDb.login = async (user) => {
                                     });
                                 } else {
                                     if (result.length <= 0) {
-                                        var sql = 'insert into role (name) values ? ';
+                                        var sql = 'insert into roles (name) values ? ';
                                         var values = [];
                                         config.Roles.forEach(x => {
                                             values.push([x]);
@@ -38,7 +39,7 @@ UserDb.login = async (user) => {
                                                     return reject(err);
                                                 });
                                             } else {
-                                                user.username = "admin@waena-desa.id";
+                                                user.username = "admin@gmail.com";
                                                 var password = bcrypt.hashSync("admin", 8);
                                                 connection.query(
                                                     'insert into users (username,password,email) values(?,?,?)',
@@ -53,7 +54,7 @@ UserDb.login = async (user) => {
                                                             if (result.insertId > 0) {
                                                                 user.idUser = result.insertId;
                                                                 connection.query(
-                                                                    'select * from role where name=?',
+                                                                    'select * from roles where name=?',
                                                                     ['admin'],
                                                                     (err, roleResult) => {
                                                                         if (err) {
@@ -64,8 +65,8 @@ UserDb.login = async (user) => {
                                                                         } else {
                                                                             var data = roleResult[0];
                                                                             connection.query(
-                                                                                'insert into userinrole(idusers,idrole) values(?,?)',
-                                                                                [user.idUser, data.idrole],
+                                                                                'insert into userinrole(idusers,idroles) values(?,?)',
+                                                                                [user.idUser, data.idroles],
                                                                                 (err, result) => {
                                                                                     if (err) {
                                                                                         connection.rollback(function () {
@@ -95,12 +96,11 @@ UserDb.login = async (user) => {
                                         });
                                     } else {
                                         pool.query(
-                                            `SELECT users.idusers, users.username, users.password, users.email, users.photo,
-                                                role.name as role
+                                            `SELECT *, roles.name as role
                                             FROM
                                                 users LEFT JOIN
                                                 userinrole ON users.idusers = userinrole.idusers LEFT JOIN
-                                                role ON userinrole.idrole = role.idrole where users.username=? or users.email=?`,
+                                                roles ON userinrole.idroles = roles.idroles where users.username=? or users.email=?`,
                                             [user.username, user.username],
                                             (err, result) => {
                                                 if (err) {
@@ -125,6 +125,94 @@ UserDb.login = async (user) => {
                                     }
                                 }
                             });
+                    } catch (err) {
+                        connection.rollback(function () {
+                            connection.release();
+                            return reject(err);
+                        });
+                    }
+                });
+        });
+    });
+};
+
+UserDb.register = async (idpenduduk, user) => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, connection) => {
+            if (err) {
+                return reject(err);
+            } else
+                connection.beginTransaction((err) => {
+                    try {
+                        var realPassword = helper.makeid(4);
+                        var password = bcrypt.hashSync(realPassword, 8);
+                        var token = jwt.sign({
+                            user: user.email,
+                        }, config.secret, {
+                            expiresIn: 86400 * 30 * 12 // expires in 24 hours
+                        });
+
+                        connection.query(
+                            'insert into users (username,password,email,emailconfirm) values(?,?,?,?)',
+                            [user.email, password, user.email, token],
+                            (err, result) => {
+                                if (err) {
+                                    connection.rollback(function () {
+                                        connection.release();
+                                        return reject(err);
+                                    });
+                                } else {
+                                    if (result.insertId > 0) {
+                                        user.idUser = result.insertId;
+                                        connection.query(
+                                            'select * from roles where name=?',
+                                            ['pemohon'],
+                                            (err, roleResult) => {
+                                                if (err) {
+                                                    connection.rollback(function () {
+                                                        connection.release();
+                                                        return reject(err);
+                                                    });
+                                                } else {
+                                                    var data = roleResult[0];
+                                                    connection.query(
+                                                        'insert into userinrole(idusers,idroles) values(?,?)',
+                                                        [user.idUser, data.idroles],
+                                                        (err, result) => {
+                                                            if (err) {
+                                                                connection.rollback(function () {
+                                                                    connection.release();
+                                                                    return reject(err);
+                                                                });
+                                                            } else {
+                                                                connection.query('update penduduk set idusers=? where idpenduduk=?',
+                                                                    [user.idUser, idpenduduk], (err, result) => {
+                                                                        if (err) {
+                                                                            connection.rollback(function () {
+                                                                                connection.release();
+                                                                                return reject(err);
+                                                                            });
+                                                                        } else
+                                                                            connection.commit(function (err) {
+                                                                                if (err) {
+                                                                                    return connection.rollback(function () {
+                                                                                        return reject(err);
+                                                                                    });
+                                                                                }
+                                                                                return resolve(true);
+                                                                            });
+                                                                    });
+                                                            }
+                                                        }
+                                                    );
+                                                }
+                                            }
+                                        );
+                                    } else
+                                        return reject('Data Tidak Tersimpan');
+                                }
+                            }
+                        );
                     } catch (err) {
                         connection.rollback(function () {
                             connection.release();
@@ -240,170 +328,35 @@ UserDb.changeFoto = async (user) => {
     });
 };
 
-UserDb.registerDosen = async (dosen) => {
-    return new Promise((resolve, reject, next) => {
 
-        helper
-            .sendEmail({
-                to: dosen.email,
-                subject: 'Account',
-                password: dosen.passwordText
-            })
-            .then(
-                (x) => {
-                    pool.getConnection((err, connection) => {
+UserDb.confirmemail = async (data) => {
+    var user = await UserDb.getUserByEmail(data);
+    return new Promise((resolve, reject, nex) => {
 
-                        try {
-                            if (err) {
-                                connection.release();
-                                return reject(err);
-                            } else
-                                connection.beginTransaction((err) => {
-                                    if (err) {
-                                        connection.rollback(function () {
-                                            connection.release();
-                                            return reject(err);
-                                        });
-                                    } else
-                                        connection.query('select * from role where name=?', ['dosen'], (err, roleResult) => {
-                                            if (err) {
-                                                connection.rollback(function () {
-                                                    connection.release();
-                                                    return reject(err);
-                                                });
-                                            } else {
-                                                var role = roleResult[0];
-                                                connection.query(
-                                                    'insert into users (username, password, email) values(?,?,?)',
-                                                    [dosen.nidn, dosen.password, dosen.email],
-                                                    (err, userResult) => {
-                                                        if (err) {
-                                                            connection.rollback(function () {
-                                                                connection.release();
-                                                                return reject(err);
-                                                            });
-                                                        } else {
-                                                            dosen.iduser = userResult.insertId;
-                                                            connection.query(
-                                                                'insert into userinrole(idusers, idrole) values (?,?)',
-                                                                [dosen.iduser, role.idrole],
-                                                                (err, result) => {
-                                                                    if (err) {
-                                                                        connection.rollback(function () {
-                                                                            connection.release();
-                                                                            return reject(err);
-                                                                        });
-                                                                    } else {
-                                                                        connection.query(
-                                                                            `insert into dosen(iduser,idjabatan, nidn, tanggallahir, tempatlahir, jeniskelamin, pendidikanterakhir,
-																	 jabatanakademik, masakerja, idprogramstudi, namadosen) values (?,?,?,?,?,?,?,?,?,?,?)`,
-                                                                            [
-                                                                                dosen.iduser,
-                                                                                dosen.idjabatan,
-                                                                                dosen.nidn,
-                                                                                dosen.tanggallahir,
-                                                                                dosen.tempatlahir,
-                                                                                dosen.jeniskelamin,
-                                                                                dosen.pendidikanterakhir,
-                                                                                dosen.jabatanakademik,
-                                                                                dosen.masakerja,
-                                                                                dosen.idprogramstudi,
-                                                                                dosen.namadosen
-                                                                            ],
-                                                                            (err, result) => {
-                                                                                if (err) {
-                                                                                    connection.rollback(function () {
-                                                                                        connection.release();
-                                                                                        return reject(err);
-                                                                                    });
-                                                                                } else {
-                                                                                    dosen.iddosen = result.insertId;
-                                                                                    dosen.role = 'dosen';
-                                                                                    connection.commit(function (err) {
-                                                                                        if (err) {
-                                                                                            return connection.rollback(function () {
-                                                                                                return reject(err);
-                                                                                            });
-                                                                                        } else {
-                                                                                            connection.release();
-                                                                                            resolve(dosen);
-                                                                                        }
-                                                                                    });
-                                                                                }
-                                                                            }
-                                                                        );
-                                                                    }
-                                                                }
-                                                            );
-                                                        }
-                                                    }
-                                                );
-                                            }
-
-                                        });
-                                });
-                        } catch (err) {
-                            connection.rollback(function () {
-                                connection.release();
-                                return reject(err);
-                            });
-                        }
-                    });
-                },
-                (err) => {
+        if (!user)
+            resolve(false);
+        pool.query('update users set aktif=?, emailconfirm=? where idusers=?',
+            [true, null, user.idusers], (err, result) => {
+                if (err) {
                     return reject(err);
-                }
-            );
+                } else resolve(true);
+            });
     });
 };
 
-UserDb.profile = async (userId) => {
+
+UserDb.getUserByEmail = async (email) => {
     return new Promise((resolve, reject) => {
         pool.query(
-            `SELECT
-		dosen.iddosen,
-		dosen.iduser,
-		dosen.idprogramstudi,
-		dosen.nidn,
-		dosen.tanggallahir,
-		dosen.tempatlahir,
-		dosen.jeniskelamin,
-		dosen.pendidikanterakhir,
-		dosen.jabatanakademik,
-		dosen.masakerja,
-		dosen.idjabatan,
-		dosen.namadosen,
-		programstudi.namaprogramstudi,
-		fakultas.namafakultas,
-		universitas.namauniversitas,
-		fakultas.idfakultas,
-		universitas.iduniversitas,
-		users.email,users.photo,
-		role.idrole,
-		role.name AS rolename,
-		role.deskripsi,
-		jabatanfungsional.jabatan,
-		jabatanfungsional.pangkat,
-		jabatanfungsional.golongan,
-		jabatanfungsional.ruang
-	  FROM
-		dosen
-		LEFT JOIN programstudi ON dosen.idprogramstudi =
-	  programstudi.idprogramstudi
-		LEFT JOIN fakultas ON programstudi.idfakultas = fakultas.idfakultas
-		LEFT JOIN universitas ON fakultas.iduniversitas =
-	  universitas.iduniversitas
-		LEFT JOIN users ON dosen.iduser = users.idusers
-		LEFT JOIN userinrole ON users.idusers = userinrole.idusers
-		LEFT JOIN role ON userinrole.idrole = role.idrole
-		LEFT JOIN jabatanfungsional ON dosen.idjabatan =
-	  jabatanfungsional.idjabatan where iduser =?`,
-            [userId],
+            `SELECT *
+		  FROM
+			users where email=? `,
+            [email],
             (err, result) => {
                 if (err) {
                     return reject(err);
-                }
-                return resolve(result[0]);
+                } else
+                    resolve(result[0]);
             }
         );
     });
