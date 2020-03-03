@@ -1,128 +1,688 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
     <title>WON</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <!------ Include the above in your HEAD tag ---------->
-    <style>
-        @import url(http://fonts.googleapis.com/css?family=Roboto);
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script>
+      
+      !function(e)
+      {if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();
+      else if("function"==typeof define&&define.amd)define([],e);
+      else{var n;"undefined"!=typeof window?n=window:"undefined"!=typeof global?n=global:"undefined"!=typeof self&&(n=self),n.Countdown=e()}}(function(){var define,module,exports;
+        return (function e(t,n,r){function s(o,u){
+          if(!n[o]){
+            if(!t[o]){var a=typeof require=="function"&&require;
+            if(!u&&a)
+            return a(o,!0);
+            if(i)
+            return i(o,!0);var f=new Error("Cannot find module '"+o+"'");
+            throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];
+              return s(n?n:e)},l,l.exports,e,t,n,r)}
+              return n[o].exports}var i=typeof require=="function"&&require;
+              for(var o=0;o<r.length;o++)s(r[o]);
+              return s})({1:[function(require,module,exports){
+var defaultOptions = {
+  date: "June 7, 2087 15:03:25",
+  refresh: 1000,
+  offset: 0,
+  onEnd: function() {
+    return;
+  },
+  render: function (date) {
+    this.el.innerHTML = date.years + " years, " +
+                        date.days  + " days, " +
+                        this.leadingZeros(date.hours) + " hours, " +
+                        this.leadingZeros(date.min) + " min and " +
+                        this.leadingZeros(date.sec) + " sec";
+  }
+};
 
-        * {
-            font-family: 'Roboto',
-                sans-serif;
+/**
+ * Countdown constructor
+ * @param {HTMLElement} el      DOM node of the countdown
+ * @param {Object}      options (optional) Options for the plugin
+ */
+var Countdown = function(el, options) {
+
+  /**
+   * Reference to the DOM element
+   * @type {HTMLElement}
+   */
+  this.el = el;
+
+  /**
+   * Options of the countdown plugin
+   * @type {Object}
+   */
+  this.options = {};
+
+  /**
+   * Interval reference or false if counter is stopped
+   * @type {Mixed}
+   */
+  this.interval = false;
+
+  // merge default options and options into this.options
+  this.mergeOptions = function(options) {
+    for (var i in defaultOptions) {
+      if (defaultOptions.hasOwnProperty(i)) {
+        this.options[i] = typeof options[i] !== 'undefined' ? options[i] : defaultOptions[i];
+
+        if (i === 'date' && typeof this.options.date !== 'object') {
+          this.options.date = new Date(this.options.date);
         }
 
-        body {
-            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAxMC8yOS8xMiKqq3kAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAABHklEQVRIib2Vyw6EIAxFW5idr///Qx9sfG3pLEyJ3tAwi5EmBqRo7vHawiEEERHS6x7MTMxMVv6+z3tPMUYSkfTM/R0fEaG2bbMv+Gc4nZzn+dN4HAcREa3r+hi3bcuu68jLskhVIlW073tWaYlQ9+F9IpqmSfq+fwskhdO/AwmUTJXrOuaRQNeRkOd5lq7rXmS5InmERKoER/QMvUAPlZDHcZRhGN4CSeGY+aHMqgcks5RrHv/eeh455x5KrMq2yHQdibDO6ncG/KZWL7M8xDyS1/MIO0NJqdULLS81X6/X6aR0nqBSJcPeZnlZrzN477NKURn2Nus8sjzmEII0TfMiyxUuxphVWjpJkbx0btUnshRihVv70Bv8ItXq6Asoi/ZiCbU6YgAAAABJRU5ErkJggg==);
-
+        // bind context for functions
+        if (typeof this.options[i] === 'function') {
+          this.options[i] = this.options[i].bind(this);
         }
+      }
+    }
+    if (typeof this.options.date !== 'object') {
+      this.options.date = new Date(this.options.date);
+    }
+  }.bind(this);
 
-        .error-template {
-            padding: 40 px 15 px;
-            text-align: center;
-        }
+  this.mergeOptions(options);
+  
 
-        .error-actions {
-            margin-top: 15 px;
-            margin-bottom: 15 px;
-        }
+  /**
+   * Get the difference between now and the end date
+   * @return {Object} Object with the diff information (years, days, hours, min, sec, millisec)
+   */
+  this.getDiffDate = function() {
+    var diff = (this.options.date.getTime() - Date.now() + this.options.offset) / 1000;
 
-        .error-actions.btn {
-            margin-right: 10 px;
-        }
+    var dateData = {
+      years:    0,
+      days:     0,
+      hours:    0,
+      min:      0,
+      sec:      0,
+      millisec: 0
+    };
 
-        .message-box h1 {
-            color: #252932;
-            font-size: 98px;
-            font-weight: 700;
-            line-height: 98px;
-            text-shadow: rgba(61, 61, 61, 0.3) 1px 1px, rgba(61, 61, 61, 0.2) 2px 2px, rgba(61, 61, 61, 0.3) 3px 3px;
-        }
-    </style>
-</head>
+    if (diff <= 0) {
+      if (this.interval) {
+        this.stop();
+        this.options.onEnd();
+      }
+      return dateData;
+    }
 
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="error-template">
-                    <h1>
-                        :) Oops!</h1>
-                    <h2>
-                        Temporarily down for maintenance</h2>
-                    <h1>
-                        We’ll be back soon!</h1>
-                    <div>
-                        <p>
-                            Sorry for the inconvenience but we’re performing some maintenance at the moment.
-                            we’ll be back online shortly!</p>
-                        <p>
-                            — The Team</p>
-                    </div>
-                    <div class="error-actions">
-                        <a href="#" style="margin-top: 10px;" class="btn btn-info btn-lg"><span
-                                class="glyphicon glyphicon-home">
-                            </span>Take Me Home </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <svg class="svg-box" width="380px" height="500px" viewbox="0 0 837 1045" version="1.1"
-                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                    xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                        <path
-                            d="M353,9 L626.664028,170 L626.664028,487 L353,642 L79.3359724,487 L79.3359724,170 L353,9 Z"
-                            id="Polygon-1" stroke="#3bafda" stroke-width="6" sketch:type="MSShapeGroup"></path>
-                        <path
-                            d="M78.5,529 L147,569.186414 L147,648.311216 L78.5,687 L10,648.311216 L10,569.186414 L78.5,529 Z"
-                            id="Polygon-2" stroke="#7266ba" stroke-width="6" sketch:type="MSShapeGroup"></path>
-                        <path
-                            d="M773,186 L827,217.538705 L827,279.636651 L773,310 L719,279.636651 L719,217.538705 L773,186 Z"
-                            id="Polygon-3" stroke="#f76397" stroke-width="6" sketch:type="MSShapeGroup"></path>
-                        <path
-                            d="M639,529 L773,607.846761 L773,763.091627 L639,839 L505,763.091627 L505,607.846761 L639,529 Z"
-                            id="Polygon-4" stroke="#00b19d" stroke-width="6" sketch:type="MSShapeGroup"></path>
-                        <path
-                            d="M281,801 L383,861.025276 L383,979.21169 L281,1037 L179,979.21169 L179,861.025276 L281,801 Z"
-                            id="Polygon-5" stroke="#ffaa00" stroke-width="6" sketch:type="MSShapeGroup"></path>
-                    </g>
-                </svg>
-            </div>
+    if (diff >= (365.25 * 86400)) {
+      dateData.years = Math.floor(diff / (365.25 * 86400));
+      diff -= dateData.years * 365.25 * 86400;
+    }
+
+    if (diff >= 86400) {
+      dateData.days = Math.floor(diff / 86400);
+      diff -= dateData.days * 86400;
+    }
+
+    if (diff >= 3600) {
+      dateData.hours = Math.floor(diff / 3600);
+      diff -= dateData.hours * 3600;
+    }
+
+    if (diff >= 60) {
+      dateData.min = Math.floor(diff / 60);
+      diff -= dateData.min * 60;
+    }
+
+    dateData.sec = Math.round(diff);
+
+    dateData.millisec = diff % 1 * 1000;
+
+    return dateData;
+  }.bind(this);
+
+  /**
+   * Add leading zeros to a number
+   * @param  {Number} num    Input number
+   * @param  {Number} length Length of the desired output
+   * @return {String}        String of the desired length with leading zeros
+   */
+  this.leadingZeros = function(num, length) {
+    length = length || 2;
+    num = String(num);
+    if (num.length > length) {
+      return num;
+    }
+    return (Array(length + 1).join('0') + num).substr(-length);
+  };
+
+  /**
+   * Update the end date of the countdown
+   * @param  {Mixed}     newDate Date object or a String/Number that can be passed to the Date constructor
+   * @return {Countdown}         Countdown instance
+   */
+  this.update = function(newDate) {
+    if (typeof newDate !== 'object') {
+      newDate = new Date(newDate);
+    }
+    this.options.date = newDate;
+    this.render();
+    return this;
+  }.bind(this);
+
+  /**
+   * Stop the countdown refresh / rerender
+   * @return {Countdown} Countdown instance
+   */
+  this.stop = function() {
+    if (this.interval) {
+      clearInterval(this.interval);
+      this.interval = false;
+    }
+    return this;
+  }.bind(this);
+
+  /**
+   * Render the countdown
+   * @return {Countdown} Countdown instance
+   */
+  this.render = function() {
+    this.options.render(this.getDiffDate());
+    return this;
+  }.bind(this);
+
+  /**
+   * Start the countdown
+   * @return {Countdown} Countdown instance
+   */
+  this.start = function() {
+    // don't start if the countdown is already started
+    if (this.interval) { return; }
+
+    this.render();
+
+    if (this.options.refresh) {
+      this.interval = setInterval(this.render, this.options.refresh);
+    }
+
+    return this;
+  }.bind(this);
+
+  /**
+   * Update the offset
+   * @param  {Number}    offset New offset in ms
+   * @return {Countdown}        Countdown instance
+   */
+  this.updateOffset = function(offset) {
+    this.options.offset = offset;
+    return this;
+  }.bind(this);
+
+
+  /**
+   * Restart the countdown and update options
+   */
+  this.restart = function (options) {
+    this.mergeOptions(options);
+    this.interval = false;
+    this.start();
+    return this;
+  }.bind(this);
+
+
+  // initial start of the countdown or initial render
+  this.start();
+};
+
+module.exports = Countdown;
+
+},{}],2:[function(require,module,exports){
+var Countdown = require('./countdown.js');
+var NAME = 'countdown';
+var DATA_ATTR = 'date';
+
+jQuery.fn.countdown = function(options) {
+  return $.each(this, function(i, el) {
+    var $el = $(el);
+    if (!$el.data(NAME)) {
+      // allow setting the date via the data-date attribute
+      if ($el.data(DATA_ATTR)) {
+        options.date = $el.data(DATA_ATTR);
+      }
+      $el.data(NAME, new Countdown(el, options));
+    }
+  });
+};
+
+module.exports = Countdown;
+
+},{"./countdown.js":1}]},{},[2])(2)
+});
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:regular,bold"> 
+<style>
+  
+  @import url(http://fonts.googleapis.com/css?family=Open+Sans:700,400);
+body {
+	color:#FFF; 
+	font-family:'Open Sans', sans-serif;
+	min-width:960px;
+	top:0;
+	left:0;
+	position:absolute;
+	height:100%;
+	width:100%;
+	margin:0; 
+	color:#000;
+	background-size:cover;
+	background:url('../images/swirl_pattern.png') top left repeat;
+}
+.ie body {
+	filter: dropshadow(color=#000000, offx=0, offy=1);	
+}
+h1 {
+	font-size:50px;
+	letter-spacing:-2px;	
+	line-height:40px; 
+	text-align:center;  
+}
+.ie h1 {
+	filter: dropshadow(color=#000000, offx=0, offy=3);
+	padding-bottom:12px;	
+}
+.ie h2 {
+	filter: dropshadow(color=#000000, offx=0, offy=3);
+}
+h3 {
+font-size: 30px;
+margin: 0.2em 0;
+text-align: center;
+color: #888;
+padding: 0 0 29px;
+}
+.ie h3 {
+	filter: dropshadow(color=#000000, offx=0, offy=3);
+}
+h4 {
+	margin-bottom:5px;	
+}
+p, pre {
+	margin:0 0 10px 0; 
+}
+code {
+	text-transform:uppercase !important;
+	color:#EEE;	
+	border-bottom:1px dotted #666;
+}
+small {
+	background:url(../images/alpha.png);
+	background:rgba(0, 0, 0, 0.8) url();	
+	border:1px solid #111;
+	font-size:15px;
+	padding:0 5px;
+}
+strong{
+text-align: center;
+display: block; 
+font-size: 28px;
+font-weight: normal;
+color:#646464;
+}
+a {
+	color:gray;
+	text-decoration:none;	
+}
+a:hover {
+	color:#BBB;	
+} 
+.spacing{
+padding:60px 0;
+}
+#Header { 
+position: relative;
+width: 100%; 
+z-index: 1;
+padding-top: 50px
+}
+.logo{
+width: auto; 
+margin: 0 auto;
+padding: 16px;  
+border-radius: 180px;
+padding-bottom:50px;
+}
+.logo h1{
+color:#0f66b1;
+font-weight:600;
+
+}
+.logo img {
+width: 80px;
+height: 108px;
+text-align: center;
+display: block;
+margin: 0 auto; 
+}
+.wrapper {
+margin: 0 auto;
+position: relative;
+width: 100%;
+z-index: 1;
+}
+#socialIcons {
+display:block;
+}
+#socialIcons ul {
+margin:40px 0 0 0px; 
+padding:0px;
+text-align: center;
+}
+#socialIcons ul li {
+margin-right: 19px;
+height: 56px;
+line-height: 50px;
+list-style-type: none;
+display: inline-block;
+background: #fff;
+border-radius: 71px;
+padding: 10px;
+border: 1px solid #888;
+}
+#socialIcons ul li a{
+width:34px;
+height:34px; 
+display: inline-block;
+}
+.twitterIcon, .facebookIcon, .linkedInIcon, .pintrestIcon{
+background: url('../images/social-icons.png') -74px 0px;
+}
+ .twitterIcon:hover, .facebookIcon:hover, .linkedInIcon:hover, .pintrestIcon:hover{
+background-position-y: -33px;
+}
+.facebookIcon{
+background-position: 10px 0px;
+}
+.linkedInIcon{
+background-position: -245px 0px;
+}
+.pintrestIcon{
+background-position: -331px 0px;
+}
+.tempBy{
+display:block;
+text-align:center;
+padding:15px;
+background:#fff;
+color: #8A8A8A;
+}
+#Content h2 {
+margin: 0px;
+padding: 0px;
+text-align: center;
+font-size: 42px;
+font-weight: 300;
+color:#676767;
+margin-bottom:40px;
+}
+#WindowSlide {
+margin: 0 auto;
+position: relative;
+width: 634px;
+height: 170px;
+display: block;
+overflow: hidden;
+}
+#Mail {
+position: absolute;
+width: 634px;
+top: 0px;
+left: 0px;
+}
+#Content h3 {
+text-align: center;
+font-size: 24px;
+font-weight: normal;
+display: block;
+clear: both;
+}
+
+#subscribe p{
+text-align:center;
+}
+#subscribe input {
+background: rgba(255, 255, 255, 0.52);
+color: #7a7a7a; 
+vertical-align: middle;
+width: 393px;
+border: 1px solid #888;
+padding: 10px;
+font-size: 14px;
+}
+#subscribe input[type="button"]{
+background: rgba(255, 255, 255, 1);
+width: auto;
+padding: 10px 25px;
+cursor: pointer;
+margin: 0 0 0 -6px;
+font-weight: bold;
+font-size: 14px;
+color: #888;
+}
+#subscribe input[type="button"]:hover{
+background:#1e7ccd;
+color:#fff;
+border:1px solid #1e7ccd;
+}
+
+.callback,
+.simple {
+  font-size: 20px;
+  background: #27ae60;
+  padding: 0.5em 0.7em;
+  color: #ecf0f1;
+  margin-bottom: 50px;
+  -webkit-transition: background 0.5s ease-out;
+  transition: background 0.5s ease-out;
+}
+.callback{
+  cursor: pointer;
+}
+.ended {
+  background: #c0392b;
+}
+.countdown {
+text-align: center;
+margin-top: 30px;
+background: #5381E4;
+padding: 60px 0;
+} 
+.styled div {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 70px;
+  font-weight: normal; 
+  text-align: center;
+  margin:0 15px; 
+  padding:0 30px;   
+  color:#fff;  
+  text-shadow:none;
+  vertical-align: middle;  
+}
+
+#overlay{
+background: rgba(0, 0, 0, 0.56) url(../images/overlays/01.png) top left repeat;
+position: fixed;
+top: 0px;
+width: 100%;
+bottom: 0px;
+opacity:0.8;
+}
+/* IE7 inline-block hack */
+*+html .styled div{
+  display: inline;
+  zoom: 1;
+}
+.styled div:first-child {
+  margin-left: 0;
+}
+.styled div span {
+  display: block;
+  padding-top: 3px;
+  font-size: 19px;
+  font-weight: normal; 
+  text-align: center;
+}
+footer{
+width:100%;
+height:30px;
+background:rgba(0, 0, 0, 0.64);
+position:absolute;
+bottom:0px;
+}
+footer span{
+float:right;
+margin:10px;
+}
+.subscribe {
+background:#fff;
+}
+.features{
+background: rgba(55, 55, 55, 0.15);
+}
+.features h2 {
+padding: 0 0 30px 0;
+}
+.features h4 { 
+margin: 0px 0 10px 0;
+}
+.featuresPro{
+margin-bottom:30px;
+float:left;
+}
+.featuresPro{
+font-size:15px;
+}
+@media(max-width:768px){
+	body {
+	min-width: initial !important;
+	}
+	.wrapper{width:100%;}
+	.styled div {
+	  margin-bottom:10px; 
+	}
+}
+@media(max-width:420px){
+	h1{
+	float:initial;
+	text-align: center;
+	margin-left:0px;
+	margin-bottom:0px;
+	}
+	.styled div {
+	  margin-bottom:10px;
+	  font-size: 40px;
+	  font-weight: normal; 
+	  text-align: center;
+	  width:50px;  
+	  height:70px;  
+	}
+	#Content h2 {
+	margin: 0px 0px 0px 0px;
+	padding: 0px;
+	text-align: center;
+	font-size: 29px;
+	font-weight: 300;
+	}
+	.styled {
+	margin-bottom: 30px;
+	}
+	#subscribe input[type="button"]{
+	margin-top:10px;
+	}
+	#subscribe input{
+	width:80%;
+	}
+	.featuresPro img {
+width: 100%;
+}
+	footer{
+	position:relative !important;
+	}
+}
+
+</style>
+
+    <script type="text/javascript">
+      $(function() {
+        var endDate = "March 8, 2020 23:59:59";
+
+        $('.countdown.simple').countdown({ date: endDate });
+
+        $('.countdown.styled').countdown({
+          date: endDate,
+          render: function(data) {
+            $(this.el).html("<div>" + this.leadingZeros(data.years, 4) + " <span>years</span></div><div>" + this.leadingZeros(data.days, 3) + " <span>days</span></div><div>" + this.leadingZeros(data.hours, 2) + " <span>hrs</span></div><div>" + this.leadingZeros(data.min, 2) + " <span>min</span></div><div>" + this.leadingZeros(data.sec, 2) + " <span>sec</span></div>");
+          }
+        });
+
+        $('.countdown.callback').countdown({
+          date: +(new Date) + 10000,
+          render: function(data) {
+            $(this.el).text(this.leadingZeros(data.sec, 2) + " sec");
+          },
+          onEnd: function() {
+            $(this.el).addClass('ended');
+          }
+        }).on("click", function() {
+          $(this).removeClass('ended').data('countdown').update(+(new Date) + 10000).start();
+        });
+
+        // End time for diff purposes
+        var endTimeDiff = new Date().getTime() + 15000;
+        // This is server's time
+        var timeThere = new Date();
+        // This is client's time (delayed)
+        var timeHere = new Date(timeThere.getTime() - 5434);
+        // Get the difference between client time and server time
+        var diff_ms = timeHere.getTime() - timeThere.getTime();
+        // Get the rounded difference in seconds
+        var diff_s = diff_ms / 1000 | 0;
+        
+        var notice = [];
+        notice.push('Server time: ' + timeThere.toDateString() + ' ' + timeThere.toTimeString());
+        notice.push('Your time: ' + timeHere.toDateString() + ' ' + timeHere.toTimeString());
+        notice.push('Time difference: ' + diff_s + ' seconds (' + diff_ms + ' milliseconds to be precise). Your time is a bit behind.');
+        
+        $('.offset-notice').html(notice.join('<br />'));
+        
+        $('.offset-server .countdown').countdown({
+          date: endTimeDiff,
+          offset: diff_s * 1000,
+          onEnd: function() {
+            $(this.el).addClass('ended');
+          }
+        });
+        
+        $('.offset-client .countdown').countdown({
+          date: endTimeDiff,
+          onEnd: function() {
+            $(this.el).addClass('ended');
+          }
+        });
+
+      });
+    </script>
+  </head>
+  <body id="home">
+    <section class="main">
+    <div id="Content" class="wrapper topSection">
+      <div id="Header">
+      <div class="wrapper">
+        <div class="logo"><h1>WON</h1></div>
         </div>
-
-        <script src="./node_modules/jquery/dist/jquery.js"></script>
-        <script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
-
-        <script>
-            $(function () {
-                var socket = io('http://localhost:3000', {
-                    query: 'auth_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE1ODMxNDUzNzksImV4cCI6MTYxNDY4MTM3OSwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.kN4iYRFCFz_z5t6vIkDdz-nbnflTqc85C3-wx-TqKvw'
-                });
-
-                socket.on('error', function (err) {
-                    throw new Error(err);
-                });
-                // Connection succeeded
-                socket.on('success', function (data) {
-                    console.log(data.message);
-                    console.log('user info: ' + data.user);
-                    console.log('logged in: ' + data.user.logged_in)
-                })
-                $('form').submit(function (e) {
-                    e.preventDefault(); // prevents page reloading
-                    socket.emit('chat message', $('#m').val());
-                    $('#m').val('');
-                    return false;
-                });
-            });
-        </script>
+      </div>
+      <h2>Sorry :(</h2>
+      <h2>We are under maintenance</h2>
+      <h3>We will be back soon, Stay tune</h3>
+    <div class="countdown styled"></div>
     </div>
-</body>
-
+    </section>
 </html>
