@@ -20,4 +20,5 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
 			controller: 'admindataumumdesaController',
 			templateUrl: '../client/apps/views/admin/dataumumdesa.html'
 		});
+		
 });
