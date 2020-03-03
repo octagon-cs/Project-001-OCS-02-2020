@@ -14,5 +14,10 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
             parent: 'admin',
 			controller: 'admintambahdatadesaController',
 			templateUrl: '../client/apps/views/admin/tambahdatadesa.html'
+		}).state('admin-datakeuangan', {
+            url: '/datakeuangan',
+            parent: 'admin',
+			controller: 'admindatakeuanganController',
+			templateUrl: '../client/apps/views/admin/datakeuangan.html'
 		});
 });
