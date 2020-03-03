@@ -1,7 +1,7 @@
 <section class="content-header">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-5">
             </div>
             <!-- Profile Image -->
             <div class="card card-primary card-outline">
@@ -16,10 +16,12 @@
                 </div>
                 <!-- /.card-body -->
             </div>
+        </div>
             <!-- /.card -->
 
             <!-- About Me Box -->
-            <div class="col-md-6">
+        <div class="row">
+            <div class="col">
                 <div class="card card-primary">
                     <div class="card-header">
 
@@ -65,32 +67,42 @@
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
+                <!-- USERS LIST -->
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title">
+                        <i class="fas fa-chart-area"></i>
+                        Statistik Desa
+                      </h3>
+                    </div>
+                    <div class="card-body">
+                      <div id="line-chart" style="height: 300px;"></div>
+                    </div>
+                    <!-- /.card-body-->
+                  </div>
+                <!--/.card -->
             </div>
-            <div class="col-md-3 col-sm-6 col-12">
+            <div class="col-md-4">
                 <div class="info-box">
-                    <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+                    <span class="info-box-icon bg-info"><i class="fas fa-users"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Messages</span>
+                        <span class="info-box-text">Jumlah Penduduk</span>
                         <span class="info-box-number">1,410</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
-            </div>
-                <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box">
-                        <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
+                        <span class="info-box-icon bg-success"><i class="fas fa-male"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">Bookmarks</span>
+                            <span class="info-box-text">Jumlah Kepala Keluarga</span>
                             <span class="info-box-number">410</span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
                     <!-- /.info-box -->
-                </div>
                 <!-- /.col -->
-                <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box">
                         <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
 
@@ -101,11 +113,9 @@
                         <!-- /.info-box-content -->
                     </div>
                     <!-- /.info-box -->
-                </div>
                 <!-- /.col -->
-                <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box">
-                        <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
+                        <span class="info-box-icon bg-danger"><i class="fas fa-us"></i></span>
 
                         <div class="info-box-content">
                             <span class="info-box-text">Likes</span>
@@ -113,11 +123,96 @@
                         </div>
                         <!-- /.info-box-content -->
                     </div>
+                    <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title">Latest Members</h3>
+      
+                          <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                          <ul class="users-list clearfix">
+                            <li>
+                              <img src="dist/img/user1-128x128.jpg" alt="User Image">
+                              <a class="users-list-name" href="#">Alexander Pierce</a>
+                              <span class="users-list-date">Today</span>
+                            </li>
+                            <li>
+                              <img src="dist/img/user8-128x128.jpg" alt="User Image">
+                              <a class="users-list-name" href="#">Norman</a>
+                              <span class="users-list-date">Yesterday</span>
+                            </li>
+                            <li>
+                              <img src="dist/img/user7-128x128.jpg" alt="User Image">
+                              <a class="users-list-name" href="#">Jane</a>
+                              <span class="users-list-date">12 Jan</span>
+                            </li>
+                            <li>
+                              <img src="dist/img/user6-128x128.jpg" alt="User Image">
+                              <a class="users-list-name" href="#">John</a>
+                              <span class="users-list-date">12 Jan</span>
+                            </li>
+                            <li>
+                              <img src="dist/img/user2-160x160.jpg" alt="User Image">
+                              <a class="users-list-name" href="#">Alexander</a>
+                              <span class="users-list-date">13 Jan</span>
+                            </li>
+                            <li>
+                              <img src="dist/img/user5-128x128.jpg" alt="User Image">
+                              <a class="users-list-name" href="#">Sarah</a>
+                              <span class="users-list-date">14 Jan</span>
+                            </li>
+                            <li>
+                              <img src="dist/img/user4-128x128.jpg" alt="User Image">
+                              <a class="users-list-name" href="#">Nora</a>
+                              <span class="users-list-date">15 Jan</span>
+                            </li>
+                            <li>
+                              <img src="dist/img/user3-128x128.jpg" alt="User Image">
+                              <a class="users-list-name" href="#">Nadia</a>
+                              <span class="users-list-date">15 Jan</span>
+                            </li>
+                            <li>
+                                <img src="dist/img/user5-128x128.jpg" alt="User Image">
+                                <a class="users-list-name" href="#">Sarah</a>
+                                <span class="users-list-date">14 Jan</span>
+                              </li>
+                              <li>
+                                <img src="dist/img/user4-128x128.jpg" alt="User Image">
+                                <a class="users-list-name" href="#">Nora</a>
+                                <span class="users-list-date">15 Jan</span>
+                              </li>
+                              <li>
+                                <img src="dist/img/user3-128x128.jpg" alt="User Image">
+                                <a class="users-list-name" href="#">Nadia</a>
+                                <span class="users-list-date">15 Jan</span>
+                              </li>
+                              <li>
+                                <img src="dist/img/user3-128x128.jpg" alt="User Image">
+                                <a class="users-list-name" href="#">Nadia</a>
+                                <span class="users-list-date">15 Jan</span>
+                              </li>
+                          </ul>
+                          <!-- /.users-list -->
+                        </div>
+                        <!-- /.card-body -->
+                        <!-- <div class="card-footer text-center">
+                          <a href="javascript::">View All Users</a>
+                        </div> -->
+                        <!-- /.card-footer -->
+                      </div>
+                      <div><button type="button" class="btn btn-block btn-warning btn-lg">UPDATE</button></div>
+                    
                     <!-- /.info-box -->
                 </div>
+                
                 <!-- /.info-box -->
             </div>
         </div>
-        <!-- /.card -->
-    </div><!-- /.container-fluid -->
+    <!-- /.container-fluid -->
 </section>
