@@ -70,8 +70,6 @@ router.put('/', async (req, res) => {
     }
 });
 
-
-
 router.delete('/:id', async (req, res) => {
     var id = req.params.id;
     try {
@@ -92,7 +90,5 @@ router.delete('/:id', async (req, res) => {
         });
     }
 });
-
-
 
 module.exports = router;

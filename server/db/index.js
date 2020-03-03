@@ -5,6 +5,7 @@ const dbContext = {
 	Pejabat: require('./pejabat.db'),
 	JenisPermohonan: require('./jenispermohonan.db'),
 	Profile: require('./profiledesa.db'),
+	Penduduk: require('./penduduk.db'),
 };
 
 module.exports = dbContext;

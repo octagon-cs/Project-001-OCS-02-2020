@@ -10,3 +10,27 @@ Content-Type: application/json
     "username":"admin@gmail.com",
     "password":"admin"
 }
+
+####
+POST {{host}}/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"chanchan@gmail.com",
+    "password":"admin"
+}
+
+
+####
+POST {{host}}/registrasi HTTP/1.1
+Content-Type: application/json
+
+{
+    "email":"chanchan@gmail.com",
+    "password":"admin",
+    "nik":"123456789",
+    "nkk":"987654321"
+}
+
+
+##
