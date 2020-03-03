@@ -10,13 +10,36 @@
     <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.css" />
     <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.css" />
     <link href="../node_modules/angular-datatables/dist/css/angular-datatables.css" rel="stylesheet">
+    
+
+    <link href="../client/assets/css/font-face.css" rel="stylesheet" media="all">
+    <link href="../client/assets/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="../client/assets/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="../client/assets/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="../client/assets/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="../client/assets/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="../client/assets/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="../client/assets/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="../client/assets/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="../client/assets/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="../client/assets/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="../client/assets/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <link href="../client/assets/vendor/vector-map/jqvmap.min.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="../client/assets/css/theme.css" rel="stylesheet" media="all">
 </head>
 
-<body ng-app="app">
+<body class="animsition" ng-app="app">
+    
     <ui-view></ui-view>
 </body>
 
-<script src="../node_modules/jquery/dist/jquery.js"></script>
+<script src="../client/assets/vendor/jquery-3.2.1.min.js"></script>
 <script src="../node_modules/angular/angular.js"></script>
 <script src="../node_modules/datatables.net/js/jquery.dataTables.js"></script>
 <script src="../node_modules//angular-datatables/dist/angular-datatables.js"></script>
@@ -27,10 +50,12 @@
 <script src="../client/apps/app.js"></script>
 <script src="../client/apps/routes/app.routers.js"></script>
 <script src="../client/apps/routes/account.routers.js"></script>
+<script src="../client/apps/routes/admin.routes.js"></script>
 
 
 <script src="../client/apps/controllers/app.controllers.js"></script>
 <script src="../client/apps/controllers/account.controllers.js"></script>
+<script src="../client/apps/controllers/admin.controller.js"></script>
 
 <script src="../client/apps/services/app.services.js"></script>
 <script src="../client/apps/services/storage.services.js"></script>
@@ -45,6 +70,34 @@
 
 <script src="../node_modules/sweetalert2/dist/sweetalert2.js"></script>
 <script src="../node_modules/swangular/swangular.js"></script>
+
+
+
+    <!-- Bootstrap JS-->
+    <script src="../client/assets/vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="../client/assets/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- Vendor JS       -->
+    <script src="../client/assets/vendor/slick/slick.min.js">
+    </script>
+    <script src="../client/assets/vendor/wow/wow.min.js"></script>
+    <script src="../client/assets/vendor/animsition/animsition.min.js"></script>
+    <script src="../client/assets/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script>
+    <script src="../client/assets/vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="../client/assets/vendor/counter-up/jquery.counterup.min.js">
+    </script>
+    <script src="../client/assets/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="../client/assets/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../client/assets/vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="../client/assets/vendor/select2/select2.min.js">
+    </script>
+    <script src="../client/assets/vendor/vector-map/jquery.vmap.js"></script>
+    <script src="../client/assets/vendor/vector-map/jquery.vmap.min.js"></script>
+    <script src="../client/assets/vendor/vector-map/jquery.vmap.sampledata.js"></script>
+    <script src="../client/assets/vendor/vector-map/jquery.vmap.world.js"></script>
+
+    <!-- Main JS-->
+    <script src="../client/assets/js/main.js"></script>
 
 
 </html>
