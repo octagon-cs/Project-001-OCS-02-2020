@@ -7,11 +7,11 @@
                   <h3 class="card-title">Data Surat</h3>
                   <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
-                      <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                        <select ng-options="item for item in KepemilikanKTP" class="form-control select2" ng-model="StatusKTP"></select>
   
-                      <div class="input-group-append">
-                        <select ng-options="item as item for item in KepemilikanKTP"></select>
-                      </div>
+                      <!-- <div class="input-group-append">
+                        
+                      </div> -->
                     </div>
                   </div>
                 </div>
