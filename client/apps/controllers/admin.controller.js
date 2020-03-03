@@ -14,14 +14,14 @@ function adminHomeController($http, helperServices, AuthService, $scope) {
     $scope.Jarak = {};
     $http({
         method: "get",
-        url: helperServices.url + "/api/profildesa/1",
+        url: helperServices.url + "/api/profildesa",
         Header: AuthService.getHeader()
     }).then(response =>{
         response.data.forEach(value =>{
             if(value.nama == 'Luas Wilayah'){
                 $scope.LuasWilayah = value;
             }else if(value.nama == 'Profile'){
-                $scope.profile = value;
+                $scope.Profile = value;
             }else if(value.nama == 'Pekerjaan'){
                 $scope.Pekerjaan = value;
             }else if(value.nama == 'Jarak'){

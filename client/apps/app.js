@@ -6,6 +6,7 @@ angular
 		'app.routers',
 		'app.controllers',
 		'app.conponent',
+		'datatables'
 	])
 	.directive('chooseFile', function () {
 		return {
