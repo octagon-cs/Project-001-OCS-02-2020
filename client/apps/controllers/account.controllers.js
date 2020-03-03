@@ -20,15 +20,16 @@ function AccountController(AuthService, $state, $scope) {
 
 function LoginController($scope, $state, AuthService) {
 	$scope.login = function (user) {
-		AuthService.login(user).then((x) => {
-			// if (x.roles.length == 1) {
-			// 	var role = x.roles[0];
-			// 	$state.go(role + '-home');
-			// } else {
-			// 	var role = x.roles.find((x) => x !== 'dosen');
-			// 	$state.go(role + '-home');
-			// }
-		});
+		$state.go('admin');
+		// AuthService.login(user).then((x) => {
+		// 	// if (x.roles.length == 1) {
+		// 	// 	var role = x.roles[0];
+		// 	// 	$state.go(role + '-home');
+		// 	// } else {
+		// 	// 	var role = x.roles.find((x) => x !== 'dosen');
+		// 		$state.go(role + '-home');
+		// 	// }
+		// });
 	};
 
 	$scope.registrasi = function (user) {};

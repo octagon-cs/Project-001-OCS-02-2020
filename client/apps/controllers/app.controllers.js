@@ -1,3 +1,3 @@
 angular.module('app.controllers', [
-	'account.controller', 'ui.router'
+	'account.controller', 'admin.controller'
 ]);
