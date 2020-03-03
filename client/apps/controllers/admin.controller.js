@@ -4,6 +4,7 @@ angular.module('admin.controller',[])
 .controller('admindataumumdesaController', admindataumumdesaController)
 .controller('adminsuratpengantarkkController', adminsuratpengantarkkController)
 .controller('admindatapendudukController', admindatapendudukController)
+.controller('admininputdatapendudukController', admininputdatapendudukController)
 .controller('adminsuratpengantarktpController', adminsuratpengantarktpController);
 
 function adminHomeController($http, helperServices, AuthService, $scope) {
@@ -124,5 +125,8 @@ function adminsuratpengantarktpController(){
 
 }
 function admindatapendudukController(){
+    
+}
+function admininputdatapendudukController(){
     
 }
