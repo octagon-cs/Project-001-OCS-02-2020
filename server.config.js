@@ -1,16 +1,13 @@
 module.exports = {
     apps: [{
-        name: 'Won',
+        name: 'won app',
         script: 'index.js',
-        instances: 1,
-        autorestart: true,
-        watch: false,
-        max_memory_restart: '1G',
+        instances: 0,
+        exec_mode: 'cluster',
+        watch: true,
         env: {
-            NODE_ENV: 'development',
-        },
-        env_production: {
             NODE_ENV: 'production',
-        },
-    }, ],
+            PORT: '3000'
+        }
+    }]
 };
