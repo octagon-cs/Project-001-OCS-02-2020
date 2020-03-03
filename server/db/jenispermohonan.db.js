@@ -12,7 +12,7 @@ jenispermohonan.get = async () => {
                     return reject(err);
                 } else {
                     result.forEach(element => {
-                        element.data = JSON.parse(element.data)
+                        element.data = JSON.parse(element.persyaratan)
                     });
                     resolve(result);
                 }
@@ -36,7 +36,7 @@ jenispermohonan.getById = async (Id) => {
                         resolve(result)
                     else {
                         var item = result[0];
-                        item.data = JSON.parse(item.data);
+                        item.persyaratan = JSON.parse(item.persyaratan);
                         resolve(item);
                     }
 

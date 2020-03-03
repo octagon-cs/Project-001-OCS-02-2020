@@ -18,7 +18,7 @@ function AccountController(AuthService, $state, $scope) {
 	// }
 }
 
-function LoginController($scope, $state, AuthService) {
+function LoginController($scope, $state, AuthService, socket) {
 	$scope.login = function (user) {
 		$state.go('admin');
 		// AuthService.login(user).then((x) => {
