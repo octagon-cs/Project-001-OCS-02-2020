@@ -1,3 +1,5 @@
+import { response } from "express";
+
 angular.module('admin.controller',[])
 .controller('adminHomeController', adminHomeController)
 .controller('admindatakepaladesaController', admindatakepaladesaController)
@@ -117,8 +119,20 @@ function admindatakepaladesaController() {
 function admindataumumdesaController() {
     
 }
-function adminsuratpengantarkkController() {
-    
+function adminsuratpengantarkkController($http, $scope, helperServices, AuthService) {
+    $scope.JenisPermohonan = [];
+    $scope.KepemilikanKTP = helperServices.StatusKepemilikanKTP;
+    // $scope.Init= function(){
+    //     $http({
+    //         method: 'get',
+    //         url: helperServices.url + "/api/jenispermohonan",
+    //         Header: AuthService.getHeader()
+    //     }).then(response=>{
+
+    //     },error=>{
+
+    //     })
+    // }
 }
 function adminsuratpengantarktpController(){
 
