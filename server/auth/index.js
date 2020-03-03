@@ -35,6 +35,11 @@ router.post('/login', async (req, res) => {
 					});
 				} else {
 					var item = data[0];
+
+					if (!item.aktif) {
+						throw Error("Silahkan Confirmasi Email Anda !");
+					}
+
 					if (!bcrypt.compareSync(req.body.password, item.password))
 						res.status(401).json({
 							message: 'Anda Tidak Memiliki User Akses'
@@ -69,6 +74,48 @@ router.post('/login', async (req, res) => {
 		});
 	}
 });
+
+
+router.post('/registrasi', async (req, res) => {
+	try {
+		const user = req.body;
+
+		if (user.nik && user.nkk) {
+			var penduduk = await contextDb.Penduduk.getByNIK(user.nik);
+			if (penduduk.idusers)
+				throw Error("Anda Telah Memiliki Akun");
+
+
+			if (penduduk) {
+				if (penduduk.nkk != user.nkk)
+					throw Error("Nomor KK Anda Salah");
+
+				var result = await contextDb.Users.register(penduduk.idpenduduk, user);
+				if (result) {
+					res.status(200).json({
+						message: "Berhasil !, Silahkan Confirmasi Email Anda",
+						penduduk: penduduk
+					})
+				}
+			} else throw Error("Data Kependudukan Anda Tidak Ditemukan");
+
+		} else {
+			throw Error("Data Kependudukan Anda Tidak Ditemukan");
+		}
+	} catch (err) {
+		if (err.errno && err.errno == 1062) {
+			res.status(400).json({
+				errno: err.errno,
+				message: "Anda Telah Memiliki Akun"
+			});
+		} else
+			res.status(400).json({
+				message: err.message
+			});
+	}
+
+});
+
 
 router.post('/changepassword', async (req, res) => {
 	try {
@@ -106,6 +153,19 @@ router.post('/changepassword', async (req, res) => {
 	}
 });
 
+
+
+router.post('/confirmemail', async (req, res) => {
+	try {
+		const data = req.body;
+		var result = await contextDb.Users.confirmemail(data);
+	} catch (err) {
+		res.status(400).json({
+			message: err.message
+		});
+	}
+});
+
 router.post('/resetpassword', async (req, res) => {
 	try {
 		const data = req.body;
@@ -126,48 +186,6 @@ router.post('/resetpassword', async (req, res) => {
 	}
 });
 
-router.post('/registerdosen', async (req, res) => {
-	try {
-		const user = req.body;
-		user.passwordText = helper.makeid(5);
-		user.password = bcrypt.hashSync(user.passwordText, 8);
-		contextDb.Users.registerDosen(user).then((result) => {
-				if (result) {
-					res.status(200).json(result);
-				} else {
-					res.status(400).json({
-						message: 'Data Tidak Tersimpan'
-					});
-				}
-			},
-			(err) => {
-				if (err.errno) {
-					var message = "";
-					switch (err.errno) {
-						case 1062:
-							message = 'username/email user telah terdaftar'
-							break;
-						default:
-							message = err.message
-							break;
-					}
-
-					res.status(400).json({
-						message: message
-					});
-
-				} else {
-					res.status(400).json(err);
-				}
-
-			}
-		);
-	} catch (err) {
-		res.status(400).json({
-			message: err.message
-		});
-	}
-});
 
 router.get('/profile', [authJwt.verifyToken], async (req, res) => {
 	try {
