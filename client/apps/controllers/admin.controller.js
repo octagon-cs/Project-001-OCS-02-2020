@@ -1,16 +1,15 @@
 angular.module('admin.controller',[])
 .controller('adminHomeController', adminHomeController)
-.controller('admintambahdatadesaController', admintambahdatadesaController)
-.controller('admindatakeuanganController', admindatakeuanganController);
+.controller('admintambahdatadesaController', admindatakepaladesaController)
+.controller('admindatakeuanganController', admindataumumdesaController);
 
 
 function adminHomeController() {
     
 }
-
-function admintambahdatadesaController() {
+function admindatakepaladesaController() {
     
 }
-function admindatakeuanganController() {
+function admindataumumdesaController() {
     
 }
