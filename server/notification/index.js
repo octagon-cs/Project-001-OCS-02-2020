@@ -15,6 +15,22 @@ module.exports = function (http) {
 
 
     io.on("connection", function (socket) {
+        io.emit('chat', {
+            message: "test",
+            data: "1"
+        });
+        io.emit('chat', {
+            message: "test",
+            data: "2"
+        });
+        io.emit('chat', {
+            message: "test",
+            data: "3"
+        });
+        io.emit('chat', {
+            message: "test",
+            data: "4"
+        });
         console.log("on connected " + socket.request.user);
     });
     return io;

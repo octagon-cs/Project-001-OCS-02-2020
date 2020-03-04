@@ -12,18 +12,88 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Status Kepemilikan KTP</label>
-                                <select ng-options="item for item in KepemilikanKTP" class="form-control select2" ng-model="StatusKTP"></select>
+                                <select ng-options="item for item in KepemilikanKTP" class="form-control select2"
+                                    ng-model="StatusKTP"></select>
                             </div>
                             <!-- /.form-group -->
                             <div class="form-group">
                                 <label>Nama</label>
-                                <input type="text" class="form-control" ng-model="Profile.data.NamaKepalaDesa"
-                                    placeholder="Nama Kepala Desa">
+                                <input type="text" class="form-control" ng-model="Penduduk.Nama" placeholder="Nama">
                             </div>
                             <div class="form-group">
                                 <label>Tanggal Lahir</label>
-                                <input type="date" class="form-control" ng-model="Profile.data.NamaKepalaDesa"
-                                    placeholder="Nama Kepala Desa">
+                                <input type="date" class="form-control" ng-model="Penduduk.data.TanggalLahir"
+                                    placeholder="Tanggal Lahir">
+                            </div>
+                            <div class="form-group">
+                                <label>Dusun</label>
+                                <select ng-options="item for item in Dusun" class="form-control select2"
+                                    ng-model="DusunPenduduk"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>RT</label>
+                                <select ng-options="item for item in RT" class="form-control select2"
+                                    ng-model="RTPenduduk"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Kode Pos</label>
+                                <select ng-options="item for item in KodePos" class="form-control select2"
+                                    ng-model="KodePosPenduduk"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>E-Mail</label>
+                                <input type="text" class="form-control" ng-model="Penduduk.data.EMail"
+                                    placeholder="E-Mail">
+                            </div>
+                            <div class="form-group">
+                                <label>Golongan Darah</label>
+                                <select ng-options="item for item in GolonganDarah" class="form-control select2"
+                                    ng-model="Penduduk.data.GolonganDarah"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Status Perkawinan</label>
+                                <select ng-options="item for item in StatusPerkawinan" class="form-control select2"
+                                    ng-model="Penduduk.data.StatusPerkawinan"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Agama</label>
+                                <select ng-options="item for item in Agama" class="form-control select2"
+                                    ng-model="Penduduk.data.Agama"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Jenis Kelamin</label>
+                                <select ng-options="item for item in JenisKelamin" class="form-control select2"
+                                    ng-model="Penduduk.data.JenisKelamin"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Penghasilan Tetap</label>
+                                <select ng-options="item for item in PenghasilanTetap" class="form-control select2"
+                                    ng-model="Penduduk.data.PenghasilanTetap"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Staus Kepemilikan Kartu Indonesia Sehat</label>
+                                <select ng-options="item for item in StatusKIS" class="form-control select2"
+                                    ng-model="Penduduk.data.StatusKIS"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Status Kepemilikan KK</label>
+                                <select ng-options="item for item in StatusKK" class="form-control select2"
+                                    ng-model="Penduduk.data.StatusKK"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>No. Kartu Keluarga</label>
+                                <select ng-options="item for item in noKK" class="form-control select2"
+                                    ng-model="Penduduk.NKK"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Ayah</label>
+                                <input type="text" class="form-control" ng-model="Penduduk.data.NamaAyah"
+                                    placeholder="Nama Ayah">
+                            </div>
+                            <div class="form-group">
+                                <label>Keterangan</label>
+                                <textarea class="form-control" rows="3" ng-model="Penduduk.data.Keterangan"
+                                    placeholder="Keterangan"></textarea>
                             </div>
                             <!-- /.form-group -->
                         </div>
@@ -31,19 +101,79 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>NIK</label>
-                                <input type="text" class="form-control" ng-model="Profile.data.LuasWilayah"
-                                    placeholder="NIK">
+                                <input type="number" class="form-control" ng-model="Penduduk.NIK" placeholder="NIK">
                             </div>
-                            <!-- /.form-group -->
                             <div class="form-group">
                                 <label>Tempat Lahir</label>
-                                <input type="text" class="form-control" ng-model="Profile.data.JumlahPenduduk"
-                                    placeholder="Jumlah Penduduk" disabled>
+                                <input type="text" class="form-control" ng-model="Penduduk.data.TempatLahir"
+                                    placeholder="Tempat Lahir">
+                            </div>
+                            <div class="form-group">
+                                <label>No. Akta Kelahiran</label>
+                                <input type="number" class="form-control" ng-model="Penduduk.data.NoAktaKelahiran"
+                                    placeholder="No. Akta Kelahiran">
+                            </div>
+                            <div class="form-group">
+                                <label>Alamat</label>
+                                <textarea class="form-control" rows="3" ng-model="Penduduk.data.AlamatLengkap"
+                                    placeholder="Alamat"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>RW</label>
+                                <input type="text" class="form-control" ng-model="Penduduk.data.RW" placeholder="RW">
+                            </div>
+                            <div class="form-group">
+                                <label>No. Kontak</label>
+                                <input type="number" class="form-control" ng-model="Penduduk.data.NoKontak"
+                                    placeholder="No. Kontak">
+                            </div>
+                            <div class="form-group">
+                                <label>Perkerjaan</label>
+                                <select ng-options="item for item in Perkerjaan" class="form-control select2"
+                                    ng-model="Penduduk.data.Perkerjaan"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Pendidikan Terakhir</label>
+                                <input type="text" class="form-control" ng-model="Penduduk.data.PendidikanTerakhir"
+                                    placeholder="Pendidikan Terakhir">
+                            </div>
+                            <div class="form-group">
+                                <label>Suku</label>
+                                <input type="text" class="form-control" ng-model="Penduduk.data.Suku"
+                                    placeholder="Suku">
+                            </div>
+                            <div class="form-group">
+                                <label>Kewarganegaraan</label>
+                                <select ng-options="item for item in Kewarganegaraan" class="form-control select2"
+                                    ng-model="Penduduk.data.Kewarganegaraan"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Status Tempat Tinggal</label>
+                                <select ng-options="item for item in StatusTT" class="form-control select2"
+                                    ng-model="Penduduk.data.StatusTT"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Status Sosial</label>
+                                <select ng-options="item for item in StatusSosial" class="form-control select2"
+                                    ng-model="Penduduk.data.StatusSosial"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Staus Kepemilikan Kartu Indonesia Pintar</label>
+                                <select ng-options="item for item in StatusKIP" class="form-control select2"
+                                    ng-model="Penduduk.data.StatusKIP"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Status Dalam Keluarga</label>
+                                <select ng-options="item for item in StatusKeluarga" class="form-control select2"
+                                    ng-model="Penduduk.data.StatusKeluarga"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Ibu</label>
+                                <input type="text" class="form-control" ng-model="Penduduk.data.NamaIbu"
+                                    placeholder="Nama Ibu">
                             </div>
                             <!-- /.form-group -->
                         </div>
-
-
                         <!-- /.col -->
                     </div>
                     <div class="card-footer">
@@ -54,282 +184,6 @@
                 </div>
             </form>
             <!-- /.card-body -->
-
-        </div>
-        <div class="card card-default">
-            <div class="card-header">
-                <h3 class="card-title">Luas Wilayah</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
-                            class="fas fa-minus"></i></button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i
-                            class="fas fa-remove"></i></button>
-                </div>
-            </div>
-            <!-- /.card-header -->
-            <form ng-submit="Simpan('LuasWilayah')">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Lahan Sawah</label>
-                                <input type="text" class="form-control" ng-model="LuasWilayah.data.LahanSawah"
-                                    placeholder="Lahan Sawah">
-                            </div>
-                            <!-- /.form-group -->
-                            <div class="form-group">
-                                <label>Lahan Ladang</label>
-                                <input type="text" class="form-control" ng-model="LuasWilayah.data.LahanLadang"
-                                    placeholder="Lahan Ladang">
-                            </div>
-                            <div class="form-group">
-                                <label>Lahan Perkebunan</label>
-                                <input type="text" class="form-control" ng-model="LuasWilayah.data.LahanPerkebunan"
-                                    placeholder="Lahan Perkebunan">
-                            </div>
-                            <div class="form-group">
-                                <label>Lahan Perternakan</label>
-                                <input type="text" class="form-control" ng-model="LuasWilayah.data.LahanPeternakan"
-                                    placeholder="Lahan Perternakan">
-                            </div>
-                            <!-- /.form-group -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Hutan</label>
-                                <input type="text" class="form-control" ng-model="LuasWilayah.data.Hutan"
-                                    placeholder="Hutan">
-                            </div>
-                            <!-- /.form-group -->
-                            <div class="form-group">
-                                <label>Waduk/Danau</label>
-                                <input type="text" class="form-control" ng-model="LuasWilayah.data.Waduk"
-                                    placeholder="Waduk/Danau">
-                            </div>
-                            <div class="form-group">
-                                <label>Lahan Lainnya</label>
-                                <input type="text" class="form-control" ng-model="LuasWilayah.data.Lainnya"
-                                    placeholder="Lahan Lainnya">
-                            </div>
-                            <!-- /.form-group -->
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-success">Submit</button>
-                    <button type="submit" class="btn btn-danger float-right">Cancel</button>
-                </div>
-            </form>
-        </div>
-        <div class="card card-default">
-            <div class="card-header">
-                <h3 class="card-title">Jumlah Penduduk</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
-                            class="fas fa-minus"></i></button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i
-                            class="fas fa-remove"></i></button>
-                </div>
-            </div>
-            <!-- /.card-header -->
-            <form>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Pria</label>
-                                <input type="text" class="form-control" ng-model="Penduduk.data.Pria" placeholder="Pria"
-                                    disabled>
-                            </div>
-                            <!-- /.form-group -->
-                            <div class="form-group">
-                                <label>Wanita</label>
-                                <input type="text" class="form-control" ng-model="Penduduk.data.Wanita"
-                                    placeholder="Wanita" disabled>
-                            </div>
-                            <!-- /.form-group -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Usia 0-17</label>
-                                <input type="text" class="form-control" ng-model="Penduduk.data.Usia17"
-                                    placeholder="Usia 0-17" disabled>
-                            </div>
-                            <!-- /.form-group -->
-                            <div class="form-group">
-                                <label>Usia 18-56</label>
-                                <input type="text" class="form-control" ng-model="Penduduk.data.Usia56"
-                                    placeholder="Usia 18-56" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label>Usia 56 ke-atas</label>
-                                <input type="text" class="form-control" ng-model="Penduduk.data.UsiaTua"
-                                    placeholder="Usia 56 ke-atas" disabled>
-                            </div>
-                            <!-- /.form-group -->
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.card-body -->
-            </form>
-        </div>
-        <div class="card card-default">
-            <div class="card-header">
-                <h3 class="card-title">Perkerjaan / Mata Pencaharian</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
-                            class="fas fa-minus"></i></button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i
-                            class="fas fa-remove"></i></button>
-                </div>
-            </div>
-            <!-- /.card-header -->
-            <form ng-submit="Simpan('Pekerjaan')">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Karyawan</label><br>
-                                <label>Pegawai Negeri Sipil</label>
-                                <input type="text" class="form-control" ng-model="Pekerjaan.data.PNS"
-                                    placeholder="Pegawai Negeri Sipil">
-                            </div>
-                            <!-- /.form-group -->
-                            <div class="form-group">
-                                <label>TNI/POLRI</label>
-                                <input type="text" class="form-control" ng-model="Pekerjaan.data.TNI"
-                                    placeholder="TNI/POLRI">
-                            </div>
-                            <div class="form-group">
-                                <label>Swasta</label>
-                                <input type="text" class="form-control" ng-model="Pekerjaan.data.Swasta"
-                                    placeholder="Swasta">
-                            </div><br><br><br><br>
-                            <div class="form-group">
-                                <label>Tidak Bekerja</label>
-                                <input type="text" class="form-control" ng-model="Pekerjaan.data.TidakBekerja"
-                                    placeholder="Tidak Bekerja">
-                            </div>
-                            <!-- /.form-group -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Wiraswasta/Pedagang</label><br>
-                                <label>Petani</label>
-                                <input type="text" class="form-control" ng-model="Pekerjaan.data.Pertani"
-                                    placeholder="Petani">
-                            </div>
-                            <!-- /.form-group -->
-                            <div class="form-group">
-                                <label>Buruh Tani</label>
-                                <input type="text" class="form-control" ng-model="Pekerjaan.data.ButuhTani"
-                                    placeholder="Buruh Tani">
-                            </div>
-                            <div class="form-group">
-                                <label>Nelayan</label>
-                                <input type="text" class="form-control" ng-model="Pekerjaan.data.Nelayan"
-                                    placeholder="Nelayan">
-                            </div>
-                            <div class="form-group">
-                                <label>Peternak</label>
-                                <input type="text" class="form-control" ng-model="Pekerjaan.data.Peternak"
-                                    placeholder="Peternak">
-                            </div>
-                            <div class="form-group">
-                                <label>Jasa</label>
-                                <input type="text" class="form-control" ng-model="Pekerjaan.data.Jasa" placeholder="Jasa>
-                            </div>
-                            <div class=" form-group">
-                                <label>Pengrajin</label>
-                                <input type="text" class="form-control" ng-model="Pekerjaan.data.Pengrajin"
-                                    placeholder="Nelayan">
-                            </div>
-                            <div class="form-group">
-                                <label>Pekerja Seni</label>
-                                <input type="text" class="form-control" ng-model="Pekerjaan.data.PekerjaSeni"
-                                    placeholder="Pekerja Seni">
-                            </div>
-                            <div class="form-group">
-                                <label>Pensiunan</label>
-                                <input type="text" class="form-control" ng-model="Pekerjaan.data.Pensiunan"
-                                    placeholder="Pensiunan">
-                            </div>
-                            <!-- /.form-group -->
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-success">Submit</button>
-                    <button type="submit" class="btn btn-danger float-right">Cancel</button>
-                </div>
-            </form>
-        </div>
-        <div class="card card-default">
-            <div class="card-header">
-                <h3 class="card-title">Orbitasi (Jarak Dari Pusat Pemerintahan)</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
-                            class="fas fa-minus"></i></button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i
-                            class="fas fa-remove"></i></button>
-                </div>
-            </div>
-            <!-- /.card-header -->
-            <form ng-submit="Simpan('Jarak')">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Jarak dari Pusat Pemerintahan Kecamatan</label>
-                                <input type="text" class="form-control" ng-model="Jarak.data.PusatKecamatan"
-                                    placeholder="Jarak dari Pusat Pemerintahan Kecamatan">
-                            </div>
-                            <!-- /.form-group -->
-                            <div class="form-group">
-                                <label>Jarak dari Pusat Pemerintahan Kota</label>
-                                <input type="text" class="form-control" ng-model="Jarak.data.PusatKota"
-                                    placeholder="Jarak dari Pusat Pemerintahan Kota">
-                            </div>
-                            <!-- /.form-group -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Jarak dari kota/Ibukota Kabupaten</label>
-                                <input type="text" class="form-control" ng-model="Jarak.data.PusatKabupaten"
-                                    placeholder="Jarak dari kota/Ibukota Kabupaten">
-                            </div>
-                            <!-- /.form-group -->
-                            <div class="form-group">
-                                <label>Jarak dari Ibukota Provinsi</label>
-                                <input type="text" class="form-control" ng-model="Jarak.data.PusatProvinsi"
-                                    placeholder="Jarak dari Ibukota Provinsi">
-                            </div>
-                            <!-- /.form-group -->
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-success">Submit</button>
-                        <button type="submit" class="btn btn-danger float-right">Cancel</button>
-                    </div>
-            </form>
-            <!-- /.row -->
         </div>
         <!-- /.card-body -->
     </div>

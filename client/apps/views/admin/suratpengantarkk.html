@@ -1,4 +1,4 @@
-<section class="content-header">
+<section class="content-header" ng-init="Init()">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -7,6 +7,7 @@
                   <h3 class="card-title">Data Surat</h3>
                   <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
+                        <select ng-model="JenisPermohonan" ng-options="item.nama for item in JenisPermohonan" class="form-control" ng-change="SelectedPermohonan()"></select>
   
                       <!-- <div class="input-group-append">
                         
@@ -15,7 +16,7 @@
                   </div>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body">
+                <div class="card-body" ng-if="ShowTable==true">
                     <table datatable="" class="table hover">
                         <thead>
                             <tr>

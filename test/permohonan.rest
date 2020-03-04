@@ -22,12 +22,16 @@ Content-Type: application/json
 Authorization: bearer {{token}}
 
 {
-    "idpenduduk":1,
-    "data": {
-        "tujuanpindah":"jakarta",
-        "alamatpindah": "jln. siapa yang ingin andah pindahkan"
-            },
-    "idjenispermohonan":1
+   "idpenduduk": 1,
+  "data": {
+    "tujuanpindah": "jakarta selatan",
+    "alamatpindah": "jln. siapa yang ingin andah pindahkan"
+  },
+  "idjenispermohonan": 1,
+  "persetujuan":[{"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"},
+    {"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"},
+    {"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"},
+    {"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"}]
 }
 
 ####
@@ -44,7 +48,11 @@ Authorization: bearer {{token}}
   "idjenispermohonan": 1,
   "tanggalpengajuan": "2020-03-03T17:31:05.677Z",
   "permohonan": 1, 
-  "persetujuan":[{"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"}]
+  "persetujuan":[{"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"},
+    {"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"},
+    {"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"},
+    {"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"}]
+
 }
 
 
