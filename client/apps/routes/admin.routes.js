@@ -19,8 +19,8 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
             parent: 'admin',
 			controller: 'admindataumumdesaController',
 			templateUrl: '../client/apps/views/admin/dataumumdesa.html'
-		}).state('admin-suratpengantarkk', {
-            url: '/suratpengantarkk',
+		}).state('admin-suratmenyurat', {
+            url: '/suratmenyurat',
             parent: 'admin',
 			controller: 'adminsuratpengantarkkController',
 			templateUrl: '../client/apps/views/admin/suratpengantarkk.html'
