@@ -30,6 +30,7 @@ Authorization: bearer {{token}}
         "alamat":""
     },
     "foto":"",
+    "role":"lurah",
     "idjabatan":1
 }
 

@@ -3,13 +3,13 @@ var app = express();
 var http = require('http').createServer(app);
 
 const bodyParser = require('body-parser');
-require("./server/notification")(http);
+const socket = require("./server/notification")(http);
 
 app.use(bodyParser.json({
     limit: '50mb'
 }));
 
-require('./server/routers')(app);
+require('./server/routers')(app, socket);
 
 var path = require('path');
 app.use('/', express.static('./'));

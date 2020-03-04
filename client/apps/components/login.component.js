@@ -1,9 +1,9 @@
 angular
 	.module('app.conponent', [])
 	.component('inboxview', {
-		controller: function ($scope, AuthService, socket) {
+		controller: function ($scope, socket) {
 			$scope.messages = [];
-			socket.on('chat', function (msg) {
+			socket.on('permohonan', function (msg) {
 				$scope.messages.push(msg);
 			});
 
