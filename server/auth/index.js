@@ -52,10 +52,10 @@ router.post('/login', async (req, res) => {
 
 						var token = jwt.sign({
 							id: item.idusers,
-							roles: item.roles
-						}, config.secret, {
-							expiresIn: 86400 // expires in 24 hours
-						});
+							username: item.email,
+							roles: item.roles,
+							iat: 86400 * 30
+						}, config.secret);
 						item.password = null;
 						item.token = token;
 						res.status(200).json(item);
@@ -243,5 +243,9 @@ router.post('/foto', [authJwt.verifyToken], async (req, res) => {
 		}
 	});
 });
+
+
+
+
 
 module.exports = router;

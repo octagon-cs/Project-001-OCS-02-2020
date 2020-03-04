@@ -62,6 +62,9 @@
                                                     <h3 class="card-title">Input Data Penduduk</h3>
                                                 </div>
                                                 <!-- /.card-header -->
+                                                <table>
+
+                                                </table>
                                                 <form ng-submit="Simpan('Profile')" ng-submit="Simpan()">
                                                     <div class="card-body">
                                                         <div class="row">
@@ -83,18 +86,20 @@
                                                                       
                                                                         placeholder="Tanggal Lahir">
                                                                 </div>
+                                                                <HR>
                                                                 <div class="form-group">
                                                                     <label>Dusun</label>
                                                                     <select ng-options="item for item in Dusun"
                                                                         class="form-control select2"
                                                                        ></select>
                                                                 </div>
-                                                                <div class="form-group">
+                                                                <div class="form-group" style="">
                                                                     <label>RT</label>
                                                                     <select ng-options="item for item in RT"
                                                                         class="form-control select2"
                                                                        ></select>
                                                                 </div>
+                                                                
                                                                 <div class="form-group">
                                                                     <label>Kode Pos</label>
                                                                     <select ng-options="item for item in KodePos"
@@ -107,6 +112,7 @@
                                                                        
                                                                         placeholder="E-Mail">
                                                                 </div>
+                                                                <HR>
                                                                 <div class="form-group">
                                                                     <label>Golongan Darah</label>
                                                                     <select ng-options="item for item in GolonganDarah"
@@ -137,8 +143,13 @@
                                                                     <select
                                                                         ng-options="item for item in PenghasilanTetap"
                                                                         class="form-control select2"
+<<<<<<< HEAD
                                                                        ></select>
                                                                 </div>
+=======
+                                                                        ng-model="Penduduk.data.PenghasilanTetap"></select>
+                                                                </div><hr>
+>>>>>>> 79b7fd8061f0c6bf9fe1a39533a44c6e8680fcd1
                                                                 <div class="form-group">
                                                                     <label>Staus Kepemilikan Kartu Indonesia
                                                                         Sehat</label>
@@ -191,12 +202,13 @@
                                                                        
                                                                         placeholder="No. Akta Kelahiran">
                                                                 </div>
+                                                                <HR size="550px">
                                                                 <div class="form-group">
                                                                     <label>Alamat</label>
                                                                     <textarea class="form-control" rows="3"
                                                                        
                                                                         placeholder="Alamat"></textarea>
-                                                                </div>
+                                                                </div><br><br>
                                                                 <div class="form-group">
                                                                     <label>RW</label>
                                                                     <input type="text" class="form-control"
@@ -208,6 +220,7 @@
                                                                        
                                                                         placeholder="No. Kontak">
                                                                 </div>
+                                                                <hr>
                                                                 <div class="form-group">
                                                                     <label>Perkerjaan</label>
                                                                     <select ng-options="item for item in Perkerjaan"

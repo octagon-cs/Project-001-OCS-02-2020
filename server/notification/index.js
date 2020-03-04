@@ -1,38 +1,39 @@
 module.exports = function (http) {
     const config = require('../auth/config');
-    var io = require("socket.io")(http);
+    this.socket = {};
+    socket.io = require("socket.io")(http);
+    socket.connectedUsers = [];
     var jwtAuth = require('socketio-jwt-auth');
-    var connectedUsers = [];
 
-    io.use(jwtAuth.authenticate({
+    socket.io.use(jwtAuth.authenticate({
         secret: config.secret
     }, function (payload, done) {
         // done is a callback, you can use it as follows
         //cek on db
-        var user = payload.Email;
-        return done(null, user);
+        return done(null, payload);
+    }, err => {
+
     }));
 
 
-    io.on("connection", function (socket) {
-        io.emit('chat', {
-            message: "test",
-            data: "1"
-        });
-        io.emit('chat', {
-            message: "test",
-            data: "2"
-        });
-        io.emit('chat', {
-            message: "test",
-            data: "3"
-        });
-        io.emit('chat', {
-            message: "test",
-            data: "4"
-        });
-        console.log("on connected " + socket.request.user);
+    socket.io.on("connection", function (_socket) {
+        socket.connectedUsers[_socket.request.user.username] = _socket;
     });
-    return io;
+
+    socket.io.on("disconnect", function (_socket) {
+
+        var user = socket.connectedUsers.find(x => x.username == _socket.request.user.username);
+        var index = socket.connectedUsers.indexOf(user);
+        socket.connectedUsers.splice(index, 1);
+
+    });
+
+    socket.CreatePermohonan = function (username, message) {
+        setTimeout(x => {
+            socket.connectedUsers[username].emit("permohonan", message);
+        }, 1000);
+    }
+
+    return socket;
 
 }

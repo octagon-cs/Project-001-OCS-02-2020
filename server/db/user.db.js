@@ -362,4 +362,38 @@ UserDb.getUserByEmail = async (email) => {
     });
 };
 
+
+
+
+UserDb.getUserPejabatAktif = async () => {
+    return new Promise((resolve, reject) => {
+        pool.query(
+            `SELECT
+            users.idusers,
+                users.username,
+                users.email,
+                users.aktif,
+                roles.name AS role
+            FROM
+            users
+            LEFT JOIN userinrole ON users.idusers = userinrole.idusers
+            LEFT JOIN roles ON userinrole.idroles = roles.idroles
+            WHERE
+            users.aktif = 1 AND
+            roles.name != 'pemohon'`,
+            (err, result) => {
+                if (err) {
+                    return reject(err);
+                } else
+                    resolve(result);
+            }
+        );
+    });
+};
+
+
+
+
+
+
 module.exports = UserDb;

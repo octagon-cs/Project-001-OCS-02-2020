@@ -6,8 +6,9 @@
     <span class="dropdown-item dropdown-header">{{messages.length}} Notifications</span>
     <div class="dropdown-divider"></div>
     <a href="#" class="dropdown-item" ng-repeat="data in messages">
-        <i class="fas fa-envelope mr-2"></i> {{data.message}} new messages
-        <span class="float-right text-muted text-sm">{{data.data}} mins</span>
+        <i class="fas fa-envelope mr-2"></i>new messages
+        <span class="float-right text-muted text-sm">{{data.created.toDateString()}}</span>
+        <span class="float-left text-muted text-sm"> {{data.message}} </span>
     </a>
     <div class="dropdown-divider"></div>
     <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
