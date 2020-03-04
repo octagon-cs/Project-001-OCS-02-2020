@@ -6,10 +6,14 @@ angular.module('admin.controller',[])
 .controller('admindatapendudukController', admindatapendudukController)
 .controller('adminsuratpengantarktpController', adminsuratpengantarktpController)
 .controller('adminJabatanController', adminJabatanController)
-.controller('adminpreviewController', adminpreviewController);
+.controller('adminpreviewController', adminpreviewController)
+.controller('adminsurattidakmampuController', adminsurattidakmampuController);
 
-function adminpreviewController(){
+function adminsurattidakmampuController(){
     
+}
+function adminpreviewController(){
+
 }
 
 function adminHomeController($http, helperServices, AuthService, $scope) {
