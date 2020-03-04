@@ -1,4 +1,4 @@
-<section class="content-header">
+<section class="content-header" ng-init="Init()">
     <div class="container-fluid">
         <div class="row">
             <div class="col">
@@ -30,86 +30,26 @@
                                             <table datatable="" class="table table-head-fixed text-nowrap">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
-                                                        <th>User</th>
-                                                        <th>Date</th>
-                                                        <th>Status</th>
-                                                        <th>Reason</th>
+                                                        <th>No</th>
+                                                        <th>Nama</th>
+                                                        <th>NIK</th>
+                                                        <th>NKK</th>
+                                                        <th>Status Dalam Keluarga</th>
+                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>183</td>
-                                                        <td>John Doe</td>
-                                                        <td>11-7-2014</td>
-                                                        <td><span class="tag tag-success">Approved</span></td>
-                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
-                                                            fatback doner.
+                                                    <tr ng-repeat="item in DataPenduduk">
+                                                        <td>{{$index+1}}</td>
+                                                        <td>{{item.nama}}</td>
+                                                        <td>{{item.nik}}</td>
+                                                        <td>{{item.nkk}}</td>
+                                                        <td>{{item.statusdalamkeluarga}}</td>
+                                                        <td>
+                                                            <button class="btn btn-primary">Ubah</button>
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>219</td>
-                                                        <td>Alexander Pierce</td>
-                                                        <td>11-7-2014</td>
-                                                        <td><span class="tag tag-warning">Pending</span></td>
-                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
-                                                            fatback doner.
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>657</td>
-                                                        <td>Bob Doe</td>
-                                                        <td>11-7-2014</td>
-                                                        <td><span class="tag tag-primary">Approved</span></td>
-                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
-                                                            fatback doner.
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>175</td>
-                                                        <td>Mike Doe</td>
-                                                        <td>11-7-2014</td>
-                                                        <td><span class="tag tag-danger">Denied</span></td>
-                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
-                                                            fatback doner.
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>134</td>
-                                                        <td>Jim Doe</td>
-                                                        <td>11-7-2014</td>
-                                                        <td><span class="tag tag-success">Approved</span></td>
-                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
-                                                            fatback doner.
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>494</td>
-                                                        <td>Victoria Doe</td>
-                                                        <td>11-7-2014</td>
-                                                        <td><span class="tag tag-warning">Pending</span></td>
-                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
-                                                            fatback doner.
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>832</td>
-                                                        <td>Michael Doe</td>
-                                                        <td>11-7-2014</td>
-                                                        <td><span class="tag tag-primary">Approved</span></td>
-                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
-                                                            fatback doner.
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>982</td>
-                                                        <td>Rocky Doe</td>
-                                                        <td>11-7-2014</td>
-                                                        <td><span class="tag tag-danger">Denied</span></td>
-                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
-                                                            fatback doner.
-                                                        </td>
-                                                    </tr>
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -122,21 +62,21 @@
                                                     <h3 class="card-title">Input Data Penduduk</h3>
                                                 </div>
                                                 <!-- /.card-header -->
-                                                <form ng-submit="Simpan('Profile')">
+                                                <form ng-submit="Simpan('Profile')" ng-submit="Simpan()">
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Status Kepemilikan KTP</label>
                                                                     <select ng-options="item for item in KepemilikanKTP"
-                                                                        class="form-control select2"
-                                                                        ng-model="StatusKTP"></select>
+                                                                        class="form-control"
+                                                                        ng-model="Penduduk.data.StatusKTP"></select>
                                                                 </div>
                                                                 <!-- /.form-group -->
                                                                 <div class="form-group">
                                                                     <label>Nama</label>
                                                                     <input type="text" class="form-control"
-                                                                        ng-model="Penduduk.Nama" placeholder="Nama">
+                                                                        ng-model="Penduduk.nama" placeholder="Nama">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Tanggal Lahir</label>
@@ -148,38 +88,82 @@
                                                                     <label>Dusun</label>
                                                                     <select ng-options="item for item in Dusun"
                                                                         class="form-control select2"
-                                                                        ng-model="DusunPenduduk"></select>
+                                                                        ng-model="Penduduk.data.Dusun"></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>RT</label>
-                                                                    <select ng-options="item for item in RT"
-                                                                        class="form-control select2"
-                                                                        ng-model="RTPenduduk"></select>
+                                                                    <input type="text" class="form-control"
+                                                                        ng-model="Penduduk.data.RT">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Kode Pos</label>
-                                                                    <select ng-options="item for item in KodePos"
-                                                                        class="form-control select2"
-                                                                        ng-model="KodePosPenduduk"></select>
+                                                                    <input type="text" class="form-control"
+                                                                        ng-model="Penduduk.data.KodePos">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>E-Mail</label>
-                                                                    <input type="text" class="form-control"
+                                                                    <input type="email" class="form-control"
                                                                         ng-model="Penduduk.data.EMail"
-                                                                        placeholder="E-Mail">
+                                                                        placeholder="Penduduk.data.E-Mail" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Golongan Darah</label>
-                                                                    <select ng-options="item for item in GolonganDarah"
-                                                                        class="form-control select2"
-                                                                        ng-model="Penduduk.data.GolonganDarah"></select>
+                                                                    <div class="form-group clearfix">
+                                                                        <div class="icheck-primary d-inline">
+                                                                            <input type="radio" id="radioPrimary1"
+                                                                                value="A" name="r1" checked
+                                                                                ng-model="Penduduk.data.GolonganDarah">
+                                                                            <label for="radioPrimary1">
+                                                                                A
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="icheck-primary d-inline">
+                                                                            <input type="radio" id="radioPrimary2"
+                                                                                value="B" name="r1"
+                                                                                ng-model="Penduduk.data.GolonganDarah">
+                                                                            <label for="radioPrimary2">
+                                                                                B
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="icheck-primary d-inline">
+                                                                            <input type="radio" id="radioPrimary3"
+                                                                                value="AB" name="r1"
+                                                                                ng-model="Penduduk.data.GolonganDarah">
+                                                                            <label for="radioPrimary3">
+                                                                                AB
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="icheck-primary d-inline">
+                                                                            <input type="radio" id="radioPrimary4"
+                                                                                value="O" name="r1"
+                                                                                ng-model="Penduduk.data.GolonganDarah">
+                                                                            <label for="radioPrimary4">
+                                                                                O
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Status Perkawinan</label>
-                                                                    <select
-                                                                        ng-options="item for item in StatusPerkawinan"
-                                                                        class="form-control select2"
-                                                                        ng-model="Penduduk.data.StatusPerkawinan"></select>
+                                                                    <div class="form-group clearfix">
+                                                                        <div class="icheck-primary d-inline">
+                                                                            <input type="radio" id="statusperkawinan1"
+                                                                                value="Kawin" name="statusperkawinan"
+                                                                                checked
+                                                                                ng-model="Penduduk.data.StatusPerkawinan">
+                                                                            <label for="statusperkawinan1">
+                                                                                Kawin
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="icheck-primary d-inline">
+                                                                            <input type="radio" id="statusperkawinan2"
+                                                                                value="Belum" name="statusperkawinan"
+                                                                                ng-model="Penduduk.data.StatusPerkawinan">
+                                                                            <label for="statusperkawinan2">
+                                                                                Belum
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Agama</label>
@@ -189,9 +173,25 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Jenis Kelamin</label>
-                                                                    <select ng-options="item for item in JenisKelamin"
-                                                                        class="form-control select2"
-                                                                        ng-model="Penduduk.data.JenisKelamin"></select>
+                                                                    <div class="form-group clearfix">
+                                                                        <div class="icheck-primary d-inline">
+                                                                            <input type="radio" id="JenisKelamin1"
+                                                                                value="Laki-laki" name="JenisKelamin"
+                                                                                checked
+                                                                                ng-model="Penduduk.data.JenisKelamin">
+                                                                            <label for="JenisKelamin1">
+                                                                                Laki-laki
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="icheck-primary d-inline">
+                                                                            <input type="radio" id="JenisKelamin2"
+                                                                                value="Perempuan" name="JenisKelamin"
+                                                                                ng-model="Penduduk.data.JenisKelamin">
+                                                                            <label for="JenisKelamin2">
+                                                                                Perempuan
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Penghasilan Tetap</label>
@@ -217,7 +217,7 @@
                                                                     <label>No. Kartu Keluarga</label>
                                                                     <select ng-options="item for item in noKK"
                                                                         class="form-control select2"
-                                                                        ng-model="Penduduk.NKK"></select>
+                                                                        ng-model="Penduduk.nkk"></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Nama Ayah</label>
@@ -238,7 +238,7 @@
                                                                 <div class="form-group">
                                                                     <label>NIK</label>
                                                                     <input type="text" class="form-control"
-                                                                        ng-model="Penduduk.NIK" placeholder="NIK">
+                                                                        ng-model="Penduduk.nik" placeholder="NIK">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Tempat Lahir</label>
@@ -317,7 +317,7 @@
                                                                     <label>Status Dalam Keluarga</label>
                                                                     <select ng-options="item for item in StatusKeluarga"
                                                                         class="form-control select2"
-                                                                        ng-model="Penduduk.data.StatusKeluarga"></select>
+                                                                        ng-model="Penduduk.StatusKeluarga"></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Nama Ibu</label>
@@ -341,28 +341,6 @@
                                                 <!-- /.card-body -->
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel"
-                                        aria-labelledby="custom-tabs-two-messages-tab">
-                                        Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris.
-                                        Phasellus volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget
-                                        condimentum. Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum
-                                        orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna
-                                        a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam
-                                        vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet
-                                        sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum,
-                                        lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem
-                                        eu risus tincidunt eleifend ac ornare magna.
-                                    </div>
-                                    <div class="tab-pane fade" id="custom-tabs-two-settings" role="tabpanel"
-                                        aria-labelledby="custom-tabs-two-settings-tab">
-                                        Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis
-                                        tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque
-                                        tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum
-                                        consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec
-                                        pharetra. Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam.
-                                        Nunc et felis ut nisl commodo dignissim. In hac habitasse platea dictumst.
-                                        Praesent imperdiet accumsan ex sit amet facilisis.
                                     </div>
                                 </div>
                             </div>
