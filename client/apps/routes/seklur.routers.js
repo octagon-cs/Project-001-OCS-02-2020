@@ -9,11 +9,6 @@ angular.module('seklur.router', ['ui.router']).config(function ($stateProvider, 
             parent: 'seklur',
             controller: 'dataseklurController',
             templateUrl: '../client/apps/views/seklur/dataseklur.html'
-        }).state('seklur-datakepalalurah', {
-            url: '/datakepalalurah',
-            parent: 'seklur',
-            controller: 'datakepalalurahController',
-            templateUrl: '../client/apps/views/seklur/datakepalalurah.html'
         }).state('seklur-datart', {
             url: '/datart',
             parent: 'seklur',
