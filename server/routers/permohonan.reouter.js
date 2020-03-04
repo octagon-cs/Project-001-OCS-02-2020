@@ -4,7 +4,7 @@ module.exports = function (socket) {
     const contextDb = require('../db');
     const authJwt = require('../auth/verifyToken');
     const permit = require('../auth/permission');
-
+    const config = require('../auth/config');
     router.get('/', async (req, res) => {
         try {
             contextDb.Permohonan.get().then(data => {
@@ -32,14 +32,172 @@ module.exports = function (socket) {
         }
     });
 
+    router.get('/approve/:id', [authJwt.verifyToken], async (req, res) => {
+        var id = req.params.id;
+        try {
+            var role = req.User.roles[0];
+            var indexOfRole = config.Roles.indexOf(role);
+            var permohonan = await contextDb.getById(id);
+            if (permohonan) {
+                var persetujuan = {
+                    created: new Date(),
+                    status: "disetujui",
+                    message: "",
+                    idusers: req.User.idusers,
+                    role: role
+                }
+
+                if (indexOfRole === config.Roles.length - 1) {
+                    persetujuan.status = "selesai";
+                }
+
+
+                if (permohonan.persetujuan) {
+                    permohonan.persetujuan.push(persetujuan);
+                } else {
+                    permohonan.persetujuan = [persetujuan];
+                }
+
+                var resultData = await contextDb.Permohonan.put(permohonan);
+                var activeUsers = await contextDb.Users.getUserPejabatAktif();
+
+                if (resultData && persetujuan.status == "selesai") {
+                    if (permohonan.idusers) {
+                        //send to pemohon
+                    }
+                } else {
+                    var nexRole = config.Roles[indexOfRole + 1];
+                    activeUsers.forEach(async (element) => {
+                        if (element.role == nexRole) {
+                            var message = {
+                                idusers: element.idusers,
+                                data: {
+                                    from: req.User.email,
+                                    iddata: data.id,
+                                    to: role
+                                },
+                                message: "Permohonan Baru Saja Disetujui, Mohon untuk diproses !",
+                                read: false,
+                                created: new Date()
+                            }
+                            let item = await contextDb.Inbox.post(message);
+                            socket.CreatePermohonan(element.username, item);
+                        }
+                    });
+                }
+                res.status(200).json(true);
+            } else {
+                res.status(400).json({
+                    message: "data permohonan tidak ditemukan"
+                });
+            }
+        } catch (err) {
+            res.status(400).json({
+                message: err.message
+            });
+        }
+    });
+
+    router.get('/back/:id', [authJwt.verifyToken], async (req, res) => {
+        var id = req.params.id;
+        var data = req.body;
+        try {
+            var role = req.User.roles[0];
+            var indexOfRole = config.Roles.indexOf(role);
+            var permohonan = await contextDb.getById(id);
+            if (permohonan) {
+                var persetujuan = {
+                    created: new Date(),
+                    status: "dikembalikan",
+                    message: data.message,
+                    idusers: req.User.idusers,
+                    role: role
+                }
+
+                if (permohonan.persetujuan) {
+                    permohonan.persetujuan.push(persetujuan);
+                } else {
+                    permohonan.persetujuan = [persetujuan];
+                }
+
+                var resultData = await contextDb.Permohonan.put(permohonan);
+                var activeUsers = await contextDb.Users.getUserPejabatAktif();
+                var frxRole = config.Roles[indexOfRole - 1];
+                activeUsers.forEach(async (element) => {
+                    if (element.role == frxRole) {
+                        var message = {
+                            idusers: element.idusers,
+                            data: {
+                                from: req.User.email,
+                                iddata: data.id,
+                                to: role
+                            },
+                            message: "Permohonan Dikembalikan, Mohon untuk diperksa kembali !",
+                            read: false,
+                            created: new Date()
+                        }
+                        let item = await contextDb.Inbox.post(message);
+                        socket.CreatePermohonan(element.username, item);
+                    }
+                });
+                res.status(200).json(true);
+            } else {
+                res.status(400).json({
+                    message: "data permohonan tidak ditemukan"
+                });
+            }
+        } catch (err) {
+            res.status(400).json({
+                message: err.message
+            });
+        }
+    });
+
+
+    router.post('/reject/:id', [authJwt.verifyToken], async (req, res) => {
+        var id = req.params.id;
+        var rejectData = req.body;
+        try {
+            var role = req.User.roles[0];
+            var indexOfRole = config.Roles.indexOf(role);
+            var permohonan = await contextDb.Permohonan.getById(id);
+            if (permohonan) {
+                var persetujuan = {
+                    created: new Date(),
+                    status: "ditolak",
+                    message: rejectData.message,
+                    idusers: req.User.idusers,
+                    role: role
+                }
+
+                if (permohonan.persetujuan) {
+                    permohonan.persetujuan.push(persetujuan);
+                } else {
+                    permohonan.persetujuan = [persetujuan];
+                }
+
+                var resultData = await contextDb.Permohonan.put(permohonan);
+                if (resultData && persetujuan.status == "ditolak") {
+                    //send to pemohon
+                }
+                res.status(200).json(true);
+            } else {
+                res.status(400).json({
+                    message: "data permohonan tidak ditemukan"
+                });
+            }
+        } catch (err) {
+            res.status(400).json({
+                message: err.message
+            });
+        }
+    });
+
     router.post('/', [authJwt.verifyToken], async (req, res) => {
         try {
-            const user = req.body;
-            contextDb.Permohonan.post(user).then(async (data) => {
+            const params = req.body;
+            contextDb.Permohonan.post(params).then(async (data) => {
                     //send notification to penduduk
-
-
-
                     var message = {
                         idusers: req.User.userid,
                         data: {
@@ -50,8 +208,8 @@ module.exports = function (socket) {
                         read: false,
                         created: new Date()
                     }
-                    let data1 = await contextDb.Inbox.post(message);
 
+                    let data1 = await contextDb.Inbox.post(message);
                     socket.CreatePermohonan(req.User.username, data1);
 
                     var activeUsers = await contextDb.Users.getUserPejabatAktif();
@@ -60,7 +218,7 @@ module.exports = function (socket) {
                             message.idusers = element.idusers;
                             message.message = "Permohonan Baru Dibuat"
                             let item = await contextDb.Inbox.post(message);
-                            socket.CreatePermohonan(element.username, data);
+                            socket.CreatePermohonan(element.username, item);
                         }
                     });
 
@@ -97,8 +255,6 @@ module.exports = function (socket) {
             });
         }
     });
-
-
 
     router.delete('/:id', async (req, res) => {
         var id = req.params.id;

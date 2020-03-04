@@ -28,10 +28,7 @@ Authorization: bearer {{token}}
     "alamatpindah": "jln. siapa yang ingin andah pindahkan"
   },
   "idjenispermohonan": 1,
-  "persetujuan":[{"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"},
-    {"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"},
-    {"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"},
-    {"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"}]
+  "persetujuan":[]
 }
 
 ####
@@ -55,6 +52,16 @@ Authorization: bearer {{token}}
 
 }
 
+
+####  
+Post {{host}}/reject/32 HTTP/1.1
+Content-Type: application/json
+Authorization: bearer {{token}}
+ 
+{
+  "idpermohonan": 1,
+  "message":"Anda Siapa jadi mau melakukan itu"
+}
 
 
 ####

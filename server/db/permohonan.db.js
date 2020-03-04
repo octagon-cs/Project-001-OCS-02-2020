@@ -4,9 +4,18 @@ const db = {};
 db.get = async () => {
     return new Promise((resolve, reject) => {
         pool.query(
-            `SELECT *
-		  FROM
-			permohonan`,
+            `SELECT
+            permohonan.*,
+            penduduk.nama,
+            penduduk.nik,
+            penduduk.nkk,
+            users.username,
+            users.email,
+            users.idusers
+          FROM
+            permohonan
+            LEFT JOIN penduduk ON permohonan.idpenduduk = penduduk.idpenduduk
+            LEFT JOIN users ON penduduk.idusers = users.idusers`,
             (err, result) => {
                 if (err) {
                     return reject(err);
@@ -25,9 +34,18 @@ db.get = async () => {
 db.getById = async (Id) => {
     return new Promise((resolve, reject) => {
         pool.query(
-            `SELECT *
-		  FROM
-			permohonan where idpermohonan=? `,
+            `SELECT
+            permohonan.*,
+            penduduk.nama,
+            penduduk.nik,
+            penduduk.nkk,
+            users.username,
+            users.email,
+            users.idusers
+          FROM
+            permohonan
+            LEFT JOIN penduduk ON permohonan.idpenduduk = penduduk.idpenduduk
+            LEFT JOIN users ON penduduk.idusers = users.idusers where idpermohonan=? `,
             [Id],
             (err, result) => {
                 if (err) {
@@ -77,7 +95,7 @@ db.put = async (data) => {
     return new Promise((resolve, reject) => {
         try {
             pool.query(
-                'update permohonan set idpenduduk=?,tanggalpengajuan=?, data=?, persetujuan,idjenispermohonan=? where idpermohonan=? ',
+                'update permohonan set idpenduduk=?,tanggalpengajuan=?, data=?, persetujuan=?, idjenispermohonan=? where idpermohonan=? ',
                 [data.idpenduduk, data.tanggalpengajuan, JSON.stringify(data.data), JSON.stringify(data.persetujuan), data.idjenispermohonan, data.idpermohonan],
                 (err, result) => {
                     if (err) {
