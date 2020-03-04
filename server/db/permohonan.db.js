@@ -12,7 +12,8 @@ db.get = async () => {
                     return reject(err);
                 } else {
                     result.forEach(element => {
-                        element.data = JSON.parse(element.data)
+                        element.data = JSON.parse(element.data);
+                        element.persetujuan = JSON.parse(element.persetujuan)
                     });
                     resolve(result);
                 }
@@ -37,6 +38,7 @@ db.getById = async (Id) => {
                     else {
                         var item = result[0];
                         item.data = JSON.parse(item.data);
+                        item.persetujuan = JSON.parse(item.persetujuan);
                         resolve(item);
                     }
 
@@ -53,13 +55,13 @@ db.post = async (data) => {
         try {
             data.tanggalpengajuan = new Date();
             pool.query(
-                'insert into permohonan  (idpenduduk,tanggalpengajuan, data,idjenispermohonan) values(?,?,?,?)',
-                [data.idpenduduk, data.tanggalpengajuan, JSON.stringify(data.data), data.idjenispermohonan],
+                'insert into permohonan  (idpenduduk,tanggalpengajuan, data,persetujuan,idjenispermohonan) values(?,?,?,?,?)',
+                [data.idpenduduk, data.tanggalpengajuan, JSON.stringify(data.data), JSON.stringify(data.persetujuan), data.idjenispermohonan],
                 (err, result) => {
                     if (err) {
                         return reject(err);
                     } else {
-                        data.permohonan = result.insertId;
+                        data.idpermohonan = result.insertId;
                         resolve(data);
                     }
                 }
@@ -75,8 +77,8 @@ db.put = async (data) => {
     return new Promise((resolve, reject) => {
         try {
             pool.query(
-                'update permohonan set idpenduduk=?,tanggalpengajuan=?, data=?,idjenispermohonan=? where idpermohonan=? ',
-                [data.idpenduduk, data.tanggalpengajuan, JSON.stringify(data.data), data.idjenispermohonan, data.idpermohonan],
+                'update permohonan set idpenduduk=?,tanggalpengajuan=?, data=?, persetujuan,idjenispermohonan=? where idpermohonan=? ',
+                [data.idpenduduk, data.tanggalpengajuan, JSON.stringify(data.data), JSON.stringify(data.persetujuan), data.idjenispermohonan, data.idpermohonan],
                 (err, result) => {
                     if (err) {
                         return reject(err);
