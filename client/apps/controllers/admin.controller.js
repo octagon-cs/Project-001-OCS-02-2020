@@ -13,7 +13,7 @@ angular.module('admin.controller',[])
 ;
 
 function admintambahpermohonanController(){
-    
+
 }
 function adminsuratketdomisiliController(){
 

@@ -40,7 +40,7 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
 			controller: 'admindatapendudukController',
 			templateUrl: '../client/apps/views/admin/inputdatapenduduk.html'
 		}).state('admin-tambahpermohonan', {
-            url: '/inputdatapenduduk',
+            url: '/tambahpermohonan',
             parent: 'admin',
 			controller: 'admintambahpermohonanController',
 			templateUrl: '../client/apps/views/admin/tambahpermohonan.html'
