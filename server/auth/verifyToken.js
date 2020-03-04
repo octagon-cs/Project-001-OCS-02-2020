@@ -20,9 +20,23 @@ verifyToken = (req, res, next) => {
 					message: 'Fail to Authentication. Error -> ' + err
 				});
 			}
-			req.roles = decoded.roles;
-			req.userId = decoded.id;
-			next();
+
+			db.Users.getUserByEmail(decoded.username).then(user => {
+				if (user) {
+					req.User = {
+						userid: decoded.id,
+						username: decoded.username,
+						roles: decoded.roles
+					}
+					next();
+				} else {
+					return res.status(401).send({
+						auth: false,
+						message: 'Fail to Authentication. Error -> ' + err
+					});
+				}
+			});
+
 		});
 	} catch (error) {
 		return res.status(401).send({
