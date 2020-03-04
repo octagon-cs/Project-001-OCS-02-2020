@@ -8,8 +8,13 @@ angular.module('admin.controller',[])
 .controller('adminJabatanController', adminJabatanController)
 .controller('adminpreviewController', adminpreviewController)
 .controller('adminsuratketdomisiliController', adminsuratketdomisiliController)
+.controller('adminsurattidakmampuController', adminsurattidakmampuController)
+
 ;
 
+function adminsuratketdomisiliController(){
+
+}
 function adminsurattidakmampuController(){
 
 }
