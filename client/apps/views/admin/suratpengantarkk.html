@@ -1,96 +1,96 @@
 <section class="content-header">
     <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Surat Menyurat</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Surat Pengantar KK</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-    <!-- /.container-fluid -->
-</section>
-<!-- Main content -->
-<section class="content">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
+        <div class="row">
+            <div class="col-12">
+              <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Surat Pengantar KK</h3>
+                  <h3 class="card-title">Fixed Header Table</h3>
+                  <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                      <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+  
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body">
-                    <table id="example2" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>NIK</th>
-                                <th>Nama</th>
-                                <th>No. Surat</th>
-                                <th>Tanggal Cetak Surat</th>
-                                <th>Atas Nama</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>1234567891234560</td>
-                                <td>Bagus Joko Susilo</td>
-                                <td>011</td>
-                                <td>19 Februari 2020</td>
-                                <td>Pjs. Kepala Desa
-                                    /JUMALI</td>
-                                <td>
-                                    <button title="Edit Data"><i class="fas fa-edit"></i></button>
-                                    <button title="Hapus"><i class="fas fa-trash-alt"></i></button>
-                                    <button title="Cetak"><i class="fas fa-print"></i></button>
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="card-body table-responsive p-0" style="height: 300px;">
+                  <table class="table table-head-fixed text-nowrap">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>User</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Reason</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>183</td>
+                        <td>John Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-success">Approved</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>219</td>
+                        <td>Alexander Pierce</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-warning">Pending</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>657</td>
+                        <td>Bob Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-primary">Approved</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>175</td>
+                        <td>Mike Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-danger">Denied</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>134</td>
+                        <td>Jim Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-success">Approved</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>494</td>
+                        <td>Victoria Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-warning">Pending</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>832</td>
+                        <td>Michael Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-primary">Approved</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>982</td>
+                        <td>Rocky Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-danger">Denied</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
                 <!-- /.card-body -->
-
-                <!-- /.card -->
+              </div>
+              <!-- /.card -->
             </div>
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
+          </div>
     </div>
 </section>
-<!-- /.content -->
-
-<!-- /.content-wrapper -->
-
-
-<!-- jQuery -->
-<!-- <script src="../../../../node_modules\jquery\dist/jquery.min.js"></script> -->
-<!-- Bootstrap 4 -->
-<!-- <script src="../../../..client\assets\bootstrap\js/bootstrap.bundle.min.js"></script> -->
-<!-- DataTables -->
-<!-- <script src="../../../../node_modules\datatables.net\js/jquery.dataTables.js"></script> -->
-<!-- <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script> -->
-<!-- AdminLTE App -->
-<!-- <script src="../../../../client\assets\dist\js/adminlte.min.js"></script> -->
-<!-- AdminLTE for demo purposes -->
-<!-- <script src="../../../../client/assets\dist/js/demo.js"></script> -->
-<!-- page script -->
-<!-- <script>
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-    });
-  });
-</script> -->
