@@ -9,10 +9,15 @@ function helperServices() {
 	service.JenisKelamin=["Pria", "Wanita"];
 	service.PendidikanTerakhir=["Tidak/Belum Sekolah", "Belum Tamat SD/Sederajat", "Tamat SD/Sederajat", "SLTP/Sederajat", "SLTA/Sederajat", "Diploma I/II", "Akademi/Diploma III/Sarjana Muda", "Diploma IV/Strata I", "Strata II", "Strata III"];
 	service.PenghasilanTetap=["Lebih Dari Rp 1.000.000", "Lebih Dari Rp 750.000 s/d Rp 1.000.000", "Lebih Dari Rp 500.000 s/d Rp 750.000", "Rp 500.000 atau Kurang"];
+	service.Kewarganegaraan=["WNI", "WNA", "DLL"]
 
 
 	return {
 		url: service.url,
-		StatusKepemilikanKTP: service.KepemilikanKTP
+		StatusKepemilikanKTP: service.KepemilikanKTP,
+		Agama: service.Agama,
+		PendidikanTerakhir: service.PendidikanTerakhir,
+		PenghasilanTetap: service.PenghasilanTetap,
+		Kewarganegaraan: service.Kewarganegaraan
 	};
 }
