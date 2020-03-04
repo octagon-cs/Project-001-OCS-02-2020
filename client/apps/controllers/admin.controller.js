@@ -17,8 +17,19 @@ angular.module('admin.controller', [])
 function adminpermohonanController() {
 
 }
+function admintambahpermohonanController($http, helperServices, AuthService, $scope){
+    $scope.Selected;
+    $scope.Penduduk = [];
+    $http({
+        method: "get", 
+        url: helperServices.url + "/api/penduduk",
+        Header: AuthService.getHeader()
+    }).then(param=>{
+        $scope.Penduduk = param.data;
+    }, error=>{
 
-function admininboxController() {
+    })
+
 
 }
 
@@ -225,8 +236,9 @@ function admindatapendudukController($scope, $http, helperServices, AuthService)
     $scope.Agama = helperServices.Agama;
     $scope.PenghasilanTetap = helperServices.PenghasilanTetap
     $scope.Kewarganegaraan = helperServices.Kewarganegaraan,
-        $scope.DataInput = {};
-    $scope.Init = function () {
+    $scope.DataInput={};
+    $scope.Penduduk={};
+    $scope.Init = function(){
         $http({
             method: 'get',
             url: helperServices.url + "/api/penduduk",

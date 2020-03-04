@@ -13,12 +13,14 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill"
                                             href="" data-target="#custom-tabs-two-home" role="tab"
-                                            aria-controls="custom-tabs-two-home" aria-selected="true">Surat Permohonan</a>
+                                            aria-controls="custom-tabs-two-home" aria-selected="true">Surat
+                                            Permohonan</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href=""
                                             data-target="#custom-tabs-two-profile" role="tab"
-                                            aria-controls="custom-tabs-two-profile" aria-selected="false">Tambah Surat Permohonan</a>
+                                            aria-controls="custom-tabs-two-profile" aria-selected="false">Tambah Surat
+                                            Permohonan</a>
                                     </li>
                                 </ul>
                             </div>
@@ -121,212 +123,35 @@
                                                 <div class="card-header">
                                                     <h3 class="card-title">Surat Pengantar KTP</h3>
                                                 </div>
-                                                <!-- /.card-header -->
                                                 <form ng-submit="Simpan('Profile')">
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>NIKK</label>
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="Nama">
+                                                                    <span><label>NIK</label></span> 
+                                                                    <select class="form-control" ui-select2 ng-model="Pengajuan.idpenduduk"
+                                                                        data-placeholder="Pilih NIK">
+                                                                        <option value=""></option>
+                                                                        <option ng-repeat="item in Penduduk"
+                                                                            value="{{item.nik}}">{{item.nik}}&nbsp;-&nbsp;{{item.nama}}
+                                                                        </option>
+                                                                    </select>
                                                                 </div>
-                                                                <!-- /.form-group -->
-                                                                <div class="form-group">
-                                                                    <label>No.Surat</label>
-                                                                    <input type="text" class="form-control"
-                                                                    placeholder="Nama">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Judul Atas</label>
-                                                                    <input type="date" class="form-control"
-                                                                      
-                                                                        placeholder="Tanggal Lahir">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Dusun</label>
-                                                                    <select ng-options="item for item in Dusun"
-                                                                        class="form-control select2"
-                                                                       ></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>RT</label>
-                                                                    <select ng-options="item for item in RT"
-                                                                        class="form-control select2"
-                                                                       ></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Kode Pos</label>
-                                                                    <select ng-options="item for item in KodePos"
-                                                                        class="form-control select2"
-                                                                       ></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>E-Mail</label>
-                                                                    <input type="text" class="form-control"
-                                                                       
-                                                                        placeholder="E-Mail">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Golongan Darah</label>
-                                                                    <select ng-options="item for item in GolonganDarah"
-                                                                        class="form-control select2"
-                                                                       ></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Status Perkawinan</label>
-                                                                    <select
-                                                                        ng-options="item for item in StatusPerkawinan"
-                                                                        class="form-control select2"
-                                                                       ></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Agama</label>
-                                                                    <select ng-options="item for item in Agama"
-                                                                        class="form-control select2"
-                                                                       ></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Jenis Kelamin</label>
-                                                                    <select ng-options="item for item in JenisKelamin"
-                                                                        class="form-control select2"
-                                                                       ></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Penghasilan Tetap</label>
-                                                                    <select
-                                                                        ng-options="item for item in PenghasilanTetap"
-                                                                        class="form-control select2"
-                                                                       ></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Staus Kepemilikan Kartu Indonesia
-                                                                        Sehat</label>
-                                                                    <select ng-options="item for item in StatusKIS"
-                                                                        class="form-control select2"
-                                                                       ></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Status Kepemilikan KK</label>
-                                                                    <select ng-options="item for item in StatusKK"
-                                                                        class="form-control select2"
-                                                                       ></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>No. Kartu Keluarga</label>
-                                                                    <select ng-options="item for item in noKK"
-                                                                        class="form-control select2"
-                                                                       ></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Nama Ayah</label>
-                                                                    <input type="text" class="form-control"
-                                                                       
-                                                                        placeholder="Nama Ayah">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Keterangan</label>
-                                                                    <textarea class="form-control" rows="3"
-                                                                       
-                                                                        placeholder="Keterangan"></textarea>
-                                                                </div>
-                                                                <!-- /.form-group -->
                                                             </div>
-                                                            <!-- /.col -->
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>NIK</label>
-                                                                    <input type="text" class="form-control"
-                                                                       placeholder="NIK">
+                                                                    <span><label>Tanggal</label></span> 
+                                                                    <input type="datetime" class="form-control" ng-model="Pengajuan.tanggalpengajuan">
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <label>Tempat Lahir</label>
-                                                                    <input type="text" class="form-control"
-                                                                    
-                                                                        placeholder="Tempat Lahir">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>No. Akta Kelahiran</label>
-                                                                    <input type="number" class="form-control"
-                                                                       
-                                                                        placeholder="No. Akta Kelahiran">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Alamat</label>
-                                                                    <textarea class="form-control" rows="3"
-                                                                       
-                                                                        placeholder="Alamat"></textarea>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>RW</label>
-                                                                    <input type="text" class="form-control"
-                                                                       placeholder="RW">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>No. Kontak</label>
-                                                                    <input type="number" class="form-control"
-                                                                       
-                                                                        placeholder="No. Kontak">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Perkerjaan</label>
-                                                                    <select ng-options="item for item in Perkerjaan"
-                                                                        class="form-control select2"
-                                                                       ></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Pendidikan Terakhir</label>
-                                                                    <input type="text" class="form-control"
-                                                                       
-                                                                        placeholder="Pendidikan Terakhir">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Suku</label>
-                                                                    <input type="text" class="form-control"
-                                                                       
-                                                                        placeholder="Suku">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Kewarganegaraan</label>
-                                                                    <select
-                                                                        ng-options="item for item in Kewarganegaraan"
-                                                                        class="form-control select2"
-                                                                       ></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Status Tempat Tinggal</label>
-                                                                    <select ng-options="item for item in StatusTT"
-                                                                        class="form-control select2"
-                                                                       ="Penduduk.data.StatusTT"></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Status Sosial</label>
-                                                                    <select ng-options="item for item in StatusSosial"
-                                                                        class="form-control select2"
-                                                                       ="Penduduk.data.StatusSosial"></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Staus Kepemilikan Kartu Indonesia
-                                                                        Pintar</label>
-                                                                    <select ng-options="item for item in StatusKIP"
-                                                                        class="form-control select2"
-                                                                       ="Penduduk.data.StatusKIP"></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Status Dalam Keluarga</label>
-                                                                    <select ng-options="item for item in StatusKeluarga"
-                                                                        class="form-control select2"
-                                                                       ="Penduduk.data.StatusKeluarga"></select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Nama Ibu</label>
-                                                                    <input type="text" class="form-control"
-                                                                       ="Penduduk.data.NamaIbu"
-                                                                        placeholder="Nama Ibu">
-                                                                </div>
-                                                                <!-- /.form-group -->
                                                             </div>
-                                                            <!-- /.col -->
+                                                            <div class="card-header">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <span><label>Tanggal</label></span> 
+                                                                    <input type="datetime" class="form-control" ng-model="Pengajuan.tanggalpengajuan">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="card-footer">
                                                             <button type="submit"
@@ -334,10 +159,8 @@
                                                             <button type="submit"
                                                                 class="btn btn-danger float-right">Cancel</button>
                                                         </div>
-                                                        <!-- /.row -->
                                                     </div>
                                                 </form>
-                                                <!-- /.card-body -->
                                             </div>
                                         </div>
                                     </div>
