@@ -59,6 +59,11 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
             parent: 'admin',
 			controller: 'adminsuratketdomisiliController',
 			templateUrl: '../client/apps/views/admin/suratketdomisili.html'
+		}).state('admin-inbox', {
+            url: '/inbox',
+            parent: 'admin',
+			controller: 'admininboxController',
+			templateUrl: '../client/apps/views/admin/inbox.html'
 		});
 		
 });
