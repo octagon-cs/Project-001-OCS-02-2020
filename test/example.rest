@@ -1,0 +1,56 @@
+
+
+@controller=auth
+@host=http://localhost:3000/api/{{controller}}
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNTc5NTI4ODA3LCJleHAiOjE1Nzk2MTUyMDd9.LhqJZgK-j97rHRGPobBR_RkAFMGPu9azfTMApwwQRs8
+
+####
+GET {{host}} HTTP/1.1
+Content-Type: application/json
+Authorization: bearer {{token}}
+####
+
+####
+GET {{host}}/byuniversitasid/1 HTTP/1.1
+Content-Type: application/json
+Authorization: bearer {{token}}
+####
+
+####
+GET {{host}}/byfakultasid/1 HTTP/1.1
+Content-Type: application/json
+Authorization: bearer {{token}}
+####
+
+####
+GET {{host}}/getbyid/3 HTTP/1.1
+Content-Type: application/json
+Authorization: bearer {{token}}
+####
+
+PUT {{host}} HTTP/1.1
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+   "iddosen": 1,
+    "iduser": 10,
+    "idprogramstudi": 1,
+    "nidn": "123456789545",
+    "tanggallahir": "2-02-1977",
+    "tempatlahir": "makassar",
+    "jeniskelamin": "Pria",
+    "pendidikanterakhir": "S2",
+    "jabatanakademik": "Dekan",
+    "masakerja": "5 tahun",
+    "idjabatan": 3,
+    "namadosen": "Budi Sanjaya"
+}
+
+
+
+####
+
+DELETE {{host}}/1 HTTP/1.1
+Content-Type: application/json
+Authorization: bearer {{token}}

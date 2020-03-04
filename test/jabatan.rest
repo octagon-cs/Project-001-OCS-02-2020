@@ -1,0 +1,46 @@
+
+
+@controller=jabatan
+@host=http://localhost:3000/api/{{controller}}
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwicm9sZXMiOltudWxsXSwiaWF0IjoxNTgzMTY0MjAxLCJleHAiOjE1ODMyNTA2MDF9.j-oca1l2l0Na4-hl1fXWOOkMwZuA40vLA08r0M6-YPo
+
+####
+GET {{host}} HTTP/1.1
+Content-Type: application/json
+Authorization: bearer {{token}}
+####
+
+####
+GET {{host}}/1 HTTP/1.1
+Content-Type: application/json
+Authorization: bearer {{token}}
+####
+
+####
+Post {{host}} HTTP/1.1
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+    "nama": "Lurah",
+    "deskripsi": "Mengepalai Kelurahan"
+}
+
+####
+PUT {{host}} HTTP/1.1
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+    "idjabatan": 2,
+     "nama": "Desa",
+    "deskripsi": "Mengepalai Desa"
+}
+
+
+
+####
+
+DELETE {{host}}/3 HTTP/1.1
+Content-Type: application/json
+Authorization: bearer {{token}}
