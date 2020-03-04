@@ -12,6 +12,9 @@ angular.module('admin.controller',[])
 .controller('admintambahpermohonanController', admintambahpermohonanController)
 ;
 
+function admintambahpermohonanController(){
+    
+}
 function adminsuratketdomisiliController(){
 
 }
