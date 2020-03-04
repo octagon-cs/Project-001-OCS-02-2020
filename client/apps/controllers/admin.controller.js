@@ -12,11 +12,14 @@ angular.module('admin.controller',[])
 .controller('admintambahpermohonanController', admintambahpermohonanController)
 .controller('admininboxController', admininboxController)
 .controller('adminpermohonanController', adminpermohonanController)
+.controller('adminpejabatController', adminpejabatController)
 ;
 
-
-function adminpermohonanController(){
+function adminpejabatController(){
     
+}
+function adminpermohonanController(){
+
 }
 function admininboxController(){
 

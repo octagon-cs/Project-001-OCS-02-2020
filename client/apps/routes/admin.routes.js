@@ -69,6 +69,11 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
             parent: 'admin',
 			controller: 'adminpermohonanController',
 			templateUrl: '../client/apps/views/admin/permohonan.html'
+		}).state('admin-pejabat', {
+            url: '/pejabat',
+            parent: 'admin',
+			controller: 'adminpejabatController',
+			templateUrl: '../client/apps/views/admin/pejabat.html'
 		});
 		
 });

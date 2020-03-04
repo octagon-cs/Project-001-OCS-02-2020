@@ -1,0 +1,68 @@
+<section class="content-header">
+    <div class="container-fluid">
+<div class="card card-default">
+    <div class="card-header">
+        <h3 class="card-title">Profile Desa</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                    class="fas fa-minus"></i></button>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <form ng-submit="Simpan('Profile')">
+        <div class="card-body">
+            <div class="row">
+                <table class="table table-hover text-nowrap">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label>ID Jenis Permohonan</label>
+                                    <input type="text" class="form-control" ng-model="" disabled>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label>Nama</label>
+                                    <input type="text" class="form-control" ng-model="" placeholder="Nama">
+                                </div>
+                            </td>
+                            <!-- /.form-group -->
+                            <td>
+                                <div class="form-group">
+                                    <label>Persyaratan</label>
+                                    <input type="text" class="form-control" ng-model="" placeholder="Persyaratan">
+                                </div>
+                                <!-- /.form-group -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <div class="form-group">
+                                    <label>Deskripsi </label>
+                                    <textarea class="form-control" rows="5q" placeholder="Deskripsi"></textarea>
+
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- /.form-group -->
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <!-- /.col -->
+            <div class="card-footer">
+                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="submit" class="btn btn-danger float-right">Cancel</button>
+            </div>
+            <!-- /.row -->
+        </div>
+
+    </form>
+    <!-- /.card-body -->
+
+</div>
+</div>
+</section>
