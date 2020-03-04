@@ -5,7 +5,12 @@ angular.module('admin.controller',[])
 .controller('adminsuratpengantarkkController', adminsuratpengantarkkController)
 .controller('admindatapendudukController', admindatapendudukController)
 .controller('adminsuratpengantarktpController', adminsuratpengantarktpController)
-.controller('adminJabatanController', adminJabatanController);
+.controller('adminJabatanController', adminJabatanController)
+.controller('adminpreviewController', adminpreviewController);
+
+function adminpreviewController(){
+    
+}
 
 function adminHomeController($http, helperServices, AuthService, $scope) {
     $scope.LuasWilayah = {};
