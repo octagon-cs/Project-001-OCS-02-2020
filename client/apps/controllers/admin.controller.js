@@ -136,6 +136,6 @@ function adminsuratpengantarkkController($http, $scope, helperServices, AuthServ
 function adminsuratpengantarktpController(){
 
 }
-function admindatapendudukController(){
-    
+function admindatapendudukController(helperServices, $scope){
+    $scope.KepemilikanKTP = helperServices.StatusKepemilikanKTP;
 }
