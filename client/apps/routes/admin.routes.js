@@ -19,8 +19,8 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
             parent: 'admin',
 			controller: 'admindataumumdesaController',
 			templateUrl: '../client/apps/views/admin/dataumumdesa.html'
-		}).state('admin-suratpengantarkk', {
-            url: '/suratpengantarkk',
+		}).state('admin-suratmenyurat', {
+            url: '/suratmenyurat',
             parent: 'admin',
 			controller: 'adminsuratpengantarkkController',
 			templateUrl: '../client/apps/views/admin/suratpengantarkk.html'
@@ -37,8 +37,38 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
 		}).state('admin-inputdatapenduduk', {
             url: '/inputdatapenduduk',
             parent: 'admin',
-			controller: 'admininputdatapendudukController',
+			controller: 'admindatapendudukController',
 			templateUrl: '../client/apps/views/admin/inputdatapenduduk.html'
+		}).state('admin-tambahpermohonan', {
+            url: '/tambahpermohonan',
+            parent: 'admin',
+			controller: 'admintambahpermohonanController',
+			templateUrl: '../client/apps/views/admin/tambahpermohonan.html'
+		}).state('admin-preview', {
+            url: '/preview',
+            parent: 'admin',
+			controller: 'adminpreviewController',
+			templateUrl: '../client/apps/views/admin/preview.html'
+		}).state('admin-surattidakmampu', {
+            url: '/surattidakmampu',
+            parent: 'admin',
+			controller: 'adminsurattidakmampuController',
+			templateUrl: '../client/apps/views/admin/surattidakmampu.html'
+		}).state('admin-suratketdomisili', {
+            url: '/suratketdomisili',
+            parent: 'admin',
+			controller: 'adminsuratketdomisiliController',
+			templateUrl: '../client/apps/views/admin/suratketdomisili.html'
+		}).state('admin-inbox', {
+            url: '/inbox',
+            parent: 'admin',
+			controller: 'admininboxController',
+			templateUrl: '../client/apps/views/admin/inbox.html'
+		}).state('admin-permohonan', {
+            url: '/permohonan',
+            parent: 'admin',
+			controller: 'adminpermohonanController',
+			templateUrl: '../client/apps/views/admin/permohonan.html'
 		});
 		
 });

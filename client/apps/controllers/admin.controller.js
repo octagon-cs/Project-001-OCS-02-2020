@@ -5,7 +5,38 @@ angular.module('admin.controller', [])
     .controller('adminsuratpengantarkkController', adminsuratpengantarkkController)
     .controller('admindatapendudukController', admindatapendudukController)
     .controller('adminsuratpengantarktpController', adminsuratpengantarktpController)
-    .controller('adminJabatanController', adminJabatanController);
+    .controller('adminJabatanController', adminJabatanController)
+    .controller('adminpreviewController', adminpreviewController)
+    .controller('adminsuratketdomisiliController', adminsuratketdomisiliController)
+    .controller('adminsurattidakmampuController', adminsurattidakmampuController)
+    .controller('admintambahpermohonanController', admintambahpermohonanController)
+    .controller('admininboxController', admininboxController)
+    .controller('adminpermohonanController', adminpermohonanController);
+
+
+function adminpermohonanController() {
+
+}
+
+function admininboxController() {
+
+}
+
+function admintambahpermohonanController() {
+
+}
+
+function adminsuratketdomisiliController() {
+
+}
+
+function adminsurattidakmampuController() {
+
+}
+
+function adminpreviewController() {
+
+}
 
 function adminHomeController($http, helperServices, AuthService, $scope) {
     AuthService.Init(["admin"]);
@@ -187,7 +218,8 @@ function adminsuratpengantarkkController($http, $scope, helperServices, AuthServ
 
 function adminsuratpengantarktpController() {
 
-}
+} <<
+<< << < HEAD
 
 function admindatapendudukController($scope, $http, helperServices, AuthService) {
 
@@ -206,90 +238,102 @@ function admindatapendudukController($scope, $http, helperServices, AuthService)
     $scope.DataPenduduk = [];
     $scope.DataInput = {};
     $scope.Init = function () {
-        $http({
-            method: 'get',
-            url: helperServices.url + "/jabatan",
-            Header: AuthService.getHeader()
-        }).then(param => {
-            $scope.DataPenduduk = param.data;
-        }, error => {
+            ===
+            === =
+            function admindatapendudukController($scope, $http, helperServices, AuthService) {
+                $scope.DataPenduduk = [];
+                $scope.KepemilikanKTP = helperServices.StatusKepemilikanKTP;
+                $scope.Agama = helperServices.Agama;
+                $scope.PenghasilanTetap = helperServices.PenghasilanTetap
+                $scope.Kewarganegaraan = helperServices.Kewarganegaraan,
+                    $scope.DataInput = {};
+                $scope.Init = function () {
+                    >>>
+                    >>> > e0c01587b04fc15d5de00943270204e6c473a536
+                    $http({
+                        method: 'get',
+                        url: helperServices.url + "/api/penduduk",
+                        Header: AuthService.getHeader()
+                    }).then(param => {
+                        $scope.DataPenduduk = param.data;
+                    }, error => {
 
-        })
-    }
-    $scope.Simpan = function () {
-        $http({
-            method: 'post',
-            url: helperServices.url + "/penduduk",
-            Header: AuthService.getHeader(),
-            data: $scope.DataInput
-        }).then(param => {
+                    })
+                }
+                $scope.Simpan = function () {
+                    $http({
+                        method: 'post',
+                        url: helperServices.url + "/penduduk",
+                        Header: AuthService.getHeader(),
+                        data: $scope.DataInput
+                    }).then(param => {
 
-        }, error => {
+                    }, error => {
 
-        })
-    }
-    $scope.Ubah = function () {
-        $http({
-            method: 'put',
-            url: helperServices.url + "/penduduk",
-            Header: AuthService.getHeader(),
-            data: $scope.DataInput
-        }).then(param => {
+                    })
+                }
+                $scope.Ubah = function () {
+                    $http({
+                        method: 'put',
+                        url: helperServices.url + "/penduduk",
+                        Header: AuthService.getHeader(),
+                        data: $scope.DataInput
+                    }).then(param => {
 
-        }, error => {
+                    }, error => {
 
-        })
-    }
+                    })
+                }
 
-}
+            }
 
-function adminJabatanController($scope, $http, helperServices, AuthService) {
-    $scope.DataJabatan = [];
-    $scope.DataInput = {};
-    $scope.Init = function () {
-        $http({
-            method: 'get',
-            url: helperServices.url + "/jabatan",
-            Header: AuthService.getHeader()
-        }).then(param => {
+            function adminJabatanController($scope, $http, helperServices, AuthService) {
+                $scope.DataJabatan = [];
+                $scope.DataInput = {};
+                $scope.Init = function () {
+                    $http({
+                        method: 'get',
+                        url: helperServices.url + "/jabatan",
+                        Header: AuthService.getHeader()
+                    }).then(param => {
 
-        }, error => {
+                    }, error => {
 
-        })
-    }
-    $scope.Simpan = function () {
-        $http({
-            method: 'post',
-            url: helperServices.url + "/jabatan",
-            Header: AuthService.getHeader(),
-            data: $scope.DataInput
-        }).then(param => {
+                    })
+                }
+                $scope.Simpan = function () {
+                    $http({
+                        method: 'post',
+                        url: helperServices.url + "/jabatan",
+                        Header: AuthService.getHeader(),
+                        data: $scope.DataInput
+                    }).then(param => {
 
-        }, error => {
+                    }, error => {
 
-        })
-    }
-    $scope.Ubah = function () {
-        $http({
-            method: 'put',
-            url: helperServices.url + "/jabatan",
-            Header: AuthService.getHeader(),
-            data: $scope.DataInput
-        }).then(param => {
+                    })
+                }
+                $scope.Ubah = function () {
+                    $http({
+                        method: 'put',
+                        url: helperServices.url + "/jabatan",
+                        Header: AuthService.getHeader(),
+                        data: $scope.DataInput
+                    }).then(param => {
 
-        }, error => {
+                    }, error => {
 
-        })
-    }
-    $scope.Hapus = function (item) {
-        $http({
-            method: 'delete',
-            url: helperServices.url + "/jabatan/" + item.idjabatan,
-            Header: AuthService.getHeader()
-        }).then(param => {
+                    })
+                }
+                $scope.Hapus = function (item) {
+                    $http({
+                        method: 'delete',
+                        url: helperServices.url + "/jabatan/" + item.idjabatan,
+                        Header: AuthService.getHeader()
+                    }).then(param => {
 
-        }, error => {
+                    }, error => {
 
-        })
-    }
-}
+                    })
+                }
+            }
