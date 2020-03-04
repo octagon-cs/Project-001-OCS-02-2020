@@ -9,7 +9,7 @@ angular.module('admin.controller',[])
 .controller('adminpreviewController', adminpreviewController)
 .controller('adminsuratketdomisiliController', adminsuratketdomisiliController)
 .controller('adminsurattidakmampuController', adminsurattidakmampuController)
-
+.controller('admintambahpermohonanController', admintambahpermohonanController)
 ;
 
 function adminsuratketdomisiliController(){
