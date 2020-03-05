@@ -50,28 +50,16 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 
 	function profile() {
 		var def = $q.defer();
-		var profile = StorageService.getObject('profile');
-		if (profile) def.resolve(profile);
+
+
+		var result = StorageService.getObject('user');
+
+		if (result)
+			def.resolve({
+				rolename: result.roles[0]
+			});
 		else {
-			var result = StorageService.getObject('user');
-			if (!result) {
-				message.error('Silahkan Login');
-				$state.go('login');
-			} else
-				$http({
-					method: 'get',
-					url: helperServices.url + '/api/auth/profile',
-					headers: getHeader()
-				}).then(
-					(res) => {
-						StorageService.addObject('profile', res.data);
-						def.resolve(res.data);
-					},
-					(err) => {
-						def.reject();
-						message.error(err);
-					}
-				);
+			def.reject();
 		}
 		return def.promise;
 	}

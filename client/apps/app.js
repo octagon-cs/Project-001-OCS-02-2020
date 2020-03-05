@@ -6,7 +6,8 @@ angular
 		'app.routers',
 		'app.controllers',
 		'app.conponent',
-		'datatables'
+		'datatables',
+		'ui.select2'
 	])
 	.directive('chooseFile', function () {
 		return {
@@ -72,4 +73,7 @@ angular
 				});
 			}
 		};
-	});
+	})
+	.run(['uiSelect2Config', function(uiSelect2Config) {
+		uiSelect2Config.placeholder = "Placeholder text";
+	}]);

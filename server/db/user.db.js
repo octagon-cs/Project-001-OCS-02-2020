@@ -365,6 +365,26 @@ UserDb.getUserByEmail = async (email) => {
 
 
 
+UserDb.getUserUserId = async (id) => {
+    return new Promise((resolve, reject) => {
+        pool.query(
+            `SELECT *
+		  FROM
+			users where idusers=? `,
+            [id],
+            (err, result) => {
+                if (err) {
+                    return reject(err);
+                } else
+                    resolve(result[0]);
+            }
+        );
+    });
+};
+
+
+
+
 UserDb.getUserPejabatAktif = async () => {
     return new Promise((resolve, reject) => {
         pool.query(
