@@ -5,9 +5,13 @@ const pejabat = {};
 pejabat.get = async () => {
     return new Promise((resolve, reject) => {
         pool.query(
-            `SELECT *
-		  FROM
-			pejabat`,
+            `SELECT
+            pejabat.*,
+            jabatan.nama AS namajabatan,
+            jabatan.deskripsi
+          FROM
+            pejabat
+            LEFT JOIN jabatan ON jabatan.idjabatan = pejabat.idjabatan`,
             (error, result) => {
                 if (error) {
                     return reject(error);
@@ -25,9 +29,13 @@ pejabat.get = async () => {
 pejabat.getById = async (Id) => {
     return new Promise((resolve, reject) => {
         pool.query(
-            `SELECT *
-		  FROM
-			pejabat where idpejabat=? `,
+            `SELECT
+            pejabat.*,
+            jabatan.nama AS namajabatan,
+            jabatan.deskripsi
+          FROM
+            pejabat
+            LEFT JOIN jabatan ON jabatan.idjabatan = pejabat.idjabatans where idpejabat=? `,
             [Id],
             (error, result) => {
                 if (error) {
