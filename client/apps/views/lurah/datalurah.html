@@ -84,35 +84,6 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Candra Putra Wijaksana</td>
-                                            <td>Kasur</td>
-                                            <td>04-01-995</td>
-                                            <td>Jabatan</td>
-                                            <td>Nomor Keputusan Pengangkatan</td>
-                                            <td>Tanggal Keputusan Pengangkatan</td>
-                                            <td>Nomor Keputusan Pemberhentian</td>
-                                            <td>Tanggal Keputusan Pemberhentian</td>
-                                            <td>Keterangan</td>
-                                            <td><img src=""></td>
-                                            <td>
-                                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                                    <button class="btn btn-secondary">
-                                                        <input type="radio" name="options" id="option1"
-                                                            autocomplete="off"> <i class="fas fa-arrow-circle-up"></i>
-                                                    </button>
-                                                    <button class="btn btn-secondary">
-                                                        <input type="radio" name="options" id="option2"
-                                                            autocomplete="off"> <i class="fas fa-trash"></i>
-                                                    </button>
-                                                    <button class="btn btn-secondary">
-                                                        <input type="radio" name="options" id="option3"
-                                                            autocomplete="off"> <i class="fas fa-search"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td>No</td>
                                             <td>Nama</td>
                                             <td>Tempat Lahir</td>
@@ -126,17 +97,37 @@
                                             <td><img src=""></td>
                                             <td>
                                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                    
                                                     <label class="btn btn-secondary">
-                                                        <input type="radio" name="options" id="option1"
-                                                            autocomplete="off"> <i class="fas fa-arrow-circle-up"></i>
+                                                        <a style="margin-left: 10px;" id="modal-195230" href=""
+                                                        role="button" class="btn-secondary"
+                                                        data-target="#modal-container-195230" data-toggle="modal"
+                                                        ng-click=""><i class="fas fa-check"></i>
+                                                         </a>
                                                     </label>
                                                     <label class="btn btn-secondary">
                                                         <input type="radio" name="options" id="option2"
-                                                            autocomplete="off"> <i class="fas fa-trash"></i>
+                                                            autocomplete="off"><a style="margin-left: 10px;" id="modal-195230" href=""
+                                                            role="button" class="btn-secondary"
+                                                            data-target="#modal-container-195230" data-toggle="modal"
+                                                            ng-click=""><i class="fas fa-times"></i>
+                                                             </a>
                                                     </label>
                                                     <label class="btn btn-secondary">
-                                                        <input type="radio" name="options" id="option3"
-                                                            autocomplete="off"> <i class="fas fa-search"></i>
+                                                        <input type="radio" name="options" id="option2"
+                                                            autocomplete="off"><a style="margin-left: 10px;" id="modal-195230" href=""
+                                                            role="button" class="btn-secondary"
+                                                            data-target="#modal-container-195230" data-toggle="modal"
+                                                            ng-click=""><i class="fas fa-trash"></i>
+                                                             </a>
+                                                    </label>
+                                                    <label class="btn btn-secondary">
+                                                        <input type="radio" name="options" id="option2"
+                                                            autocomplete="off"><a style="margin-left: 10px;" id="modal-195230" href=""
+                                                            role="button" class="btn-secondary"
+                                                            data-target="#modal-container-195230" data-toggle="modal"
+                                                            ng-click=""><i class="fas fa-search"></i>
+                                                             </a>
                                                     </label>
                                                 </div>
                                             </td>
@@ -155,4 +146,45 @@
         </div>
         <!-- /.row -->
     </div>
+    <!-- model -->
+    <div class="modal fade" id="modal-container-195230" role="dialog" aria-labelledby="myModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="myModalLabel">
+                                    Tolak Permohonan
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form">
+    
+                                    <div class="form-group">
+    
+                                        <label for="barang">
+                                            Keterangan
+                                        </label>
+                                        <p align="justify">Berkas tidak memenuhi syarat</p>
+                                        
+                                    </div>
+    
+    
+                            </div>
+                            <div class="modal-footer">
+    
+                                <button type="button" class="btn btn-primary" ng-click="Simpan()">
+                                    Save <i class="glyphicon glyphicon-floppy-save"></i></button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Close
+                                    <i class="glyphicon glyphicon-remove"></i></button>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                </div>
+    <!-- model -->
 </section>
