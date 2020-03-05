@@ -39,6 +39,11 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
             parent: 'admin',
 			controller: 'admindatapendudukController',
 			templateUrl: '../client/apps/views/admin/inputdatapenduduk.html'
+		}).state('admin-tambahpermohonan', {
+            url: '/tambahpermohonan',
+            parent: 'admin',
+			controller: 'admintambahpermohonanController',
+			templateUrl: '../client/apps/views/admin/tambahpermohonan.html'
 		}).state('admin-preview', {
             url: '/preview',
             parent: 'admin',
@@ -54,6 +59,16 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
             parent: 'admin',
 			controller: 'adminsuratketdomisiliController',
 			templateUrl: '../client/apps/views/admin/suratketdomisili.html'
+		}).state('admin-inbox', {
+            url: '/inbox',
+            parent: 'admin',
+			controller: 'admininboxController',
+			templateUrl: '../client/apps/views/admin/inbox.html'
+		}).state('admin-permohonan', {
+            url: '/permohonan',
+            parent: 'admin',
+			controller: 'adminpermohonanController',
+			templateUrl: '../client/apps/views/admin/permohonan.html'
 		});
 		
 });

@@ -1,4 +1,4 @@
-<section class="content-header" ng-init="Init()">
+<section class="content-header">
     <div class="container-fluid">
         <div class="row">
             <div class="col">
@@ -13,12 +13,12 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill"
                                             href="" data-target="#custom-tabs-two-home" role="tab"
-                                            aria-controls="custom-tabs-two-home" aria-selected="true">Data Penduduk</a>
+                                            aria-controls="custom-tabs-two-home" aria-selected="true">Surat Permohonan</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href=""
                                             data-target="#custom-tabs-two-profile" role="tab"
-                                            aria-controls="custom-tabs-two-profile" aria-selected="false">Tambah</a>
+                                            aria-controls="custom-tabs-two-profile" aria-selected="false">Tambah Surat Permohonan</a>
                                     </li>
                                 </ul>
                             </div>
@@ -30,26 +30,86 @@
                                             <table datatable="" class="table table-head-fixed text-nowrap">
                                                 <thead>
                                                     <tr>
-                                                        <th>No</th>
-                                                        <th>Nama</th>
-                                                        <th>NIK</th>
-                                                        <th>NKK</th>
-                                                        <th>Status Dalam Keluarga</th>
-                                                        <th>Action</th>
+                                                        <th>ID</th>
+                                                        <th>User</th>
+                                                        <th>Date</th>
+                                                        <th>Status</th>
+                                                        <th>Reason</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr ng-repeat="item in DataPenduduk">
-                                                        <td>{{$index+1}}</td>
-                                                        <td>{{item.nama}}</td>
-                                                        <td>{{item.nik}}</td>
-                                                        <td>{{item.nkk}}</td>
-                                                        <td>{{item.statusdalamkeluarga}}</td>
-                                                        <td>
-                                                            <button class="btn btn-primary">Ubah</button>
+                                                    <tr>
+                                                        <td>183</td>
+                                                        <td>John Doe</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-success">Approved</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
                                                         </td>
                                                     </tr>
-
+                                                    <tr>
+                                                        <td>219</td>
+                                                        <td>Alexander Pierce</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-warning">Pending</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>657</td>
+                                                        <td>Bob Doe</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-primary">Approved</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>175</td>
+                                                        <td>Mike Doe</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-danger">Denied</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>134</td>
+                                                        <td>Jim Doe</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-success">Approved</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>494</td>
+                                                        <td>Victoria Doe</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-warning">Pending</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>832</td>
+                                                        <td>Michael Doe</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-primary">Approved</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>982</td>
+                                                        <td>Rocky Doe</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-danger">Denied</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -59,182 +119,115 @@
                                         <div class="tab-content" id="custom-tabs-one-tabContent">
                                             <div class="card card-default">
                                                 <div class="card-header">
-                                                    <h3 class="card-title">Input Data Penduduk</h3>
+                                                    <h3 class="card-title">Surat Pengantar KTP</h3>
                                                 </div>
                                                 <!-- /.card-header -->
-                                                <table>
-
-                                                </table>
-                                                <form ng-submit="Simpan('Profile')" ng-submit="Simpan()">
+                                                <form ng-submit="Simpan('Profile')">
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>Status Kepemilikan KTP</label>
-                                                                    <select ng-options="item for item in KepemilikanKTP"
-                                                                        class="form-control"
-                                                                        ng-model="Penduduk.data.StatusKTP"></select>
+                                                                    <label>NIKK</label>
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="Nama">
                                                                 </div>
                                                                 <!-- /.form-group -->
                                                                 <div class="form-group">
-                                                                    <label>Nama</label>
+                                                                    <label>No.Surat</label>
                                                                     <input type="text" class="form-control"
-                                                                        ng-model="Penduduk.nama" placeholder="Nama">
+                                                                    placeholder="Nama">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label>Tanggal Lahir</label>
+                                                                    <label>Judul Atas</label>
                                                                     <input type="date" class="form-control"
-                                                                        ng-model="Penduduk.data.TanggalLahir"
+                                                                      
                                                                         placeholder="Tanggal Lahir">
                                                                 </div>
-                                                                <HR>
                                                                 <div class="form-group">
                                                                     <label>Dusun</label>
                                                                     <select ng-options="item for item in Dusun"
                                                                         class="form-control select2"
-                                                                        ng-model="Penduduk.data.Dusun"></select>
+                                                                       ></select>
                                                                 </div>
-                                                                <div class="form-group" style="">
+                                                                <div class="form-group">
                                                                     <label>RT</label>
-                                                                    <input type="text" class="form-control"
-                                                                        ng-model="Penduduk.data.RT">
+                                                                    <select ng-options="item for item in RT"
+                                                                        class="form-control select2"
+                                                                       ></select>
                                                                 </div>
-                                                                
                                                                 <div class="form-group">
                                                                     <label>Kode Pos</label>
-                                                                    <input type="text" class="form-control"
-                                                                        ng-model="Penduduk.data.KodePos">
+                                                                    <select ng-options="item for item in KodePos"
+                                                                        class="form-control select2"
+                                                                       ></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>E-Mail</label>
-                                                                    <input type="email" class="form-control"
-                                                                        ng-model="Penduduk.data.EMail"
-                                                                        placeholder="Penduduk.data.E-Mail" required>
+                                                                    <input type="text" class="form-control"
+                                                                       
+                                                                        placeholder="E-Mail">
                                                                 </div>
-                                                                <HR>
                                                                 <div class="form-group">
                                                                     <label>Golongan Darah</label>
-                                                                    <div class="form-group clearfix">
-                                                                        <div class="icheck-primary d-inline">
-                                                                            <input type="radio" id="radioPrimary1"
-                                                                                value="A" name="r1" checked
-                                                                                ng-model="Penduduk.data.GolonganDarah">
-                                                                            <label for="radioPrimary1">
-                                                                                A
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="icheck-primary d-inline">
-                                                                            <input type="radio" id="radioPrimary2"
-                                                                                value="B" name="r1"
-                                                                                ng-model="Penduduk.data.GolonganDarah">
-                                                                            <label for="radioPrimary2">
-                                                                                B
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="icheck-primary d-inline">
-                                                                            <input type="radio" id="radioPrimary3"
-                                                                                value="AB" name="r1"
-                                                                                ng-model="Penduduk.data.GolonganDarah">
-                                                                            <label for="radioPrimary3">
-                                                                                AB
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="icheck-primary d-inline">
-                                                                            <input type="radio" id="radioPrimary4"
-                                                                                value="O" name="r1"
-                                                                                ng-model="Penduduk.data.GolonganDarah">
-                                                                            <label for="radioPrimary4">
-                                                                                O
-                                                                            </label>
-                                                                        </div>
-                                                                    </div><br>
+                                                                    <select ng-options="item for item in GolonganDarah"
+                                                                        class="form-control select2"
+                                                                       ></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Status Perkawinan</label>
-                                                                    <div class="form-group clearfix">
-                                                                        <div class="icheck-primary d-inline">
-                                                                            <input type="radio" id="statusperkawinan1"
-                                                                                value="Kawin" name="statusperkawinan"
-                                                                                checked
-                                                                                ng-model="Penduduk.data.StatusPerkawinan">
-                                                                            <label for="statusperkawinan1">
-                                                                                Kawin
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="icheck-primary d-inline">
-                                                                            <input type="radio" id="statusperkawinan2"
-                                                                                value="Belum" name="statusperkawinan"
-                                                                                ng-model="Penduduk.data.StatusPerkawinan">
-                                                                            <label for="statusperkawinan2">
-                                                                                Belum
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
+                                                                    <select
+                                                                        ng-options="item for item in StatusPerkawinan"
+                                                                        class="form-control select2"
+                                                                       ></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Agama</label>
                                                                     <select ng-options="item for item in Agama"
                                                                         class="form-control select2"
-                                                                        ng-model="Penduduk.data.Agama"></select>
+                                                                       ></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Jenis Kelamin</label>
-                                                                    <div class="form-group clearfix">
-                                                                        <div class="icheck-primary d-inline">
-                                                                            <input type="radio" id="JenisKelamin1"
-                                                                                value="Laki-laki" name="JenisKelamin"
-                                                                                checked
-                                                                                ng-model="Penduduk.data.JenisKelamin">
-                                                                            <label for="JenisKelamin1">
-                                                                                Laki-laki
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="icheck-primary d-inline">
-                                                                            <input type="radio" id="JenisKelamin2"
-                                                                                value="Perempuan" name="JenisKelamin"
-                                                                                ng-model="Penduduk.data.JenisKelamin">
-                                                                            <label for="JenisKelamin2">
-                                                                                Perempuan
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
+                                                                    <select ng-options="item for item in JenisKelamin"
+                                                                        class="form-control select2"
+                                                                       ></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Penghasilan Tetap</label>
                                                                     <select
                                                                         ng-options="item for item in PenghasilanTetap"
                                                                         class="form-control select2"
-                                                                        ng-model="Penduduk.data.PenghasilanTetap"></select>
-                                                                </div><hr>
+                                                                       ></select>
+                                                                </div>
                                                                 <div class="form-group">
                                                                     <label>Staus Kepemilikan Kartu Indonesia
                                                                         Sehat</label>
                                                                     <select ng-options="item for item in StatusKIS"
                                                                         class="form-control select2"
-                                                                        ng-model="Penduduk.data.StatusKIS"></select>
+                                                                       ></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Status Kepemilikan KK</label>
                                                                     <select ng-options="item for item in StatusKK"
                                                                         class="form-control select2"
-                                                                        ng-model="Penduduk.data.StatusKK"></select>
+                                                                       ></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>No. Kartu Keluarga</label>
                                                                     <select ng-options="item for item in noKK"
                                                                         class="form-control select2"
-                                                                        ng-model="Penduduk.nkk"></select>
+                                                                       ></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Nama Ayah</label>
                                                                     <input type="text" class="form-control"
-                                                                        ng-model="Penduduk.data.NamaAyah"
+                                                                       
                                                                         placeholder="Nama Ayah">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Keterangan</label>
                                                                     <textarea class="form-control" rows="3"
-                                                                        ng-model="Penduduk.data.Keterangan"
+                                                                       
                                                                         placeholder="Keterangan"></textarea>
                                                                 </div>
                                                                 <!-- /.form-group -->
@@ -244,55 +237,53 @@
                                                                 <div class="form-group">
                                                                     <label>NIK</label>
                                                                     <input type="text" class="form-control"
-                                                                        ng-model="Penduduk.nik" placeholder="NIK">
+                                                                       placeholder="NIK">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Tempat Lahir</label>
                                                                     <input type="text" class="form-control"
-                                                                        ng-model="Penduduk.data.TempatLahir"
+                                                                    
                                                                         placeholder="Tempat Lahir">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>No. Akta Kelahiran</label>
                                                                     <input type="number" class="form-control"
-                                                                        ng-model="Penduduk.data.NoAktaKelahiran"
+                                                                       
                                                                         placeholder="No. Akta Kelahiran">
                                                                 </div>
-                                                                <HR size="550px">
                                                                 <div class="form-group">
                                                                     <label>Alamat</label>
                                                                     <textarea class="form-control" rows="3"
-                                                                        ng-model="Penduduk.data.AlamatLengkap"
+                                                                       
                                                                         placeholder="Alamat"></textarea>
-                                                                </div><br><br>
+                                                                </div>
                                                                 <div class="form-group">
                                                                     <label>RW</label>
                                                                     <input type="text" class="form-control"
-                                                                        ng-model="Penduduk.data.RW" placeholder="RW">
+                                                                       placeholder="RW">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>No. Kontak</label>
                                                                     <input type="number" class="form-control"
-                                                                        ng-model="Penduduk.data.NoKontak"
+                                                                       
                                                                         placeholder="No. Kontak">
                                                                 </div>
-                                                                <hr>
                                                                 <div class="form-group">
                                                                     <label>Perkerjaan</label>
                                                                     <select ng-options="item for item in Perkerjaan"
                                                                         class="form-control select2"
-                                                                        ng-model="Penduduk.data.Perkerjaan"></select>
+                                                                       ></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Pendidikan Terakhir</label>
                                                                     <input type="text" class="form-control"
-                                                                        ng-model="Penduduk.data.PendidikanTerakhir"
+                                                                       
                                                                         placeholder="Pendidikan Terakhir">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Suku</label>
                                                                     <input type="text" class="form-control"
-                                                                        ng-model="Penduduk.data.Suku"
+                                                                       
                                                                         placeholder="Suku">
                                                                 </div>
                                                                 <div class="form-group">
@@ -300,37 +291,37 @@
                                                                     <select
                                                                         ng-options="item for item in Kewarganegaraan"
                                                                         class="form-control select2"
-                                                                        ng-model="Penduduk.data.Kewarganegaraan"></select>
+                                                                       ></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Status Tempat Tinggal</label>
                                                                     <select ng-options="item for item in StatusTT"
                                                                         class="form-control select2"
-                                                                        ng-model="Penduduk.data.StatusTT"></select>
+                                                                       ="Penduduk.data.StatusTT"></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Status Sosial</label>
                                                                     <select ng-options="item for item in StatusSosial"
                                                                         class="form-control select2"
-                                                                        ng-model="Penduduk.data.StatusSosial"></select>
-                                                                </div><hr>
+                                                                       ="Penduduk.data.StatusSosial"></select>
+                                                                </div>
                                                                 <div class="form-group">
                                                                     <label>Staus Kepemilikan Kartu Indonesia
                                                                         Pintar</label>
                                                                     <select ng-options="item for item in StatusKIP"
                                                                         class="form-control select2"
-                                                                        ng-model="Penduduk.data.StatusKIP"></select>
+                                                                       ="Penduduk.data.StatusKIP"></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Status Dalam Keluarga</label>
                                                                     <select ng-options="item for item in StatusKeluarga"
                                                                         class="form-control select2"
-                                                                        ng-model="Penduduk.StatusKeluarga"></select>
+                                                                       ="Penduduk.data.StatusKeluarga"></select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Nama Ibu</label>
                                                                     <input type="text" class="form-control"
-                                                                        ng-model="Penduduk.data.NamaIbu"
+                                                                       ="Penduduk.data.NamaIbu"
                                                                         placeholder="Nama Ibu">
                                                                 </div>
                                                                 <!-- /.form-group -->

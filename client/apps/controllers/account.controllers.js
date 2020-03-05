@@ -5,31 +5,32 @@ angular
 	.controller('RegisterController', RegisterController);
 
 function AccountController(AuthService, $state, $scope) {
-	// if (AuthService.userIsLogin()) {
-	// AuthService.profile().then(
-	// (x) => {
-	// if (x) $state.go(x.rolename + '-home');
-	// else $state.go('admin' + '-home');
-	// },
-	// (err) => {
-	// $state.go('login');
-	// }
-	// );
-	// }
+	if (AuthService.userIsLogin()) {
+		AuthService.profile().then(
+			(x) => {
+				if (x) $state.go(x.rolename + '-home');
+				else $state.go('admin' + '-home');
+			},
+			(err) => {
+				$state.go('login');
+			}
+		);
+	}
 }
 
 function LoginController($scope, $state, AuthService, socket) {
 	$scope.login = function (user) {
-		$state.go('admin');
-		// AuthService.login(user).then((x) => {
-		// 	// if (x.roles.length == 1) {
-		// 	// 	var role = x.roles[0];
-		// 	// 	$state.go(role + '-home');
-		// 	// } else {
-		// 	// 	var role = x.roles.find((x) => x !== 'dosen');
-		// 		$state.go(role + '-home');
-		// 	// }
-		// });
+		AuthService.login(user).then((x) => {
+			if (x.roles.length == 1) {
+				var role = x.roles[0];
+				$state.go(role + '-home');
+				socket.start();
+			} else {
+				var role = x.roles.find((x) => x !== 'dosen');
+				$state.go(role + '-home');
+			}
+		});
+
 	};
 
 	$scope.registrasi = function (user) {};

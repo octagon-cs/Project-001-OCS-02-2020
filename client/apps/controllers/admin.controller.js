@@ -1,30 +1,47 @@
-angular.module('admin.controller',[])
-.controller('adminHomeController', adminHomeController)
-.controller('admindatakepaladesaController', admindatakepaladesaController)
-.controller('admindataumumdesaController', admindataumumdesaController)
-.controller('adminsuratpengantarkkController', adminsuratpengantarkkController)
-.controller('admindatapendudukController', admindatapendudukController)
-.controller('adminsuratpengantarktpController', adminsuratpengantarktpController)
-.controller('adminJabatanController', adminJabatanController)
-.controller('adminpreviewController', adminpreviewController)
-.controller('adminsuratketdomisiliController', adminsuratketdomisiliController)
-.controller('adminsurattidakmampuController', adminsurattidakmampuController)
+angular.module('admin.controller', [])
+    .controller('adminHomeController', adminHomeController)
+    .controller('admindatakepaladesaController', admindatakepaladesaController)
+    .controller('admindataumumdesaController', admindataumumdesaController)
+    .controller('adminsuratpengantarkkController', adminsuratpengantarkkController)
+    .controller('admindatapendudukController', admindatapendudukController)
+    .controller('adminsuratpengantarktpController', adminsuratpengantarktpController)
+    .controller('adminJabatanController', adminJabatanController)
+    .controller('adminpreviewController', adminpreviewController)
+    .controller('adminsuratketdomisiliController', adminsuratketdomisiliController)
+    .controller('adminsurattidakmampuController', adminsurattidakmampuController)
+    .controller('admintambahpermohonanController', admintambahpermohonanController)
+    .controller('admininboxController', admininboxController)
+    .controller('adminpermohonanController', adminpermohonanController);
 
-;
 
-function adminsuratketdomisiliController(){
+function adminpermohonanController() {
 
 }
-function adminsurattidakmampuController(){
+
+function admininboxController() {
 
 }
-function adminpreviewController(){
+
+function admintambahpermohonanController() {
+
+}
+
+function adminsuratketdomisiliController() {
+
+}
+
+function adminsurattidakmampuController() {
+
+}
+
+function adminpreviewController() {
 
 }
 
 function adminHomeController($http, helperServices, AuthService, $scope) {
+    AuthService.Init(["admin"]);
     $scope.LuasWilayah = {};
-    $scope.Profile={};
+    $scope.Profile = {};
     $scope.Penduduk = {};
     $scope.Pekerjaan = {};
     $scope.Jarak = {};
@@ -32,23 +49,23 @@ function adminHomeController($http, helperServices, AuthService, $scope) {
         method: "get",
         url: helperServices.url + "/api/profildesa",
         Header: AuthService.getHeader()
-    }).then(response =>{
-        response.data.forEach(value =>{
-            if(value.nama == 'Luas Wilayah'){
+    }).then(response => {
+        response.data.forEach(value => {
+            if (value.nama == 'Luas Wilayah') {
                 $scope.LuasWilayah = value;
-            }else if(value.nama == 'Profile'){
+            } else if (value.nama == 'Profile') {
                 $scope.Profile = value;
-            }else if(value.nama == 'Pekerjaan'){
+            } else if (value.nama == 'Pekerjaan') {
                 $scope.Pekerjaan = value;
-            }else if(value.nama == 'Jarak'){
+            } else if (value.nama == 'Jarak') {
                 $scope.Jarak = value;
             }
         })
     })
 
-    $scope.Simpan = function(item){
-        if(item=='Profile'){
-            if($scope.Profile.nama == undefined){
+    $scope.Simpan = function (item) {
+        if (item == 'Profile') {
+            if ($scope.Profile.nama == undefined) {
                 $scope.Profile.nama = 'Profile';
                 $scope.Profile.tahun = new Date().getFullYear();
                 $http({
@@ -56,15 +73,15 @@ function adminHomeController($http, helperServices, AuthService, $scope) {
                     url: helperServices.url + "/api/profildesa",
                     Header: AuthService.getHeader(),
                     data: $scope.Profile
-                }).then(response=>{
+                }).then(response => {
                     alert("Berhasil Simpan");
-                },error=>{
+                }, error => {
                     alert(error.message);
                 })
             }
-            
-        }else if(item=='LuasWilayah'){
-            if($scope.LuasWilayah.nama == undefined){
+
+        } else if (item == 'LuasWilayah') {
+            if ($scope.LuasWilayah.nama == undefined) {
                 $scope.LuasWilayah.nama = 'LuasWilayah';
                 $scope.LuasWilayah.tahun = new Date().getFullYear();
                 $http({
@@ -72,14 +89,14 @@ function adminHomeController($http, helperServices, AuthService, $scope) {
                     url: helperServices.url + "/api/profildesa",
                     Header: AuthService.getHeader(),
                     data: $scope.LuasWilayah
-                }).then(response=>{
+                }).then(response => {
                     alert("Berhasil Simpan");
-                },error=>{
+                }, error => {
                     alert(error.message);
                 })
             }
-        }else if(item=='LuasWilayah'){
-            if($scope.Profile.nama == undefined){
+        } else if (item == 'LuasWilayah') {
+            if ($scope.Profile.nama == undefined) {
                 $scope.Profile.nama = 'LuasWilayah';
                 $scope.Profile.tahun = new Date().getFullYear();
                 $http({
@@ -87,14 +104,14 @@ function adminHomeController($http, helperServices, AuthService, $scope) {
                     url: helperServices.url + "/api/profildesa",
                     Header: AuthService.getHeader(),
                     data: $scope.Profile
-                }).then(response=>{
+                }).then(response => {
                     alert("Berhasil Simpan");
-                },error=>{
+                }, error => {
                     alert(error.message);
                 })
             }
-        }else if(item=='Pekerjaan'){
-            if($scope.Pekerjaan.nama == undefined){
+        } else if (item == 'Pekerjaan') {
+            if ($scope.Pekerjaan.nama == undefined) {
                 $scope.Pekerjaan.nama = 'Pekerjaan';
                 $scope.Pekerjaan.tahun = new Date().getFullYear();
                 $http({
@@ -102,14 +119,14 @@ function adminHomeController($http, helperServices, AuthService, $scope) {
                     url: helperServices.url + "/api/profildesa",
                     Header: AuthService.getHeader(),
                     data: $scope.Pekerjaan
-                }).then(response=>{
+                }).then(response => {
                     alert("Berhasil Simpan");
-                },error=>{
+                }, error => {
                     alert(error.message);
                 })
             }
-        }else if(item=='Jarak'){
-            if($scope.Jarak.nama == undefined){
+        } else if (item == 'Jarak') {
+            if ($scope.Jarak.nama == undefined) {
                 $scope.Jarak.nama = 'Jarak';
                 $scope.Jarak.tahun = new Date().getFullYear();
                 $http({
@@ -117,88 +134,106 @@ function adminHomeController($http, helperServices, AuthService, $scope) {
                     url: helperServices.url + "/api/profildesa",
                     Header: AuthService.getHeader(),
                     data: $scope.Jarak
-                }).then(response=>{
+                }).then(response => {
                     alert("Berhasil Simpan");
-                },error=>{
+                }, error => {
                     alert(error.message);
                 })
             }
         }
     }
-    
+
 }
+
 function admindatakepaladesaController() {
-    
+
 }
+
 function admindataumumdesaController() {
-    
+
 }
+
 function adminsuratpengantarkkController($http, $scope, helperServices, AuthService) {
     $scope.JenisPermohonan = [];
     $scope.KepemilikanKTP = helperServices.StatusKepemilikanKTP;
     $scope.ShowTable = false;
     $scope.InputPermohonan;
     $scope.JenisPermohonan;
-    $scope.Init= function(){
+    $scope.Init = function () {
         $http({
             method: 'get',
             url: helperServices.url + "/api/jenispermohonan",
             Header: AuthService.getHeader()
-        }).then(param=>{
-            $scope.JenisPermohonan= param.data;
+        }).then(param => {
+            $scope.JenisPermohonan = param.data;
 
-        },error=>{
+        }, error => {
 
         })
     }
-    $scope.SelectedPermohonan = function(){
-        $scope.ShowTable=true;
+    $scope.SelectedPermohonan = function () {
+        $scope.ShowTable = true;
         var a = $scope.JenisPermohonan;
     }
 
-    $scope.Simpan = function(){
+    $scope.Simpan = function () {
         $http({
             method: 'post',
             url: helperServices.url + "/api/jenispermohonan",
             Header: AuthService.getHeader(),
             data: $scope.InputPermohonan
-        }).then(param=>{
+        }).then(param => {
             alert("Berhasil Menyimpan");
-        }, error=>{
+        }, error => {
             alert(error.message)
         })
     }
 
-    $scope.Ubah = function(){
+    $scope.Ubah = function () {
         $http({
             method: 'put',
             url: helperServices.url + "/api/jenispermohonan",
             Header: AuthService.getHeader(),
             data: $scope.InputPermohonan
-        }).then(param=>{
+        }).then(param => {
             alert("Berhasil Melakukan perubahan");
-        }, error=>{
+        }, error => {
             alert(error.message)
         })
     }
 
-    $scope.Hapus = function(item){
+    $scope.Hapus = function (item) {
         $http({
             method: 'delete',
-            url: helperServices.url + "/api/jenispermohonan/"+item.idjenispermohonan,
+            url: helperServices.url + "/api/jenispermohonan/" + item.idjenispermohonan,
             Header: AuthService.getHeader()
-        }).then(param=>{
+        }).then(param => {
             alert("Data Berhasil Di hapus");
-        }, error=>{
+        }, error => {
             alert(error.message)
         })
     }
 
 }
-function adminsuratpengantarktpController(){
 
-}
-function admindatapendudukController($scope, $http, helperServices, AuthService){
+function adminsuratpengantarktpController() {
+
+} 
+
+function admindatapendudukController($scope, $http, helperServices, AuthService) {
+
+
+
+
+
+
+
+
+
+
+
+
+
     $scope.DataPenduduk = [];
     $scope.KepemilikanKTP = helperServices.StatusKepemilikanKTP;
     $scope.Agama = helperServices.Agama;
@@ -220,81 +255,82 @@ function admindatapendudukController($scope, $http, helperServices, AuthService)
             $scope.DataPenduduk = param.data;
         }, error=>{
 
-        })
-    }
-    $scope.Simpan=function(){
-        $http({
-            method: 'post',
-            url: helperServices.url + "/penduduk",
-            Header: AuthService.getHeader(),
-            data: $scope.DataInput
-        }).then(param=>{
+                    })
+                }
+                $scope.Simpan = function () {
+                    $http({
+                        method: 'post',
+                        url: helperServices.url + "/penduduk",
+                        Header: AuthService.getHeader(),
+                        data: $scope.DataInput
+                    }).then(param => {
 
-        }, error=>{
+                    }, error => {
 
-        })
-    }
-    $scope.Ubah=function(){
-        $http({
-            method: 'put',
-            url: helperServices.url + "/penduduk",
-            Header: AuthService.getHeader(),
-            data: $scope.DataInput
-        }).then(param=>{
+                    })
+                }
+                $scope.Ubah = function () {
+                    $http({
+                        method: 'put',
+                        url: helperServices.url + "/penduduk",
+                        Header: AuthService.getHeader(),
+                        data: $scope.DataInput
+                    }).then(param => {
 
-        }, error=>{
+                    }, error => {
 
-        })
-    }
-    
-}
-function adminJabatanController($scope, $http, helperServices, AuthService) {
-    $scope.DataJabatan = [];
-    $scope.DataInput={};
-    $scope.Init = function(){
-        $http({
-            method: 'get',
-            url: helperServices.url + "/jabatan",
-            Header: AuthService.getHeader()
-        }).then(param=>{
+                    })
+                }
 
-        }, error=>{
+            }
 
-        })
-    }
-    $scope.Simpan=function(){
-        $http({
-            method: 'post',
-            url: helperServices.url + "/jabatan",
-            Header: AuthService.getHeader(),
-            data: $scope.DataInput
-        }).then(param=>{
+            function adminJabatanController($scope, $http, helperServices, AuthService) {
+                $scope.DataJabatan = [];
+                $scope.DataInput = {};
+                $scope.Init = function () {
+                    $http({
+                        method: 'get',
+                        url: helperServices.url + "/jabatan",
+                        Header: AuthService.getHeader()
+                    }).then(param => {
 
-        }, error=>{
+                    }, error => {
 
-        })
-    }
-    $scope.Ubah=function(){
-        $http({
-            method: 'put',
-            url: helperServices.url + "/jabatan",
-            Header: AuthService.getHeader(),
-            data: $scope.DataInput
-        }).then(param=>{
+                    })
+                }
+                $scope.Simpan = function () {
+                    $http({
+                        method: 'post',
+                        url: helperServices.url + "/jabatan",
+                        Header: AuthService.getHeader(),
+                        data: $scope.DataInput
+                    }).then(param => {
 
-        }, error=>{
+                    }, error => {
 
-        })
-    }
-    $scope.Hapus=function(item){
-        $http({
-            method: 'delete',
-            url: helperServices.url + "/jabatan/" + item.idjabatan,
-            Header: AuthService.getHeader()
-        }).then(param=>{
+                    })
+                }
+                $scope.Ubah = function () {
+                    $http({
+                        method: 'put',
+                        url: helperServices.url + "/jabatan",
+                        Header: AuthService.getHeader(),
+                        data: $scope.DataInput
+                    }).then(param => {
 
-        }, error=>{
+                    }, error => {
 
-        })
-    }
-}
+                    })
+                }
+                $scope.Hapus = function (item) {
+                    $http({
+                        method: 'delete',
+                        url: helperServices.url + "/jabatan/" + item.idjabatan,
+                        Header: AuthService.getHeader()
+                    }).then(param => {
+
+                    }, error => {
+
+                    })
+                }
+            }
