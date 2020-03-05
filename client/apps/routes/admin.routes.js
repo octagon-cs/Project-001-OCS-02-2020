@@ -89,6 +89,46 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
             parent: 'admin',
 			controller: 'adminsuratketusahaController',
 			templateUrl: '../client/apps/views/admin/suratketusaha.html'
+		}).state('admin-suratbelummenikah', {
+            url: '/suratbelummenikah',
+            parent: 'admin',
+			controller: 'adminsuratbelummenikahController',
+			templateUrl: '../client/apps/views/admin/suratbelummenikah.html'
+		}).state('admin-suratketmenikah', {
+            url: '/suratketmenikah',
+            parent: 'admin',
+			controller: 'adminsuratketmenikahController',
+			templateUrl: '../client/apps/views/admin/suratketmenikah.html'
+		}).state('admin-suratkelahiran', {
+            url: '/suratkelahiran',
+            parent: 'admin',
+			controller: 'adminsuratkelahiranController',
+			templateUrl: '../client/apps/views/admin/suratkelahiran.html'
+		}).state('admin-suratketcerai', {
+            url: '/suratketcerai',
+            parent: 'admin',
+			controller: 'adminsuratketceraiController',
+			templateUrl: '../client/apps/views/admin/suratketcerai.html'
+		}).state('admin-suratketdesa', {
+            url: '/suratketdesa',
+            parent: 'admin',
+			controller: 'adminsuratketdesaController',
+			templateUrl: '../client/apps/views/admin/suratketdesa.html'
+		}).state('admin-suratketektp', {
+            url: '/suratketektp',
+            parent: 'admin',
+			controller: 'adminsuratketektpController',
+			templateUrl: '../client/apps/views/admin/suratketektp.html'
+		}).state('admin-suratketlainnya', {
+            url: '/suratketlainnya',
+            parent: 'admin',
+			controller: 'adminsuratketlainnyaController',
+			templateUrl: '../client/apps/views/admin/suratketlainnya.html'
+		}).state('admin-suratketnikah', {
+            url: '/suratketnikah',
+            parent: 'admin',
+			controller: 'adminsuratketnikahController',
+			templateUrl: '../client/apps/views/admin/suratketnikah.html'
 		});
 		
 });
