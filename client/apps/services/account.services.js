@@ -61,31 +61,6 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		else {
 			def.reject();
 		}
-
-
-		// var profile = StorageService.getObject('profile');
-		// if (profile) def.resolve(profile);
-		// else {
-		// 	var result = StorageService.getObject('user');
-		// 	if (!result) {
-		// 		message.error('Silahkan Login');
-		// 		$state.go('login');
-		// 	} else
-		// 		$http({
-		// 			method: 'get',
-		// 			url: helperServices.url + '/api/auth/profile',
-		// 			headers: getHeader()
-		// 		}).then(
-		// 			(res) => {
-		// 				StorageService.addObject('profile', res.data);
-		// 				def.resolve(res.data);
-		// 			},
-		// 			(err) => {
-		// 				def.reject();
-		// 				message.error(err);
-		// 			}
-		// 		);
-		// }
 		return def.promise;
 	}
 

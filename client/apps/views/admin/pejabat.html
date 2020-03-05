@@ -1,0 +1,264 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card-tools">
+                    <h4>Data Pejabat</h4>
+                </div>
+                <div class="card card-primary card-outline card-tabs">
+                    <div class="card-header p-0 pt-1 border-bottom-0">
+                        <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href=""
+                                    data-target="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home"
+                                    aria-selected="true">Data Pejabat</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href=""
+                                    data-target="#custom-tabs-two-profile" role="tab"
+                                    aria-controls="custom-tabs-two-profile" aria-selected="false">Tambah Data
+                                    Pejabat
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href=""
+                                    data-target="#custom-tabs-two-messages" role="tab"
+                                    aria-controls="custom-tabs-two-messages" aria-selected="false">Ubah Data
+                                    Pejabat
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="custom-tabs-two-tabContent">
+                            <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel"
+                                aria-labelledby="custom-tabs-two-home-tab">
+                                <div class="card-body table-responsive p-0" style="height: 550px;">
+                                    <table datatable="" class="table table-head-fixed text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>ID User</th>
+                                                <th>ID Pejabat</th>
+                                                <th>ID Jabatan</th>
+                                                <th>Nama</th>
+                                                <th>Foto</th>
+                                                <th>Data</th>
+                                                <th>Status</th>
+                                                <th>Option</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="">
+                                                <td>{{$index+1}}</td>
+                                                <td>{{item.nama}}</td>
+                                                <td>{{item.foto}}</td>
+                                                <td>{{item.iduser}}</td>
+                                                <td>{{item.idjabatan}}</td>
+                                                <td>{{item.data}}</td>
+                                                <td>{{item.status}}</td>
+                                                <td>
+                                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                        <label class="btn btn-secondary">
+                                                            <input type="radio" name="options" id="option1"
+                                                                autocomplete="off"> <i class="fas fa-edit"></i>
+                                                        </label>
+                                                        <label class="btn btn-secondary">
+                                                            <input type="radio" name="options" id="option2"
+                                                                autocomplete="off"> <i class="fas fa-print"></i>
+                                                        </label>
+                                                        <label class="btn btn-secondary">
+                                                            <input type="radio" name="options" id="option3"
+                                                                autocomplete="off"><i class="fas fa-search"></i>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel"
+                                aria-labelledby="custom-tabs-two-profile-tab">
+                                <div class="tab-content" id="custom-tabs-one-tabContent">
+                                    <div class="card card-default">
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <table class="table table-hover text-nowrap">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>ID User</label>
+                                                                    <input type="text" class="form-control" ng-model="">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>ID Pejabat</label>
+                                                                    <input type="text" class="form-control" ng-model="">
+                                                                </div>
+                                                            </td>
+                                                            <!-- /.form-group -->
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>ID Jabatan</label>
+                                                                    <input type="text" class="form-control" ng-model="">
+                                                                </div>
+                                                                <!-- /.form-group -->
+                                                            </td>
+                                                            <td><div class="form-group">
+                                                                <label>Nama </label>
+                                                                <input type="text" class="form-control" ng-model="" placeholder="Nama">
+                                                            </div></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>Foto</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-prepend">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-toggle="dropdown">
+                                                                                Cari
+                                                                            </button>
+                                                                        </div>
+                                                                        <!-- /btn-group -->
+                                                                        <input type="text" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <div class="form-group">
+                                                                    <label>Data </label>
+                                                                    <textarea class="form-control"
+                                                                        placeholder="Deskripsi"></textarea>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>Status </label>
+                                                                        <div class="custom-control custom-checkbox">
+                                                                          <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
+                                                                          <label for="customCheckbox1" class="custom-control-label">Custom Checkbox</label>
+                                                                        </div>
+                                                                        <div class="custom-control custom-checkbox">
+                                                                          <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="option1">
+                                                                          <label for="customCheckbox2" class="custom-control-label">Custom Checkbox checked</label>
+                                                                        </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <!-- /.form-group -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- /.col -->
+                                            <div class="card-footer">
+                                                <button type="submit" class="btn btn-success">Submit</button>
+                                                <button type="submit" class="btn btn-danger float-right">Cancel</button>
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel"
+                                aria-labelledby="custom-tabs-two-messages-tab">
+                                <div class="tab-content" id="custom-tabs-two-tabContent">
+                                    <div class="card card-default">
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <table class="table table-hover text-nowrap">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>ID User</label>
+                                                                    <input type="text" class="form-control" ng-model="">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>ID Pejabat</label>
+                                                                    <input type="text" class="form-control" ng-model="">
+                                                                </div>
+                                                            </td>
+                                                            <!-- /.form-group -->
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>ID Jabatan</label>
+                                                                    <input type="text" class="form-control" ng-model="">
+                                                                </div>
+                                                                <!-- /.form-group -->
+                                                            </td>
+                                                            <td><div class="form-group">
+                                                                <label>Nama </label>
+                                                                <input type="text" class="form-control" ng-model="" placeholder="Nama">
+                                                            </div></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>Foto</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-prepend">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-toggle="dropdown">
+                                                                                Cari
+                                                                            </button>
+                                                                        </div>
+                                                                        <!-- /btn-group -->
+                                                                        <input type="text" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <div class="form-group">
+                                                                    <label>Data </label>
+                                                                    <textarea class="form-control"
+                                                                        placeholder="Deskripsi"></textarea>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <label>Status </label>
+                                                                        <div class="custom-control custom-checkbox">
+                                                                          <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
+                                                                          <label for="customCheckbox1" class="custom-control-label">Custom Checkbox</label>
+                                                                        </div>
+                                                                        <div class="custom-control custom-checkbox">
+                                                                          <input class="custom-control-input" type="checkbox" id="customCheckbox2" value="option1">
+                                                                          <label for="customCheckbox2" class="custom-control-label">Custom Checkbox checked</label>
+                                                                        </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <!-- /.form-group -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- /.col -->
+                                            <div class="card-footer">
+                                                <button type="submit" class="btn btn-success">Submit</button>
+                                                <button type="submit" class="btn btn-danger float-right">Cancel</button>
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>

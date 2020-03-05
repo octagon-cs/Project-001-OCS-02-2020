@@ -17,6 +17,9 @@ function admininboxController(){
 
 }
 
+function adminpejabatController(){
+    
+}
 function adminpermohonanController() {
 
 }

@@ -1,104 +1,202 @@
 <section class="content-header">
-    <div class="col">
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Surat Keterangan Domisili</h3>
-
-          <div class="card-tools">
-            <div class="input-group input-group-sm" style="width: 150px;">
-              <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-              <div class="input-group-append">
-                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body table-responsive p-0" style="height: 500px;">
-          <table class="table table-head-fixed text-nowrap">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>User</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Reason</th>
-                <th>Option</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>183</td>
-                <td>John Doe</td>
-                <td>11-7-2014</td>
-                <td><span class="tag tag-success">Approved</span></td>
-                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                <td>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label title="Pratinjau" class="btn btn-secondary">
-                            <input type="radio" name="options" id="option2"
-                                autocomplete="off"> <i class="fas fa-search"></i>
-                        </label>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card-tools">
+                    <h4>Surat Keterangan Domisili</h4>
+                </div>
+                <div class="card card-primary card-outline card-tabs">
+                    <div class="card-header p-0 pt-1 border-bottom-0">
+                        <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href=""
+                                    data-target="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home"
+                                    aria-selected="true">Data Surat Keterangan Domisili</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href=""
+                                    data-target="#custom-tabs-two-profile" role="tab"
+                                    aria-controls="custom-tabs-two-profile" aria-selected="false">Tambah Data
+                                    Surat
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href=""
+                                    data-target="#custom-tabs-two-messages" role="tab"
+                                    aria-controls="custom-tabs-two-messages" aria-selected="false">Ubah Data
+                                    Surat
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-                </td>
-              </tr>
-              <tr>
-                <td>219</td>
-                <td>Alexander Pierce</td>
-                <td>11-7-2014</td>
-                <td><span class="tag tag-warning">Pending</span></td>
-                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-              </tr>
-              <tr>
-                <td>657</td>
-                <td>Bob Doe</td>
-                <td>11-7-2014</td>
-                <td><span class="tag tag-primary">Approved</span></td>
-                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-              </tr>
-              <tr>
-                <td>175</td>
-                <td>Mike Doe</td>
-                <td>11-7-2014</td>
-                <td><span class="tag tag-danger">Denied</span></td>
-                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-              </tr>
-              <tr>
-                <td>134</td>
-                <td>Jim Doe</td>
-                <td>11-7-2014</td>
-                <td><span class="tag tag-success">Approved</span></td>
-                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-              </tr>
-              <tr>
-                <td>494</td>
-                <td>Victoria Doe</td>
-                <td>11-7-2014</td>
-                <td><span class="tag tag-warning">Pending</span></td>
-                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-              </tr>
-              <tr>
-                <td>832</td>
-                <td>Michael Doe</td>
-                <td>11-7-2014</td>
-                <td><span class="tag tag-primary">Approved</span></td>
-                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-              </tr>
-              <tr>
-                <td>982</td>
-                <td>Rocky Doe</td>
-                <td>11-7-2014</td>
-                <td><span class="tag tag-danger">Denied</span></td>
-                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-              </tr>
-            </tbody>
-          </table>
+                    <div class="card-body">
+                        <div class="tab-content" id="custom-tabs-two-tabContent">
+                            <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel"
+                                aria-labelledby="custom-tabs-two-home-tab">
+                                <div class="card-body table-responsive p-0" style="height: 550px;">
+                                    <table datatable="" class="table table-head-fixed text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>NIK</th>
+                                                <th>Nama</th>
+                                                <th>No.Surat</th>
+                                                <th>Atas Nama</th>
+                                                <th>Option</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="">
+                                                <td>{{$index+1}}</td>
+                                                <td>{{item.NIK}}</td>
+                                                <td>{{item.Nama}}</td>
+                                                <td>{{item.No.Surat}}</td>
+                                                <td>{{item.Atas Nama}}</td>
+                                                <td>
+                                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                        <label class="btn btn-secondary">
+                                                            <input type="radio" name="options" id="option1"
+                                                                autocomplete="off"> <i class="fas fa-edit"></i>
+                                                        </label>
+                                                        <label class="btn btn-secondary">
+                                                            <input type="radio" name="options" id="option2"
+                                                                autocomplete="off"> <i class="fas fa-print"></i>
+                                                        </label>
+                                                        <label class="btn btn-secondary">
+                                                            <input type="radio" name="options" id="option3"
+                                                                autocomplete="off"><i class="fas fa-search"></i>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel"
+                                aria-labelledby="custom-tabs-two-profile-tab">
+                                <div class="tab-content" id="custom-tabs-one-tabContent">
+                                    <div class="card card-default">
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>ID</label>
+                                                        <input type="text" class="form-control" ng-model="">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Nama</label>
+                                                        <input type="text" class="form-control" ng-model=""
+                                                            placeholder="Nama">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Atas Nama</label>
+                                                        <input type="text" class="form-control" ng-model=""
+                                                            placeholder="Atas Nama">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>NIK</label>
+                                                        <input type="text" class="form-control" ng-model=""
+                                                            placeholder="NIK">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>No.Surat </label>
+                                                        <input type="text" class="form-control" ng-model=""
+                                                            placeholder="No.Surat">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputFile">File Surat</label>
+                                                        <div class="input-group">
+                                                          <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                                                            <label class="custom-file-label" for="exampleInputFile"></label>
+                                                          </div>
+                                                          <div class="input-group-append">
+                                                            <span class="input-group-text" id="">Upload</span>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.col -->
+                                            <div class="card-footer">
+                                                <button type="submit" class="btn btn-success">Submit</button>
+                                                <button type="submit" class="btn btn-danger float-right">Cancel</button>
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel"
+                                aria-labelledby="custom-tabs-two-messages-tab">
+                                <div class="tab-content" id="custom-tabs-two-tabContent">
+                                    <div class="card card-default">
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>ID</label>
+                                                        <input type="text" class="form-control" ng-model="">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Nama</label>
+                                                        <input type="text" class="form-control" ng-model=""
+                                                            placeholder="Nama">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Atas Nama</label>
+                                                        <input type="text" class="form-control" ng-model=""
+                                                            placeholder="Atas Nama">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>NIK</label>
+                                                        <input type="text" class="form-control" ng-model=""
+                                                            placeholder="NIK">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>No.Surat </label>
+                                                        <input type="text" class="form-control" ng-model=""
+                                                            placeholder="No.Surat">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputFile">File Surat</label>
+                                                        <div class="input-group">
+                                                          <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                                                            <label class="custom-file-label" for="exampleInputFile"></label>
+                                                          </div>
+                                                          <div class="input-group-append">
+                                                            <span class="input-group-text" id="">Upload</span>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.col -->
+                                            <div class="card-footer">
+                                                <button type="submit" class="btn btn-success">Submit</button>
+                                                <button type="submit" class="btn btn-danger float-right">Cancel</button>
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.card -->
+            </div>
         </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
     </div>
-  </div>
-  <!-- /.row -->
 </section>
