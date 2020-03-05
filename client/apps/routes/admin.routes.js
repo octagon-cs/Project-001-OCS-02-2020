@@ -84,6 +84,11 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
             parent: 'admin',
 			controller: 'adminsuratpenguasaantanahController',
 			templateUrl: '../client/apps/views/admin/suratpenguasaantanah.html'
+		}).state('admin-suratketusaha', {
+            url: '/suratketusaha',
+            parent: 'admin',
+			controller: 'adminsuratketusahaController',
+			templateUrl: '../client/apps/views/admin/suratketusaha.html'
 		});
 		
 });

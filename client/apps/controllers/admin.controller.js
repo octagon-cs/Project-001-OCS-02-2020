@@ -14,8 +14,12 @@ angular.module('admin.controller', [])
     .controller('adminpermohonanController', adminpermohonanController)
     .controller('adminpejabatController', adminpejabatController)
     .controller('adminsuratskckController', adminsuratskckController)
-    .controller('adminsuratpenguasaantanahController', adminsuratpenguasaantanahController);
+    .controller('adminsuratpenguasaantanahController', adminsuratpenguasaantanahController)
+    .controller('adminsuratketusahaController', adminsuratketusahaController);
 
+function adminsuratketusahaController(){
+    
+}
 function adminsuratpenguasaantanahController(){
 
 }
