@@ -12,7 +12,10 @@ angular.module('admin.controller', [])
     .controller('admintambahpermohonanController', admintambahpermohonanController)
     .controller('admininboxController', admininboxController)
     .controller('adminpermohonanController', adminpermohonanController)
-    .controller('adminpejabatController', adminpejabatController);
+    .controller('adminpejabatController', adminpejabatController)
+    .controller('adminsuratskckController', adminsuratskckController)
+    .controller('adminsuratpenguasaantanahController', adminsuratpenguasaantanahController)
+    .controller('adminsuratketusahaController', adminsuratketusahaController);
 
     
 function admininboxController(){
@@ -32,6 +35,17 @@ function adminpejabatController($http, helperServices, AuthService, $scope){
     
         })
     }
+
+function adminsuratketusahaController(){
+    
+}
+function adminsuratpenguasaantanahController(){
+
+}
+function adminsuratskckController(){
+
+}
+function adminpejabatController(){
     
 }
 function adminpermohonanController() {
@@ -50,10 +64,6 @@ function admintambahpermohonanController($http, helperServices, AuthService, $sc
 
     })
 
-
-}
-
-function admintambahpermohonanController() {
 
 }
 
