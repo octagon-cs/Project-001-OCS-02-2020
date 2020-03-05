@@ -3,7 +3,7 @@
       <div class="row">
           <div class="col">
               <div class="card-tools">
-                  <h4>Surat Keterangan Usaha</h4>
+                  <h4>Surat Keterangan Domisili</h4>
               </div>
               <div class="card card-primary card-outline card-tabs">
                   <div class="card-header p-0 pt-1 border-bottom-0">
@@ -11,7 +11,7 @@
                           <li class="nav-item">
                               <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href=""
                                   data-target="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home"
-                                  aria-selected="true">Data Surat Keterangan Usaha</a>
+                                  aria-selected="true">Data Surat Keterangan Domisili</a>
                           </li>
                           <li class="nav-item">
                               <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href=""
@@ -41,6 +41,7 @@
                                               <th>NIK</th>
                                               <th>Nama</th>
                                               <th>No.Surat</th>
+                                              <th>Footer Cetak Data</th>
                                               <th>Atas Nama</th>
                                               <th>Option</th>
                                           </tr>
@@ -51,6 +52,7 @@
                                               <td>{{item.NIK}}</td>
                                               <td>{{item.Nama}}</td>
                                               <td>{{item.No.Surat}}</td>
+                                              <td>{{Footer Cetak Data}}</td>
                                               <td>{{item.Atas Nama}}</td>
                                               <td>
                                                   <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -75,48 +77,82 @@
                           </div>
                           <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel"
                               aria-labelledby="custom-tabs-two-profile-tab">
-                              <div class="tab-content" id="custom-tabs-one-tabContent">
+                              <div class="tab-content" id="custom-tabs-two-tabContent">
                                   <div class="card card-default">
                                       <!-- /.card-header -->
                                       <div class="card-body">
                                           <div class="row">
-                                              <div class="col-md-6">
-                                                  <div class="form-group">
-                                                      <label>ID</label>
-                                                      <input type="text" class="form-control" ng-model="">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label>Nama</label>
-                                                      <input type="text" class="form-control" ng-model=""
-                                                          placeholder="Nama">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label>Atas Nama</label>
-                                                      <input type="text" class="form-control" ng-model=""
-                                                          placeholder="Atas Nama">
-                                                  </div>
-                                              </div>
-                                              <div class="col-md-6">
-                                                  <div class="form-group">
-                                                      <label>NIK</label>
-                                                      <input type="text" class="form-control" ng-model=""
-                                                          placeholder="NIK">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label>No.Surat </label>
-                                                      <input type="text" class="form-control" ng-model=""
-                                                          placeholder="No.Surat">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label for="exampleInputFile">File Surat</label>
-                                                      <div class="input-group">
-                                                        <div class="custom-file">
-                                                          <input type="file" class="custom-file-input" id="exampleInputFile">
-                                                          <label class="custom-file-label" for="exampleInputFile"></label>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                              </div>
+                                              <table class="table table-hover text-nowrap">
+                                                  <tbody>
+                                                      <tr>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>NIK</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="NIK">
+                                                              </div>
+                                                          </td>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>Nama</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="Nama" >
+                                                              </div>
+                                                          </td>
+                                                      </tr>
+                                                      <!-- /.form-group -->
+                                                      <tr>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>No. Surat</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="No. Surat">
+                                                              </div>
+                                                              <!-- /.form-group -->
+                                                          </td>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>Footer Cetak Data</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="Footer Cetak Data">
+                                                              </div>
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>Judul Atas Nama</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="Judul Atas Nama">
+                                                              </div>
+                                                          </td>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>Jabatan Atas Nama</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="Jabatan Atas Nama">
+                                                              </div>
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>Nama Atas Nama</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="Nama Atas Nama">
+                                                              </div>
+                                                          </td>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>NIP/NIAP Atas Nama</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="NIP/NIAP Atas Nama">
+                                                              </div>
+                                                          </td>
+                                                      </tr>
+                                                      <!-- /.form-group -->
+                                                  </tbody>
+                                              </table>
                                           </div>
                                           <!-- /.col -->
                                           <div class="card-footer">
@@ -136,43 +172,77 @@
                                       <!-- /.card-header -->
                                       <div class="card-body">
                                           <div class="row">
-                                              <div class="col-md-6">
-                                                  <div class="form-group">
-                                                      <label>ID</label>
-                                                      <input type="text" class="form-control" ng-model="">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label>Nama</label>
-                                                      <input type="text" class="form-control" ng-model=""
-                                                          placeholder="Nama">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label>Atas Nama</label>
-                                                      <input type="text" class="form-control" ng-model=""
-                                                          placeholder="Atas Nama">
-                                                  </div>
-                                              </div>
-                                              <div class="col-md-6">
-                                                  <div class="form-group">
-                                                      <label>NIK</label>
-                                                      <input type="text" class="form-control" ng-model=""
-                                                          placeholder="NIK">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label>No.Surat </label>
-                                                      <input type="text" class="form-control" ng-model=""
-                                                          placeholder="No.Surat">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label for="exampleInputFile">File Surat</label>
-                                                      <div class="input-group">
-                                                        <div class="custom-file">
-                                                          <input type="file" class="custom-file-input" id="exampleInputFile">
-                                                          <label class="custom-file-label" for="exampleInputFile"></label>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                              </div>
+                                              <table class="table table-hover text-nowrap">
+                                                  <tbody>
+                                                      <tr>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>NIK</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="NIK">
+                                                              </div>
+                                                          </td>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>Nama</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="Nama" disabled>
+                                                              </div>
+                                                          </td>
+                                                      </tr>
+                                                      <!-- /.form-group -->
+                                                      <tr>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>No. Surat</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="No. Surat">
+                                                              </div>
+                                                              <!-- /.form-group -->
+                                                          </td>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>Footer Cetak Data</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="Footer Cetak Data">
+                                                              </div>
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>Judul Atas Nama</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="Judul Atas Nama">
+                                                              </div>
+                                                          </td>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>Jabatan Atas Nama</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="Jabatan Atas Nama">
+                                                              </div>
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>Nama Atas Nama</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="Nama Atas Nama">
+                                                              </div>
+                                                          </td>
+                                                          <td>
+                                                              <div class="form-group">
+                                                                  <label>NIP/NIAP Atas Nama</label>
+                                                                  <input type="text" class="form-control" ng-model=""
+                                                                      placeholder="NIP/NIAP Atas Nama">
+                                                              </div>
+                                                          </td>
+                                                      </tr>
+                                                      <!-- /.form-group -->
+                                                  </tbody>
+                                              </table>
                                           </div>
                                           <!-- /.col -->
                                           <div class="card-footer">
