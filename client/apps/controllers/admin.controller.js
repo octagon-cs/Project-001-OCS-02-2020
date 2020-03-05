@@ -202,7 +202,14 @@ function admindatapendudukController($scope, $http, helperServices, AuthService)
     $scope.DataPenduduk = [];
     $scope.KepemilikanKTP = helperServices.StatusKepemilikanKTP;
     $scope.Agama = helperServices.Agama;
-    $scope.PenghasilanTetap = helperServices.PenghasilanTetap
+    $scope.PenghasilanTetap = helperServices.PenghasilanTetap;
+    $scope.Kewarganegaraan = helperServices.Kewarganegaraan;
+    $scope.StatusTT = helperServices.StatusTT;
+    $scope.StatusKIS = helperServices.StatusKIS;
+    $scope.StatusSosial = helperServices.StatusSosial;
+    $scope.StatusKK = helperServices.StatusKK;
+    $scope.StatusKIP = helperServices.StatusKIP;
+    $scope.StatusKeluarga = helperServices.StatusKeluarga
     $scope.DataInput={};
     $scope.Init = function(){
         $http({
