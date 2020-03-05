@@ -11,13 +11,27 @@ angular.module('admin.controller', [])
     .controller('adminsurattidakmampuController', adminsurattidakmampuController)
     .controller('admintambahpermohonanController', admintambahpermohonanController)
     .controller('admininboxController', admininboxController)
-    .controller('adminpermohonanController', adminpermohonanController);
+    .controller('adminpermohonanController', adminpermohonanController)
+    .controller('adminpejabatController', adminpejabatController);
 
+    
 function admininboxController(){
 
 }
 
-function adminpejabatController(){
+function adminpejabatController($http, helperServices, AuthService, $scope){
+    $scope.DatasPejabat = [];
+    $scope.Init=function(){
+        $http({
+            method: "get", 
+            url: helperServices.url + "/api/pejabat",
+            Header: AuthService.getHeader()
+        }).then(param=>{
+            $scope.DatasPejabat = param.data;
+        }, error=>{
+    
+        })
+    }
     
 }
 function adminpermohonanController() {
