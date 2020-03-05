@@ -78,7 +78,12 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
             url: '/suratskck',
             parent: 'admin',
 			controller: 'adminsuratskckController',
-			templateUrl: '../client/apps/views/admin/skck.html'
+			templateUrl: '../client/apps/views/admin/suratskck.html'
+		}).state('admin-suratpenguasaantanah', {
+            url: '/suratpenguasaantanah',
+            parent: 'admin',
+			controller: 'adminsuratpenguasaantanahController',
+			templateUrl: '../client/apps/views/admin/suratpenguasaantanah.html'
 		});
 		
 });
