@@ -13,6 +13,9 @@ function helperServices() {
 
 	return {
 		url: service.url,
-		StatusKepemilikanKTP: service.KepemilikanKTP
+		StatusKepemilikanKTP: service.KepemilikanKTP,
+		Agama: service.Agama,
+		PendidikanTerakhir: service.PendidikanTerakhir,
+		PenghasilanTetap: service.PenghasilanTetap
 	};
 }

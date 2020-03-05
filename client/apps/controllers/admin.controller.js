@@ -6,10 +6,20 @@ angular.module('admin.controller',[])
 .controller('admindatapendudukController', admindatapendudukController)
 .controller('adminsuratpengantarktpController', adminsuratpengantarktpController)
 .controller('adminJabatanController', adminJabatanController)
-.controller('adminpreviewController', adminpreviewController);
+.controller('adminpreviewController', adminpreviewController)
+.controller('adminsuratketdomisiliController', adminsuratketdomisiliController)
+.controller('adminsurattidakmampuController', adminsurattidakmampuController)
 
+;
+
+function adminsuratketdomisiliController(){
+
+}
+function adminsurattidakmampuController(){
+
+}
 function adminpreviewController(){
-    
+
 }
 
 function adminHomeController($http, helperServices, AuthService, $scope) {
@@ -189,25 +199,15 @@ function adminsuratpengantarktpController(){
 
 }
 function admindatapendudukController($scope, $http, helperServices, AuthService){
-
-
-
-
-
-
-
-
-
-
-
-
-
     $scope.DataPenduduk = [];
+    $scope.KepemilikanKTP = helperServices.StatusKepemilikanKTP;
+    $scope.Agama = helperServices.Agama;
+    $scope.PenghasilanTetap = helperServices.PenghasilanTetap
     $scope.DataInput={};
     $scope.Init = function(){
         $http({
             method: 'get',
-            url: helperServices.url + "/jabatan",
+            url: helperServices.url + "/api/penduduk",
             Header: AuthService.getHeader()
         }).then(param=>{
             $scope.DataPenduduk = param.data;
