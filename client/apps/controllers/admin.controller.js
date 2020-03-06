@@ -15,8 +15,40 @@ angular.module('admin.controller', [])
     .controller('adminpejabatController', adminpejabatController)
     .controller('adminsuratskckController', adminsuratskckController)
     .controller('adminsuratpenguasaantanahController', adminsuratpenguasaantanahController)
-    .controller('adminsuratketusahaController', adminsuratketusahaController);
+    .controller('adminsuratketusahaController', adminsuratketusahaController)
+    .controller('adminsuratbelummenikahController', adminsuratbelummenikahController)
+    .controller('adminsuratketmenikahController', adminsuratketmenikahController)
+    .controller('adminsuratkelahiranController', adminsuratkelahiranController)
+    .controller('adminsuratketceraiController', adminsuratketceraiController)
+    .controller('adminsuratketdesaController', adminsuratketdesaController)
+    .controller('adminsuratketektpController', adminsuratketektpController)
+    .controller('adminsuratketlainnyaController', adminsuratketlainnyaController)
+    .controller('adminsuratketnikahController', adminsuratketnikahController);
 
+ function   adminsuratbelummenikahController(){
+     
+ }
+ function   adminsuratketmenikahController(){
+     
+ }
+ function   adminsuratkelahiranController(){
+     
+ }
+ function   adminsuratketceraiController(){
+     
+ }
+ function   adminsuratketdesaController(){
+     
+ }
+ function   adminsuratketektpController(){
+     
+ }
+ function   adminsuratketlainnyaController(){
+     
+ }
+ function   adminsuratketnikahController(){
+     
+ }
     
 function admininboxController(){
 
@@ -35,6 +67,7 @@ function adminpejabatController($http, helperServices, AuthService, $scope){
     
         })
     }
+}
 
 function adminsuratketusahaController(){
     
