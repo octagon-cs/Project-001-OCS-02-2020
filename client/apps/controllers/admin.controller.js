@@ -56,6 +56,15 @@ function admininboxController(){
 
 function adminpejabatController($http, helperServices, AuthService, $scope){
     $scope.DatasPejabat = [];
+    $scope.DataJabatan =[];
+    $scope.Jabatan={};
+    $scope.Pejabat={};
+    $scope.ItemJabatan=""
+    $scope.NoJabatan = false;
+    $scope.SetJabatan="";
+    $scope.Agama = helperServices.Agama;
+    $scope.PendidikanTerakhir = helperServices.PendidikanTerakhir;
+    $scope.SetEmail=false;
     $scope.Init=function(){
         $http({
             method: "get", 
@@ -63,8 +72,66 @@ function adminpejabatController($http, helperServices, AuthService, $scope){
             Header: AuthService.getHeader()
         }).then(param=>{
             $scope.DatasPejabat = param.data;
-        }, error=>{
-    
+        })
+
+        $http({
+            method: "get", 
+            url: helperServices.url + "/api/jabatan",
+            Header: AuthService.getHeader()
+        }).then(param=>{
+            $scope.DataJabatan = param.data;
+            
+        })
+    }
+    $scope.SelectedJabatan = function(){
+        $scope.ItemJabatan = JSON.parse($scope.ItemJabatan);
+        if($scope.ItemJabatan.nama=="Lurah" || $scope.ItemJabatan.nama=="Sekertaris Lurah" || $scope.ItemJabatan.nama=="Sekertaris Lurah"){
+            $scope.NoJabatan = false;
+            $scope.Pejabat.idjabatan = $scope.ItemJabatan.idjabatan;
+            $scope.SetEmail = true;
+        }else{
+            $scope.NoJabatan = true;
+            $scope.Pejabat.idjabatan = $scope.ItemJabatan.idjabatan;
+            $scope.SetJabatan = $scope.ItemJabatan.nama;
+            $scope.SetEmail = false;
+        }
+    }
+    $scope.Simpan = function () {
+        $http({
+            method: 'post',
+            url: helperServices.url + "/api/pejabat",
+            Header: AuthService.getHeader(),
+            data: $scope.Pejabat
+        }).then(param => {
+            $scope.DatasPejabat.push(angular.copy(param.data));
+            alert("Berhasil Simpan");
+        }, error => {
+            alert(error.message)
+        })
+    }
+
+    $scope.Ubah = function () {
+        $http({
+            method: 'put',
+            url: helperServices.url + "/api/jabatan",
+            Header: AuthService.getHeader(),
+            data: $scope.InputPermohonan
+        }).then(param => {
+            alert("Berhasil Melakukan perubahan");
+        }, error => {
+            alert(error.message)
+        })
+    }
+
+    $scope.Hapus = function (item) {
+        $http({
+            method: 'delete',
+            url: helperServices.url + "/api/jabatan/" + item.idjenispermohonan,
+            Header: AuthService.getHeader()
+        }).then(param => {
+            alert("Data Berhasil Di hapus");
+        }, error => {
+            alert(error.message)
         })
     }
 }
@@ -78,9 +145,7 @@ function adminsuratpenguasaantanahController(){
 function adminsuratskckController(){
 
 }
-function adminpejabatController(){
-    
-}
+
 function adminpermohonanController() {
 
 }
