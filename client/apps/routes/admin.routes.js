@@ -74,6 +74,21 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$u
             parent: 'admin',
 			controller: 'adminpejabatController',
 			templateUrl: '../client/apps/views/admin/pejabat.html'
+		}).state('admin-suratskck', {
+            url: '/suratskck',
+            parent: 'admin',
+			controller: 'adminsuratskckController',
+			templateUrl: '../client/apps/views/admin/suratskck.html'
+		}).state('admin-suratpenguasaantanah', {
+            url: '/suratpenguasaantanah',
+            parent: 'admin',
+			controller: 'adminsuratpenguasaantanahController',
+			templateUrl: '../client/apps/views/admin/suratpenguasaantanah.html'
+		}).state('admin-suratketusaha', {
+            url: '/suratketusaha',
+            parent: 'admin',
+			controller: 'adminsuratketusahaController',
+			templateUrl: '../client/apps/views/admin/suratketusaha.html'
 		});
 		
 });

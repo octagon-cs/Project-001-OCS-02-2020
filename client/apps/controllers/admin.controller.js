@@ -12,8 +12,39 @@ angular.module('admin.controller', [])
     .controller('admintambahpermohonanController', admintambahpermohonanController)
     .controller('admininboxController', admininboxController)
     .controller('adminpermohonanController', adminpermohonanController)
-    .controller('adminpejabatController', adminpejabatController);
+    .controller('adminpejabatController', adminpejabatController)
+    .controller('adminsuratskckController', adminsuratskckController)
+    .controller('adminsuratpenguasaantanahController', adminsuratpenguasaantanahController)
+    .controller('adminsuratketusahaController', adminsuratketusahaController);
 
+    
+function admininboxController(){
+
+}
+
+function adminpejabatController($http, helperServices, AuthService, $scope){
+    $scope.DatasPejabat = [];
+    $scope.Init=function(){
+        $http({
+            method: "get", 
+            url: helperServices.url + "/api/pejabat",
+            Header: AuthService.getHeader()
+        }).then(param=>{
+            $scope.DatasPejabat = param.data;
+        }, error=>{
+    
+        })
+    }
+
+function adminsuratketusahaController(){
+    
+}
+function adminsuratpenguasaantanahController(){
+
+}
+function adminsuratskckController(){
+
+}
 function adminpejabatController(){
     
 }
@@ -33,10 +64,6 @@ function admintambahpermohonanController($http, helperServices, AuthService, $sc
 
     })
 
-
-}
-
-function admintambahpermohonanController() {
 
 }
 
@@ -237,10 +264,26 @@ function admindatapendudukController($scope, $http, helperServices, AuthService)
     $scope.DataPenduduk = [];
     $scope.KepemilikanKTP = helperServices.StatusKepemilikanKTP;
     $scope.Agama = helperServices.Agama;
-    $scope.PenghasilanTetap = helperServices.PenghasilanTetap
-    $scope.Kewarganegaraan = helperServices.Kewarganegaraan,
+    $scope.PenghasilanTetap = helperServices.PenghasilanTetap;
+    $scope.Kewarganegaraan = helperServices.Kewarganegaraan;
+    $scope.JenisKelamin=helperServices.JenisKelamin;
+    $scope.BacaHuruf=helperServices.BacaHuruf;
+    $scope.Kewarganegawaan=helperServices.Kewarganegawaan;
+    $scope.StatusTT=helperServices.StatusTT
+    $scope.StatusSosial=helperServices.StatusSosial
+    $scope.StatusKIS = helperServices.StatusKIS;
+    $scope.StatusKIP = helperServices.StatusKIP
+    $scope.StatusKK = helperServices.StatusKK;
+    $scope.StatusKeluarga= helperServices.StatusKeluarga;
     $scope.DataInput={};
+    $scope.Pekerjaan = helperServices.Pekerjaan;
     $scope.Penduduk={};
+    $scope.PendidikanTerakhir=helperServices.PendidikanTerakhir
+    $scope.GolonganDarah = helperServices.GolonganDarah;
+    $scope.StatusPerkawinan= helperServices.StatusPerkawinan;
+    $scope.Penduduk = {};
+    $scope.edit = false;
+    $scope.view = false;
     $scope.Init = function(){
         $http({
             method: 'get',
@@ -252,14 +295,26 @@ function admindatapendudukController($scope, $http, helperServices, AuthService)
 
         })
     }
+    $scope.SelectedItemPenduduk = function(item, set){
+        $scope.Penduduk = item;
+        if(set=="edit"){
+            $scope.edit=true;
+            $scope.view=false;
+        }else{
+            $scope.edit=false;
+            $scope.view=true;
+        }
+    }
     $scope.Simpan = function () {
         $http({
             method: 'post',
-            url: helperServices.url + "/penduduk",
+            url: helperServices.url + "/api/penduduk",
             Header: AuthService.getHeader(),
-            data: $scope.DataInput
+            data: $scope.Penduduk
         }).then(param => {
-
+            alert("Data Berhasil di Simpan")
+            $scope.DataPenduduk.push(angular.copy(param.data));
+            $scope.Penduduk = {};
         }, error => {
 
         })
@@ -267,13 +322,13 @@ function admindatapendudukController($scope, $http, helperServices, AuthService)
     $scope.Ubah = function () {
         $http({
             method: 'put',
-            url: helperServices.url + "/penduduk",
+            url: helperServices.url + "/api/penduduk",
             Header: AuthService.getHeader(),
-            data: $scope.DataInput
+            data: $scope.Penduduk
         }).then(param => {
-
+            alert("Data Berhasil di Ubah");
         }, error => {
-
+            alert(error.message);
         })
     }
 
