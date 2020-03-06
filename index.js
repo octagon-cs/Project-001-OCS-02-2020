@@ -12,13 +12,13 @@ app.use(bodyParser.json({
 require('./server/routers')(app, socket);
 
 var path = require('path');
-app.use('/', express.static('./'));
+app.use('/', express.static('./client/'));
 
 
 const maintenance = false;
 app.get('/', function (req, res) {
     if (!maintenance)
-        res.sendFile(path.join(__dirname + '/client/index.html'));
+        res.sendFile(path.join(__dirname + 'index.html'));
     else
         res.sendFile(path.join(__dirname + '/maintenance.html'));
 });

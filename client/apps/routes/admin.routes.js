@@ -1,134 +1,134 @@
-angular.module('admin.router', ['ui.router']).config(function ($stateProvider,$urlRouterProvider) {
+angular.module('admin.router', ['ui.router']).config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('admin', {
 			url: '/admin',
 			controller: 'adminHomeController',
-			templateUrl: '../client/apps/views/admin/index.html'
+			templateUrl: 'apps/views/admin/index.html'
 		}).state('admin-home', {
-            url: '/home',
-            parent: 'admin',
+			url: '/home',
+			parent: 'admin',
 			controller: 'adminHomeController',
-			templateUrl: '../client/apps/views/admin/home.html'
-        }).state('admin-datakepaladesa', {
-            url: '/datakepaladesa',
-            parent: 'admin',
+			templateUrl: 'apps/views/admin/home.html'
+		}).state('admin-datakepaladesa', {
+			url: '/datakepaladesa',
+			parent: 'admin',
 			controller: 'admindatakepaladesaController',
-			templateUrl: '../client/apps/views/admin/datakepaladesa.html'
+			templateUrl: 'apps/views/admin/datakepaladesa.html'
 		}).state('admin-dataumumdesa', {
-            url: '/dataumumdesa',
-            parent: 'admin',
+			url: '/dataumumdesa',
+			parent: 'admin',
 			controller: 'admindataumumdesaController',
-			templateUrl: '../client/apps/views/admin/dataumumdesa.html'
+			templateUrl: 'apps/views/admin/dataumumdesa.html'
 		}).state('admin-suratmenyurat', {
-            url: '/suratmenyurat',
-            parent: 'admin',
+			url: '/suratmenyurat',
+			parent: 'admin',
 			controller: 'adminsuratpengantarkkController',
-			templateUrl: '../client/apps/views/admin/suratpengantarkk.html'
+			templateUrl: 'apps/views/admin/suratpengantarkk.html'
 		}).state('admin-suratpengantarktp', {
-            url: '/suratpengantarktp',
-            parent: 'admin',
+			url: '/suratpengantarktp',
+			parent: 'admin',
 			controller: 'adminsuratpengantarktpController',
-			templateUrl: '../client/apps/views/admin/suratpengantarktp.html'
+			templateUrl: 'apps/views/admin/suratpengantarktp.html'
 		}).state('admin-datapenduduk', {
-            url: '/datapenduduk',
-            parent: 'admin',
+			url: '/datapenduduk',
+			parent: 'admin',
 			controller: 'admindatapendudukController',
-			templateUrl: '../client/apps/views/admin/datapenduduk.html'
+			templateUrl: 'apps/views/admin/datapenduduk.html'
 		}).state('admin-inputdatapenduduk', {
-            url: '/inputdatapenduduk',
-            parent: 'admin',
+			url: '/inputdatapenduduk',
+			parent: 'admin',
 			controller: 'admindatapendudukController',
-			templateUrl: '../client/apps/views/admin/inputdatapenduduk.html'
+			templateUrl: 'apps/views/admin/inputdatapenduduk.html'
 		}).state('admin-tambahpermohonan', {
-            url: '/tambahpermohonan',
-            parent: 'admin',
+			url: '/tambahpermohonan',
+			parent: 'admin',
 			controller: 'admintambahpermohonanController',
-			templateUrl: '../client/apps/views/admin/tambahpermohonan.html'
+			templateUrl: 'apps/views/admin/tambahpermohonan.html'
 		}).state('admin-preview', {
-            url: '/preview',
-            parent: 'admin',
+			url: '/preview',
+			parent: 'admin',
 			controller: 'adminpreviewController',
-			templateUrl: '../client/apps/views/admin/preview.html'
+			templateUrl: 'apps/views/admin/preview.html'
 		}).state('admin-surattidakmampu', {
-            url: '/surattidakmampu',
-            parent: 'admin',
+			url: '/surattidakmampu',
+			parent: 'admin',
 			controller: 'adminsurattidakmampuController',
-			templateUrl: '../client/apps/views/admin/surattidakmampu.html'
+			templateUrl: 'apps/views/admin/surattidakmampu.html'
 		}).state('admin-suratketdomisili', {
-            url: '/suratketdomisili',
-            parent: 'admin',
+			url: '/suratketdomisili',
+			parent: 'admin',
 			controller: 'adminsuratketdomisiliController',
-			templateUrl: '../client/apps/views/admin/suratketdomisili.html'
+			templateUrl: 'apps/views/admin/suratketdomisili.html'
 		}).state('admin-inbox', {
-            url: '/inbox',
-            parent: 'admin',
+			url: '/inbox',
+			parent: 'admin',
 			controller: 'admininboxController',
-			templateUrl: '../client/apps/views/admin/inbox.html'
+			templateUrl: 'apps/views/admin/inbox1.html'
 		}).state('admin-permohonan', {
-            url: '/permohonan',
-            parent: 'admin',
+			url: '/permohonan',
+			parent: 'admin',
 			controller: 'adminpermohonanController',
-			templateUrl: '../client/apps/views/admin/permohonan.html'
+			templateUrl: 'apps/views/admin/permohonan.html'
 		}).state('admin-pejabat', {
-            url: '/pejabat',
-            parent: 'admin',
+			url: '/pejabat',
+			parent: 'admin',
 			controller: 'adminpejabatController',
-			templateUrl: '../client/apps/views/admin/pejabat.html'
+			templateUrl: 'apps/views/admin/pejabat.html'
 		}).state('admin-suratskck', {
-            url: '/suratskck',
-            parent: 'admin',
+			url: '/suratskck',
+			parent: 'admin',
 			controller: 'adminsuratskckController',
-			templateUrl: '../client/apps/views/admin/suratskck.html'
+			templateUrl: 'apps/views/admin/suratskck.html'
 		}).state('admin-suratpenguasaantanah', {
-            url: '/suratpenguasaantanah',
-            parent: 'admin',
+			url: '/suratpenguasaantanah',
+			parent: 'admin',
 			controller: 'adminsuratpenguasaantanahController',
-			templateUrl: '../client/apps/views/admin/suratpenguasaantanah.html'
+			templateUrl: 'apps/views/admin/suratpenguasaantanah.html'
 		}).state('admin-suratketusaha', {
-            url: '/suratketusaha',
-            parent: 'admin',
+			url: '/suratketusaha',
+			parent: 'admin',
 			controller: 'adminsuratketusahaController',
-			templateUrl: '../client/apps/views/admin/suratketusaha.html'
+			templateUrl: 'apps/views/admin/suratketusaha.html'
 		}).state('admin-suratbelummenikah', {
-            url: '/suratbelummenikah',
-            parent: 'admin',
+			url: '/suratbelummenikah',
+			parent: 'admin',
 			controller: 'adminsuratbelummenikahController',
-			templateUrl: '../client/apps/views/admin/suratbelummenikah.html'
+			templateUrl: 'apps/views/admin/suratbelummenikah.html'
 		}).state('admin-suratketmenikah', {
-            url: '/suratketmenikah',
-            parent: 'admin',
+			url: '/suratketmenikah',
+			parent: 'admin',
 			controller: 'adminsuratketmenikahController',
-			templateUrl: '../client/apps/views/admin/suratketmenikah.html'
+			templateUrl: 'apps/views/admin/suratketmenikah.html'
 		}).state('admin-suratkelahiran', {
-            url: '/suratkelahiran',
-            parent: 'admin',
+			url: '/suratkelahiran',
+			parent: 'admin',
 			controller: 'adminsuratkelahiranController',
-			templateUrl: '../client/apps/views/admin/suratkelahiran.html'
+			templateUrl: 'apps/views/admin/suratkelahiran.html'
 		}).state('admin-suratketcerai', {
-            url: '/suratketcerai',
-            parent: 'admin',
+			url: '/suratketcerai',
+			parent: 'admin',
 			controller: 'adminsuratketceraiController',
-			templateUrl: '../client/apps/views/admin/suratketcerai.html'
+			templateUrl: 'apps/views/admin/suratketcerai.html'
 		}).state('admin-suratketdesa', {
-            url: '/suratketdesa',
-            parent: 'admin',
+			url: '/suratketdesa',
+			parent: 'admin',
 			controller: 'adminsuratketdesaController',
-			templateUrl: '../client/apps/views/admin/suratketdesa.html'
+			templateUrl: 'apps/views/admin/suratketdesa.html'
 		}).state('admin-suratketektp', {
-            url: '/suratketektp',
-            parent: 'admin',
+			url: '/suratketektp',
+			parent: 'admin',
 			controller: 'adminsuratketektpController',
-			templateUrl: '../client/apps/views/admin/suratketektp.html'
+			templateUrl: 'apps/views/admin/suratketektp.html'
 		}).state('admin-suratketlainnya', {
-            url: '/suratketlainnya',
-            parent: 'admin',
+			url: '/suratketlainnya',
+			parent: 'admin',
 			controller: 'adminsuratketlainnyaController',
-			templateUrl: '../client/apps/views/admin/suratketlainnya.html'
+			templateUrl: 'apps/views/admin/suratketlainnya.html'
 		}).state('admin-suratketnikah', {
-            url: '/suratketnikah',
-            parent: 'admin',
+			url: '/suratketnikah',
+			parent: 'admin',
 			controller: 'adminsuratketnikahController',
-			templateUrl: '../client/apps/views/admin/suratketnikah.html'
+			templateUrl: 'apps/views/admin/suratketnikah.html'
 		});
-		
+
 });

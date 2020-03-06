@@ -3,23 +3,23 @@ angular.module('account.router', ['ui.router']).config(function ($stateProvider,
 		.state('account', {
 			url: '/account',
 			controller: 'AccountController',
-			templateUrl: '../client/apps/views/accounts/home.html'
+			templateUrl: 'apps/views/accounts/home.html'
 		})
 		.state('login', {
 			url: '/login',
 			parent: 'account',
 			controller: 'LoginController',
-			templateUrl: '../client/apps/views/accounts/sign-in.html'
+			templateUrl: 'apps/views/accounts/sign-in.html'
 		})
 		.state('register', {
 			url: '/register',
 			parent: 'account',
 			controller: 'RegisterController',
-			templateUrl: '../client/apps/views/accounts/sign-up.html'
+			templateUrl: 'apps/views/accounts/sign-up.html'
 		})
 		.state('about', {
 			url: '/about',
 			parent: 'account',
-			templateUrl: '../client/apps/views/accounts/about.html'
+			templateUrl: 'apps/views/accounts/about.html'
 		});
 });

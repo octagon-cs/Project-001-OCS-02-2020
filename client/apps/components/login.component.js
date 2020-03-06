@@ -8,7 +8,7 @@ angular
 			});
 
 		},
-		templateUrl: '../client/apps/components/templates/inbox.html'
+		templateUrl: 'apps/components/templates/inbox.html'
 	})
 	.component('userlogin', {
 		controller: function ($scope, AuthService, $state) {

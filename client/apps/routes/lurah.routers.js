@@ -3,12 +3,12 @@ angular.module('lurah.router', ['ui.router']).config(function ($stateProvider, $
         .state('lurah', {
             url: '/lurah',
             controller: 'lurahHomeController',
-            templateUrl: '../client/apps/views/lurah/index.html'
+            templateUrl: 'apps/views/lurah/index.html'
         }).state('lurah-datalurah', {
             url: '/datalurah',
             parent: 'lurah',
             controller: 'datalurahController',
-            templateUrl: '../client/apps/views/lurah/datalurah.html'
+            templateUrl: 'apps/views/lurah/datalurah.html'
         });
 
 });

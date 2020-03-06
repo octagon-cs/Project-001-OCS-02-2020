@@ -1,0 +1,24 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.0",
+    "@uirouter/angularjs": "^1.0.22",
+    "angular": "^1.7.8",
+    "angular-datatables": "^0.6.2",
+    "angular-local-storage": "^0.7.1",
+    "angular-route": "1.7.8",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.0",
+    "swangular": "^1.4.3",
+    "ui-select": "^0.19.8",
+    "uuid": "^3.4.0"
+  }
+}
