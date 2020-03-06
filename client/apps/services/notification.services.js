@@ -32,9 +32,9 @@ angular.module("notification.service", [])
 
 
         function start() {
-            _socket = io(helperServices.url, {
-                query: 'auth_token=' + AuthService.getToken()
-            });
+            // _socket = io(helperServices.url, {
+            //     query: 'auth_token=' + AuthService.getToken()
+            // });
 
         }
 

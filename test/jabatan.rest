@@ -1,7 +1,7 @@
 
 
 @controller=jabatan
-@host=http://localhost:3000/api/{{controller}}
+@host=http://waena-desa.id/api/{{controller}}
 @token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwicm9sZXMiOltudWxsXSwiaWF0IjoxNTgzMTY0MjAxLCJleHAiOjE1ODMyNTA2MDF9.j-oca1l2l0Na4-hl1fXWOOkMwZuA40vLA08r0M6-YPo
 
 ####
