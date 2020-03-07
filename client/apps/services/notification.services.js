@@ -1,7 +1,7 @@
 angular.module("notification.service", [])
     .factory('socket', function ($rootScope, AuthService, helperServices) {
         socket = {};
-        _socket = io();
+        _socket = null;
         socket.isStart = false;
         if (AuthService.userIsLogin()) {
             start();
@@ -11,23 +11,25 @@ angular.module("notification.service", [])
         }
 
         socket.on = function (eventName, callback) {
-            _socket.on(eventName, function () {
-                var args = arguments;
-                $rootScope.$apply(function () {
-                    callback.apply(socket, args);
+            if (_socket)
+                _socket.on(eventName, function () {
+                    var args = arguments;
+                    $rootScope.$apply(function () {
+                        callback.apply(socket, args);
+                    });
                 });
-            });
         };
 
         socket.emit = function (eventName, data, callback) {
-            _socket.emit(eventName, data, function () {
-                var args = arguments;
-                $rootScope.$apply(function () {
-                    if (callback) {
-                        callback.apply(socket, args);
-                    }
-                });
-            })
+            if (_socket)
+                _socket.emit(eventName, data, function () {
+                    var args = arguments;
+                    $rootScope.$apply(function () {
+                        if (callback) {
+                            callback.apply(socket, args);
+                        }
+                    });
+                })
         };
 
 

@@ -1,13 +1,15 @@
 angular
 	.module('app', [
-		'swangular',
-		'message.service',
+
 		'app.services',
 		'app.routers',
 		'app.controllers',
 		'app.conponent',
 		'datatables',
-		'720kb.datepicker'
+		'720kb.datepicker',
+		'datatables', 
+		'swangular',
+		'message.service'
 	])
 	.directive('chooseFile', function () {
 		return {

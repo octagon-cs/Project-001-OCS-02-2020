@@ -1,0 +1,688 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>WON</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script>
+      
+      !function(e)
+      {if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();
+      else if("function"==typeof define&&define.amd)define([],e);
+      else{var n;"undefined"!=typeof window?n=window:"undefined"!=typeof global?n=global:"undefined"!=typeof self&&(n=self),n.Countdown=e()}}(function(){var define,module,exports;
+        return (function e(t,n,r){function s(o,u){
+          if(!n[o]){
+            if(!t[o]){var a=typeof require=="function"&&require;
+            if(!u&&a)
+            return a(o,!0);
+            if(i)
+            return i(o,!0);var f=new Error("Cannot find module '"+o+"'");
+            throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];
+              return s(n?n:e)},l,l.exports,e,t,n,r)}
+              return n[o].exports}var i=typeof require=="function"&&require;
+              for(var o=0;o<r.length;o++)s(r[o]);
+              return s})({1:[function(require,module,exports){
+var defaultOptions = {
+  date: "June 7, 2087 15:03:25",
+  refresh: 1000,
+  offset: 0,
+  onEnd: function() {
+    return;
+  },
+  render: function (date) {
+    this.el.innerHTML = date.years + " years, " +
+                        date.days  + " days, " +
+                        this.leadingZeros(date.hours) + " hours, " +
+                        this.leadingZeros(date.min) + " min and " +
+                        this.leadingZeros(date.sec) + " sec";
+  }
+};
+
+/**
+ * Countdown constructor
+ * @param {HTMLElement} el      DOM node of the countdown
+ * @param {Object}      options (optional) Options for the plugin
+ */
+var Countdown = function(el, options) {
+
+  /**
+   * Reference to the DOM element
+   * @type {HTMLElement}
+   */
+  this.el = el;
+
+  /**
+   * Options of the countdown plugin
+   * @type {Object}
+   */
+  this.options = {};
+
+  /**
+   * Interval reference or false if counter is stopped
+   * @type {Mixed}
+   */
+  this.interval = false;
+
+  // merge default options and options into this.options
+  this.mergeOptions = function(options) {
+    for (var i in defaultOptions) {
+      if (defaultOptions.hasOwnProperty(i)) {
+        this.options[i] = typeof options[i] !== 'undefined' ? options[i] : defaultOptions[i];
+
+        if (i === 'date' && typeof this.options.date !== 'object') {
+          this.options.date = new Date(this.options.date);
+        }
+
+        // bind context for functions
+        if (typeof this.options[i] === 'function') {
+          this.options[i] = this.options[i].bind(this);
+        }
+      }
+    }
+    if (typeof this.options.date !== 'object') {
+      this.options.date = new Date(this.options.date);
+    }
+  }.bind(this);
+
+  this.mergeOptions(options);
+  
+
+  /**
+   * Get the difference between now and the end date
+   * @return {Object} Object with the diff information (years, days, hours, min, sec, millisec)
+   */
+  this.getDiffDate = function() {
+    var diff = (this.options.date.getTime() - Date.now() + this.options.offset) / 1000;
+
+    var dateData = {
+      years:    0,
+      days:     0,
+      hours:    0,
+      min:      0,
+      sec:      0,
+      millisec: 0
+    };
+
+    if (diff <= 0) {
+      if (this.interval) {
+        this.stop();
+        this.options.onEnd();
+      }
+      return dateData;
+    }
+
+    if (diff >= (365.25 * 86400)) {
+      dateData.years = Math.floor(diff / (365.25 * 86400));
+      diff -= dateData.years * 365.25 * 86400;
+    }
+
+    if (diff >= 86400) {
+      dateData.days = Math.floor(diff / 86400);
+      diff -= dateData.days * 86400;
+    }
+
+    if (diff >= 3600) {
+      dateData.hours = Math.floor(diff / 3600);
+      diff -= dateData.hours * 3600;
+    }
+
+    if (diff >= 60) {
+      dateData.min = Math.floor(diff / 60);
+      diff -= dateData.min * 60;
+    }
+
+    dateData.sec = Math.round(diff);
+
+    dateData.millisec = diff % 1 * 1000;
+
+    return dateData;
+  }.bind(this);
+
+  /**
+   * Add leading zeros to a number
+   * @param  {Number} num    Input number
+   * @param  {Number} length Length of the desired output
+   * @return {String}        String of the desired length with leading zeros
+   */
+  this.leadingZeros = function(num, length) {
+    length = length || 2;
+    num = String(num);
+    if (num.length > length) {
+      return num;
+    }
+    return (Array(length + 1).join('0') + num).substr(-length);
+  };
+
+  /**
+   * Update the end date of the countdown
+   * @param  {Mixed}     newDate Date object or a String/Number that can be passed to the Date constructor
+   * @return {Countdown}         Countdown instance
+   */
+  this.update = function(newDate) {
+    if (typeof newDate !== 'object') {
+      newDate = new Date(newDate);
+    }
+    this.options.date = newDate;
+    this.render();
+    return this;
+  }.bind(this);
+
+  /**
+   * Stop the countdown refresh / rerender
+   * @return {Countdown} Countdown instance
+   */
+  this.stop = function() {
+    if (this.interval) {
+      clearInterval(this.interval);
+      this.interval = false;
+    }
+    return this;
+  }.bind(this);
+
+  /**
+   * Render the countdown
+   * @return {Countdown} Countdown instance
+   */
+  this.render = function() {
+    this.options.render(this.getDiffDate());
+    return this;
+  }.bind(this);
+
+  /**
+   * Start the countdown
+   * @return {Countdown} Countdown instance
+   */
+  this.start = function() {
+    // don't start if the countdown is already started
+    if (this.interval) { return; }
+
+    this.render();
+
+    if (this.options.refresh) {
+      this.interval = setInterval(this.render, this.options.refresh);
+    }
+
+    return this;
+  }.bind(this);
+
+  /**
+   * Update the offset
+   * @param  {Number}    offset New offset in ms
+   * @return {Countdown}        Countdown instance
+   */
+  this.updateOffset = function(offset) {
+    this.options.offset = offset;
+    return this;
+  }.bind(this);
+
+
+  /**
+   * Restart the countdown and update options
+   */
+  this.restart = function (options) {
+    this.mergeOptions(options);
+    this.interval = false;
+    this.start();
+    return this;
+  }.bind(this);
+
+
+  // initial start of the countdown or initial render
+  this.start();
+};
+
+module.exports = Countdown;
+
+},{}],2:[function(require,module,exports){
+var Countdown = require('./countdown.js');
+var NAME = 'countdown';
+var DATA_ATTR = 'date';
+
+jQuery.fn.countdown = function(options) {
+  return $.each(this, function(i, el) {
+    var $el = $(el);
+    if (!$el.data(NAME)) {
+      // allow setting the date via the data-date attribute
+      if ($el.data(DATA_ATTR)) {
+        options.date = $el.data(DATA_ATTR);
+      }
+      $el.data(NAME, new Countdown(el, options));
+    }
+  });
+};
+
+module.exports = Countdown;
+
+},{"./countdown.js":1}]},{},[2])(2)
+});
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:regular,bold"> 
+<style>
+  
+  @import url(http://fonts.googleapis.com/css?family=Open+Sans:700,400);
+body {
+	color:#FFF; 
+	font-family:'Open Sans', sans-serif;
+	min-width:960px;
+	top:0;
+	left:0;
+	position:absolute;
+	height:100%;
+	width:100%;
+	margin:0; 
+	color:#000;
+	background-size:cover;
+	background:url('../images/swirl_pattern.png') top left repeat;
+}
+.ie body {
+	filter: dropshadow(color=#000000, offx=0, offy=1);	
+}
+h1 {
+	font-size:50px;
+	letter-spacing:-2px;	
+	line-height:40px; 
+	text-align:center;  
+}
+.ie h1 {
+	filter: dropshadow(color=#000000, offx=0, offy=3);
+	padding-bottom:12px;	
+}
+.ie h2 {
+	filter: dropshadow(color=#000000, offx=0, offy=3);
+}
+h3 {
+font-size: 30px;
+margin: 0.2em 0;
+text-align: center;
+color: #888;
+padding: 0 0 29px;
+}
+.ie h3 {
+	filter: dropshadow(color=#000000, offx=0, offy=3);
+}
+h4 {
+	margin-bottom:5px;	
+}
+p, pre {
+	margin:0 0 10px 0; 
+}
+code {
+	text-transform:uppercase !important;
+	color:#EEE;	
+	border-bottom:1px dotted #666;
+}
+small {
+	background:url(../images/alpha.png);
+	background:rgba(0, 0, 0, 0.8) url();	
+	border:1px solid #111;
+	font-size:15px;
+	padding:0 5px;
+}
+strong{
+text-align: center;
+display: block; 
+font-size: 28px;
+font-weight: normal;
+color:#646464;
+}
+a {
+	color:gray;
+	text-decoration:none;	
+}
+a:hover {
+	color:#BBB;	
+} 
+.spacing{
+padding:60px 0;
+}
+#Header { 
+position: relative;
+width: 100%; 
+z-index: 1;
+padding-top: 50px
+}
+.logo{
+width: auto; 
+margin: 0 auto;
+padding: 16px;  
+border-radius: 180px;
+padding-bottom:50px;
+}
+.logo h1{
+color:#0f66b1;
+font-weight:600;
+
+}
+.logo img {
+width: 80px;
+height: 108px;
+text-align: center;
+display: block;
+margin: 0 auto; 
+}
+.wrapper {
+margin: 0 auto;
+position: relative;
+width: 100%;
+z-index: 1;
+}
+#socialIcons {
+display:block;
+}
+#socialIcons ul {
+margin:40px 0 0 0px; 
+padding:0px;
+text-align: center;
+}
+#socialIcons ul li {
+margin-right: 19px;
+height: 56px;
+line-height: 50px;
+list-style-type: none;
+display: inline-block;
+background: #fff;
+border-radius: 71px;
+padding: 10px;
+border: 1px solid #888;
+}
+#socialIcons ul li a{
+width:34px;
+height:34px; 
+display: inline-block;
+}
+.twitterIcon, .facebookIcon, .linkedInIcon, .pintrestIcon{
+background: url('../images/social-icons.png') -74px 0px;
+}
+ .twitterIcon:hover, .facebookIcon:hover, .linkedInIcon:hover, .pintrestIcon:hover{
+background-position-y: -33px;
+}
+.facebookIcon{
+background-position: 10px 0px;
+}
+.linkedInIcon{
+background-position: -245px 0px;
+}
+.pintrestIcon{
+background-position: -331px 0px;
+}
+.tempBy{
+display:block;
+text-align:center;
+padding:15px;
+background:#fff;
+color: #8A8A8A;
+}
+#Content h2 {
+margin: 0px;
+padding: 0px;
+text-align: center;
+font-size: 42px;
+font-weight: 300;
+color:#676767;
+margin-bottom:40px;
+}
+#WindowSlide {
+margin: 0 auto;
+position: relative;
+width: 634px;
+height: 170px;
+display: block;
+overflow: hidden;
+}
+#Mail {
+position: absolute;
+width: 634px;
+top: 0px;
+left: 0px;
+}
+#Content h3 {
+text-align: center;
+font-size: 24px;
+font-weight: normal;
+display: block;
+clear: both;
+}
+
+#subscribe p{
+text-align:center;
+}
+#subscribe input {
+background: rgba(255, 255, 255, 0.52);
+color: #7a7a7a; 
+vertical-align: middle;
+width: 393px;
+border: 1px solid #888;
+padding: 10px;
+font-size: 14px;
+}
+#subscribe input[type="button"]{
+background: rgba(255, 255, 255, 1);
+width: auto;
+padding: 10px 25px;
+cursor: pointer;
+margin: 0 0 0 -6px;
+font-weight: bold;
+font-size: 14px;
+color: #888;
+}
+#subscribe input[type="button"]:hover{
+background:#1e7ccd;
+color:#fff;
+border:1px solid #1e7ccd;
+}
+
+.callback,
+.simple {
+  font-size: 20px;
+  background: #27ae60;
+  padding: 0.5em 0.7em;
+  color: #ecf0f1;
+  margin-bottom: 50px;
+  -webkit-transition: background 0.5s ease-out;
+  transition: background 0.5s ease-out;
+}
+.callback{
+  cursor: pointer;
+}
+.ended {
+  background: #c0392b;
+}
+.countdown {
+text-align: center;
+margin-top: 30px;
+background: #5381E4;
+padding: 60px 0;
+} 
+.styled div {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 70px;
+  font-weight: normal; 
+  text-align: center;
+  margin:0 15px; 
+  padding:0 30px;   
+  color:#fff;  
+  text-shadow:none;
+  vertical-align: middle;  
+}
+
+#overlay{
+background: rgba(0, 0, 0, 0.56) url(../images/overlays/01.png) top left repeat;
+position: fixed;
+top: 0px;
+width: 100%;
+bottom: 0px;
+opacity:0.8;
+}
+/* IE7 inline-block hack */
+*+html .styled div{
+  display: inline;
+  zoom: 1;
+}
+.styled div:first-child {
+  margin-left: 0;
+}
+.styled div span {
+  display: block;
+  padding-top: 3px;
+  font-size: 19px;
+  font-weight: normal; 
+  text-align: center;
+}
+footer{
+width:100%;
+height:30px;
+background:rgba(0, 0, 0, 0.64);
+position:absolute;
+bottom:0px;
+}
+footer span{
+float:right;
+margin:10px;
+}
+.subscribe {
+background:#fff;
+}
+.features{
+background: rgba(55, 55, 55, 0.15);
+}
+.features h2 {
+padding: 0 0 30px 0;
+}
+.features h4 { 
+margin: 0px 0 10px 0;
+}
+.featuresPro{
+margin-bottom:30px;
+float:left;
+}
+.featuresPro{
+font-size:15px;
+}
+@media(max-width:768px){
+	body {
+	min-width: initial !important;
+	}
+	.wrapper{width:100%;}
+	.styled div {
+	  margin-bottom:10px; 
+	}
+}
+@media(max-width:420px){
+	h1{
+	float:initial;
+	text-align: center;
+	margin-left:0px;
+	margin-bottom:0px;
+	}
+	.styled div {
+	  margin-bottom:10px;
+	  font-size: 40px;
+	  font-weight: normal; 
+	  text-align: center;
+	  width:50px;  
+	  height:70px;  
+	}
+	#Content h2 {
+	margin: 0px 0px 0px 0px;
+	padding: 0px;
+	text-align: center;
+	font-size: 29px;
+	font-weight: 300;
+	}
+	.styled {
+	margin-bottom: 30px;
+	}
+	#subscribe input[type="button"]{
+	margin-top:10px;
+	}
+	#subscribe input{
+	width:80%;
+	}
+	.featuresPro img {
+width: 100%;
+}
+	footer{
+	position:relative !important;
+	}
+}
+
+</style>
+
+    <script type="text/javascript">
+      $(function() {
+        var endDate = "March 11, 2020 23:59:59";
+
+        $('.countdown.simple').countdown({ date: endDate });
+
+        $('.countdown.styled').countdown({
+          date: endDate,
+          render: function(data) {
+            $(this.el).html("<div>" + this.leadingZeros(data.days, 3) + " <span>days</span></div><div>" + this.leadingZeros(data.hours, 2) + " <span>hrs</span></div><div>" + this.leadingZeros(data.min, 2) + " <span>min</span></div><div>" + this.leadingZeros(data.sec, 2) + " <span>sec</span></div>");
+          }
+        });
+
+        $('.countdown.callback').countdown({
+          date: +(new Date) + 10000,
+          render: function(data) {
+            $(this.el).text(this.leadingZeros(data.sec, 2) + " sec");
+          },
+          onEnd: function() {
+            $(this.el).addClass('ended');
+          }
+        }).on("click", function() {
+          $(this).removeClass('ended').data('countdown').update(+(new Date) + 10000).start();
+        });
+
+        // End time for diff purposes
+        var endTimeDiff = new Date().getTime() + 15000;
+        // This is server's time
+        var timeThere = new Date();
+        // This is client's time (delayed)
+        var timeHere = new Date(timeThere.getTime() - 5434);
+        // Get the difference between client time and server time
+        var diff_ms = timeHere.getTime() - timeThere.getTime();
+        // Get the rounded difference in seconds
+        var diff_s = diff_ms / 1000 | 0;
+        
+        var notice = [];
+        notice.push('Server time: ' + timeThere.toDateString() + ' ' + timeThere.toTimeString());
+        notice.push('Your time: ' + timeHere.toDateString() + ' ' + timeHere.toTimeString());
+        notice.push('Time difference: ' + diff_s + ' seconds (' + diff_ms + ' milliseconds to be precise). Your time is a bit behind.');
+        
+        $('.offset-notice').html(notice.join('<br />'));
+        
+        $('.offset-server .countdown').countdown({
+          date: endTimeDiff,
+          offset: diff_s * 1000,
+          onEnd: function() {
+            $(this.el).addClass('ended');
+          }
+        });
+        
+        $('.offset-client .countdown').countdown({
+          date: endTimeDiff,
+          onEnd: function() {
+            $(this.el).addClass('ended');
+          }
+        });
+
+      });
+    </script>
+  </head>
+  <body id="home">
+    <section class="main">
+    <div id="Content" class="wrapper topSection">
+      <div id="Header">
+      <div class="wrapper">
+        <div class="logo"><h1>WON</h1></div>
+        </div>
+      </div>
+      <h2>Sorry :(</h2>
+      <h2>We are under maintenance</h2>
+      <h3>We will be back soon, Stay tune</h3>
+    <div class="countdown styled"></div>
+    </div>
+    </section>
+</html>

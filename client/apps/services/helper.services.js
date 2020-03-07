@@ -2,7 +2,11 @@ angular.module('helper.service', []).factory('helperServices', helperServices);
 
 function helperServices() {
 	var service = {};
-	service.url = 'http://localhost:3000';
+
+	service.url = 'http://waena-desa.id';
+	//service.url = 'http://localhost:3000';
+
+
 	service.KepemilikanKTP = ["Sudah Memiliki KTP", "Belum Memiliki KTP", "Pembuatan KTP Dalam Proses"];
 	service.GolonganDarah = ["O", "A", "A-", "A+", "AB", "AB-", "AB+", "B", "B-", "O-", "O+", "TIDAK TAHU"];
 	service.Agama = ["ISLAM", "KATHOLOK", "KRISTEN", "HINDU", "BUDHA", "LAINNYA"];
