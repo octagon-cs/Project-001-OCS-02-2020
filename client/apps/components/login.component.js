@@ -3,10 +3,11 @@ angular
 	.component('inboxview', {
 		controller: function ($scope, socket) {
 			$scope.messages = [];
-			socket.on('permohonan', function (msg) {
-				$scope.messages.push(msg);
-			});
-
+			if (socket) {
+				socket.on('permohonan', function (msg) {
+					$scope.messages.push(msg);
+				});
+			}
 		},
 		templateUrl: 'apps/components/templates/inbox.html'
 	})

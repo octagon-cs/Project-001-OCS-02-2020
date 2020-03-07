@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
     if (!maintenance)
         res.sendFile(path.join(__dirname + 'index.html'));
     else
-        res.sendFile(path.join(__dirname + '/maintenance.html'));
+        res.sendFile(path.join(__dirname + 'maintenance.html'));
 });
 
 const PORT = process.env.PORT || 3000;
