@@ -6,7 +6,8 @@ angular
 		'app.routers',
 		'app.controllers',
 		'app.conponent',
-		'datatables'
+		'datatables',
+		'720kb.datepicker'
 	])
 	.directive('chooseFile', function () {
 		return {

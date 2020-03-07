@@ -75,8 +75,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview menu-open">
-            <a ui-sref="admin-home" class="nav-link active">
+          <li class="nav-item has-treeview">
+            <a ui-sref="admin-home" class="nav-link">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 Dashboard
@@ -91,15 +91,15 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="javascript:void(0)" onclick="return false" class="nav-link">
+          <li class="nav-item has-treeview dropdown">
+            <a href="javascript:void(0)" href="javascript:void(0)" data-toggle="dropdown" class="nav-link">
               <i class="nav-icon fas fa-id-card"></i>
               <p>
                 Master Data
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <li class="nav-item">
                 <a ui-sref="admin-datapenduduk" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -124,43 +124,40 @@
                   <p>Data Inventaris Desa</p>
                 </a>
               </li>
-              <!-- <li class="nav-item">
-                          <a href="pages/layout/fixed-topnav.html" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Fixed Navbar</p>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a href="pages/layout/fixed-footer.html" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Fixed Footer</p>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Collapsed Sidebar</p>
-                          </a>
-                        </li> -->
             </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a ui-sref="admin-suratmenyurat" class="nav-link">
+          <li class="nav-item has-treeview dropdown">
+            <a href="javascript:void(0)" href="javascript:void(0)" data-toggle="dropdown" class="nav-link">
               <i class="nav-icon fas fa-envelope"></i>
               <p>
-                Surat-Menyurat
-              </p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="javascript:void(0)" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Data Penduduk
+                Surat Menyurat
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <li class="nav-item">
+                <a ui-sref="admin-surattidakmampu" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Surat Tidak Mampu</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a ui-sref="admin-suratketdomisili" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Surat Keterangan Domisili</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview dropdown">
+            <a href="javascript:void(0)" href="javascript:void(0)" data-toggle="dropdown" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Data Kependudukan
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <li class="nav-item">
                 <a href="pages/UI/general.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -173,42 +170,6 @@
                   <p>Data Kartu Keluarga</p>
                 </a>
               </li>
-              <!-- <li class="nav-item">
-                          <a href="pages/UI/buttons.html" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Buttons</p>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a href="pages/UI/sliders.html" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Sliders</p>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a href="pages/UI/modals.html" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Modals & Alerts</p>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a href="pages/UI/navbar.html" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Navbar & Tabs</p>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a href="pages/UI/timeline.html" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Timeline</p>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a href="pages/UI/ribbons.html" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Ribbons</p>
-                          </a>
-                        </li> -->
             </ul>
           </li>
           <li class="nav-item has-treeview">
@@ -579,3 +540,12 @@
 
   <!-- /.control-sidebar -->
 </div>
+<style>
+  .dropdown-menu{
+    position: sticky !important;
+    transform: unset !important;    
+    margin-left: 10px;
+    background: #343a40;
+    /* will-change: none !important; */
+  }
+</style>
