@@ -1,12 +1,12 @@
 angular
 	.module('app', [
-		'swangular',
-		'message.service',
+
 		'app.services',
 		'app.routers',
 		'app.controllers',
 		'app.conponent',
-		'datatables'
+		'datatables', 'swangular',
+		'message.service'
 	])
 	.directive('chooseFile', function () {
 		return {
