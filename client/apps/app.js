@@ -5,7 +5,9 @@ angular
 		'app.routers',
 		'app.controllers',
 		'app.conponent',
-		'datatables', 'swangular',
+		'720kb.datepicker',
+		'datatables', 
+		'swangular',
 		'message.service'
 	])
 	.directive('chooseFile', function () {

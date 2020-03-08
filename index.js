@@ -15,7 +15,7 @@ var path = require('path');
 app.use('/', express.static('./client/'));
 
 
-const maintenance = false;
+const maintenance = true;
 app.get('/', function (req, res) {
     if (!maintenance)
         res.sendFile(path.join(__dirname + 'index.html'));
