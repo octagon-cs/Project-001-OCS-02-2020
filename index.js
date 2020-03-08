@@ -9,18 +9,17 @@ app.use(bodyParser.json({
     limit: '50mb'
 }));
 
-require('./server/routers')(app, socket);
-
 var path = require('path');
-app.use('/', express.static('./client/'));
 
+if (app.get('env') == "maintenance") {
+    app.use('/', express.static('./maintenance/'));
+} else {
+    require('./server/routers')(app, socket);
+    app.use('/', express.static('./client/'));
+}
 
-const maintenance = true;
 app.get('/', function (req, res) {
-    if (!maintenance)
-        res.sendFile(path.join(__dirname + 'index.html'));
-    else
-        res.sendFile(path.join(__dirname + 'maintenance.html'));
+    res.sendFile(path.join(__dirname + 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;

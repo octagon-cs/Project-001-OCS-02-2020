@@ -4,8 +4,9 @@
   "description": "app info desa & surat menyurat",
   "main": "index.js",
   "scripts": {
-    "start": "pm2 start server.config.js --env production",
-    "startprod": "pm2 start server.config.js --env development"
+    "start": "pm2 start server.config.js --env development",
+    "start dev": "pm2 start server.config.js --env development",
+    "start mn": "pm2 start server.config.js --env maintenance"
   },
   "repository": {
     "type": "git",
