@@ -83,10 +83,10 @@ function helperServices() {
 		"TUKANG JAHIT",
 		"LAINNYA"
 	];
-	service.PermohonanJenis=[
+	service.PermohonanJenis = [
 		"Pengantar KTP", "Pengantar KK", "Tidak Mampu", "Keterangan Domisili", "Keterangan SKCK", "Keterangan Usaha",
-		"Penguasaan Tanah", "Keterangan Desa", "Keterangan Cerai", "Keterangan e-KTP", "Keterangan Nikah", "Kelahiran", "Sudah Menikah", 
-		"Belum Menikah", "Kematian", "Keterangan Lainnya"
+		"Penguasaan Tanah", "Keterangan Desa", "Keterangan Cerai", "Keterangan eKTP", "Keterangan Nikah", "Kelahiran", "Sudah Menikah",
+		"Belum Menikah", "Kematian", "Keterangan Lainnya", "Pindah"
 	];
 
 
