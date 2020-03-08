@@ -228,6 +228,7 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
     $scope.Jam;
     $scope.Pejabat={};
     $scope.SuratTidakMampu.data={};
+    $scope.dataPrint={};
     $scope.Init = function(){
         $http({
             method: "get",
@@ -249,20 +250,16 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
         })
         $http({
             method: "get",
-            url: helperServices.url+"/api/permohonan",
-            Header: AuthService.getHeader()
+            url: helperServices.url+"/api/permohonan/byjenis/3",
+            headers: AuthService.getHeader()
         }).then(param =>{
-            param.data.forEach(value=>{
-                if(value.namajabatan=="Lurah" && value.status==1){
-                    $scope.Pejabat = value;
-                }
-            })
+            $scope.DatasSuratTidakMampu = angular.copy(param.data);
         })
     }
     $scope.SelectedPenduduk = function(){
         var a = JSON.parse(angular.copy($scope.ItemPenduduk));
         $scope.SuratTidakMampu.idpenduduk=a.idpenduduk;
-        $scope.SuratTidakMampu.data.penduduk=angular.copy(a);
+        $scope.SuratTidakMampu.nama = a.nama;
     }
     
     $scope.Simpan = function () {
@@ -284,6 +281,23 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
         }, error => {
             message.errorText(error.message);
         })
+    }
+
+    $scope.Selecteddata = function(id, item){
+        $scope.dataPrint = angular.copy(item);
+        var a = new Date(item.persetujuan[item.persetujuan.length-1].created);
+        $scope.dataPrint.tampiltanggal = getTanggalIndonesia(a);
+        setTimeout(function() {
+            $scope.Print(id)
+          }, 1300);
+    }
+    
+    $scope.Print = function (id) {
+        var innerContents = document.getElementById(id).innerHTML;
+        var popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+        popupWinindow.document.open();
+        popupWinindow.document.write('<html><head><title>Cetak Surat</title></head><body onload="window.print()"><div>' + innerContents + '</html>');
+        popupWinindow.document.close();
     }
 
 }
