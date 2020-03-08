@@ -83,6 +83,11 @@ function helperServices() {
 		"TUKANG JAHIT",
 		"LAINNYA"
 	];
+	service.PermohonanJenis=[
+		"Pengantar KTP", "Pengantar KK", "Tidak Mampu", "Keterangan Domisili", "Keterangan SKCK", "Keterangan Usaha",
+		"Penguasaan Tanah", "Keterangan Desa", "Keterangan Cerai", "Keterangan e-KTP", "Keterangan Nikah", "Kelahiran", "Sudah Menikah", 
+		"Belum Menikah", "Kematian", "Keterangan Lainnya"
+	];
 
 
 	return {
@@ -103,6 +108,7 @@ function helperServices() {
 		StatusPerkawinan: service.StatusPerkawinan,
 		JenisKelamin: service.JenisKelamin,
 		Pekerjaan: service.Pekerjaan,
-		Kewarganegawaan: service.Kewarganegawaan
+		Kewarganegawaan: service.Kewarganegawaan,
+		PermohonanJenis: service.PermohonanJenis
 	};
 }

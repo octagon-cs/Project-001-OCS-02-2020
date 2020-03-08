@@ -97,6 +97,37 @@ db.getById = async (Id) => {
     });
 };
 
+db.getByJenis = async (Id) => {
+    return new Promise((resolve, reject) => {
+        pool.query(
+            `SELECT
+            permohonan.*,
+            penduduk.nama,
+            penduduk.nik,
+            penduduk.nkk,
+            jenispermohonan.nama AS namapermohonan,
+            jenispermohonan.jenis
+          FROM
+            permohonan
+            LEFT JOIN penduduk ON permohonan.idpenduduk = penduduk.idpenduduk
+            LEFT JOIN jenispermohonan ON permohonan.idjenispermohonan =
+          jenispermohonan.idjenispermohonan where permohonan.idjenispermohonan=? `,
+            [Id],
+            (err, result) => {
+                if (err) {
+                    return reject(err);
+                } else {
+                    result.forEach(element => {
+                        element.data = JSON.parse(element.data);
+                        element.persetujuan = JSON.parse(element.persetujuan)
+                    });
+                    resolve(result);
+                }
+            }
+        );
+    });
+};
+
 
 
 db.post = async (data) => {

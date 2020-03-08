@@ -46,6 +46,20 @@ module.exports = function (socket) {
         }
     });
 
+    router.get('/byjenis/:id', async (req, res) => {
+        var id = req.params.id;
+        try {
+            contextDb.Permohonan.getByJenis(id).then(data => {
+                res.status(200).json(data);
+            });;
+
+        } catch (err) {
+            res.status(400).json({
+                message: err.message
+            });
+        }
+    });
+
     router.get('/approve/:id', [authJwt.verifyToken], async (req, res) => {
         var id = req.params.id;
         try {

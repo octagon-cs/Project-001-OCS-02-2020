@@ -8,7 +8,8 @@ angular
 		'720kb.datepicker',
 		'datatables', 
 		'swangular',
-		'message.service'
+		'message.service',
+		'ui.select2'
 	])
 	.directive('chooseFile', function () {
 		return {
