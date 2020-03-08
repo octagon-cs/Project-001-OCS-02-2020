@@ -5,7 +5,6 @@ angular
 		'app.routers',
 		'app.controllers',
 		'app.conponent',
-		'datatables',
 		'720kb.datepicker',
 		'datatables', 
 		'swangular',

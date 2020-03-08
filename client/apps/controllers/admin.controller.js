@@ -262,7 +262,7 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
         $http({
             method: 'post',
             url: helperServices.url + "/api/permohonan",
-            Header: AuthService.getHeader(),
+            headers: AuthService.getHeader(),
             data: $scope.SuratTidakMampu
         }).then(param => {
             alert("Berhasil Menyimpan");
