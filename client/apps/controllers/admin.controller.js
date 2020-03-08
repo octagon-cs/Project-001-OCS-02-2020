@@ -2,9 +2,9 @@ angular.module('admin.controller', [])
     .controller('adminHomeController', adminHomeController)
     .controller('admindatakepaladesaController', admindatakepaladesaController)
     .controller('admindataumumdesaController', admindataumumdesaController)
-    .controller('adminsuratpengantarkkController', adminsuratpengantarkkController)
+    // .controller('adminsuratpengantarkkController', adminsuratpengantarkkController)
     .controller('admindatapendudukController', admindatapendudukController)
-    .controller('adminsuratpengantarktpController', adminsuratpengantarktpController)
+    .controller('adminJenisPermohonanController', adminJenisPermohonanController)
     .controller('adminJabatanController', adminJabatanController)
     .controller('adminpreviewController', adminpreviewController)
     .controller('adminsuratketdomisiliController', adminsuratketdomisiliController)
@@ -219,10 +219,11 @@ function adminsuratketdomisiliController($http, helperServices, AuthService, $sc
 
 }
 
-function adminsurattidakmampuController($http, helperServices, AuthService, $scope) {
-    $scope.ItemPenduduk={};
+function adminsurattidakmampuController($http, helperServices, AuthService, $scope, message) {
+    $scope.ItemPenduduk="";
     $scope.ListPenduduk=[];
     $scope.SuratTidakMampu={};
+    $scope.DatasSuratTidakMampu=[];
     $scope.TanggalSurat;
     $scope.Jam;
     $scope.Pejabat={};
@@ -245,7 +246,17 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
                     $scope.Pejabat = value;
                 }
             })
-            
+        })
+        $http({
+            method: "get",
+            url: helperServices.url+"/api/permohonan",
+            Header: AuthService.getHeader()
+        }).then(param =>{
+            param.data.forEach(value=>{
+                if(value.namajabatan=="Lurah" && value.status==1){
+                    $scope.Pejabat = value;
+                }
+            })
         })
     }
     $scope.SelectedPenduduk = function(){
@@ -265,9 +276,13 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
             headers: AuthService.getHeader(),
             data: $scope.SuratTidakMampu
         }).then(param => {
-            alert("Berhasil Menyimpan");
+            $scope.SuratTidakMampu.idpermohonan=param.idpermohonan;
+            $scope.DatasSuratTidakMampu.push(angular.copy($scope.SuratTidakMampu));
+            message.info("Berhasil Menyimpan");
+            $scope.SuratTidakMampu ={};
+            $scope.ItemPenduduk ="";
         }, error => {
-            alert(error.message)
+            message.errorText(error.message);
         })
     }
 
@@ -391,39 +406,48 @@ function admindataumumdesaController() {
 
 }
 
-function adminsuratpengantarkkController($http, $scope, helperServices, AuthService) {
-    $scope.JenisPermohonan = [];
+function adminJenisPermohonanController($http, $scope, helperServices, AuthService, message) {
+    $scope.DatasJenisPermohonan =[];
+    $scope.JenisPermohonan = {};
+    $scope.JenisPermohonan.persyaratan =[];
     $scope.KepemilikanKTP = helperServices.StatusKepemilikanKTP;
-    $scope.ShowTable = false;
     $scope.InputPermohonan;
-    $scope.JenisPermohonan;
+    $scope.ItemPersyaratan="";
+    $scope.Persyaratan=[];
+    $scope.PermohonanJenis = helperServices.PermohonanJenis;
     $scope.Init = function () {
         $http({
             method: 'get',
             url: helperServices.url + "/api/jenispermohonan",
-            Header: AuthService.getHeader()
+            headers: AuthService.getHeader()
         }).then(param => {
-            $scope.JenisPermohonan = param.data;
-
+            $scope.DatasJenisPermohonan = param.data;
         }, error => {
 
         })
     }
-    $scope.SelectedPermohonan = function () {
-        $scope.ShowTable = true;
-        var a = $scope.JenisPermohonan;
+    $scope.addPersyaratan=function(){
+        if($scope.ItemPersyaratan !== ""){
+            $scope.Persyaratan.push(angular.copy($scope.ItemPersyaratan));
+            $scope.ItemPersyaratan="";
+        }
     }
 
     $scope.Simpan = function () {
+        $scope.JenisPermohonan.persyaratan = $scope.Persyaratan
         $http({
             method: 'post',
             url: helperServices.url + "/api/jenispermohonan",
-            Header: AuthService.getHeader(),
-            data: $scope.InputPermohonan
+            headers: AuthService.getHeader(),
+            data: $scope.JenisPermohonan
         }).then(param => {
-            alert("Berhasil Menyimpan");
+            $scope.JenisPermohonan.idjenispermohonan = param.data.idjenispermohonan;
+            $scope.DatasJenisPermohonan.push(angular.copy($scope.JenisPermohonan));
+            message.info("Berhasil Simpan");
+            $scope.JenisPermohonan={};
+            $scope.ItemPersyaratan=[];
         }, error => {
-            alert(error.message)
+            message.errorText(error.message);
         })
     }
 

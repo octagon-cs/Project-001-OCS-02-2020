@@ -1,0 +1,21 @@
+{
+  "name": "ui-select",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "kristt26 <kristt26@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/octagon-cs/Project-001-OCS-02-2020",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-select2": "^0.0.5"
+  }
+}

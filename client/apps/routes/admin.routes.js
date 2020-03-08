@@ -19,11 +19,11 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider, $
 			parent: 'admin',
 			controller: 'admindataumumdesaController',
 			templateUrl: 'apps/views/admin/dataumumdesa.html'
-		}).state('admin-suratmenyurat', {
-			url: '/suratmenyurat',
+		}).state('admin-jenispermohonan', {
+			url: '/jenispermohonan',
 			parent: 'admin',
-			controller: 'adminsuratpengantarkkController',
-			templateUrl: 'apps/views/admin/suratpengantarkk.html'
+			controller: 'adminJenisPermohonanController',
+			templateUrl: 'apps/views/admin/jenisPermohonan.html'
 		}).state('admin-suratpengantarktp', {
 			url: '/suratpengantarktp',
 			parent: 'admin',
