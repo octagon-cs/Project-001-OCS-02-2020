@@ -9,7 +9,7 @@ const fs = require('fs');
 const uuid = require('uuid');
 const helper = require('../helper');
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
 	try {
 		const data = await contextDb.Users.get().then(result => {
 			res.status(200).json({
@@ -31,20 +31,26 @@ router.post('/login', async (req, res) => {
 			(data) => {
 				if (!data || data.length <= 0) {
 					res.status(401).json({
-						message: 'Anda Tidak Memiliki User Akses'
+						message: 'Anda Tidak Memiliki User Akses, Silahkan Registrasi'
 					});
 				} else {
 					var item = data[0];
 
 					if (!item.aktif) {
-						throw Error("Silahkan Confirmasi Email Anda !");
+						res.status(401).json({
+							message: 'Silahkan Confirmasi Email Anda !'
+						});
+						return;
+
 					}
 
-					if (!bcrypt.compareSync(req.body.password, item.password))
+					if (!bcrypt.compareSync(req.body.password, item.password)) {
 						res.status(401).json({
-							message: 'Anda Tidak Memiliki User Akses'
+							message: 'Password Anda Salah'
 						});
-					else {
+						return;
+
+					} else {
 						item.roles = [];
 						data.forEach((element) => {
 							item.roles.push(element.role);
@@ -58,13 +64,13 @@ router.post('/login', async (req, res) => {
 						}, config.secret);
 						item.password = null;
 						item.token = token;
-						res.status(200).json(item);
+						return res.status(200).send(item);
 					}
 				}
 			},
 			(err) => {
 				res.status(401).json({
-					message: 'Anda Tidak Memiliki User Akses'
+					message: 'Anda Tidak Memiliki User Akses, Silahkan Registrasi'
 				});
 			}
 		);

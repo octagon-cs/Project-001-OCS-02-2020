@@ -9,13 +9,44 @@ db.get = async () => {
             penduduk.nama,
             penduduk.nik,
             penduduk.nkk,
-            users.username,
-            users.email,
-            users.idusers
+            jenispermohonan.nama AS namapermohonan,
+            jenispermohonan.jenis
           FROM
             permohonan
             LEFT JOIN penduduk ON permohonan.idpenduduk = penduduk.idpenduduk
-            LEFT JOIN users ON penduduk.idusers = users.idusers`,
+            LEFT JOIN jenispermohonan ON permohonan.idjenispermohonan =
+            jenispermohonan.idjenispermohonan`,
+            (err, result) => {
+                if (err) {
+                    return reject(err);
+                } else {
+                    result.forEach(element => {
+                        element.data = JSON.parse(element.data);
+                        element.persetujuan = JSON.parse(element.persetujuan)
+                    });
+                    resolve(result);
+                }
+            }
+        );
+    });
+};
+
+
+db.getMyPermohonan = async (id) => {
+    return new Promise((resolve, reject) => {
+        pool.query(
+            `SELECT
+            permohonan.*,
+            penduduk.nama,
+            penduduk.nik,
+            penduduk.nkk,
+            jenispermohonan.nama AS namapermohonan,
+            jenispermohonan.jenis
+          FROM
+            permohonan
+            LEFT JOIN penduduk ON permohonan.idpenduduk = penduduk.idpenduduk
+            LEFT JOIN jenispermohonan ON permohonan.idjenispermohonan =
+          jenispermohonan.idjenispermohonan where penduduk.idusers=?`, [id],
             (err, result) => {
                 if (err) {
                     return reject(err);
@@ -39,13 +70,13 @@ db.getById = async (Id) => {
             penduduk.nama,
             penduduk.nik,
             penduduk.nkk,
-            users.username,
-            users.email,
-            users.idusers
+            jenispermohonan.nama AS namapermohonan,
+            jenispermohonan.jenis
           FROM
             permohonan
             LEFT JOIN penduduk ON permohonan.idpenduduk = penduduk.idpenduduk
-            LEFT JOIN users ON penduduk.idusers = users.idusers where idpermohonan=? `,
+            LEFT JOIN jenispermohonan ON permohonan.idjenispermohonan =
+          jenispermohonan.idjenispermohonan where idpermohonan=? `,
             [Id],
             (err, result) => {
                 if (err) {
