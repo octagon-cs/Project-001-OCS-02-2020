@@ -16,6 +16,13 @@ Content-Type: application/json
 Authorization: bearer {{token}}
 ####
 
+
+####
+GET {{host}}/approve/42 HTTP/1.1
+Content-Type: application/json
+Authorization: bearer {{token}}
+####
+
 ####  
 Post {{host}} HTTP/1.1
 Content-Type: application/json
@@ -46,9 +53,9 @@ Authorization: bearer {{token}}
   "tanggalpengajuan": "2020-03-03T17:31:05.677Z",
   "permohonan": 1, 
   "persetujuan":[{"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"},
-    {"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"},
-    {"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"},
-    {"tanggal":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"}]
+    {"created":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"},
+    {"created":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"},
+    {"created":"2020-03-04T17:31:05.677Z","oleh":"admin", "status":"disetujui"}]
 
 }
 

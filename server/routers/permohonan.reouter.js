@@ -51,7 +51,7 @@ module.exports = function (socket) {
         try {
             var role = req.User.roles[0];
             var indexOfRole = config.Roles.indexOf(role);
-            var permohonan = await contextDb.getById(id);
+            var permohonan = await contextDb.Permohonan.getById(id);
             if (permohonan) {
                 var persetujuan = {
                     created: new Date(),
