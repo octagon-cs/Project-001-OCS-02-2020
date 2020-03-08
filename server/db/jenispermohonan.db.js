@@ -50,7 +50,7 @@ jenispermohonan.post = async (data) => {
     return new Promise((resolve, reject) => {
         try {
             pool.query(
-                'insert into jenispermohonan  (nama, persyaratan,deskripsi) values(?,?,?)',
+                'insert into jenispermohonan  (nama, persyaratan, jenis,deskripsi) values(?,?,?,?)',
                 [data.nama, JSON.stringify(data.persyaratan), data.deskripsi],
                 (err, result) => {
                     if (err) {
@@ -71,8 +71,8 @@ jenispermohonan.put = async (data) => {
     return new Promise((resolve, reject) => {
         try {
             pool.query(
-                'update jenispermohonan set nama=?, persyaratan=?, deskripsi=? where idjenispermohonan=? ',
-                [data.nama, JSON.stringify(data.persyaratan), data.deskripsi, data.idjenispermohonan],
+                'update jenispermohonan set nama=?, persyaratan=?, jenis=? deskripsi=? where idjenispermohonan=? ',
+                [data.nama, JSON.stringify(data.persyaratan), data.jenis, data.deskripsi, data.idjenispermohonan],
                 (err, result) => {
                     if (err) {
                         return reject(err);

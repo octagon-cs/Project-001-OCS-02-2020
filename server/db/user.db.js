@@ -144,8 +144,8 @@ UserDb.register = async (idpenduduk, user) => {
             } else
                 connection.beginTransaction((err) => {
                     try {
-                        var realPassword = helper.makeid(4);
-                        var password = bcrypt.hashSync(realPassword, 8);
+                        // var realPassword = helper.makeid(4);
+                        var password = bcrypt.hashSync(user.password, 8);
                         var token = jwt.sign({
                             user: user.email,
                         }, config.secret, {

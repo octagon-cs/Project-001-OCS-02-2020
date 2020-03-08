@@ -1,5 +1,5 @@
 @controller=auth
-@host=http://waena-desa.id/api/{{controller}}
+@host=http://localhost:3000/api/{{controller}}
 @token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNTc5NTI4ODA3LCJleHAiOjE1Nzk2MTUyMDd9.LhqJZgK-j97rHRGPobBR_RkAFMGPu9azfTMApwwQRs8
 
 ####
@@ -26,8 +26,8 @@ POST {{host}}/registrasi HTTP/1.1
 Content-Type: application/json
 
 {
-    "email":"chanchan@gmail.com",
-    "password":"admin",
+    "email":"aji3@gmail.com",
+    "password":"Sony@77",
     "nik":"123456789",
     "nkk":"987654321"
 }
