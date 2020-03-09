@@ -5,7 +5,7 @@ var hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis" ,"Jum'at","Sabtu"];
 
 hari = hari[params.getDay()];
 bulan = bulan[params.getMonth()];
-var result = hari+", "+params.getDate()+" " + bulan + " " +params.getFullYear();
+var result = params.getDate()+" " + bulan + " " +params.getFullYear();
 
 return result; 
 

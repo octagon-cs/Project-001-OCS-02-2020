@@ -1,4 +1,4 @@
-<section class="content-header">
+<section class="content-header" ng-init="Init()">
     <div class="col">
         <div class="card-tools">
             <h4>Surat Keterangan Cerai</h4>
@@ -32,18 +32,17 @@
                                         <th>NIK Suami</th>
                                         <th>Nama Suami</th>
                                         <th>No.Surat</th>
-                                        <th>Keterangan Cerai</th>
-                                        <th>Atas Nama</th>
+                                        <th>Pejabat</th>
                                         <th>Option</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="">
+                                    <tr ng-repeat="item in DatasSuratKetCerai">
                                         <td>{{$index+1}}</td>
                                         <td>{{item.NIK}}</td>
                                         <td>{{item.Nama}}</td>
                                         <td>{{item.No.Surat}}</td>
-                                        <td>{{item.Atas Nama}}</td>
+                                        <td>{{item.Pejabat}}</td>
                                         <td>
                                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                                 <label class="btn btn-secondary">
@@ -70,111 +69,117 @@
                         <div class="tab-content" id="custom-tabs-one-tabContent">
                             <div class="card card-default">
                                 <!-- /.card-header -->
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">NIK Suami</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" ng-model=""
-                                                        placeholder="NIK Suami">
+                                <form ng-submit="Simpan()">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">NIK Suami</label>
+                                                    <div class="col-sm-8">
+                                                        <select ui-select2 class="form-control" ng-model="ItemSuami"
+                                                            ng-change="SelectedSuami()"
+                                                            data-placeholder="NIK / Nama Suami">
+                                                            <option value=""></option>
+                                                            <option ng-repeat="item in ListPenduduk" value="{{item}}">
+                                                                {{item.nik}}&nbsp;-&nbsp;{{item.nama}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">NIK Istri</label>
+                                                    <div class="col-sm-8">
+                                                        <select ui-select2 class="form-control" ng-model="ItemIstri"
+                                                            ng-change="SelectedIstri()"
+                                                            data-placeholder="NIK / Nama Istri">
+                                                            <option value=""></option>
+                                                            <option ng-repeat="item in ListPenduduk" value="{{item}}">
+                                                                {{item.nik}}&nbsp;-&nbsp;{{item.nama}}</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">NIK Istri</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" ng-model=""
-                                                        placeholder="Nik Istri">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">Nama Suami</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control"
+                                                            ng-model="ItemSuami.nama" placeholder="Nama Suami">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">Nama Istri</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control"
+                                                            ng-model="ItemIstri.nama" placeholder="Nama Istri">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Nama Suami</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" ng-model=""
-                                                        placeholder="Nama Suami">
+                                        <div class="card-header"></div><br>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">Nomor Surat</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control"
+                                                            ng-model="SuratKetCerai.nomorsurat"
+                                                            placeholder="Nomor Surat">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Nama Istri</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" ng-model=""
-                                                        placeholder="Nama Istri">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-header"></div><br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Nomor Surat</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" ng-model=""
-                                                        placeholder="Nomor Surat">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Keterangan Cerai</label>
-                                                <div class="col-sm-8">
-                                                    <textarea class="form-control" ng-model="" rows="1" placeholder="Keterangan Cerai">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">Keterangan Nikah</label>
+                                                    <div class="col-sm-8">
+                                                        <textarea class="form-control"
+                                                            ng-model="SuratKetCerai.data.keterangan" rows="3"
+                                                            placeholder="Keterangan Nikah">
                                                     </textarea>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="card-header"></div><br>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">Pejabat Atas Nama</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control"
+                                                            ng-model="Pejabat.data.atasnama">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" ng-model="Pejabat.nama">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">Jabatan Pengesah</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control"
+                                                            ng-model="Pejabat.namajabatan">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">NIP/NIAP Pengesah</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control"
+                                                            ng-model="Pejabat.data.nik" placeholder="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-header"></div><br>
                                     </div>
-                                    <div class="card-header"></div><br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Footer Cetak Data</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" ng-model=""
-                                                        placeholder="Footer Cetak Data">
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-success">Submit</button>
+                                        <button type="submit" class="btn btn-danger float-right">Cancel</button>
                                     </div>
-                                    <div class="card-header"></div><br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Judul Atas Nama</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" ng-model="" placeholder="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Nama Atas Nama</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" ng-model="" placeholder="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Jabatan Atas Nama</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" ng-model="" placeholder="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">NIP/NIAP Atas Nama</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" ng-model="" placeholder="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-header"></div><br>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-success">Submit</button>
-                                    <button type="submit" class="btn btn-danger float-right">Cancel</button>
-                                </div>
+                                </form>
                             </div>
                             <!-- /.row -->
                         </div>
@@ -185,14 +190,7 @@
         </div>
         <!-- /.card-body -->
     </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    <!-- /.card -->
-    </div>
-    <!-- /.card -->
-    </div>
-    </div>
+    <div id="SuratKetCerai" class="printing">
+        <div ng-include="'../../../apps/views/admin/formatsurat/formatketcerai.html'"></div>
     </div>
 </section>

@@ -3,11 +3,11 @@
         <tbody>
             <tr>
                 <td style="width: 20%; text-align: left;"><img src="../../../assets/images/logojayapura.png"
-                        width="120px" height="110px"></td>
+                        width="130px" height="120px"></td>
                 <td>
                     <div style="text-align: center;">
-                        <span style="font-family: Times New Roman; font-size: large;"><b>PEMERINTAH KOTA JAYAPURA<br>KELURAHAN
-                                WAENA<br>DISTRIK HERAM</b></span>
+                        <span style="font-family: 'Times New Roman', Times, serif; font: bold; font-size: larger;"><b>PEMERINTAH KOTA JAYAPURA<br>KELURAHAN WAENA<br>DISTRIK
+                                HERAM</b></span>
 
                     </div>
                 </td>
@@ -15,27 +15,27 @@
             </tr>
             <tr>
                 <td colspan="3">
-                    <hr />
+                    <hr style="border-top: 4px double #000000; margin-top: -20px; "/>
                 </td>
             </tr>
             <tr>
                 <td colspan="3">
                     <div style="text-align: center;">
-                        <span style="font-family: verdana;">SURAT PENGANTAR<br>Nomor :
+                        <span style="font-family: 'Times New Roman', Times, serif; font-size: 14pt;"><b> SURAT PENGANTAR</b><br>Nomor :
                             {{dataPrint.data.nomorsurat}}<br></span>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td colspan="3">
-                    <div style="font-family: verdana; text-align: justify;">
+                    <div style="font-family: 'Times New Roman', Times, serif; text-align: justify; font-size: 12pt;">
                         <span><br>&emsp;&emsp;Yang Bertanda tangan dibawah ini kepala desa distrik heram kelurahan
                             waena kota jayapura menerangkan dengan ini sebenarnya bahwa :<br><br></span>
                     </div>
                 </td>
             </tr>
             <tr>
-                <td colspan="3">
+                <td colspan="3" style="font-family: 'Times New Roman', Times, serif; font-size: 12pt;">
                     <table cellpadding="1" style="width: 500px;">
                         <tbody>
                             <tr>
@@ -56,38 +56,38 @@
                             <tr>
                                 <td><span>Tempat, Tanggal Lahir</span></td>
                                 <td><span>:</span></td>
-                                <td><span>{{dataPrint.data.penduduk.tempatlahir}},
-                                        {{dataPrint.data.penduduk.tanggallahir}}</span></td>
+                                <td><span>{{dataPrint.penduduk.data.tempatlahir}}, {{dataPrint.tampiltanggal}}</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td><span>Jenis Kelamin</span></td>
                                 <td><span>:</span></td>
-                                <td><span>{{dataPrint.data.penduduk.jeniskelamin}}</span></td>
+                                <td><span>{{dataPrint.penduduk.data.jeniskelamin}}</span></td>
                             </tr>
                             <tr>
                                 <td><span>Pekerjaan</span></td>
                                 <td><span>:</span></td>
-                                <td><span>{{dataPrint.data.penduduk.pekerjaan}}</span></td>
+                                <td><span>{{dataPrint.penduduk.data.pekerjaan}}</span></td>
                             </tr>
                             <tr>
                                 <td><span>Agama</span></td>
                                 <td><span>:</span></td>
-                                <td><span>{{dataPrint.data.penduduk.agama}}</span></td>
+                                <td><span>{{dataPrint.penduduk.data.agama}}</span></td>
                             </tr>
                             <tr>
                                 <td><span>Status Perkawinan</span></td>
                                 <td><span>:</span></td>
-                                <td><span>{{dataPrint.data.penduduk.statusperkawinan}}</span></td>
+                                <td><span>{{dataPrint.penduduk.data.statusperkawinan}}</span></td>
                             </tr>
                             <tr>
                                 <td><span>Pendidikan Terakhir</span></td>
                                 <td><span>:</span></td>
-                                <td><span>{{dataPrint.data.penduduk.pendidikanterakhir}}</span></td>
+                                <td><span>{{dataPrint.penduduk.data.pendidikanterakhir}}</span></td>
                             </tr>
                             <tr>
                                 <td><span>Alamat</span></td>
                                 <td><span>:</span></td>
-                                <td><span>{{dataPrint.data.penduduk.alamat}}</span></td>
+                                <td><span>{{dataPrint.penduduk.data.alamatlangkap}}</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -96,7 +96,7 @@
             <tr>
                 <td colspan="3">
                     <div style="text-align: justify;">
-                        <span style="font-family: Verdana;"><br>&emsp;&emsp;Orang tersebut diatas, memang benar
+                        <span style="font-family: 'Times New Roman', Times, serif; font-size: 12pt;"><br>&emsp;&emsp;Orang tersebut diatas, memang benar
                             adalah warga
                             Distrik Heram Kelurahan Waena Kota Jayapura. Berdasarkan fakta yang ada, benar orang
                             yang bersangkutan termasuk dalam golongan keluarga kurang mampu.<br>
@@ -110,9 +110,9 @@
     </table>
     <table>
         <tr>
-            <td colspan="2"></td>
+            <td colspan="2">&nbsp;</td>
             <td width = "40%">
-                <div style="text-align: center;">
+                <div style="text-align: center; margin-left: 60px; font-family: 'Times New Roman', Times, serif; font-size: 12pt;">
                     <span style="font-family: Verdana;">Jayapura, {{dataPrint.tampiltanggal}}<br>
                         {{dataPrint.data.pejabat.jabatan}}<br>
                         <br>
