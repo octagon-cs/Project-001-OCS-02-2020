@@ -1,9 +1,9 @@
 <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)">
     <i class="far fa-bell"></i>
-    <span class="badge badge-warning navbar-badge">{{messages.length}}</span>
+    <span class="badge badge-warning navbar-badge">{{unread()}}</span>
 </a>
 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-    <span class="dropdown-item dropdown-header">{{messages.length}} Notifications</span>
+    <span class="dropdown-item dropdown-header">{{all()}} Notifications</span>
     <div class="dropdown-divider"></div>
     <a href="#" class="dropdown-item" ng-repeat="data in messages">
         <i class="fas fa-envelope mr-2"></i>new messages
@@ -11,5 +11,5 @@
         <span class="float-left text-muted text-sm"> {{data.message}} </span>
     </a>
     <div class="dropdown-divider"></div>
-    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+    <a ui-sref="admin-inbox " class="dropdown-item dropdown-footer">See All Notifications</a>
 </div>

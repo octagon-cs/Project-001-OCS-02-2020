@@ -51,7 +51,7 @@ jenispermohonan.post = async (data) => {
         try {
             pool.query(
                 'insert into jenispermohonan  (nama, persyaratan, jenis,deskripsi) values(?,?,?,?)',
-                [data.nama, JSON.stringify(data.persyaratan), data.deskripsi],
+                [data.nama, JSON.stringify(data.persyaratan), data.jenis, data.deskripsi],
                 (err, result) => {
                     if (err) {
                         return reject(err);

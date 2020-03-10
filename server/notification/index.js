@@ -5,6 +5,7 @@ module.exports = function (http) {
     socket.connectedUsers = [];
     var jwtAuth = require('socketio-jwt-auth');
 
+
     socket.io.use(jwtAuth.authenticate({
         secret: config.secret
     }, function (payload, done) {

@@ -45,4 +45,133 @@ angular.module("notification.service", [])
             on: socket.on,
             emit: socket.emit
         };
-    });
+    })
+
+
+    .factory('InboxService', InboxService);
+
+
+
+
+function InboxService($http, $q, AuthService, message, helperServices) {
+    var service = {};
+    service.data = [];
+    service.unread = 0;
+    service.instance = false;
+
+    get = () => {
+        var def = $q.defer();
+        if (service.instance) {
+            def.resolve(service.data);
+        } else {
+            $http({
+                method: 'get',
+                url: helperServices.url + '/api/inbox',
+                headers: AuthService.getHeader()
+            }).then(
+                (res) => {
+                    service.instance = true;
+                    service.data = res.data;
+                    unreadMessage();
+                    def.resolve(service.data);
+                },
+                (err) => {
+                    def.reject();
+                    message.error(err);
+                }
+            );
+        }
+        return def.promise;
+    }
+
+
+    getById = () => {
+
+    }
+
+
+    deleteItem = (datas) => {
+        var def = $q.defer();
+        if (service.instance) {
+            def.resolve(service.data);
+        } else {
+            $http({
+                method: 'delete',
+                url: helperServices.url + '/api/inbox',
+                headers: AuthService.getHeader(),
+                data: datas
+            }).then(
+                (res) => {
+                    if (res.data) {
+                        datas.forEach(element => {
+                            var index = service.data.indexOf(element);
+                            service.data.splice(index, 1);
+                        });
+                    }
+                    def.resolve(res.data);
+                },
+                (err) => {
+                    def.reject();
+                    message.error(err);
+                }
+            );
+        }
+        return def.promise;
+    }
+
+
+    subscribe = (data) => {
+        service.data.push(data);
+    }
+
+    read = (data) => {
+        var def = $q.defer();
+        if (service.instance) {
+            def.resolve(service.data);
+        } else {
+            $http({
+                method: 'put',
+                url: helperServices.url + '/api/inbox',
+                headers: AuthService.getHeader(),
+                data: data
+            }).then(
+                (res) => {
+                    data.readed = 1;
+                    def.resolve(res.data);
+                },
+                (err) => {
+                    def.reject();
+                    message.error(err);
+                }
+            );
+        }
+        return def.promise;
+    }
+
+    unreadMessage = () => {
+        if (service.data) {
+            var unreads = service.data.filter(x => !x.readed);
+            service.unread = unreads.length;
+        }
+
+        return service.unread;
+    }
+
+    all = () => {
+        return service.data.length
+    }
+
+
+    return {
+        get: get,
+        getById: getById,
+        delete: deleteItem,
+        subscribe: subscribe,
+        unread: unreadMessage,
+        all: all,
+        read: read
+    }
+
+
+
+}

@@ -11,17 +11,12 @@ Authorization: bearer {{token}}
 ####
 
 ####
-GET {{host}}/1 HTTP/1.1
+GET {{host}}/42 HTTP/1.1
 Content-Type: application/json
 Authorization: bearer {{token}}
 ####
 
 
-####
-GET {{host}}/approve/42 HTTP/1.1
-Content-Type: application/json
-Authorization: bearer {{token}}
-####
 
 ####  
 Post {{host}} HTTP/1.1
@@ -59,9 +54,24 @@ Authorization: bearer {{token}}
 
 }
 
+####
+GET {{host}}/approve/46 HTTP/1.1
+Content-Type: application/json
+Authorization: bearer {{token}}
+####
 
 ####  
-Post {{host}}/reject/32 HTTP/1.1
+Post {{host}}/back/46 HTTP/1.1
+Content-Type: application/json
+Authorization: bearer {{token}}
+ 
+{
+  "idpermohonan": 1,
+  "message":"Permohonan Anda Dikembalikan Ke Admin"
+}
+
+####  
+Post {{host}}/reject/46 HTTP/1.1
 Content-Type: application/json
 Authorization: bearer {{token}}
  
@@ -69,7 +79,6 @@ Authorization: bearer {{token}}
   "idpermohonan": 1,
   "message":"Anda Siapa jadi mau melakukan itu"
 }
-
 
 ####
 

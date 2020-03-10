@@ -81,6 +81,34 @@ router.post('/login', async (req, res) => {
 	}
 });
 
+router.post('/devicetoken', [authJwt.verifyToken], async (req, res) => {
+	try {
+		const data = req.body;
+		var user = req.User;
+		var result = await contextDb.Users.AddDeviceToken(data.token, user.userid);
+		if (result) {
+			res.status(200).json(result);
+		} else {
+			res.status(400).json({
+				message: "Anda Belum Registrasi Memiliki Akun"
+			});
+		}
+
+
+	} catch (err) {
+		if (err.errno && err.errno == 1062) {
+			res.status(400).json({
+				errno: err.errno,
+				message: "Anda Belum Telah Memiliki Akun"
+			});
+		} else
+			res.status(400).json({
+				message: err.message
+			});
+	}
+
+});
+
 
 router.post('/registrasi', async (req, res) => {
 	try {

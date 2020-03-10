@@ -412,6 +412,17 @@ UserDb.getUserPejabatAktif = async () => {
 };
 
 
+UserDb.AddDeviceToken = (token, iduser) => {
+    return new Promise((resolve, reject, nex) => {
+        pool.query('update penduduk set device=? where idusers=?', [token, iduser], (err, result) => {
+            if (err) {
+                return reject(err);
+            } else resolve(true);
+        });
+    });
+}
+
+
 
 
 
