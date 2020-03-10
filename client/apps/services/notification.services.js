@@ -35,6 +35,7 @@ angular.module("notification.service", [])
 
         function start() {
             _socket = io(helperServices.url, {
+                transports: ['websocket'],
                 query: 'auth_token=' + AuthService.getToken()
             });
 
