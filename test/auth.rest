@@ -26,10 +26,9 @@ POST {{host}}/registrasi HTTP/1.1
 Content-Type: application/json
 
 {
-    "email":"aji3@gmail.com",
-    "password":"Sony@77",
-    "nik":"123456789",
-    "nkk":"987654321"
+    "email":"kristt26@gmail.com",
+    "password":"admin",
+    "email":"kristt26@gmail.com"
 }
 
 

@@ -5,11 +5,12 @@ angular
 		'app.routers',
 		'app.controllers',
 		'app.conponent',
-		'720kb.datepicker',
 		'datatables', 
+		'720kb.datepicker',
 		'swangular',
 		'message.service',
-		'ui.select2'
+		'ui.select2',
+		'ngResource'
 	])
 	.directive('chooseFile', function () {
 		return {
