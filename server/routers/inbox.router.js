@@ -96,5 +96,27 @@ router.delete('/:id', [authJwt.verifyToken], async (req, res) => {
 });
 
 
+router.delete('/', [authJwt.verifyToken], async (req, res) => {
+    try {
+        const data = req.body;
+        contextDb.Inbox.deleteMany(data).then(
+            (data) => {
+                res.status(200).json(data);
+            },
+            (err) => {
+                res.status(400).json({
+                    message: err.message
+                });
+            }
+        );
+    } catch (err) {
+        res.status(400).json({
+            message: err.message
+        });
+    }
+});
+
+
+
 
 module.exports = router;

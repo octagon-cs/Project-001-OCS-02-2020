@@ -62,8 +62,8 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider, $
 		}).state('admin-inbox', {
 			url: '/inbox',
 			parent: 'admin',
-			controller: 'admininboxController',
-			templateUrl: 'apps/views/admin/inbox1.html'
+			controller: 'InboxController',
+			templateUrl: 'apps/views/inbox.html'
 		}).state('admin-permohonan', {
 			url: '/permohonan',
 			parent: 'admin',

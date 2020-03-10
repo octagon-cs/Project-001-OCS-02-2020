@@ -10,7 +10,6 @@ angular.module('admin.controller', [])
     .controller('adminsuratketdomisiliController', adminsuratketdomisiliController)
     .controller('adminsurattidakmampuController', adminsurattidakmampuController)
     .controller('admintambahpermohonanController', admintambahpermohonanController)
-    .controller('admininboxController', admininboxController)
     .controller('adminpermohonanController', adminpermohonanController)
     .controller('adminpejabatController', adminpejabatController)
     .controller('adminsuratskckController', adminsuratskckController)
@@ -117,6 +116,7 @@ function adminsuratbelummenikahController($http, helperServices, AuthService, $s
 
 
 }
+
 function adminsuratketmenikahController($http, helperServices, AuthService, $scope, message) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
@@ -208,6 +208,7 @@ function adminsuratketmenikahController($http, helperServices, AuthService, $sco
 
 
 }
+
 function adminsuratkelahiranController($http, helperServices, AuthService, $scope, message) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
@@ -309,6 +310,7 @@ function adminsuratkelahiranController($http, helperServices, AuthService, $scop
 
 
 }
+
 function adminsuratketceraiController($http, helperServices, AuthService, $scope, message) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
@@ -408,6 +410,7 @@ function adminsuratketceraiController($http, helperServices, AuthService, $scope
     }
 
 }
+
 function adminsuratketdesaController($http, helperServices, AuthService, $scope, message) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
@@ -492,9 +495,11 @@ function adminsuratketdesaController($http, helperServices, AuthService, $scope,
 
 
 }
+
 function adminsuratketektpController() {
 
 }
+
 function adminsuratketlainnyaController($http, helperServices, AuthService, $scope, message) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
@@ -577,6 +582,7 @@ function adminsuratketlainnyaController($http, helperServices, AuthService, $sco
     }
 
 }
+
 function adminsuratketnikahController($http, helperServices, AuthService, $scope, message) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
@@ -770,9 +776,11 @@ function adminpejabatController($http, helperServices, AuthService, $scope) {
 function adminsuratketusahaController() {
 
 }
+
 function adminsuratpenguasaantanahController() {
 
 }
+
 function adminsuratskckController() {
 
 }
@@ -780,6 +788,7 @@ function adminsuratskckController() {
 function adminpermohonanController() {
 
 }
+
 function admintambahpermohonanController($http, helperServices, AuthService, $scope) {
     $scope.Selected;
     $scope.Penduduk = [];
@@ -1067,29 +1076,33 @@ function adminpreviewController() {
 
 }
 
-function adminHomeController($http, helperServices, AuthService, $scope) {
+function adminHomeController($http, helperServices, AuthService, $scope, InboxService) {
+
     $scope.LuasWilayah = {};
     $scope.Profile = {};
     $scope.Penduduk = {};
     $scope.Pekerjaan = {};
     $scope.Jarak = {};
-    $http({
-        method: "get",
-        url: helperServices.url + "/api/profildesa",
-        Header: AuthService.getHeader()
-    }).then(response => {
-        response.data.forEach(value => {
-            if (value.nama == 'Luas Wilayah') {
-                $scope.LuasWilayah = value;
-            } else if (value.nama == 'Profile') {
-                $scope.Profile = value;
-            } else if (value.nama == 'Pekerjaan') {
-                $scope.Pekerjaan = value;
-            } else if (value.nama == 'Jarak') {
-                $scope.Jarak = value;
-            }
+    InboxService.get().then(res => {
+        $http({
+            method: "get",
+            url: helperServices.url + "/api/profildesa",
+            Header: AuthService.getHeader()
+        }).then(response => {
+            response.data.forEach(value => {
+                if (value.nama == 'Luas Wilayah') {
+                    $scope.LuasWilayah = value;
+                } else if (value.nama == 'Profile') {
+                    $scope.Profile = value;
+                } else if (value.nama == 'Pekerjaan') {
+                    $scope.Pekerjaan = value;
+                } else if (value.nama == 'Jarak') {
+                    $scope.Jarak = value;
+                }
+            })
         })
-    })
+    });
+
 
     $scope.Simpan = function (item) {
         if (item == 'Profile') {
