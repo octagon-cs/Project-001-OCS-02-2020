@@ -34,11 +34,6 @@ angular.module("notification.service", [])
 
         function start() {
             _socket = io.connect(helperServices.url, {
-                transports: ['websocket'],
-                upgrade: false
-            }, {
-                'force new connection': true
-            }, {
                 query: 'auth_token=' + AuthService.getToken()
             });
 
