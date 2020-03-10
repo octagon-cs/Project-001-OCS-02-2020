@@ -1,0 +1,71 @@
+<section class="content-header">
+  <div class="row">
+    <!-- /.col -->
+    <div class="col">
+      <div class="card card-primary card-outline">
+        <div class="card-header">
+          <h3 class="card-title">Inbox</h3>
+
+          <div class="card-tools">
+            <div class="input-group input-group-sm">
+              <input type="text" class="form-control" placeholder="Search Mail">
+              <div class="input-group-append">
+                <div class="btn btn-primary">
+                  <i class="fas fa-search"></i>
+                </div>
+                <div class="btn btn-secondary ">Compose</div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-tools -->
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+          <div class="mailbox-controls">
+            <!-- Check all button -->
+            <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
+            </button>
+            <div class="btn-group">
+              <button type="button" ng-click="delete(messages)" class="btn btn-default btn-sm"><i
+                  class="far fa-trash-alt"></i></button>
+            </div>
+            <!-- /.btn-group -->
+            <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
+            <div class="float-right">
+            </div>
+            <!-- /.float-right -->
+          </div>
+          <div class="table-responsive mailbox-messages">
+            <table class="table table-hover table-striped">
+              <tbody>
+                <tr ng-repeat="item in messages | orderBy: '-created'">
+                  <td>
+                    <div class="icheck-primary">
+                      <input type="checkbox" value="" id="check1" ng-model="item.isChecked">
+                      <label for="check1"></label>
+                    </div>
+                  </td>
+                  <td ng-click="read(item)" class="mailbox-name"><b>System</b></td>
+                  <td ng-click="read(item)" class="mailbox-subject">
+                    <b ng-if="!item.readed">{{item.message |limitTo:25}} {{item.message.length >25 ?"....":""}}</b>
+                    <span ng-if="item.readed">{{item.message}}</span>
+                  </td>
+                  <td class="mailbox-date text-right">{{changedate(item.created)}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- /.table -->
+          </div>
+          <!-- /.mail-box-messages -->
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer p-0">
+
+        </div>
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</section>

@@ -69,8 +69,8 @@ inbox.read = async (message) => {
     return new Promise((resolve, reject) => {
         try {
             pool.query(
-                'update inbox set read=? where idinbox=? ',
-                [message.idinbox],
+                'update inbox set readed=? where idinbox=? ',
+                [1, message.idinbox],
                 (err, result) => {
                     if (err) {
                         return reject(err);
@@ -89,6 +89,28 @@ inbox.delete = (id) => {
     return new Promise((resolve, reject) => {
         try {
             pool.query('delete from inbox where idinbox=? ', [id], (err, result) => {
+                if (err) {
+                    return reject(err);
+                } else
+                    resolve(true);
+            });
+        } catch (err) {
+            return reject(err);
+        }
+    });
+};
+
+
+inbox.deleteMany = (data) => {
+    return new Promise((resolve, reject) => {
+        try {
+
+            var datas = [];
+            data.forEach(element => {
+                datas.push([element.idinbox]);
+            });
+
+            pool.query('delete from inbox where (idinbox) IN (?) ', [datas], (err, result) => {
                 if (err) {
                     return reject(err);
                 } else

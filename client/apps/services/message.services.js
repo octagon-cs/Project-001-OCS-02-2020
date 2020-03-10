@@ -106,7 +106,6 @@ function MessageServices(swangular, $q, $state) {
 					def.reject(result.value);
 				}
 			});
-
 		return def.promise;
 	}
 }

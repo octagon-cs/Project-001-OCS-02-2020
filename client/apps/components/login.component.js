@@ -1,11 +1,17 @@
 angular
 	.module('app.conponent', [])
 	.component('inboxview', {
-		controller: function ($scope, socket) {
-			$scope.messages = [];
+		controller: function ($scope, socket, InboxService) {
+			$scope.all = InboxService.all;
+			$scope.unread = () => {
+				var result = InboxService.unread();
+				$scope.all = InboxService.all;
+				return result;
+			}
+
 			if (socket) {
 				socket.on('permohonan', function (msg) {
-					$scope.messages.push(msg);
+					InboxService.subscribe(msg)
 				});
 			}
 		},

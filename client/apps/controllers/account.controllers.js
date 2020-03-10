@@ -2,7 +2,8 @@ angular
 	.module('account.controller', [])
 	.controller('AccountController', AccountController)
 	.controller('LoginController', LoginController)
-	.controller('RegisterController', RegisterController);
+	.controller('RegisterController', RegisterController)
+	.controller('InboxController', InboxController);
 
 function AccountController(AuthService, $state, $scope) {
 	if (AuthService.userIsLogin()) {
@@ -80,4 +81,72 @@ function RegisterController(
 			$state.go('login');
 		});
 	};
+}
+
+
+
+
+function InboxController(AuthService, $state, $scope, InboxService) {
+
+	InboxService.get().then(res => {
+		$scope.messages = res;
+	});
+
+
+	$scope.changedate = (date) => {
+		date = new Date(date);
+
+		return timesince(date);
+
+	}
+
+
+	$scope.delete = (messages) => {
+		var datas = messages.filter(x => x.isChecked);
+		InboxService.delete(datas).then(res => {
+			if (res.data) {
+				datas.forEach(element => {
+					var index = messages.indexOf(element);
+					datas.splice(index, 1);
+				});
+			}
+		})
+	}
+
+
+	$scope.read = (data) => {
+		InboxService.read(data).then(res => {
+			//messages.info()
+		})
+	}
+
+	function timesince(date) {
+		var seconds = Math.floor((new Date() - date) / 1000);
+		var interval = Math.floor(seconds / 31536000);
+
+		if (interval > 1) {
+			return interval + " years";
+		}
+		interval = Math.floor(seconds / 2592000);
+		if (interval > 1) {
+			return interval + " months";
+		}
+		interval = Math.floor(seconds / 86400);
+		if (interval > 1) {
+			return interval + " days";
+		}
+		interval = Math.floor(seconds / 3600);
+		if (interval > 1) {
+			return interval + " hours";
+		}
+		interval = Math.floor(seconds / 60);
+		if (interval > 1) {
+			return interval + " minutes";
+		}
+		return Math.floor(seconds) + " seconds";
+	}
+
+
+
+
 }

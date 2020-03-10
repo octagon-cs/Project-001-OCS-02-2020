@@ -1,4 +1,5 @@
 node_modules/
+keys/
 bower_components/
 client/node_modules/
 client/bower_components/

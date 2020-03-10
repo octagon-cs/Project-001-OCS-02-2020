@@ -30,6 +30,20 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.get('/jenis/:jenis', async (req, res) => {
+    var jenis = req.params.jenis;
+    try {
+        contextDb.JenisPermohonan.getByJenis(jenis).then(data => {
+            res.status(200).json(data);
+        });;
+
+    } catch (err) {
+        res.status(400).json({
+            message: err.message
+        });
+    }
+});
+
 router.post('/', async (req, res) => {
     try {
         const user = req.body;

@@ -5,6 +5,8 @@ module.exports = function (socket) {
     const authJwt = require('../auth/verifyToken');
     const permit = require('../auth/permission');
     const config = require('../auth/config');
+    const fcm = require('../notification/fcm')
+
     router.get('/', async (req, res) => {
         try {
             contextDb.Permohonan.get().then(data => {
@@ -66,19 +68,25 @@ module.exports = function (socket) {
             var role = req.User.roles[0];
             var indexOfRole = config.Roles.indexOf(role);
             var permohonan = await contextDb.Permohonan.getById(id);
+
             if (permohonan) {
                 var persetujuan = {
                     created: new Date(),
                     status: "disetujui",
                     message: "",
                     idusers: req.User.idusers,
-                    role: role
+                    read: false,
+                    data: {
+                        from: req.User.email,
+                        iddata: permohonan.idpermohonan,
+                        to: role
+                    }
                 }
 
                 if (indexOfRole === config.Roles.length - 1) {
                     persetujuan.status = "selesai";
+                    permohonan.status = "selesai";
                 }
-
 
                 if (permohonan.persetujuan) {
                     permohonan.persetujuan.push(persetujuan);
@@ -86,12 +94,28 @@ module.exports = function (socket) {
                     permohonan.persetujuan = [persetujuan];
                 }
 
-                var resultData = await contextDb.Permohonan.put(permohonan);
+                var penduduk = await contextDb.Penduduk.getById(permohonan.idpenduduk);
+
                 var activeUsers = await contextDb.Users.getUserPejabatAktif();
 
                 if (resultData && persetujuan.status == "selesai") {
                     if (permohonan.idusers) {
-                        //send to pemohon
+                        persetujuan.message = "Permohonan Anda Telah Disetujui Oleh Lurah, Silahkan Anda Mengambilnya di Kantor Lurah Waena"
+                        var message = {
+                            idusers: req.idusers,
+                            data: {
+                                from: req.User.email,
+                                iddata: permohonan.idpermohonan,
+                                to: "pemohon"
+                            },
+                            message: "Permohonan Baru Saja Disetujui, Mohon untuk diproses !",
+                            read: false,
+                            created: new Date()
+                        }
+
+                        let item = await contextDb.Inbox.post(message);
+                        fcm.sendToDevice(penduduk.device, item);
+                        socket.CreatePermohonan(element.username, item);
                     }
                 } else {
                     var nexRole = config.Roles[indexOfRole + 1];
@@ -101,18 +125,21 @@ module.exports = function (socket) {
                                 idusers: element.idusers,
                                 data: {
                                     from: req.User.email,
-                                    iddata: data.id,
-                                    to: role
+                                    iddata: permohonan.idpermohonan,
+                                    to: nexRole
                                 },
                                 message: "Permohonan Baru Saja Disetujui, Mohon untuk diproses !",
                                 read: false,
                                 created: new Date()
                             }
+                            permohonan.status = "disetujui";
                             let item = await contextDb.Inbox.post(message);
+                            fcm.sendToDevice(penduduk.device, item);
                             socket.CreatePermohonan(element.username, item);
                         }
                     });
                 }
+                var resultData = await contextDb.Permohonan.put(permohonan);
                 res.status(200).json(true);
             } else {
                 res.status(400).json({
@@ -137,9 +164,17 @@ module.exports = function (socket) {
                 var persetujuan = {
                     created: new Date(),
                     status: "dikembalikan",
-                    message: data.message,
+                    message: "",
                     idusers: req.User.idusers,
-                    role: role
+                    read: false,
+                    data: {
+                        from: req.User.email,
+                        iddata: permohonan.idpermohonan,
+                        to: role
+                    }
+                }
+                if (data.message) {
+                    permohonan.message = data.message;
                 }
 
                 if (permohonan.persetujuan) {
@@ -148,7 +183,6 @@ module.exports = function (socket) {
                     permohonan.persetujuan = [persetujuan];
                 }
 
-                var resultData = await contextDb.Permohonan.put(permohonan);
                 var activeUsers = await contextDb.Users.getUserPejabatAktif();
                 var frxRole = config.Roles[indexOfRole - 1];
                 activeUsers.forEach(async (element) => {
@@ -158,16 +192,21 @@ module.exports = function (socket) {
                             data: {
                                 from: req.User.email,
                                 iddata: data.id,
-                                to: role
+                                to: frxRole
                             },
                             message: "Permohonan Dikembalikan, Mohon untuk diperksa kembali !",
                             read: false,
                             created: new Date()
                         }
+
                         let item = await contextDb.Inbox.post(message);
+
                         socket.CreatePermohonan(element.username, item);
+                        item.message = "Permohonan Anda Di kembalikan ke " + frxRole;
+                        fcm.sendToDevice(penduduk.device, item);
                     }
                 });
+                var resultData = await contextDb.Permohonan.put(permohonan);
                 res.status(200).json(true);
             } else {
                 res.status(400).json({
@@ -195,7 +234,12 @@ module.exports = function (socket) {
                     status: "ditolak",
                     message: rejectData.message,
                     idusers: req.User.idusers,
-                    role: role
+                    read: false,
+                    data: {
+                        from: req.User.email,
+                        iddata: permohonan.idpermohonan,
+                        to: "pemohon"
+                    }
                 }
 
                 if (permohonan.persetujuan) {
@@ -206,7 +250,22 @@ module.exports = function (socket) {
 
                 var resultData = await contextDb.Permohonan.put(permohonan);
                 if (resultData && persetujuan.status == "ditolak") {
-                    //send to pemohon
+                    var message = {
+                        idusers: element.idusers,
+                        data: {
+                            from: req.User.email,
+                            iddata: data.id,
+                            to: "pemohon"
+                        },
+                        message: rejectData.message,
+                        read: false,
+                        created: new Date()
+                    }
+                    let item = await contextDb.Inbox.post(message);
+
+                    socket.CreatePermohonan(element.username, item);
+                    item.message = rejectData.message
+                    fcm.sendToDevice(penduduk.device, item);
                 }
                 res.status(200).json(true);
             } else {
