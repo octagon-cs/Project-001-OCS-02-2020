@@ -1,4 +1,4 @@
-<section class="content-header">
+<section class="content-header" ng-init="Init()">
   <div class="col">
     <div class="card-tools">
       <h4>Surat Keterangan Domisili</h4>
@@ -39,32 +39,20 @@
                     <th>NIK</th>
                     <th>Nama</th>
                     <th>No.Surat</th>
-                    <th>Atas Nama</th>
+                    <th>Pejabat</th>
                     <th>Option</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="">
+                  <tr ng-repeat="item in DatasSuratDomisili">
                     <td>{{$index+1}}</td>
-                    <td>{{item.NIK}}</td>
-                    <td>{{item.Nama}}</td>
-                    <td>{{item.No.Surat}}</td>
-                    <td>{{item.Atas Nama}}</td>
+                    <td>{{item.nik}}</td>
+                    <td>{{item.nama}}</td>
+                    <td>{{item.data.nomorsurat}}</td>
+                    <td>{{item.data.pejabat.nama}}</td>
                     <td>
-                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-secondary">
-                          <input type="radio" name="options" id="option1" autocomplete="off"> <i
-                            class="fas fa-edit"></i>
-                        </label>
-                        <label class="btn btn-secondary">
-                          <input type="radio" name="options" id="option2" autocomplete="off"> <i
-                            class="fas fa-print"></i>
-                        </label>
-                        <label class="btn btn-secondary">
-                          <input type="radio" name="options" id="option3" autocomplete="off"><i
-                            class="fas fa-search"></i>
-                        </label>
-                      </div>
+                      <button class="btn btn-primary" ng-click="Selecteddata('suratDomisili', item)"><i
+                          class="fas fa-print"></i></button>
                     </td>
                   </tr>
                 </tbody>
@@ -84,7 +72,7 @@
                           <label class="col-sm-4 col-form-label">NIK/Nama</label>
                           <div class="col-sm-8">
                             <select ui-select2 class="form-control" ng-model="ItemPenduduk"
-                              ng-change="SelectedPenduduk()" data-placeholder="Kepemilikanktp">
+                              ng-change="SelectedPenduduk()" data-placeholder="NIK / Nama">
                               <option value=""></option>
                               <option ng-repeat="item in ListPenduduk" value="{{item}}">
                                 {{item.nik}}&nbsp;-&nbsp;{{item.nama}}</option>
@@ -96,7 +84,7 @@
                         <div class="form-group row">
                           <label class="col-sm-4 col-form-label">Nomor Surat</label>
                           <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="SuratTidakMampu.data.nomorsurat"
+                            <input type="text" class="form-control" ng-model="SuratDomisili.data.nomorsurat"
                               placeholder="Nomor Surat">
                           </div>
                         </div>
@@ -147,8 +135,7 @@
       </div>
     </div>
   </div>
-  <!-- <div class="card-footer">
-        <button type="submit" class="btn btn-success">Submit</button>
-        <button type="submit" class="btn btn-danger float-right">Cancel</button>
-      </div> -->
+  <div id="suratDomisili" class="printing">
+    <div ng-include="'../../../apps/views/admin/formatsurat/formatketdomisili.html'"></div>
+  </div>
 </section>
