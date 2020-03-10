@@ -33,3 +33,13 @@ Content-Type: application/json
 
 
 ##
+
+
+####
+POST {{host}}/resetpassword HTTP/1.1
+Content-Type: application/json
+
+{
+    "email":"aji3@gmail.com"
+}
+

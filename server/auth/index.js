@@ -123,8 +123,8 @@ router.post('/registrasi', async (req, res) => {
 			if (penduduk) {
 				if (penduduk.nkk != user.nkk)
 					throw Error("Nomor KK Anda Salah");
-
-				var result = await contextDb.Users.register(penduduk.idpenduduk, user);
+				var hostname = req.protocol + "://" + req.headers.host
+				var result = await contextDb.Users.register(penduduk.idpenduduk, user, hostname);
 				if (result) {
 					res.status(200).json({
 						message: "Berhasil !, Silahkan Confirmasi Email Anda",
@@ -151,35 +151,17 @@ router.post('/registrasi', async (req, res) => {
 });
 
 
-router.post('/changepassword', async (req, res) => {
+router.post('/changepassword', [authJwt.verifyToken], async (req, res) => {
 	try {
 		const user = req.body;
-		contextDb.Users.login(user).then(
-			(data) => {
-				if (!data || data.length <= 0) {
-					res.status(401).json({
-						message: 'Anda Tidak Memiliki User Akses'
-					});
-				} else {
-					var item = data[0];
-					if (!bcrypt.compareSync(user.password, item.password))
-						res.status(401).json({
-							message: 'Password Lama Anda Salah'
-						});
-					else {
-						user.newpassword = bcrypt.hashSync(user.newpassword, 8);
-						contextDb.Users.changepassword(user).then((x) => {
-							res.status(200).json(x);
-						});
-					}
-				}
-			},
-			(err) => {
-				res.status(401).json({
-					message: 'Anda Tidak Memiliki User Akses'
-				});
-			}
-		);
+		var newpassword = bcrypt.hashSync(user.password, 8);
+		contextDb.Users.changepassword(req.User.userid, newpassword).then((x) => {
+			res.status(200).json(x);
+		}, err => {
+			res.status(400).json({
+				message: err.message
+			});
+		});
 	} catch (err) {
 		res.status(400).json({
 			message: err.message
@@ -187,12 +169,17 @@ router.post('/changepassword', async (req, res) => {
 	}
 });
 
-
-
-router.post('/confirmemail', async (req, res) => {
+router.get('/confirmemail', [authJwt.verifyToken], async (req, res) => {
 	try {
 		const data = req.body;
-		var result = await contextDb.Users.confirmemail(data);
+		var result = await contextDb.Users.confirmemail(req.User.userid);
+		if (result) {
+			res.status(200).json(result);
+		} else {
+			res.status(400).json({
+				message: "Terjadi Kesalahan, Coba Ulangi Lagi Nanti.."
+			});
+		}
 	} catch (err) {
 		res.status(400).json({
 			message: err.message
@@ -203,7 +190,8 @@ router.post('/confirmemail', async (req, res) => {
 router.post('/resetpassword', async (req, res) => {
 	try {
 		const data = req.body;
-		contextDb.Users.resetpassword(data.email).then(
+		var hostname = req.protocol + "://" + req.headers.host
+		contextDb.Users.resetpassword(data.email, hostname).then(
 			(data) => {
 				res.status(200).json(data);
 			},

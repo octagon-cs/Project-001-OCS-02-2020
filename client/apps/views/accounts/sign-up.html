@@ -1,99 +1,65 @@
-	<form ng-submit="registrasi(model)" class="form-group">
-		<div class="row">
-			<div class="col-md-12">
-				<h3>SIGN UP</h3>
-				<hr>
-			</div>
+<div class="register-box">
+	<div class="register-logo">
+		<a href="../../index2.html"><b>Admin</b>LTE</a>
+	</div>
 
-			<div class="col-md-6">
+	<div class="card">
+		<div class="card-body register-card-body">
+			<p class="login-box-msg">Register a new membership</p>
 
-				<div class="form-group">
-					<label class="control-label">Universitas</label>
-					<select ng-change="SelectUniversitas(univ)" class="form-control" ng-model="univ"
-						ng-options="option.namauniversitas for option in Universitas track by option.iduniversitas"
-						ng-model="model.iduniversitas"></select>
+			<form ng-submit="registrasi(model)">
+				<div class="input-group mb-3">
+					<input type="text" class="form-control" ng-model="model.nik" placeholder="NIK" required>
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-user"></span>
+						</div>
+					</div>
 				</div>
-				<div class="form-group">
-					<label class="control-label">Fakultas</label>
-					<select ng-change="SelectFakultas(fak)" class="form-control" ng-model="fak"
-						ng-options="option.namafakultas for option in Fakultas track by option.idfakultas"
-						ng-model="model.idfakultas"></select>
+				<div class="input-group mb-3">
+					<input type="text" class="form-control" ng-model="model.nkk" placeholder="NKK" required>
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-user"></span>
+						</div>
+					</div>
 				</div>
-				<div class="form-group">
-					<label class="control-label">Prodi</label>
-					<select class="form-control"
-						ng-options="option.namaprogramstudi for option in ProgramStudis track by option.idprogramstudi"
-						ng-model="ProgramStudi"></select>
+				<div class="input-group mb-3">
+					<input type="email" class="form-control" ng-model="model.email" placeholder="Email" required>
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-envelope"></span>
+						</div>
+					</div>
 				</div>
-				<div class="form-group">
-					<label class="control-label">NIDN</label>
-					<input ng-model="model.nidn" class="form-control" type="number" placeholder="Masukan NIDN Anda"
-						required="">
+				<div class="input-group mb-3">
+					<input type="password" class="form-control" ng-model="model.password" placeholder="Password"
+						required>
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-lock"></span>
+						</div>
+					</div>
 				</div>
-				<div class="form-group">
-					<label class="control-label">Nama</label>
-					<input ng-model="model.namadosen" class="form-control" type="text" placeholder="Masukan Nama Anda"
-						required="">
+				<div class="input-group mb-3">
+					<input type="password" class="form-control" ng-model="model.confirmpassword"
+						placeholder="Retype password" required>
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-lock"></span>
+						</div>
+					</div>
 				</div>
-				<div class="form-group">
-					<label class="control-label">Email</label>
-					<input ng-model="model.email" class="form-control" type="email" placeholder="Masukan Email Anda"
-						required="">
+				<div class="row">
+					<div class="col-12">
+						<button type="submit" class="btn btn-primary btn-block">Register</button>
+					</div>
+					<!-- /.col -->
 				</div>
-				<div class="form-group">
-					<label class="control-label">TTL</label>
-					<input ng-model="model.tanggallahir" class="form-control" type="text" placeholder="Masukan TTL Anda"
-						required="">
-				</div>
-				<div class="form-group">
-					<label class="control-label">Gender</label>
-					<select class="form-control" ng-model="model.jeniskelamin">
-						<option> -- Pilih Gender -- </option>
-						<option value="Pria">Pria</option>
-						<option value="Wanita">Wanita</option>
-					</select>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					<label class="control-label">Pendidikan Terakhir</label>
-					<input ng-model="model.pendidikanterakhir" class="form-control" type="text"
-						placeholder="Masukan Pendidikan Terakhir Anda" required="">
-				</div>
-				<div class="form-group">
-					<label class="control-label">No Seri Karpeg</label>
-					<input ng-model="model.noserikarpeg" class="form-control" type="text"
-						placeholder="Masukan No Seri Karpeg Anda" required="">
-				</div>
-				<!-- <div class="form-group">
-				<label class="control-label">Jabatan Akademik</label>
-				<select class="form-control" ng-model="Jabatan"
-					ng-options="option.jabatan for option in Jabatans track by option.idjabatan"></select>
-			</div> -->
-				<div class="form-group">
-					<label class="control-label">Jabatan Fungsional</label>
-					<select class="form-control" ng-model="Jabatan"
-						ng-options="option.jabatan for option in Jabatans track by option.idjabatan"></select>
-				</div>
-				<div class="form-group">
-					<label class="control-label">Masa Kerja</label>
-					<input ng-model="model.masakerja" class="form-control" type="text"
-						placeholder="Masukan Masa Kerja Anda" required="">
-				</div>
-				<div class="form-group">
-					<label class="control-label">Password</label>
-					<input ng-model="model.password" class="form-control" type="password"
-						placeholder="Masukan Password Anda" required="">
-				</div>
-				<div class="form-group">
-					<label class="control-label">Konfirmasi Password</label>
-					<input ng-model="model.confirm" class="form-control" type="password"
-						placeholder="Masukan Konfirmasi Password Anda" required="">
-				</div>
-				<div class="form-group">
-					<button type="submit" class="btn btn-primary" id="">Registrasi</button>
-				</div>
-			</div>
+			</form>
 
+			<a href="" ui-sref="login" class="text-center">I already have a membership</a>
 		</div>
-	</form>
+		<!-- /.form-box -->
+	</div><!-- /.card -->
+</div>

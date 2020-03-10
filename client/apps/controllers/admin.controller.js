@@ -1,4 +1,5 @@
 angular.module('admin.controller', [])
+    .controller('adminController', adminController)
     .controller('adminHomeController', adminHomeController)
     .controller('admindatakepaladesaController', admindatakepaladesaController)
     .controller('admindataumumdesaController', admindataumumdesaController)
@@ -23,6 +24,12 @@ angular.module('admin.controller', [])
     .controller('adminsuratketektpController', adminsuratketektpController)
     .controller('adminsuratketlainnyaController', adminsuratketlainnyaController)
     .controller('adminsuratketnikahController', adminsuratketnikahController);
+
+
+function adminController(AuthService) {
+    AuthService.Init(["admin"]);
+}
+
 
 function adminsuratbelummenikahController($http, helperServices, AuthService, $scope, message) {
     $scope.ItemPenduduk = "";

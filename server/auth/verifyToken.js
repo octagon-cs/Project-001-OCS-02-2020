@@ -9,7 +9,7 @@ verifyToken = (req, res, next) => {
 		if (!header) {
 			return res.status(403).send({
 				auth: false,
-				message: 'No token provided.'
+				message: 'Anda Tidak Memiliki Akses.'
 			});
 		}
 		let token = header.split(' ')[1];
