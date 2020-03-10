@@ -974,7 +974,6 @@ function adminpreviewController() {
 }
 
 function adminHomeController($http, helperServices, AuthService, $scope, InboxService) {
-
     $scope.LuasWilayah = {};
     $scope.Profile = {};
     $scope.Penduduk = {};
@@ -999,7 +998,6 @@ function adminHomeController($http, helperServices, AuthService, $scope, InboxSe
             })
         })
     });
-
 
     $scope.Simpan = function (item) {
         if (item == 'Profile') {
