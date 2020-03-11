@@ -1,5 +1,6 @@
 var admin = require("firebase-admin");
 var path = require('path');
+
 var serviceAccount = require("../../keys/project-001-ocs-03-2020-firebase-adminsdk-hmogb-08ef075cb2.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
@@ -11,6 +12,8 @@ var options = {
     priority: "high",
     timeToLive: 60 * 60 * 24
 };
+
+
 
 fcm.sendToDevice = (registrationToken, data) => {
     var payload = {
@@ -49,5 +52,18 @@ fcm.sendToBroadcase = async (persetujuan) => {
         });
 
 };
+
+
+fcm.subscribe = (topic, token) => {
+    admin.messaging().subscribeToTopic(token, topic)
+        .then(function (response) {
+            // See the MessagingTopicManagementResponse reference documentation
+            // for the contents of response.
+            console.log('Successfully subscribed to topic:', response);
+        })
+        .catch(function (error) {
+            console.log('Error subscribing to topic:', error);
+        });
+}
 
 module.exports = fcm;
