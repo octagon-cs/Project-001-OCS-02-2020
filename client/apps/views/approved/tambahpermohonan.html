@@ -1,0 +1,177 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div>
+                    <div class="card-tools">
+                        <h4>Data Penduduk</h4>
+                    </div>
+                    <div class="col-12">
+                        <div class="card card-primary card-outline card-tabs">
+                            <div class="card-header p-0 pt-1 border-bottom-0">
+                                <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill"
+                                            href="" data-target="#custom-tabs-two-home" role="tab"
+                                            aria-controls="custom-tabs-two-home" aria-selected="true">Surat
+                                            Permohonan</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href=""
+                                            data-target="#custom-tabs-two-profile" role="tab"
+                                            aria-controls="custom-tabs-two-profile" aria-selected="false">Tambah Surat
+                                            Permohonan</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content" id="custom-tabs-two-tabContent">
+                                    <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel"
+                                        aria-labelledby="custom-tabs-two-home-tab">
+                                        <div class="card-body table-responsive p-0" style="height: 550px;">
+                                            <table datatable="" class="table table-head-fixed text-nowrap">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>User</th>
+                                                        <th>Date</th>
+                                                        <th>Status</th>
+                                                        <th>Reason</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>183</td>
+                                                        <td>John Doe</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-success">Approved</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>219</td>
+                                                        <td>Alexander Pierce</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-warning">Pending</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>657</td>
+                                                        <td>Bob Doe</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-primary">Approved</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>175</td>
+                                                        <td>Mike Doe</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-danger">Denied</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>134</td>
+                                                        <td>Jim Doe</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-success">Approved</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>494</td>
+                                                        <td>Victoria Doe</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-warning">Pending</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>832</td>
+                                                        <td>Michael Doe</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-primary">Approved</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>982</td>
+                                                        <td>Rocky Doe</td>
+                                                        <td>11-7-2014</td>
+                                                        <td><span class="tag tag-danger">Denied</span></td>
+                                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank
+                                                            fatback doner.
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel"
+                                        aria-labelledby="custom-tabs-two-profile-tab">
+                                        <div class="tab-content" id="custom-tabs-one-tabContent">
+                                            <div class="card card-default">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Surat Pengantar KTP</h3>
+                                                </div>
+                                                <form ng-submit="Simpan('Profile')">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <span><label>NIK</label></span> 
+                                                                    <select class="form-control" ui-select2 ng-model="Pengajuan.idpenduduk"
+                                                                        data-placeholder="Pilih NIK">
+                                                                        <option value=""></option>
+                                                                        <option ng-repeat="item in Penduduk"
+                                                                            value="{{item.nik}}">{{item.nik}}&nbsp;-&nbsp;{{item.nama}}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <span><label>Tanggal</label></span> 
+                                                                    <input type="datetime" class="form-control" ng-model="Pengajuan.tanggalpengajuan">
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-header">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <span><label>Tanggal</label></span> 
+                                                                    <input type="datetime" class="form-control" ng-model="Pengajuan.tanggalpengajuan">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <button type="submit"
+                                                                class="btn btn-success">Submit</button>
+                                                            <button type="submit"
+                                                                class="btn btn-danger float-right">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
