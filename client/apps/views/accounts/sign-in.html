@@ -1,12 +1,13 @@
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <a href="../../index2.html"><b>Admin</b>LTE</a>
+      <a href=""></a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body" style="padding: 25px;">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <img src="../../../assets/images/logowon.png" style="width: 180px; height: 180px;">
+        <p class="login-box-msg">Login</p>
 
         <form ng-submit="login(model)">
           <div class="input-group mb-3">
@@ -25,28 +26,18 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-8">
-              <div class="icheck-primary">
-                <input type="checkbox" id="remember">
-                <label for="remember">
-                  Remember Me
-                </label>
-              </div>
-            </div>
+        
             <!-- /.col -->
-            <div class="col-4">
+            <div class="col">
               <button type="submit" class="btn btn-primary btn-block">Sign In</button>
             </div>
             <!-- /.col -->
           </div>
         </form>
 
-        <p class="mb-1">
-          <a ui-sref="resetpassword">Lupa Password</a>
-        </p>
-        <p class="mb-0">
-          <a ui-sref="register" class="text-center">Registrasi</a>
+        <p>
+          <a ui-sref="resetpassword" style="text-align: left;">Lupa Password</a> |
+          <a ui-sref="register" style="text-align: right;">Registrasi</a>
         </p>
       </div>
       <!-- /.login-card-body -->
