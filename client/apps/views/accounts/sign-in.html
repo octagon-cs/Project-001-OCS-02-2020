@@ -1,17 +1,14 @@
-<body class="hold-transition login-page">
+<div class="hold-transition login-page">
   <div class="login-box">
-    <div class="login-logo">
-      <a href=""></a>
-    </div>
-    <!-- /.login-logo -->
     <div class="card">
-      <div class="card-body login-card-body" style="padding: 25px;">
-        <img src="../../../assets/images/logowon.png" style="width: 180px; height: 180px;">
-        <p class="login-box-msg">Login</p>
-
-        <form ng-submit="login(model)">
+      <div class="card-body login-card-body">
+        <div align="center"><img src="../../../assets/images/logowon.png" width="150" height="150"
+            style="display: block; border: 0px;" /></div>
+        <br>
+        <p class="login-box-msg">Sign In Untuk Memulai Sesi Anda</p>
+        <form action="../../index3.html" method="post">
           <div class="input-group mb-3">
-            <input type="email" ng-model="model.username" class="form-control" placeholder="Email">
+            <input type="email" class="form-control" placeholder="E-Mail">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
@@ -19,33 +16,32 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input ng-model="model.password" type="password" class="form-control" placeholder="Password">
+            <input type="password" class="form-control" placeholder="Password">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
               </div>
             </div>
           </div>
-        
-            <!-- /.col -->
+          <div class="row">
             <div class="col">
               <button type="submit" class="btn btn-primary btn-block">Sign In</button>
             </div>
             <!-- /.col -->
           </div>
-        </form>
+        </form><br><br>
+        <div class="row">
+          <div class="col-7"><a href="">Lupa Password ?</a></div>
+          <div class="col"><a href="">Daftar Akun Baru</a></div>
+        </div>
+        <p class="mb-1">
 
-        <p>
-          <a ui-sref="resetpassword" style="text-align: left;">Lupa Password</a> |
-          <a ui-sref="register" style="text-align: right;">Registrasi</a>
+        </p>
+        <p class="mb-0">
+
         </p>
       </div>
       <!-- /.login-card-body -->
     </div>
   </div>
-  <!-- /.login-box -->
-
-  <!-- jQuery -->
-
-
-</body>
+</div>
