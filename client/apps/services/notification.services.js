@@ -6,8 +6,7 @@ angular.module("notification.service", [])
         if (AuthService.userIsLogin()) {
             start();
         } else {
-            var tkn = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjI1OTIwMDB9.NsRXlw7lAWEymKOBm5sBaHm-kvsRwU4x2ef5xilrxDo";
-            var token = AuthService.getToken();
+            //var token = AuthService.getToken();
         }
 
         socket.on = function (eventName, callback) {
@@ -34,7 +33,7 @@ angular.module("notification.service", [])
 
 
         function start() {
-            _socket = io(helperServices.url, {
+            _socket = io.connect(helperServices.url, {
                 query: 'auth_token=' + AuthService.getToken()
             });
 

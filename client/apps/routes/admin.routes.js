@@ -2,7 +2,7 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider, $
 	$stateProvider
 		.state('admin', {
 			url: '/admin',
-			controller: 'adminHomeController',
+			controller: 'adminController',
 			templateUrl: 'apps/views/admin/index.html'
 		}).state('admin-home', {
 			url: '/home',

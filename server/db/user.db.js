@@ -73,29 +73,38 @@ UserDb.login = async (user) => {
                                                                                             connection.release();
                                                                                             return reject(err);
                                                                                         });
-                                                                                    } else
+                                                                                    } else {
                                                                                         connection.commit(function (err) {
                                                                                             if (err) {
                                                                                                 return connection.rollback(function () {
+                                                                                                    connection.release();
                                                                                                     return reject(err);
                                                                                                 });
+                                                                                            } else {
+                                                                                                connection.release();
+                                                                                                return resolve(result[0]);
                                                                                             }
-                                                                                            return resolve(result[0]);
                                                                                         });
+                                                                                    }
                                                                                 }
                                                                             );
                                                                         }
                                                                     }
                                                                 );
-                                                            } else
-                                                                return reject('Data Tidak Tersimpan');
+                                                            } else {
+                                                                connection.rollback(function () {
+                                                                    connection.release();
+                                                                    return reject('Data Tidak Tersimpan');
+                                                                });
+                                                            }
+
                                                         }
                                                     }
                                                 );
                                             }
                                         });
                                     } else {
-                                        pool.query(
+                                        connection.query(
                                             `SELECT *, roles.name as role
                                             FROM
                                                 users LEFT JOIN
@@ -112,6 +121,7 @@ UserDb.login = async (user) => {
                                                     connection.commit(function (err) {
                                                         if (err) {
                                                             connection.rollback(function () {
+                                                                connection.release();
                                                                 return reject(err);
                                                             });
                                                         } else {
@@ -136,15 +146,14 @@ UserDb.login = async (user) => {
     });
 };
 
-UserDb.register = async (idpenduduk, user) => {
+UserDb.register = async (idpenduduk, user, hostname) => {
     return new Promise((resolve, reject) => {
-        pool.getConnection((err, connection) => {
-            if (err) {
-                return reject(err);
-            } else
-                connection.beginTransaction((err) => {
-                    try {
-                        // var realPassword = helper.makeid(4);
+        try {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    return reject(err);
+                } else
+                    connection.beginTransaction((err) => {
                         var password = bcrypt.hashSync(user.password, 8);
                         var token = jwt.sign({
                             user: user.email,
@@ -192,15 +201,27 @@ UserDb.register = async (idpenduduk, user) => {
                                                                                 connection.release();
                                                                                 return reject(err);
                                                                             });
-                                                                        } else
-                                                                            connection.commit(function (err) {
-                                                                                if (err) {
-                                                                                    return connection.rollback(function () {
-                                                                                        return reject(err);
-                                                                                    });
-                                                                                }
-                                                                                return resolve(true);
-                                                                            });
+                                                                        } else {
+                                                                            helper.sendEmailConfirmEmail(user, hostname).then(x => {
+                                                                                connection.commit(function (err) {
+                                                                                    if (err) {
+                                                                                        return connection.rollback(function () {
+                                                                                            connection.release();
+                                                                                            return reject(err);
+                                                                                        });
+                                                                                    } else {
+                                                                                        connection.release();
+                                                                                        return resolve(true);
+                                                                                    }
+
+                                                                                });
+                                                                            }, err => {
+                                                                                connection.rollback(function () {
+                                                                                    connection.release();
+                                                                                    return reject(err);
+                                                                                });
+                                                                            })
+                                                                        }
                                                                     });
                                                             }
                                                         }
@@ -208,25 +229,33 @@ UserDb.register = async (idpenduduk, user) => {
                                                 }
                                             }
                                         );
-                                    } else
-                                        return reject('Data Tidak Tersimpan');
+                                    } else {
+                                        connection.rollback(function () {
+                                            connection.release();
+                                            return reject('Data Tidak Tersimpan');
+                                        });
+
+                                    }
                                 }
                             }
                         );
-                    } catch (err) {
-                        connection.rollback(function () {
-                            connection.release();
-                            return reject(err);
-                        });
-                    }
-                });
-        });
+
+
+                    });
+            });
+        } catch (error) {
+            connection.rollback(function () {
+                connection.release();
+                return reject(error);
+            });
+        }
+
     });
 };
 
-UserDb.changepassword = async (user) => {
-    return new Promise((resolve, reject, nex) => {
-        pool.query('update users set password=? where idusers=?', [user.newpassword, user.idusers], (err, result) => {
+UserDb.changepassword = async (userid, password) => {
+    return new Promise((resolve, reject) => {
+        pool.query('update users set password=? where idusers=?', [password, userid], (err, result) => {
             if (err) {
                 return reject(err);
             } else resolve(true);
@@ -234,7 +263,7 @@ UserDb.changepassword = async (user) => {
     });
 };
 
-UserDb.resetpassword = async (email) => {
+UserDb.resetpassword = async (email, hostname) => {
     return new Promise((resolve, reject) => {
         pool.getConnection((err, connection) => {
             if (err) {
@@ -248,7 +277,7 @@ UserDb.resetpassword = async (email) => {
                             return reject(err);
                         });
                     } else {
-                        connection.query('select email form users where email=?', [email], (err, result) => {
+                        connection.query('select * from users where email=?', [email], (err, result) => {
                             if (err) {
                                 connection.rollback(function () {
                                     connection.release();
@@ -275,7 +304,7 @@ UserDb.resetpassword = async (email) => {
 
                                     } else {
                                         var password = helper.makeid(5);
-                                        connection.query('update users set password=? where idusers=?', [password, user.idusers], (err, result) => {
+                                        connection.query('update users set password=? where email=?', [password, user.email], (err, result) => {
                                             if (err) {
                                                 connection.rollback(function () {
                                                     connection.release();
@@ -283,14 +312,20 @@ UserDb.resetpassword = async (email) => {
                                                 });
 
                                             } else {
-                                                helper.sendEmail({
-                                                    to: data.email,
-                                                    subject: 'Reset Password',
-                                                    password: password
-                                                }).then(res => {
-                                                    resolve({
-                                                        message: "Periksa Email Anda"
+                                                helper.sendEmailResetPassword(user, hostname).then(res => {
+                                                    connection.commit(function (err) {
+                                                        if (err) {
+                                                            return connection.rollback(function () {
+                                                                return reject(err);
+                                                            });
+                                                        } else {
+                                                            connection.release();
+                                                            return resolve({
+                                                                message: "Periksa Email Anda"
+                                                            });
+                                                        }
                                                     });
+
                                                 }, err => {
                                                     connection.rollback(function () {
                                                         connection.release();
@@ -312,8 +347,6 @@ UserDb.resetpassword = async (email) => {
             }
 
         });
-
-
     });
 
 };
@@ -329,14 +362,10 @@ UserDb.changeFoto = async (user) => {
 };
 
 
-UserDb.confirmemail = async (data) => {
-    var user = await UserDb.getUserByEmail(data);
+UserDb.confirmemail = async (userid) => {
     return new Promise((resolve, reject, nex) => {
-
-        if (!user)
-            resolve(false);
         pool.query('update users set aktif=?, emailconfirm=? where idusers=?',
-            [true, null, user.idusers], (err, result) => {
+            [true, null, userid], (err, result) => {
                 if (err) {
                     return reject(err);
                 } else resolve(true);

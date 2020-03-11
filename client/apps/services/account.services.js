@@ -13,10 +13,12 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		getHeader: getHeader,
 		getToken: getToken,
 		url: service.url,
-		registerdosen: registerdosen,
 		profile: profile,
 		Init: Init,
-		changepassword: changepassword
+		registrasi: registrasi,
+		resetPassword: resetPassword,
+		changePassword: changePassword,
+		confirmEmail: confirmEmail
 	};
 
 	function Init(roles) {
@@ -27,22 +29,64 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		}
 	}
 
-	function changepassword(data) {
+
+	function registrasi(user) {
 		var def = $q.defer();
-		var user = StorageService.getObject('user');
-		user.password = data.oldpassword;
-		user.newpassword = data.newpassword;
 		$http({
 			method: 'post',
-			url: helperServices.url + '/api/auth/changepassword',
+			url: helperServices.url + '/api/auth/registrasi',
 			headers: getHeader(),
 			data: user
 		}).then(
 			(res) => {
-				message.info('Password Berhasil Diubah');
+				message.info("Berhasil !, Periksa Email Anda Untuk Memverifikasi Account Anda.");
+				def.resolve(res.data);
+			},
+			(err) => {
+				def.reject();
+				message.error(err);
+			}
+		);
+		return def.promise;
+	}
+
+	function confirmEmail(token) {
+		var def = $q.defer();
+		var header = getHeader();
+		header.Authorization = "Bearer " + token
+		$http({
+			method: 'get',
+			url: helperServices.url + '/api/auth/confirmemail',
+			headers: header
+		}).then(
+			(res) => {
+				def.resolve(res.data);
+				message.info("Berhasil !, Silahkan Login.");
 			},
 			(err) => {
 				def.reject(err);
+				message.error(err);
+			}
+		);
+		return def.promise;
+	}
+
+	function changePassword(user, token) {
+		var def = $q.defer();
+		var header = getHeader();
+		header.Authorization = "Bearer " + token
+		$http({
+			method: 'post',
+			url: helperServices.url + '/api/auth/changepassword',
+			headers: header,
+			data: user
+		}).then(
+			(res) => {
+				def.resolve(res.data);
+			},
+			(err) => {
+				def.reject(err);
+				message.error(err);
 			}
 		);
 		return def.promise;
@@ -84,23 +128,27 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		return def.promise;
 	}
 
-	function registerdosen(user) {
+	function resetPassword(data) {
 		var def = $q.defer();
 		$http({
 			method: 'post',
-			url: helperServices.url + '/api/auth/registerdosen',
+			url: helperServices.url + '/api/auth/resetpassword',
 			headers: getHeader(),
-			data: user
+			data: data
 		}).then(
 			(res) => {
-
 				def.resolve(res.data);
 			},
 			(err) => {
+				def.reject();
 				message.error(err);
 			}
 		);
 		return def.promise;
+	}
+
+	function logoff() {
+		StorageService.clear();
 	}
 
 	function getHeader() {
@@ -130,9 +178,6 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		return '';
 	}
 
-	function logoff() {
-		StorageService.clear();
-	}
 
 	function getUserName() {
 		if (userIsLogin) {
@@ -161,4 +206,5 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 
 		return found;
 	}
+
 }

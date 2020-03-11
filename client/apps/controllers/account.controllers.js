@@ -3,20 +3,24 @@ angular
 	.controller('AccountController', AccountController)
 	.controller('LoginController', LoginController)
 	.controller('RegisterController', RegisterController)
+	.controller('ResetPasswordController', ResetPasswordController)
+	.controller('NewPasswordController', NewPasswordController)
+	.controller('ConfirmPasswordController', ConfirmPasswordController)
+	.controller('ConfirmEmailController', ConfirmEmailController)
 	.controller('InboxController', InboxController);
 
 function AccountController(AuthService, $state, $scope) {
-	if (AuthService.userIsLogin()) {
-		AuthService.profile().then(
-			(x) => {
-				if (x) $state.go(x.rolename + '-home');
-				else $state.go('admin' + '-home');
-			},
-			(err) => {
-				$state.go('login');
-			}
-		);
-	}
+	// if (AuthService.userIsLogin()) {
+	// 	AuthService.profile().then(
+	// 		(x) => {
+	// 			if (x) $state.go(x.rolename + '-home');
+	// 			else $state.go('admin' + '-home');
+	// 		},
+	// 		(err) => {
+	// 			$state.go('login');
+	// 		}
+	// 	);
+	// }
 }
 
 function LoginController($scope, $state, AuthService, socket) {
@@ -37,53 +41,43 @@ function LoginController($scope, $state, AuthService, socket) {
 	$scope.registrasi = function (user) {};
 }
 
-function RegisterController(
-	$scope,
-	$state,
-	AuthService,
-	UniversitasService,
-	FakultasService,
-	JabatanService,
-	ProgdiService
-) {
-	UniversitasService.get().then((x) => {
-		$scope.Universitas = x;
-		JabatanService.get().then((x) => {
-			$scope.Jabatans = x;
-		});
-	});
-
-	$scope.SelectUniversitas = function (params) {
-		setTimeout((x) => {
-			FakultasService.getByParent(params.iduniversitas).then(
-				(x) => {
-					$scope.Fakultas = x;
-				},
-				(err) => {}
-			);
-		}, 100);
-	};
-	$scope.SelectFakultas = function (params) {
-		if (params) {
-			ProgdiService.getByParent(params.idfakultas).then(
-				(x) => {
-					$scope.ProgramStudis = x;
-				},
-				(err) => {}
-			);
-		}
-	};
+function RegisterController($scope, $state, AuthService) {
 
 	$scope.registrasi = function (user) {
-		user.idprogramstudi = $scope.ProgramStudi.idprogramstudi;
-		user.idjabatan = $scope.Jabatan.idjabatan;
-		AuthService.registerdosen(user).then((x) => {
+		AuthService.registrasi(user).then((x) => {
 			$state.go('login');
 		});
 	};
 }
 
+function ResetPasswordController($scope, AuthService, message) {
+	$scope.resetPassword = (model) => {
+		AuthService.resetPassword(model).then(res => {
+			message.info("Password Anda telah di reset, Periksa Email Anda Untuk Membuat Password Baru");
+		});
+	}
+}
 
+
+function NewPasswordController($scope, $stateParams, AuthService, message) {
+	var token = $stateParams.token;
+	$scope.changePassword = function (data) {
+		AuthService.changePassword(data, token).then(res => {
+			message.info("Password Anda Berhasil Diubah, Silahkan Login Dengan Password Yang Baru");
+		});
+	}
+}
+
+function ConfirmPasswordController() {
+
+}
+
+function ConfirmEmailController($state, $stateParams, AuthService) {
+	var token = $stateParams.token;
+	AuthService.confirmEmail(token).then((x) => {
+		$state.go('login');
+	});
+}
 
 
 function InboxController(AuthService, $state, $scope, InboxService) {

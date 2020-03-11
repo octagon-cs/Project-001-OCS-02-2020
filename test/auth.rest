@@ -1,5 +1,7 @@
 @controller=auth
-@host=http://localhost:3000/api/{{controller}}
+##@host=http://localhost:3000/api/{{controller}}
+@host=http://waena-desa.id/api/{{controller}}
+
 @token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNTc5NTI4ODA3LCJleHAiOjE1Nzk2MTUyMDd9.LhqJZgK-j97rHRGPobBR_RkAFMGPu9azfTMApwwQRs8
 
 ####
@@ -7,7 +9,7 @@ POST {{host}}/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "username":"admin@gmail.com",
+    "username":"ocph23@gmail.com",
     "password":"admin"
 }
 
@@ -33,3 +35,13 @@ Content-Type: application/json
 
 
 ##
+
+
+####
+POST {{host}}/resetpassword HTTP/1.1
+Content-Type: application/json
+
+{
+    "email":"aji3@gmail.com"
+}
+
