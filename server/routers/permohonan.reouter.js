@@ -5,7 +5,7 @@ module.exports = function (socket) {
     const authJwt = require('../auth/verifyToken');
     const permit = require('../auth/permission');
     const config = require('../auth/config');
-    const fcm = require('../notification/fcm')
+    const fcm = require('../notification')
 
     router.get('/', async (req, res) => {
         try {

@@ -6,9 +6,9 @@
             style="display: block; border: 0px;" /></div>
         <br>
         <p class="login-box-msg">Sign In Untuk Memulai Sesi Anda</p>
-        <form action="../../index3.html" method="post">
+        <form method="post" ng-submit="login(model)">
           <div class="input-group mb-3">
-            <input type="email" class="form-control" placeholder="E-Mail">
+            <input type="email" class="form-control" placeholder="E-Mail" ng-model="model.username">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
@@ -16,7 +16,7 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="password" class="form-control" placeholder="Password" ng-model="model.password">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>

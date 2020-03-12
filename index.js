@@ -4,7 +4,7 @@ var http = require('http').createServer(app);
 
 var path = require('path');
 const bodyParser = require('body-parser');
-const socket = require("./server/notification")(http);
+const socket = require("./server/notification");
 
 app.use(bodyParser.json({
     limit: '50mb'
