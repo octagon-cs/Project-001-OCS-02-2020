@@ -216,168 +216,6 @@ function adminsuratketmenikahController($http, helperServices, AuthService, $sco
 
 }
 
-function adminsuratkelahiranController($http, helperServices, AuthService, $scope, message) {
-    $scope.ItemPenduduk = "";
-    $scope.ListPenduduk = [];
-    $scope.SuratKelahiran = {};
-    $scope.DatasSuratKelahiran = [];
-    $scope.TanggalSurat;
-    $scope.Jam;
-    $scope.Pejabat = {};
-    $scope.SuratKelahiran.data = {};
-    $scope.dataPrint;
-    $scope.SetTabTambah = function (item, data) {
-        if (item == "Tambah") {
-            $scope.TabList = false;
-            $scope.TabTambah = true;
-            $scope.TabEdit = false;
-            $scope.TabApproved = false;
-        } else if (item == "Edit") {
-            $scope.SuratTidakMampu = data;
-            $scope.TabList = false;
-            $scope.TabEdit = true;
-            $scope.TabList = false;
-            $scope.TabApproved = false;
-        }
-        else if (item == "approved") {
-            $scope.SuratTidakMampu = data;
-            $scope.TabList = false;
-            $scope.TabEdit = false;
-            $scope.TabList = false;
-            $scope.TabApproved = true;
-        }
-        else {
-            $scope.TabList = true;
-            $scope.TabTambah = false;
-            $scope.TabEdit = false;
-        }
-    }
-    $scope.Init = function () {
-        AuthService.profile().then(param => {
-            $scope.UserRole = param.rolename;
-        })
-        $http({
-            method: "get",
-            url: helperServices.url + "/api/penduduk",
-            Header: AuthService.getHeader()
-        }).then(param => {
-            $scope.ListPenduduk = param.data;
-        })
-        $http({
-            method: "get",
-            url: helperServices.url + "/api/pejabat",
-            Header: AuthService.getHeader()
-        }).then(param => {
-            param.data.forEach(value => {
-                if (value.namajabatan == "Lurah" && value.status == 1) {
-                    $scope.Pejabat = value;
-                }
-            })
-        })
-        $http({
-            method: "get",
-            url: helperServices.url + "/api/jenispermohonan/jenis/Kelahiran",
-            headers: AuthService.getHeader()
-        }).then(param => {
-            $scope.IdJenis = param.data.idjenispermohonan;
-            $http({
-                method: "get",
-                url: helperServices.url + "/api/permohonan/byjenis/" + param.data.idjenispermohonan,
-                headers: AuthService.getHeader()
-            }).then(param => {
-                if (param.data.length !== 0) {
-                    param.data.forEach(value => {
-                        if (value.persetujuan != null || value.persetujuan != undefined) {
-                            value.SetButtonPrint = true;
-                            value.persetujuan.forEach(item => {
-                                if (item.role == "lurah" && item.status == "selesai") {
-                                    value.SetButtonPrint = false;
-                                    value.OpenButtonPrint = true;
-                                } else {
-                                    value.SetButtonPrint = true;
-                                    value.OpenButtonPrint = false;
-                                }
-                            });
-                            if (value.persetujuan[value.persetujuan.length - 1].role == "lurah") {
-                                if (value.persetujuan[value.persetujuan.length - 1].role == "seklur" && value.persetujuan[value.persetujuan.length - 1].status == "disetujui") {
-                                    value.SetButtonApproved = false;
-                                    value.OpenButtonApproved = false;
-                                }
-                            }
-
-
-
-                            if (value.persetujuan[value.persetujuan.length - 1].role == "seklur" && value.persetujuan[value.persetujuan.length - 1].status == "dikembalikan") {
-                                value.SetButtonApproved = false;
-                                value.OpenButtonApproved = false;
-                            } else {
-                                value.SetButtonApproved = true;
-                            }
-                        } else {
-                            value.SetButtonPrint = true;
-                            value.SetButtonApproved = false;
-                        }
-                    })
-                }
-                $scope.DatasSuratKelahiran = angular.copy(param.data);
-            })
-        })
-    }
-
-    $scope.SelectedPenduduk = function () {
-        var a = JSON.parse(angular.copy($scope.ItemPenduduk));
-        $scope.SuratKelahiran.idpenduduk = a.idpenduduk;
-        $scope.SuratKelahiran.nama = a.nama;
-    }
-
-    $scope.Simpan = function () {
-        var today = new Date();
-        $scope.SuratKelahiran.tanggalpengajuan = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        $scope.SuratKelahiran.data.pejabat = $scope.Pejabat
-
-        $http({
-            method: 'post',
-            url: helperServices.url + "/api/permohonan",
-            headers: AuthService.getHeader(),
-            data: $scope.SuratKelahiran
-        }).then(param => {
-            $scope.SuratKelahiran.idpermohonan = param.idpermohonan;
-            $scope.DatasSuratKelahiran.push(angular.copy($scope.SuratKelahiran));
-            message.info("Berhasil Menyimpan");
-            $scope.SuratKelahiran = {};
-            $scope.ItemPenduduk = "";
-        }, error => {
-            message.errorText(error.message);
-        })
-    }
-    $scope.Selecteddata = function (id, item) {
-        $scope.dataPrint = angular.copy(item);
-        $http({
-            method: "get",
-            url: helperServices.url + "/api/penduduk/" + item.idpenduduk,
-            Header: AuthService.getHeader()
-        }).then(param => {
-            $scope.dataPrint.penduduk = param.data;
-            var a = new Date(item.persetujuan[item.persetujuan.length - 1].created);
-            $scope.dataPrint.tampiltanggal = getTanggalIndonesia(a);
-            setTimeout(function () {
-                $scope.Print(id)
-            }, 1300);
-        })
-    }
-
-    $scope.Print = function (id) {
-        var innerContents = document.getElementById(id).innerHTML;
-        var popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
-        popupWinindow.document.open();
-        popupWinindow.document.write('<html><head><title>Cetak Surat</title></head><body onload="window.print()"><div>' + innerContents + '</html>');
-        popupWinindow.document.close();
-    }
-
-
-
-
-}
 
 function adminsurattidakmampuController($http, helperServices, AuthService, $scope, message, DTOptionsBuilder, DTColumnBuilder, $state) {
     $scope.ItemPenduduk = "";
@@ -483,19 +321,11 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
             })
         })
     }
-    $scope.SetEdit = function (item) {
-        $scope.SuratTidakMampu = item;
-        $scope.TabList = false;
-        $scope.TabEdit = true;
-        $scope.TabList = false;
-    }
-
     $scope.SelectedPenduduk = function () {
         var a = JSON.parse(angular.copy($scope.ItemPenduduk));
         $scope.SuratTidakMampu.idpenduduk = a.idpenduduk;
         $scope.SuratTidakMampu.nama = a.nama;
     }
-
     $scope.Simpan = function () {
         var Method;
         if ($scope.TabTambah) {
@@ -528,7 +358,6 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
             message.errorText(error.message);
         })
     }
-
     $scope.Selecteddata = function (id, item) {
         $http({
             method: "get",
@@ -545,7 +374,6 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
         })
 
     }
-
     $scope.Print = function (id) {
         var innerContents = document.getElementById(id).innerHTML;
         var popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
@@ -554,7 +382,202 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
         popupWinindow.document.close();
     }
     $scope.Setujui = function (item) {
-        $state.go('approved-surattidakmampu', {id: item.idpermohonan})
+        $state.go('approved-surattidakmampu', { id: item.idpermohonan })
+    }
+}
+
+function adminsuratkelahiranController($http, helperServices, AuthService, $scope, message) {
+    $scope.ItemPenduduk = "";
+    $scope.ListPenduduk = [];
+    $scope.SuratKelahiran = {};
+    $scope.SuratKelahiran.data={};
+    $scope.DatasSuratKelahiran = [];
+    $scope.TanggalSurat;
+    $scope.TanggalLahir;
+    $scope.Jam;
+    $scope.Pejabat = {};
+    $scope.SuratKelahiran.data = {};
+    $scope.dataPrint;
+    $scope.JenisKelamin =  helperServices.JenisKelamin;
+    $scope.TabList = true;
+    $scope.IdJenis
+    $scope.TabTambah = false;
+    $scope.TabEdit = false;
+    $scope.TabApproved = false;
+    $scope.ItemAyah="";
+    $scope.ItemIbu="";
+    $scope.SetTabTambah = function (item, data) {
+        if (item == "Tambah") {
+            $scope.TabList = false;
+            $scope.TabTambah = true;
+            $scope.TabEdit = false;
+            $scope.TabApproved = false;
+        } else if (item == "Edit") {
+            $scope.SuratKelahiran = data;
+            $scope.ListPenduduk.forEach(params=>{
+                if(params.idpenduduk==data.idpenduduk){
+                    $scope.ItemAyah=JSON.stringify(params);
+                }else if(params.idpenduduk==data.data.idpendudukibu){
+                    $scope.ItemIbu=JSON.stringify(params);
+                }
+            })
+            data.data.tanggallahir = new Date(JSON.parse(data.data.tanggallahir));
+            $scope.TanggalLahir = data.data.tanggallahir.getFullYear()+"-"+(data.data.tanggallahir.getMonth()+1)+"-"+data.data.tanggallahir.getDate();
+            $scope.TabList = false;
+            $scope.TabEdit = true;
+            $scope.TabList = false;
+            $scope.TabApproved = false;
+        }
+        else if (item == "approved") {
+            $scope.SuratKelahiran = data;
+            data.data.tanggallahir = Date.parse(data.data.tanggallahir);
+            $scope.TanggalLahir = data.data.tanggallahir.getFullYear()+"-"+(data.data.tanggallahir.getMonth()+1)+"-"+data.data.tanggallahir.getDate();
+            $scope.TabList = false;
+            $scope.TabEdit = false;
+            $scope.TabList = false;
+            $scope.TabApproved = true;
+        }
+        else {
+            $scope.TabList = true;
+            $scope.TabTambah = false;
+            $scope.TabEdit = false;
+            $scope.TabApproved = false;
+        }
+    }
+    $scope.Init = function () {
+        AuthService.profile().then(param => {
+            $scope.UserRole = param.rolename;
+        })
+        $http({
+            method: "get",
+            url: helperServices.url + "/api/penduduk",
+            Header: AuthService.getHeader()
+        }).then(param => {
+            $scope.ListPenduduk = param.data;
+        })
+        $http({
+            method: "get",
+            url: helperServices.url + "/api/pejabat",
+            Header: AuthService.getHeader()
+        }).then(param => {
+            param.data.forEach(value => {
+                if (value.namajabatan == "Lurah" && value.status == 1) {
+                    $scope.Pejabat = value;
+                }
+            })
+        })
+        $http({
+            method: "get",
+            url: helperServices.url + "/api/jenispermohonan/jenis/Kelahiran",
+            headers: AuthService.getHeader()
+        }).then(param => {
+            $scope.IdJenis = param.data.idjenispermohonan;
+            $http({
+                method: "get",
+                url: helperServices.url + "/api/permohonan/byjenis/" + param.data.idjenispermohonan,
+                headers: AuthService.getHeader()
+            }).then(param => {
+                if (param.data.length !== 0) {
+                    param.data.forEach(value => {
+                        if (value.persetujuan != null || value.persetujuan != undefined) {
+                            value.SetButtonPrint = true;
+                            value.persetujuan.forEach(item => {
+                                if (item.role == "lurah" && item.status == "selesai") {
+                                    value.SetButtonPrint = false;
+                                    value.OpenButtonPrint = true;
+                                } else {
+                                    value.SetButtonPrint = true;
+                                    value.OpenButtonPrint = false;
+                                }
+                            });
+                            if (value.persetujuan[value.persetujuan.length - 1].role == "seklur" && value.persetujuan[value.persetujuan.length - 1].status == "dikembalikan") {
+                                value.SetButtonApproved = false;
+                                value.OpenButtonApproved = false;
+                            } else {
+                                value.SetButtonApproved = true;
+                            }
+                        } else {
+                            value.SetButtonPrint = true;
+                            value.SetButtonApproved = false;
+                        }
+                    })
+                }
+                $scope.DatasSuratKelahiran = angular.copy(param.data);
+            })
+        })
+    }
+    $scope.SelectedOrtu = function (item) {
+        if(item=="Ayah"){
+            var a = JSON.parse(angular.copy($scope.ItemAyah))
+            $scope.SuratKelahiran.idpenduduk = a.idpenduduk;
+            $scope.SuratKelahiran.nama = a.nama
+        }else{
+            var a = JSON.parse(angular.copy($scope.ItemIbu))
+            $scope.SuratKelahiran.data.idpendudukibu = a.idpenduduk;
+            $scope.SuratKelahiran.data.namaibu = a.nama;
+        }
+        
+    }
+    $scope.Simpan = function () {
+        var Method;
+        if ($scope.TabTambah) {
+            Method = "post";
+        } else {
+            Method = "put";
+        }
+        var today = new Date();
+        $scope.SuratKelahiran.tanggalpengajuan = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        $scope.SuratKelahiran.data.pejabat = $scope.Pejabat;
+        $scope.SuratKelahiran.idjenispermohonan = $scope.IdJenis;
+
+        $http({
+            method: Method,
+            url: helperServices.url + "/api/permohonan",
+            headers: AuthService.getHeader(),
+            data: $scope.SuratKelahiran
+        }).then(param => {
+            $scope.SuratKelahiran.idpermohonan = param.idpermohonan;
+            $scope.DatasSuratKelahiran.push(angular.copy($scope.SuratKelahiran));
+            message.info("Berhasil Menyimpan");
+            $scope.SuratKelahiran = {};
+            $scope.ItemPenduduk = "";
+            $scope.TabList = true;
+            $scope.TabTambah = false;
+            $scope.TabEdit = false;
+            $scope.TabApproved = false;
+        }, error => {
+            message.errorText(error.message);
+        })
+    }
+    $scope.Selecteddata = function (id, item) {
+        $scope.dataPrint = angular.copy(item);
+        $http({
+            method: "get",
+            url: helperServices.url + "/api/penduduk/" + item.idpenduduk,
+            Header: AuthService.getHeader()
+        }).then(param => {
+            $scope.dataPrint.penduduk = param.data;
+            var a = new Date(item.persetujuan[item.persetujuan.length - 1].created);
+            $scope.dataPrint.tampiltanggal = getTanggalIndonesia(a);
+            setTimeout(function () {
+                $scope.Print(id)
+            }, 1300);
+        })
+    }
+    $scope.SelectTanggalLahir = function(){
+        var a = $scope.TanggalLahir.split("-");
+        $scope.SuratKelahiran.data.tanggallahir =JSON.stringify(new Date(a[0], parseInt(a[1])-1, a[2]));
+        $scope.SuratKelahiran.data.harilahir = GetHariIndonesia(new Date(a[0], parseInt(a[1])-1, a[2]));
+    }
+    $scope.Print = function (id) {
+        var innerContents = document.getElementById(id).innerHTML;
+        var popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+        popupWinindow.document.open();
+        popupWinindow.document.write('<html><head><title>Cetak Surat</title></head><body onload="window.print()"><div>' + innerContents + '</html>');
+        popupWinindow.document.close();
+    }
+    $scope.Setujui = function (item) {
+        $state.go('approved-surattidakmampu', { id: item.idpermohonan })
     }
 }
 

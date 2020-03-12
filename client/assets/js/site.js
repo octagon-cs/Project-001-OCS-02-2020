@@ -11,3 +11,8 @@ return result;
 
     
 }
+
+function GetHariIndonesia(params) {
+    var hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis" ,"Jum'at","Sabtu"];
+    return hari[params.getDay()];
+}

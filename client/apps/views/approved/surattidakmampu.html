@@ -70,9 +70,23 @@
                     </div>
                   </div>
                   <div class="card-header"></div><br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Pesan</label>
+                        <div class="col-sm-8">
+                          <textarea rows="4" class="form-control" ng-model="DataPesan"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                  </div>
+                  <div class="card-header"></div><br>
                   <div class="card-footer">
                     <button type="button" ng-click ="Setujui()" class="btn btn-info">Setujui</button>
-                    <button type="button" class="btn btn-danger float-right" ng-click="Tolak()">Tolak</button>
+                    <button type="button" class="btn btn-default float-right" ng-click="Back()">Revisi</button>
+                    <button type="button" class="btn btn-danger float-right" ng-click="Reject()">Tolak</button>
                   </div>
                 </div>
               </form>

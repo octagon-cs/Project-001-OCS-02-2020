@@ -3,8 +3,8 @@ angular.module('helper.service', []).factory('helperServices', helperServices);
 function helperServices() {
 	var service = {};
 
-	service.url = 'http://waena-desa.id';
-	//service.url = 'http://localhost:3000';
+	// service.url = 'http://waena-desa.id';
+	service.url = 'http://localhost:3000';
 
 
 	service.KepemilikanKTP = ["Sudah Memiliki KTP", "Belum Memiliki KTP", "Pembuatan KTP Dalam Proses"];
@@ -88,7 +88,8 @@ function helperServices() {
 		"Penguasaan Tanah", "Keterangan Desa", "Keterangan Cerai", "Keterangan eKTP", "Keterangan Nikah", "Kelahiran", "Sudah Menikah",
 		"Belum Menikah", "Kematian", "Keterangan Lainnya", "Pindah"
 	];
-	service.Roles = ["pemohon", "admin", "kasi", "seklur", "lurah"]
+	service.Roles = ["pemohon", "admin", "kasi", "seklur", "lurah"];
+	service.Hari =  ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu",];
 
 
 	return {
@@ -111,6 +112,7 @@ function helperServices() {
 		Pekerjaan: service.Pekerjaan,
 		Kewarganegawaan: service.Kewarganegawaan,
 		PermohonanJenis: service.PermohonanJenis,
-		Roles: service.Roles
+		Roles: service.Roles,
+		Hari: service.Hari
 	};
 }
