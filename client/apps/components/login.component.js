@@ -1,7 +1,8 @@
 angular
 	.module('app.conponent', [])
 	.component('inboxview', {
-		controller: function ($scope, socket, InboxService) {
+		controller: function ($rootScope, $scope, InboxService) {
+
 			$scope.all = InboxService.all;
 			$scope.unread = () => {
 				var result = InboxService.unread();
@@ -9,11 +10,9 @@ angular
 				return result;
 			}
 
-			if (socket) {
-				socket.on('permohonan', function (msg) {
-					InboxService.subscribe(msg)
-				});
-			}
+			$rootScope.$on("reciveMessage", (payload) => {
+				InboxService.subscribe(payload);
+			});
 		},
 		templateUrl: 'apps/components/templates/inbox.html'
 	})

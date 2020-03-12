@@ -15,19 +15,19 @@
     <link href="node_modules/datatables.net-dt/css/jquery.dataTables.css" rel="stylesheet">
     <link href="plugin/angularjs-datepicker/dist/angular-datepicker.min.css" rel="stylesheet">
 
-    <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
-
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed" ng-app="app">
-    <div class="wrapper">
+<body class="hold-transition sidebar-mini layout-fixed">
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-messaging.js"></script>
+    <div class="wrapper" ng-app="app">
         <ui-view></ui-view>
     </div>
 
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="js/dist/js/adminlte.js"></script>
-    <!-- <script src="plugin/popper/popper.js"></script> -->
-    <!-- <script src="plugin/bootstrap/dist/js/bootstrap.js"></script> -->
     <script src="plugin/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="js/dist/js/demo.js"></script>
 

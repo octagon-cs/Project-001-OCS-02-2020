@@ -7,7 +7,7 @@ const authJwt = require('./verifyToken.js');
 const config = require('../auth/config');
 const fs = require('fs');
 const uuid = require('uuid');
-const helper = require('../helper');
+const fcm = require('../notification/fcm')
 
 router.get('/', async (req, res, next) => {
 	try {
@@ -87,6 +87,7 @@ router.post('/devicetoken', [authJwt.verifyToken], async (req, res) => {
 		var user = req.User;
 		var result = await contextDb.Users.AddDeviceToken(data.token, user.userid);
 		if (result) {
+			await fcm.subscribe("all", data.token);
 			res.status(200).json(result);
 		} else {
 			res.status(400).json({

@@ -23,13 +23,13 @@ function AccountController(AuthService, $state, $scope) {
 	// }
 }
 
-function LoginController($scope, $state, AuthService, socket) {
+function LoginController($scope, $state, AuthService, FcmService) {
 	$scope.login = function (user) {
 		AuthService.login(user).then((x) => {
 			if (x.roles.length == 1) {
 				var role = x.roles[0];
 				$state.go(role + '-home');
-				socket.start();
+				FcmService.start();
 			} else {
 				var role = x.roles.find((x) => x !== 'dosen');
 				$state.go(role + '-home');
