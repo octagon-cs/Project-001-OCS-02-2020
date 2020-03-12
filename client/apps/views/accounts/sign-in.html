@@ -2,9 +2,7 @@
   <div class="login-box">
     <div class="card">
       <div class="card-body login-card-body">
-        <div align="center"><img src="../../../assets/images/logowon.png" width="150" height="150"
-            style="display: block; border: 0px;" /></div>
-        <br>
+        <div align="center"><img class="logowon" src="../../../assets/images/logowon.png" /></div>
         <p class="login-box-msg">Sign In Untuk Memulai Sesi Anda</p>
         <form method="post" ng-submit="login(model)">
           <div class="input-group mb-3">
@@ -29,11 +27,12 @@
             </div>
             <!-- /.col -->
           </div>
-        </form><br><br>
-        <div class="row">
-          <div class="col-6"><a href="">Lupa Password ?</a></div>
-          <div class="col-6"><a href="">Daftar Akun Baru</a></div>
-        </div>
+          <div class="row login-footer">
+            <div class="col-6"><a ui-sref="resetpassword">Lupa Password ?</a></div>
+            <div class="col-6"><a href="">Daftar Akun Baru</a></div>
+          </div>
+        </form>
+        
       </div>
       <!-- /.login-card-body -->
     </div>
