@@ -88,6 +88,8 @@ function helperServices() {
 		"Penguasaan Tanah", "Keterangan Desa", "Keterangan Cerai", "Keterangan eKTP", "Keterangan Nikah", "Kelahiran", "Sudah Menikah",
 		"Belum Menikah", "Kematian", "Keterangan Lainnya", "Pindah"
 	];
+	service.Roles = ["pemohon", "admin", "kasi", "seklur", "lurah"];
+	service.Hari =  ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu",];
 
 
 	return {
@@ -109,6 +111,8 @@ function helperServices() {
 		JenisKelamin: service.JenisKelamin,
 		Pekerjaan: service.Pekerjaan,
 		Kewarganegawaan: service.Kewarganegawaan,
-		PermohonanJenis: service.PermohonanJenis
+		PermohonanJenis: service.PermohonanJenis,
+		Roles: service.Roles,
+		Hari: service.Hari
 	};
 }

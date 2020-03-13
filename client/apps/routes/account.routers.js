@@ -12,7 +12,7 @@ angular.module('account.router', ['ui.router']).config(function ($stateProvider,
 			templateUrl: 'apps/views/accounts/sign-in.html'
 		})
 		.state('register', {
-			url: '/register',
+			url: '/sign-up',
 			parent: 'account',
 			controller: 'RegisterController',
 			templateUrl: 'apps/views/accounts/sign-up.html'
@@ -21,13 +21,13 @@ angular.module('account.router', ['ui.router']).config(function ($stateProvider,
 			url: '/changepassword/:token',
 			parent: 'account',
 			controller: 'NewPasswordController',
-			templateUrl: 'apps/views/accounts/passwordbaru.html'
+			templateUrl: 'apps/views/accounts/changepassword.html'
 		})
 		.state('resetpassword', {
 			url: '/resetpassword',
 			parent: 'account',
 			controller: 'ResetPasswordController',
-			templateUrl: 'apps/views/accounts/emailpassword.html'
+			templateUrl: 'apps/views/accounts/resetpassword.html'
 		})
 		.state('confirmemail', {
 			url: '/confirmemail/:token',

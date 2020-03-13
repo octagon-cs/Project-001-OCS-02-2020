@@ -130,5 +130,4 @@ angular.module('admin.router', ['ui.router']).config(function ($stateProvider, $
 			controller: 'adminsuratketnikahController',
 			templateUrl: 'apps/views/admin/suratketnikah.html'
 		});
-
 });

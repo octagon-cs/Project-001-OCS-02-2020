@@ -1,40 +1,68 @@
-module.exports = function (http) {
-    const config = require('../auth/config');
-    this.socket = {};
-    socket.io = require("socket.io")(http);
-    socket.connectedUsers = [];
-    var jwtAuth = require('socketio-jwt-auth');
+var admin = require("firebase-admin");
+
+var serviceAccount = require("../../keys/project-001-ocs-03-2020-firebase-adminsdk-hmogb-08ef075cb2.json");
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
+
+var fcm = {};
+
+var options = {
+    priority: "high",
+    timeToLive: 60 * 60 * 24
+};
 
 
-    socket.io.use(jwtAuth.authenticate({
-        secret: config.secret
-    }, function (payload, done) {
-        // done is a callback, you can use it as follows
-        //cek on db
-        return done(null, payload);
-    }, err => {
 
-    }));
+fcm.sendToDevice = (registrationToken, data) => {
+    var payload = {
+        notification: {
+            title: data.role,
+            body: data.message + "This is the body of the notification message."
+        }
+    };
+
+    admin.messaging().sendToDevice(registrationToken, payload, options)
+        .then(function (response) {
+            console.log("Successfully sent message:", response);
+        })
+        .catch(function (error) {
+            console.log("Error sending message:", error);
+        });
+
+};
+
+fcm.sendToBroadcase = async (persetujuan) => {
+
+    var topic = 'all';
+    var message = {
+        data: persetujuan,
+        topic: topic
+    };
+
+    // Send a message to devices subscribed to the provided topic.
+    admin.messaging().send(message)
+        .then((response) => {
+            // Response is a message ID string.
+            console.log('Successfully sent message:', response);
+        })
+        .catch((error) => {
+            console.log('Error sending message:', error);
+        });
+
+};
 
 
-    socket.io.on("connection", function (_socket) {
-        socket.connectedUsers[_socket.request.user.username] = _socket;
-    });
-
-    socket.io.on("disconnect", function (_socket) {
-
-        var user = socket.connectedUsers.find(x => x.username == _socket.request.user.username);
-        var index = socket.connectedUsers.indexOf(user);
-        socket.connectedUsers.splice(index, 1);
-
-    });
-
-    socket.CreatePermohonan = function (username, message) {
-        setTimeout(x => {
-            socket.connectedUsers[username].emit("permohonan", message);
-        }, 1000);
-    }
-
-    return socket;
-
+fcm.subscribe = (topic, token) => {
+    admin.messaging().subscribeToTopic(token, topic)
+        .then(function (response) {
+            // See the MessagingTopicManagementResponse reference documentation
+            // for the contents of response.
+            console.log('Successfully subscribed to topic:', response);
+        })
+        .catch(function (error) {
+            console.log('Error subscribing to topic:', error);
+        });
 }
+
+module.exports = fcm;

@@ -1,4 +1,4 @@
-angular.module('app.routers', ['account.router', 'admin.router', 'ui.router', 'seklur.router', 'lurah.router'])
+angular.module('app.routers', ['account.router', 'admin.router', 'approved.router', 'ui.router', 'seklur.router', 'lurah.router'])
 	.config(function ($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise('/account/login');
 	});

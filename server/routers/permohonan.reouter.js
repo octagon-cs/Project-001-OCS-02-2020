@@ -5,7 +5,7 @@ module.exports = function (socket) {
     const authJwt = require('../auth/verifyToken');
     const permit = require('../auth/permission');
     const config = require('../auth/config');
-    const fcm = require('../notification/fcm')
+    const fcm = require('../notification')
 
     router.get('/', async (req, res) => {
         try {
@@ -153,18 +153,18 @@ module.exports = function (socket) {
         }
     });
 
-    router.get('/back/:id', [authJwt.verifyToken], async (req, res) => {
+    router.post('/back', [authJwt.verifyToken], async (req, res) => {
         var id = req.params.id;
         var data = req.body;
         try {
             var role = req.User.roles[0];
             var indexOfRole = config.Roles.indexOf(role);
-            var permohonan = await contextDb.getById(id);
+            var permohonan = await contextDb.Permohonan.getById(data.id);
             if (permohonan) {
                 var persetujuan = {
                     created: new Date(),
                     status: "dikembalikan",
-                    message: "",
+                    message: data.message,
                     idusers: req.User.idusers,
                     read: false,
                     data: {

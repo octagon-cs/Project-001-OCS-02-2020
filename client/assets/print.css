@@ -1,19 +1,20 @@
 @media print {
-    .printing {
-        display: block;
-
-    }
+  .printing {
+    display: block;
+  }
 }
 
 .printing {
-    display: none;
+  display: none;
 }
-
-
 .logowon {
-    width: 75 !important;
+  margin: 30px;
+  width: 100px;
+  height: 100px;
 }
-
-.login-card-body {
-    padding: 50px;
+.login-footer {
+  margin-top: 30px;
+}
+.login-form {
+  margin: 30px;
 }

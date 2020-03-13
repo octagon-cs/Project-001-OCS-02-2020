@@ -2,11 +2,9 @@
   <div class="register-box">
     <div class="card">
       <div class="card-body register-card-body">
-        <div align="center"><img src="../../../assets/images/logowon.png" width="150" height="150"
-            style="display: block; border: 0px;" /></div>
-        <br>
-        <p class="login-box-msg">Registrasi Akun Baru.</p>
+        <div align="center"><img src="../../../assets/images/logowon.png" class="logowon" /></div>
         <form action="../../index.html" method="post">
+          <h5 align="left">Registrasi Akun Baru.</h5><br>
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Nama Lengkap">
             <div class="input-group-append">
@@ -40,11 +38,12 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-8"><a href="login.html" class="text-center">Log In</a></div>
-            <!-- /.col -->
-            <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-block">Registrasi</button>
+            <div class="col">
+              <button type="submit" class="btn btn-primary btn-block">Daftar</button>
             </div>
+          </div>
+          <div class="row login-footer">
+            <div class="col text-center"><a ui-sref="login">Log In</a></div>
             <!-- /.col -->
           </div>
         </form>

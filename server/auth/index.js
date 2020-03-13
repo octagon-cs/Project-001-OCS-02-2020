@@ -7,7 +7,7 @@ const authJwt = require('./verifyToken.js');
 const config = require('../auth/config');
 const fs = require('fs');
 const uuid = require('uuid');
-const fcm = require('../notification/fcm')
+const fcm = require('../notification')
 
 router.get('/', async (req, res, next) => {
 	try {
