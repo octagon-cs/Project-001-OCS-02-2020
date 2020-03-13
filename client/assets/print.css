@@ -1,9 +1,19 @@
-@media print{
-    .printing{
+@media print {
+    .printing {
         display: block;
 
     }
 }
-.printing{
+
+.printing {
     display: none;
+}
+
+
+.logowon {
+    width: 75 !important;
+}
+
+.login-card-body {
+    padding: 50px;
 }
