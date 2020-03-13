@@ -3,8 +3,8 @@
     <div class="card">
       <div class="card-body login-card-body">
         <div align="center"><img class="logowon" src="../../../assets/images/logowon.png" /></div>
-        <p class="login-box-msg">Sign In Untuk Memulai Sesi Anda</p>
         <form method="post" ng-submit="login(model)">
+          <h5 align="left">Sign In Untuk Memulai Sesi Anda</h5><br>
           <div class="input-group mb-3">
             <input type="email" class="form-control" placeholder="E-Mail" ng-model="model.username">
             <div class="input-group-append">
@@ -29,7 +29,7 @@
           </div>
           <div class="row login-footer">
             <div class="col-6"><a ui-sref="resetpassword">Lupa Password ?</a></div>
-            <div class="col-6"><a href="">Daftar Akun Baru</a></div>
+            <div class="col-6"><a ui-sref="register">Daftar Akun Baru</a></div>
           </div>
         </form>
         
