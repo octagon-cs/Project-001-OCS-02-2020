@@ -46,6 +46,8 @@
   -ms-user-select: none;
   user-select: none;
   background-color: #fff;
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eee), color-stop(0.5, #fff));
+  background-image: -webkit-linear-gradient(center bottom, #eee 0%, #fff 50%);
   background-image: -moz-linear-gradient(center bottom, #eee 0%, #fff 50%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eeeeee', GradientType=0);
   background-image: none !important;
@@ -63,8 +65,7 @@
   background-clip: padding-box;
   background: #d0c9c9;
   background-image: none !important;
-  -webkit-filter: none !important;
-          filter: none !important;
+  filter: none !important;
 }
 
 #hr-formatsurat {
@@ -76,43 +77,36 @@
   width: 700px;
   margin-bottom: 50px;
   text-align: center;
-}
+  .header {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    min-height: 80;
+    .logo {
+      position: absolute;
+      left: 5px;
+      top: 0px;
+      width: 110px;
+      height: 100px;
+    }
+  }
+  .subheader {
+    text-align: center;
+  }
+  .body {
+    padding: 20px;
+  }
+  .footer {
+    position: absolute;
+    width: 50%;
+    right: 0px;
+    p {
+      margin: 0px;
+    }
 
-.surat .header {
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-  min-height: 80;
+    .nama {
+      margin-top: 60px;
+      text-decoration: underline;
+    }
+  }
 }
-
-.surat .header .logo {
-  position: absolute;
-  left: 5px;
-  top: 0px;
-  width: 110px;
-  height: 100px;
-}
-
-.surat .subheader {
-  text-align: center;
-}
-
-.surat .body {
-  padding: 20px;
-}
-
-.surat .footer {
-  position: absolute;
-  width: 50%;
-  right: 0px;
-}
-
-.surat .footer p {
-  margin: 0px;
-}
-
-.surat .footer .nama {
-  margin-top: 60px;
-  text-decoration: underline;
-}
-/*# sourceMappingURL=sites.css.map */

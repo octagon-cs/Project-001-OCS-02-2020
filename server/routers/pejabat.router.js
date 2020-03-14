@@ -34,7 +34,8 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const user = req.body;
-        contextDb.Pejabat.post(user).then(
+        var hostname = req.protocol + "://" + req.headers.host
+        contextDb.Pejabat.post(user, hostname).then(
             (data) => {
                 res.status(200).json(data);
             },

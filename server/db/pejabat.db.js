@@ -1,5 +1,6 @@
 const pool = require('./dbconnection');
 const bcrypt = require('bcryptjs');
+const helper = require('../helper');
 const pejabat = {};
 
 pejabat.get = async () => {
@@ -54,7 +55,7 @@ pejabat.getById = async (Id) => {
     });
 };
 
-pejabat.post = async (data) => {
+pejabat.post = async (data, hostname) => {
     return new Promise((resolve, reject) => {
         try {
             pool.getConnection((error, connection) => {
@@ -88,7 +89,7 @@ pejabat.post = async (data) => {
                         var password = bcrypt.hashSync("admin", 8);
                         connection.query(
                             'insert into users (username,password,email) values(?,?,?)',
-                            [data.email, password, data.email],
+                            [data.data.email, password, data.data.email],
                             (error, result) => {
                                 if (error) {
                                     connection.rollback(function () {
@@ -127,14 +128,28 @@ pejabat.post = async (data) => {
                                                                         return reject(error);
                                                                     } else {
                                                                         data.idpejabat = result.insertId;
-                                                                        connection.commit(function (err) {
-                                                                            if (err) {
-                                                                                return connection.rollback(function () {
-                                                                                    return reject(err);
-                                                                                });
-                                                                            }
-                                                                            return resolve(data);
-                                                                        });
+                                                                        helper.sendEmailConfirmEmail({
+                                                                            idusers: data.idusers,
+                                                                            email: data.data.email
+                                                                        }, hostname).then(x => {
+                                                                            connection.commit(function (err) {
+                                                                                if (err) {
+                                                                                    return connection.rollback(function () {
+                                                                                        connection.release();
+                                                                                        return reject(err);
+                                                                                    });
+                                                                                } else {
+                                                                                    connection.release();
+                                                                                    return resolve(data);
+                                                                                }
+
+                                                                            });
+                                                                        }, err => {
+                                                                            connection.rollback(function () {
+                                                                                connection.release();
+                                                                                return reject(err);
+                                                                            });
+                                                                        })
                                                                     }
                                                                 }
                                                             );
