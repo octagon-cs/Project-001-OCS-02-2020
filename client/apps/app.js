@@ -4,8 +4,8 @@ angular
 		'app.services',
 		'app.routers',
 		'app.controllers',
-		'app.conponent',
-		'datatables', 
+		'app.component',
+		'datatables',
 		'720kb.datepicker',
 		'swangular',
 		'message.service',
@@ -76,6 +76,6 @@ angular
 			}
 		};
 	})
-	.run(['uiSelect2Config', function(uiSelect2Config) {
+	.run(['uiSelect2Config', function (uiSelect2Config) {
 		uiSelect2Config.placeholder = "Placeholder text";
 	}]);;

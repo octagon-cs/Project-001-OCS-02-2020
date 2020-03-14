@@ -41,30 +41,27 @@ function InboxService($http, $q, AuthService, message, helperServices) {
 
     deleteItem = (datas) => {
         var def = $q.defer();
-        if (service.instance) {
-            def.resolve(service.data);
-        } else {
-            $http({
-                method: 'delete',
-                url: helperServices.url + '/api/inbox',
-                headers: AuthService.getHeader(),
-                data: datas
-            }).then(
-                (res) => {
-                    if (res.data) {
-                        datas.forEach(element => {
-                            var index = service.data.indexOf(element);
-                            service.data.splice(index, 1);
-                        });
-                    }
+        $http({
+            method: 'delete',
+            url: helperServices.url + '/api/inbox',
+            headers: AuthService.getHeader(),
+            data: datas
+        }).then(
+            (res) => {
+                if (res.data) {
+                    datas.forEach(element => {
+                        var index = service.data.indexOf(element);
+                        service.data.splice(index, 1);
+                    });
                     def.resolve(res.data);
-                },
-                (err) => {
-                    def.reject();
-                    message.error(err);
                 }
-            );
-        }
+
+            },
+            (err) => {
+                def.reject();
+                message.error(err);
+            }
+        );
         return def.promise;
     }
 

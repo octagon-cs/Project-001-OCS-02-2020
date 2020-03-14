@@ -9,7 +9,7 @@ function helperServices() {
 
 	service.KepemilikanKTP = ["Sudah Memiliki KTP", "Belum Memiliki KTP", "Pembuatan KTP Dalam Proses"];
 	service.GolonganDarah = ["O", "A", "A-", "A+", "AB", "AB-", "AB+", "B", "B-", "O-", "O+", "TIDAK TAHU"];
-	service.Agama = ["ISLAM", "KATHOLOK", "KRISTEN", "HINDU", "BUDHA", "LAINNYA"];
+	service.Agama = ["ISLAM", "KATOLIK", "KRISTEN", "HINDU", "BUDHA", "KONGHUCHU", "LAINNYA"];
 	service.JenisKelamin = ["LAKI-LAKI", "PEREMPUAN"];
 	service.PendidikanTerakhir = ["Tidak/Belum Sekolah", "Belum Tamat SD/Sederajat", "Tamat SD/Sederajat", "SLTP/Sederajat", "SLTA/Sederajat", "Diploma I/II", "Akademi/Diploma III/Sarjana Muda", "Diploma IV/Strata I", "Strata II", "Strata III"];
 	service.PenghasilanTetap = ["Lebih Dari Rp 1.000.000", "Lebih Dari Rp 750.000 s/d Rp 1.000.000", "Lebih Dari Rp 500.000 s/d Rp 750.000", "Rp 500.000 atau Kurang"];
@@ -89,7 +89,7 @@ function helperServices() {
 		"Belum Menikah", "Kematian", "Keterangan Lainnya", "Pindah"
 	];
 	service.Roles = ["pemohon", "admin", "kasi", "seklur", "lurah"];
-	service.Hari =  ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu",];
+	service.Hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", ];
 
 
 	return {

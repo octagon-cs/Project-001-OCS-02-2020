@@ -8,13 +8,8 @@
 
           <div class="card-tools">
             <div class="input-group input-group-sm">
-              <input type="text" class="form-control" placeholder="Search Mail">
-              <div class="input-group-append">
-                <div class="btn btn-primary">
-                  <i class="fas fa-search"></i>
-                </div>
-                <div class="btn btn-secondary ">Compose</div>
-              </div>
+              <input type="text" class="form-control" ng-model="search" placeholder="Search Mail">
+
             </div>
           </div>
           <!-- /.card-tools -->
@@ -26,8 +21,10 @@
             <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
             </button>
             <div class="btn-group">
-              <button type="button" ng-click="delete(messages)" class="btn btn-default btn-sm"><i
-                  class="far fa-trash-alt"></i></button>
+              <button type="button" ng-click="delete(messages)" class="btn btn-danger btn-sm">
+                <i ng-show="!deleteBusy" class="far fa-trash-alt"></i>
+                <spinner value="deleteBusy"></spinner>
+              </button>
             </div>
             <!-- /.btn-group -->
             <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
@@ -36,9 +33,9 @@
             <!-- /.float-right -->
           </div>
           <div class="table-responsive mailbox-messages">
-            <table class="table table-hover table-striped">
+            <table datatable="ng" class="table table-hover table-striped">
               <tbody>
-                <tr ng-repeat="item in messages | orderBy: '-created'">
+                <tr ng-repeat="item in messages|filter : search | orderBy: '-created'">
                   <td>
                     <div class="icheck-primary">
                       <input type="checkbox" value="" id="check1" ng-model="item.isChecked">
