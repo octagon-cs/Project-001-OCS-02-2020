@@ -60,6 +60,4 @@ function PejabatServices($http, $q, helperServices, AuthService) {
         }
         return def.promise;
     }
-
-
 }

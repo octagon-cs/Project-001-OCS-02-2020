@@ -90,8 +90,6 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
     }
 }
 
-
-
 function PermohonanService($http, $q, helperServices, AuthService, message) {
     var controller = "/api/permohonan";
     var service = {};
@@ -100,6 +98,8 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 
     return {
         get: get,
+        post: post,
+        put: put,
         getById: getById,
         getByJenis: getByJenis
     }
@@ -126,6 +126,39 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
                 }
             );
         }
+        return def.promise;
+    }
+
+
+    function post(data) {
+        var def = $q.defer();
+        $http({
+            method: "Post",
+            url: helperServices.url + controller,
+            headers: AuthService.getHeader(),
+            data: data
+        }).then(param => {
+            data.idpermohonan = param.idpermohonan;
+            service.data.push(data);
+            def.resolve(data);
+        }, error => {
+            message.error(error);
+        })
+        return def.promise;
+    }
+
+    function put(data) {
+        var def = $q.defer();
+        $http({
+            method: "PUT",
+            url: helperServices.url + controller,
+            headers: AuthService.getHeader(),
+            data: data
+        }).then(param => {
+            def.resolve(param);
+        }, error => {
+            message.error(error);
+        })
         return def.promise;
     }
 
