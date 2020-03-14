@@ -14,7 +14,7 @@ angular.module('admin.surat.controller', [])
     .controller('adminsuratketnikahController', adminsuratketnikahController);
 
 function adminsuratbelummenikahController($http, helperServices, AuthService, $scope, message,
-    PendudukService, PejabatService, JenisPermohonanService) {
+    JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
     $scope.SuratBelumMenikah = {};
@@ -91,7 +91,8 @@ function adminsuratbelummenikahController($http, helperServices, AuthService, $s
 
 }
 
-function adminsuratketmenikahController($http, helperServices, AuthService, $scope, message) {
+function adminsuratketmenikahController($http, helperServices, AuthService, $scope, message,
+    JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
     $scope.SuratMenikah = {};
@@ -167,7 +168,8 @@ function adminsuratketmenikahController($http, helperServices, AuthService, $sco
 
 }
 
-function adminsurattidakmampuController($http, helperServices, AuthService, $scope, message, DTOptionsBuilder, DTColumnBuilder, $state) {
+function adminsurattidakmampuController($http, helperServices, AuthService, $scope, message, $state,
+    JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
     $scope.SuratTidakMampu = {};
@@ -575,7 +577,8 @@ function adminsuratketceraiController($http, helperServices, AuthService, $scope
 
 }
 
-function adminsuratketdesaController($http, helperServices, AuthService, $scope, message) {
+function adminsuratketdesaController($http, helperServices, AuthService, $scope, message,
+    JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
     $scope.SuratKetDesa = {};
@@ -650,7 +653,8 @@ function adminsuratketektpController() {
 
 }
 
-function adminsuratketlainnyaController($http, helperServices, AuthService, $scope, message) {
+function adminsuratketlainnyaController($http, helperServices, AuthService, $scope, message,
+    JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
     $scope.SuratKetDesa = {};
@@ -719,7 +723,8 @@ function adminsuratketlainnyaController($http, helperServices, AuthService, $sco
 
 }
 
-function adminsuratketnikahController($http, helperServices, PejabatService, AuthService, $scope, message) {
+function adminsuratketnikahController($http, helperServices, PejabatService, AuthService, $scope, message,
+    JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
     $scope.SuratNikah = {};
@@ -814,7 +819,8 @@ function adminsuratskckController() {
 
 }
 
-function adminsuratketdomisiliController($http, helperServices, AuthService, $scope, message) {
+function adminsuratketdomisiliController($http, helperServices, AuthService, $scope, message,
+    JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
     $scope.SuratDomisili = {};
