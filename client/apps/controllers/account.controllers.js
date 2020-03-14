@@ -25,7 +25,9 @@ function AccountController(AuthService, $state, $scope) {
 
 function LoginController($scope, $state, AuthService, FcmService) {
 	$scope.login = function (user) {
+		$scope.isBusy = true;
 		AuthService.login(user).then((x) => {
+			$scope.isBusy = false;
 			if (x.roles.length == 1) {
 				var role = x.roles[0];
 				$state.go(role + '-home');
@@ -82,6 +84,7 @@ function ConfirmEmailController($state, $stateParams, AuthService) {
 
 function InboxController(AuthService, $state, $scope, InboxService) {
 
+
 	InboxService.get().then(res => {
 		$scope.messages = res;
 	});
@@ -97,6 +100,7 @@ function InboxController(AuthService, $state, $scope, InboxService) {
 
 	$scope.delete = (messages) => {
 		var datas = messages.filter(x => x.isChecked);
+		$scope.deleteBusy = true;
 		InboxService.delete(datas).then(res => {
 			if (res.data) {
 				datas.forEach(element => {
@@ -104,6 +108,7 @@ function InboxController(AuthService, $state, $scope, InboxService) {
 					datas.splice(index, 1);
 				});
 			}
+			$scope.deleteBusy = false;
 		})
 	}
 

@@ -1,3 +1,5 @@
 angular.module('app.component', [
-    'login.component'
+    'login.component',
+    'inbox.component',
+    'spinner.component'
 ]);

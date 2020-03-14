@@ -1,0 +1,69 @@
+@media print {
+  .printing {
+    display: block;
+  }
+}
+
+.printing {
+  display: none;
+}
+
+.logowon {
+  margin: 20px;
+  width: 100px;
+  height: 100px;
+}
+
+.login-footer {
+  margin-top: 30px;
+}
+
+.login-form {
+  margin: 10px !important;
+}
+
+.fa-spin {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.select2-choice {
+  display: block;
+  height: 0px;
+  padding: 0 0 0 8px;
+  overflow: hidden;
+  position: relative;
+  border: none !important;
+  white-space: nowrap;
+  line-height: 26px;
+  color: #444;
+  text-decoration: none;
+  border-radius: 0px !important;
+  background-clip: none !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: #fff;
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eee), color-stop(0.5, #fff));
+  background-image: -webkit-linear-gradient(center bottom, #eee 0%, #fff 50%);
+  background-image: -moz-linear-gradient(center bottom, #eee 0%, #fff 50%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eeeeee', GradientType=0);
+  background-image: none !important;
+}
+
+.select2-container .select2-choice .select2-arrow {
+  display: inline-block;
+  width: 18px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-left: 0px solid #fff;
+  border-radius: 0 4px 4px 0;
+  background-clip: padding-box;
+  background: #d0c9c9;
+  background-image: none !important;
+  filter: none !important;
+}
