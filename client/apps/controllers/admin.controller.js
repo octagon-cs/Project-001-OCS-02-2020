@@ -56,6 +56,7 @@ function adminpejabatController($http, helperServices, AuthService, $scope) {
             $scope.NoJabatan = false;
             $scope.Pejabat.idjabatan = $scope.ItemJabatan.idjabatan;
             $scope.SetEmail = true;
+
         } else {
             $scope.NoJabatan = true;
             $scope.Pejabat.idjabatan = $scope.ItemJabatan.idjabatan;
@@ -64,6 +65,12 @@ function adminpejabatController($http, helperServices, AuthService, $scope) {
         }
     }
     $scope.Simpan = function () {
+
+        var role = $scope.ItemJabatan.nama.includes("lurah") ? "lurah" : $scope.ItemJabatan.nama.includes("Sekertaris") ? "seklur" : null;
+        if (role) {
+            $scope.Pejabat.role = role;
+        }
+
         $http({
             method: 'post',
             url: helperServices.url + "/api/pejabat",

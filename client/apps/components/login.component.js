@@ -12,7 +12,7 @@ angular
 			};
 		},
 		template: `<a class="nav-link" data-toggle="modal" data-target="#logout">Logout</a>
-					<div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" 132164165411651511>
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">

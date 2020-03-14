@@ -22,8 +22,7 @@ router.get('/:id', async (req, res) => {
     try {
         contextDb.Jabatan.getById(id).then(data => {
             res.status(200).json(data);
-        });;
-
+        });
     } catch (err) {
         res.status(400).json({
             message: err.message

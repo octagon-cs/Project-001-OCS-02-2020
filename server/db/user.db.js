@@ -419,11 +419,13 @@ UserDb.getUserPejabatAktif = async () => {
         pool.query(
             `SELECT
             users.idusers,
-                users.username,
-                users.email,
-                users.aktif,
-                roles.name AS role
-            FROM
+            users.username,
+            users.email,
+            users.aktif,
+            roles.name AS role,
+            users.status,
+            users.devicetoken
+          FROM
             users
             LEFT JOIN userinrole ON users.idusers = userinrole.idusers
             LEFT JOIN roles ON userinrole.idroles = roles.idroles
@@ -443,13 +445,26 @@ UserDb.getUserPejabatAktif = async () => {
 
 UserDb.AddDeviceToken = (token, iduser) => {
     return new Promise((resolve, reject, nex) => {
-        pool.query('update penduduk set device=? where idusers=?', [token, iduser], (err, result) => {
+        pool.query('update users set devicetoken=? where idusers=?', [token, iduser], (err, result) => {
             if (err) {
                 return reject(err);
             } else resolve(true);
         });
     });
 }
+
+
+UserDb.getDeviceToken = (iduser) => {
+    return new Promise((resolve, reject, nex) => {
+        pool.query('select devicetokenfrom users where idusers=?', [iduser], (err, result) => {
+            if (err) {
+                return reject(err);
+            } else resolve(result[0]);
+        });
+    });
+}
+
+
 
 
 

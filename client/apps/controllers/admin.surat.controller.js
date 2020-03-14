@@ -14,7 +14,7 @@ angular.module('admin.surat.controller', [])
     .controller('adminsuratketnikahController', adminsuratketnikahController);
 
 function adminsuratbelummenikahController($http, helperServices, AuthService, $scope, message,
-    PendudukService, PejabatService, JenisPermohonanService) {
+    JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
     $scope.SuratBelumMenikah = {};
@@ -91,7 +91,8 @@ function adminsuratbelummenikahController($http, helperServices, AuthService, $s
 
 }
 
-function adminsuratketmenikahController($http, helperServices, AuthService, $scope, message) {
+function adminsuratketmenikahController($http, helperServices, AuthService, $scope, message,
+    JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
     $scope.SuratMenikah = {};
@@ -167,7 +168,8 @@ function adminsuratketmenikahController($http, helperServices, AuthService, $sco
 
 }
 
-function adminsurattidakmampuController($http, helperServices, AuthService, $scope, message, DTOptionsBuilder, DTColumnBuilder, $state) {
+function adminsurattidakmampuController($http, helperServices, AuthService, $scope, message, $state,
+    JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
     $scope.SuratTidakMampu = {};
@@ -509,6 +511,7 @@ function adminsuratketceraiController($http, helperServices, AuthService, $scope
             PejabatService.getByJabatanName("Lurah", 1).then(lurah => {
                 $scope.Pejabat = lurah;
                 JenisPermohonanService.getByJenis("Keterangan Cerai").then(jenis => {
+                    $scope.JenisPermohonan = jenis;
                     PermohonanService.getByJenis(jenis.idjenispermohonan).then(permohonans => {
                         $scope.DatasSuratKetCerai = angular.copy(permohonans);
                     })
@@ -530,23 +533,15 @@ function adminsuratketceraiController($http, helperServices, AuthService, $scope
     }
 
     $scope.Simpan = function () {
-        var today = new Date();
-        $scope.SuratKetCerai.tanggalpengajuan = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        $scope.SuratKetCerai.tanggalpengajuan = new Date();
         $scope.SuratKetCerai.data.pejabat = $scope.Pejabat
-        $scope.SuratKetCerai.idjenispermohonan = 2;
-        $http({
-            method: 'post',
-            url: helperServices.url + "/api/permohonan",
-            headers: AuthService.getHeader(),
-            data: $scope.SuratKetCerai
-        }).then(param => {
+        $scope.SuratKetCerai.idjenispermohonan = $scope.JenisPermohonan.idjenispermohonan;
+        PermohonanService.post($scope.SuratKetCerai).then(param => {
             $scope.SuratKetCerai.idpermohonan = param.idpermohonan;
             $scope.DatasSuratKetCerai.push(angular.copy($scope.SuratKetCerai));
             message.info("Berhasil Menyimpan");
             $scope.SuratKetCerai = {};
             $scope.ItemPenduduk = "";
-        }, error => {
-            message.errorText(error.message);
         })
     }
     $scope.Selecteddata = function (id, item) {
@@ -575,7 +570,8 @@ function adminsuratketceraiController($http, helperServices, AuthService, $scope
 
 }
 
-function adminsuratketdesaController($http, helperServices, AuthService, $scope, message) {
+function adminsuratketdesaController($http, helperServices, AuthService, $scope, message,
+    JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
     $scope.SuratKetDesa = {};
@@ -650,7 +646,8 @@ function adminsuratketektpController() {
 
 }
 
-function adminsuratketlainnyaController($http, helperServices, AuthService, $scope, message) {
+function adminsuratketlainnyaController($http, helperServices, AuthService, $scope, message,
+    JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
     $scope.SuratKetDesa = {};
@@ -719,7 +716,8 @@ function adminsuratketlainnyaController($http, helperServices, AuthService, $sco
 
 }
 
-function adminsuratketnikahController($http, helperServices, PejabatService, AuthService, $scope, message) {
+function adminsuratketnikahController($http, helperServices, PejabatService, AuthService, $scope, message,
+    JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
     $scope.SuratNikah = {};
@@ -814,7 +812,8 @@ function adminsuratskckController() {
 
 }
 
-function adminsuratketdomisiliController($http, helperServices, AuthService, $scope, message) {
+function adminsuratketdomisiliController($http, helperServices, AuthService, $scope, message,
+    JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
     $scope.SuratDomisili = {};

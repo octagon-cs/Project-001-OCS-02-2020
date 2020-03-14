@@ -1,22 +1,28 @@
-angular.module('seklur.controller',[])
-.controller('seklurHomeController', seklurHomeController)
-.controller('dataseklurController', dataseklurController)
-.controller('datartController', datartController)
-.controller('datarwController', datarwController); 
+angular.module('seklur.controller', [])
+    .controller('seklurController', seklurController)
+    .controller('seklurHomeController', seklurHomeController)
+    .controller('dataseklurController', dataseklurController)
+    .controller('datartController', datartController)
+    .controller('datarwController', datarwController);
 
+
+function seklurController(AuthService) {
+    AuthService.Init(["seklur"]);
+}
 
 function seklurHomeController() {
-    
+
 }
+
 function dataseklurController() {
-    
+
 }
-function seklurController() {
-    
-}
+
+
 function datartController() {
-    
+
 }
+
 function datarwController() {
-    
+
 }

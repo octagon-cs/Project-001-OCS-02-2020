@@ -192,11 +192,11 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 	}
 
 	function userInRole(roles) {
-		var result = StorageService.getObject('user');
+		var user = StorageService.getObject('user');
 		var found = false;
-		if (result) {
+		if (user) {
 			roles.forEach((role) => {
-				var data = result.roles.find((x) => (x.name = role));
+				var data = user.roles.find(x => x == role);
 				if (data) {
 					found = true;
 					return;
