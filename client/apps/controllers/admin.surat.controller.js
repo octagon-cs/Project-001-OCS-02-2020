@@ -511,6 +511,7 @@ function adminsuratketceraiController($http, helperServices, AuthService, $scope
             PejabatService.getByJabatanName("Lurah", 1).then(lurah => {
                 $scope.Pejabat = lurah;
                 JenisPermohonanService.getByJenis("Keterangan Cerai").then(jenis => {
+                    $scope.JenisPermohonan = jenis;
                     PermohonanService.getByJenis(jenis.idjenispermohonan).then(permohonans => {
                         $scope.DatasSuratKetCerai = angular.copy(permohonans);
                     })
@@ -532,23 +533,15 @@ function adminsuratketceraiController($http, helperServices, AuthService, $scope
     }
 
     $scope.Simpan = function () {
-        var today = new Date();
-        $scope.SuratKetCerai.tanggalpengajuan = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        $scope.SuratKetCerai.tanggalpengajuan = new Date();
         $scope.SuratKetCerai.data.pejabat = $scope.Pejabat
-        $scope.SuratKetCerai.idjenispermohonan = 2;
-        $http({
-            method: 'post',
-            url: helperServices.url + "/api/permohonan",
-            headers: AuthService.getHeader(),
-            data: $scope.SuratKetCerai
-        }).then(param => {
+        $scope.SuratKetCerai.idjenispermohonan = $scope.JenisPermohonan.idjenispermohonan;
+        PermohonanService.post($scope.SuratKetCerai).then(param => {
             $scope.SuratKetCerai.idpermohonan = param.idpermohonan;
             $scope.DatasSuratKetCerai.push(angular.copy($scope.SuratKetCerai));
             message.info("Berhasil Menyimpan");
             $scope.SuratKetCerai = {};
             $scope.ItemPenduduk = "";
-        }, error => {
-            message.errorText(error.message);
         })
     }
     $scope.Selecteddata = function (id, item) {

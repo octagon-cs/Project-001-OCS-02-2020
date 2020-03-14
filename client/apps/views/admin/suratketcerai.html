@@ -39,9 +39,9 @@
                                 <tbody>
                                     <tr ng-repeat="item in DatasSuratKetCerai">
                                         <td>{{$index+1}}</td>
-                                        <td>{{item.NIK}}</td>
-                                        <td>{{item.Nama}}</td>
-                                        <td>{{item.No.Surat}}</td>
+                                        <td>{{item.data.suami.nama}}</td>
+                                        <td>{{item.data.istri.nama}}</td>
+                                        <td>{{item.data.No.Surat}}</td>
                                         <td>{{item.Pejabat}}</td>
                                         <td>
                                             <div class="btn-group btn-group-toggle" data-toggle="buttons">

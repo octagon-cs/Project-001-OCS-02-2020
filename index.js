@@ -4,7 +4,6 @@ var http = require('http').createServer(app);
 
 var path = require('path');
 const bodyParser = require('body-parser');
-const socket = require("./server/notification");
 
 app.use(bodyParser.json({
     limit: '50mb'
@@ -14,7 +13,7 @@ app.use(bodyParser.json({
 if (app.get('env') == "maintenance") {
     app.use('/', express.static('./maintenance/'));
 } else {
-    require('./server/routers')(app, socket);
+    require('./server/routers')(app);
     app.use('/', express.static('./client/'));
 }
 
