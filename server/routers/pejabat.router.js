@@ -31,6 +31,20 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.get('/idjabatan/:id', async (req, res) => {
+    var id = req.params.id;
+    try {
+        contextDb.Pejabat.getByIdJabatan(id).then(data => {
+            res.status(200).json(data);
+        });;
+
+    } catch (err) {
+        res.status(400).json({
+            message: err.message
+        });
+    }
+});
+
 router.post('/', async (req, res) => {
     try {
         const user = req.body;

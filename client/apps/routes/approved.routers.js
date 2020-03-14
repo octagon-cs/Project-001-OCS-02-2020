@@ -35,21 +35,21 @@ angular.module('approved.router', ['ui.router']).config(function ($stateProvider
 			parent: 'admin',
 			controller: 'adminsuratketusahaController',
 			templateUrl: 'apps/views/admin/suratketusaha.html'
-		}).state('admin-suratbelummenikahApproved', {
-			url: '/suratbelummenikah',
+		}).state('approved-suratbelummenikah', {
+			url: '/suratbelummenikah/:id',
 			parent: 'admin',
-			controller: 'adminsuratbelummenikahController',
-			templateUrl: 'apps/views/admin/suratbelummenikah.html'
+			controller: 'approvedSuratBelumMenikahController',
+			templateUrl: 'apps/views/approved/suratbelummenikah.html'
 		}).state('admin-suratketmenikahApproved', {
 			url: '/suratketmenikah',
 			parent: 'admin',
 			controller: 'adminsuratketmenikahController',
 			templateUrl: 'apps/views/admin/suratketmenikah.html'
-		}).state('admin-suratkelahiranApproved', {
-			url: '/suratkelahiran',
+		}).state('approved-suratkelahiran', {
+			url: '/suratkelahiran/:id',
 			parent: 'admin',
-			controller: 'adminsuratkelahiranController',
-			templateUrl: 'apps/views/admin/suratkelahiran.html'
+			controller: 'approvedSuratKelahiranController',
+			templateUrl: 'apps/views/approved/suratkelahiran.html'
 		}).state('admin-suratketceraiApproved', {
 			url: '/suratketcerai',
 			parent: 'admin',

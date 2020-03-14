@@ -54,6 +54,31 @@ pejabat.getById = async (Id) => {
     });
 };
 
+pejabat.getByIdJabatan = async (Id) => {
+    return new Promise((resolve, reject) => {
+        pool.query(
+            `SELECT
+            pejabat.*,
+            jabatan.nama AS namajabatan,
+            jabatan.deskripsi
+          FROM
+            pejabat
+            LEFT JOIN jabatan ON jabatan.idjabatan = pejabat.idjabatan where pejabat.idjabatan=? `,
+            [Id],
+            (error, result) => {
+                if (error) {
+                    return reject(error);
+                } else {
+                    result.forEach(element => {
+                        element.data = JSON.parse(element.data)
+                    });
+                    resolve(result);
+                }
+            }
+        );
+    });
+};
+
 pejabat.post = async (data) => {
     return new Promise((resolve, reject) => {
         try {
