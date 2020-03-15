@@ -25,12 +25,14 @@ function adminsuratbelummenikahController($http, helperServices, AuthService, $s
     $scope.Init = function () {
         PendudukService.get().then(penduduk => {
             $scope.ListPenduduk = penduduk;
+            $scope.ItemPenduduk = penduduk[0];
             PejabatService.getByJabatanName("Lurah", 1).then(lurah => {
                 $scope.model.pejabat = lurah;
                 JenisPermohonanService.getByJenis("Belum Menikah").then(jenis => {
                     $scope.JenisPermohonan = jenis;
                     PermohonanService.getByJenis(jenis.idjenispermohonan).then(permohonans => {
                         $scope.Datas = angular.copy(permohonans);
+
                     })
                 })
             })

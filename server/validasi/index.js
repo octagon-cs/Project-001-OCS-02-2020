@@ -9,41 +9,42 @@ fn.validate = async (data) => {
 
             switch (param.jenis) {
                 case "Pengantar KTP":
-                    break;
+                    return validate(true, null);
                 case "Pengantar KK":
-                    break;
+                    return validate(true, null);
                 case "Tidak Mampu":
-                    return TidakMampu(data);
+                    return tidakMampu(data);
                 case "Keterangan Domisili":
-                    break;
+                    return validate(true, null);
                 case "Keterangan SKCK":
-                    break;
+                    return validate(true, null);
                 case "Keterangan Usaha":
-                    break;
+                    return validate(true, null);
                 case "Penguasaan Tanah":
-                    break;
+                    return validate(true, null);
                 case "Keterangan Desa":
-                    break;
+                    return validate(true, null);
                 case "Keterangan Cerai":
                     return await cerai(data);
                 case "Keterangan eKTP":
-                    break;
+                    return validate(true, null);
                 case "Keterangan Nikah":
-                    break;
+                    return validate(true, null);
                 case "Kelahiran":
-                    break;
+                    return await kelahiran(data);
+                    return validate(true, null);
                 case "Sudah Menikah":
-                    break;
+                    return validate(true, null);
                 case "Belum Menikah":
-                    break;
+                    return validate(true, null);
                 case "Kematian":
-                    break;
+                    return validate(true, null);
                 case "Keterangan Lainnya":
-                    break;
+                    return validate(true, null);
                 case "Pindah":
-                    break;
+                    return validate(true, null);
                 default:
-                    break;
+                    return validate(true, null);
             }
         } {
             return validate(false, "Jenis data Required");
@@ -72,17 +73,35 @@ cerai = async (data) => {
 }
 
 
-TidakMampu = async (data) => {
-    var suami = await db.Penduduk.getByNIK(data.nik);
-    if (!suami)
-        return validate(false, "Data Suami Tida: break; Ditemukan");
+tidakMampu = async (data) => {
+    if (!data.idpenduduk)
+        return validate(false, "Data Penduduk Tidak Boleh Kosong");
 
-    var istri = db.Penduduk.getByNIK(data)
-    if (!istri)
-        return validate(false, "Data Istri Tida: break; Ditemukan");
+    return validate(true, null)
 }
 
+kelahiran = async (item) => {
+    if (!item.idpenduduk)
+        return validate(false, "Data Pemohon Tidak Boleh Kosong");
+    if (item.data.tanggallahir)
+        return validate(false, "Tanggal Lahir Tidak Boleh Kosong");
+    if (item.data.tempatlahir)
+        return validate(false, "Tempat Lahir Tidak Boleh Kosong");
+    if (item.data.namaanak)
+        return validate(false, "Nama Anak Tidak Boleh Kosong");
+    if (item.data.jeniskelamin)
+        return validate(false, "Jenis Kelamin Tidak Boleh Kosong");
+    if (item.data.idayah)
+        return validate(false, "Ayah Tidak Boleh Kosong");
+    if (item.data.idayah)
+        return validate(false, "Ayah Tidak Boleh Kosong");
 
+    if (item.idayah)
+
+
+
+        return validate(true, null)
+}
 
 function validate(valid, message) {
     return {
