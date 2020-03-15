@@ -286,6 +286,8 @@ router.post('/back', [authJwt.verifyToken], async (req, res) => {
                 permohonan.persetujuan = [persetujuan];
             }
 
+
+
             var activeUsers = await contextDb.Users.getUserPejabatAktif();
             var frxRole = config.Roles[indexOfRole - 1];
             activeUsers.forEach(async (element) => {
@@ -313,11 +315,11 @@ router.post('/back', [authJwt.verifyToken], async (req, res) => {
                         device = contextDb.Users.getUserUserId(permohonan.idusers);
                         fcm.sendToDevice(device.devicetoken, item);
                     }
-
+                    var resultData = await contextDb.Permohonan.put(permohonan);
+                    res.status(200).json(true);
                 }
             });
-            var resultData = await contextDb.Permohonan.put(permohonan);
-            res.status(200).json(true);
+
         } else {
             res.status(400).json({
                 message: "data permohonan tidak ditemukan"
@@ -358,6 +360,8 @@ router.post('/reject/:id', [authJwt.verifyToken], async (req, res) => {
                 permohonan.persetujuan = [persetujuan];
             }
 
+            var resultData = await contextDb.Permohonan.put(permohonan);
+            res.status(200).json(true);
 
             var resultData = await contextDb.Permohonan.put(permohonan);
             if (resultData && persetujuan.status == "ditolak") {
@@ -379,7 +383,6 @@ router.post('/reject/:id', [authJwt.verifyToken], async (req, res) => {
                     fcm.sendToDevice(device.devicetoken, item);
                 }
             }
-            res.status(200).json(true);
         } else {
             res.status(400).json({
                 message: "data permohonan tidak ditemukan"
