@@ -495,55 +495,41 @@ function adminsuratkelahiranController($http, helperServices, AuthService,
 
 function adminsuratketceraiController($http, helperServices, AuthService, $scope, message,
     JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
+
     $scope.ItemPenduduk = "";
-    $scope.SuratKetCerai = {};
-    $scope.DatasSuratKetCerai = [];
-    $scope.TanggalSurat;
-    $scope.Jam;
-    $scope.Pejabat = {};
-    $scope.SuratKetCerai.data = {};
+    $scope.model = {};
+    $scope.model.data = {};
+    $scope.Datas = [];
     $scope.dataPrint;
-    $scope.ItemSuami = "";
-    $scope.ItemIstri = "";
     $scope.Init = function () {
         PendudukService.get().then(penduduk => {
             $scope.ListPenduduk = penduduk;
             PejabatService.getByJabatanName("Lurah", 1).then(lurah => {
-                $scope.Pejabat = lurah;
+                $scope.model.pejabat = lurah;
                 JenisPermohonanService.getByJenis("Keterangan Cerai").then(jenis => {
                     $scope.JenisPermohonan = jenis;
                     PermohonanService.getByJenis(jenis.idjenispermohonan).then(permohonans => {
-                        $scope.DatasSuratKetCerai = angular.copy(permohonans);
+                        $scope.Datas = angular.copy(permohonans);
                     })
                 })
             })
         })
     }
-    $scope.SelectedSuami = function () {
-        var a = JSON.parse(angular.copy($scope.ItemSuami));
-        $scope.ItemSuami = angular.copy(a);
-        $scope.SuratKetCerai.idpenduduk = a.idpenduduk;
-        $scope.SuratKetCerai.nama = a.nama;
-    }
-    $scope.SelectedIstri = function () {
-        var a = JSON.parse(angular.copy($scope.ItemIstri));
-        $scope.ItemIstri = angular.copy(a);
-        $scope.SuratKetCerai.data.idistri = a.idpenduduk;
-        $scope.SuratKetCerai.data.namaistri = a.nama;
-    }
 
     $scope.Simpan = function () {
-        $scope.SuratKetCerai.tanggalpengajuan = new Date();
-        $scope.SuratKetCerai.data.pejabat = $scope.Pejabat
-        $scope.SuratKetCerai.idjenispermohonan = $scope.JenisPermohonan.idjenispermohonan;
-        PermohonanService.post($scope.SuratKetCerai).then(param => {
-            $scope.SuratKetCerai.idpermohonan = param.idpermohonan;
-            $scope.DatasSuratKetCerai.push(angular.copy($scope.SuratKetCerai));
+        $scope.model.tanggalpengajuan = new Date();
+        $scope.model.idjenispermohonan = $scope.JenisPermohonan.idjenispermohonan;
+        $scope.model.idpenduduk = $scope.model.data.suami.idpenduduk;
+        PermohonanService.post($scope.model).then(param => {
+            $scope.model.idpermohonan = param.idpermohonan;
+            $scope.Datas.push(angular.copy($scope.model));
             message.info("Berhasil Menyimpan");
-            $scope.SuratKetCerai = {};
+            $scope.model = {};
             $scope.ItemPenduduk = "";
         })
     }
+
+
     $scope.Selecteddata = function (id, item) {
         $scope.dataPrint = angular.copy(item);
         $http({
@@ -727,8 +713,8 @@ function adminsuratketnikahController($http, helperServices, PejabatService, Aut
     $scope.Pejabat = {};
     $scope.SuratNikah.data = {};
     $scope.dataPrint;
-    $scope.ItemSuami = "";
-    $scope.ItemIstri = "";
+    $scope.suami = "";
+    $scope.istri = "";
     $scope.Init = function () {
         PendudukService.get().then(penduduk => {
             $scope.ListPenduduk = penduduk;
@@ -743,14 +729,14 @@ function adminsuratketnikahController($http, helperServices, PejabatService, Aut
         })
     }
     $scope.SelectedSuami = function () {
-        var a = JSON.parse(angular.copy($scope.ItemSuami));
-        $scope.ItemSuami = angular.copy(a);
+        var a = JSON.parse(angular.copy($scope.suami));
+        $scope.suami = angular.copy(a);
         $scope.SuratNikah.idpenduduk = a.idpenduduk;
         $scope.SuratNikah.nama = a.nama;
     }
     $scope.SelectedIstri = function () {
-        var a = JSON.parse(angular.copy($scope.ItemIstri));
-        $scope.ItemIstri = angular.copy(a);
+        var a = JSON.parse(angular.copy($scope.istri));
+        $scope.istri = angular.copy(a);
         $scope.SuratNikah.data.idistri = a.idpenduduk;
         $scope.SuratNikah.data.namaistri = a.nama;
     }

@@ -37,10 +37,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="item in DatasSuratKetCerai">
+                                    <tr ng-repeat="item in Datas">
                                         <td>{{$index+1}}</td>
+                                        <td>{{item.data.suami.nik}}</td>
                                         <td>{{item.data.suami.nama}}</td>
-                                        <td>{{item.data.istri.nama}}</td>
                                         <td>{{item.data.No.Surat}}</td>
                                         <td>{{item.Pejabat}}</td>
                                         <td>
@@ -76,24 +76,23 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-4 col-form-label">NIK Suami</label>
                                                     <div class="col-sm-8">
-                                                        <select ui-select2 class="form-control" ng-model="ItemSuami"
-                                                            ng-change="SelectedSuami()"
+                                                        <select ui-select2 class="form-control"
+                                                            ng-model="model.data.suami"
+                                                            ng-options="item.nama+'-'+item.nik for item in ListPenduduk"
                                                             data-placeholder="NIK / Nama Suami">
                                                             <option value=""></option>
-                                                            <option ng-repeat="item in ListPenduduk" value="{{item}}">
-                                                                {{item.nik}}&nbsp;-&nbsp;{{item.nama}}</option>
+
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-sm-4 col-form-label">NIK Istri</label>
                                                     <div class="col-sm-8">
-                                                        <select ui-select2 class="form-control" ng-model="ItemIstri"
-                                                            ng-change="SelectedIstri()"
+                                                        <select ui-select2 class="form-control"
+                                                            ng-model="model.data.istri"
+                                                            ng-options="item.nama+'-'+item.nik for item in ListPenduduk"
                                                             data-placeholder="NIK / Nama Istri">
                                                             <option value=""></option>
-                                                            <option ng-repeat="item in ListPenduduk" value="{{item}}">
-                                                                {{item.nik}}&nbsp;-&nbsp;{{item.nama}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -103,14 +102,14 @@
                                                     <label class="col-sm-4 col-form-label">Nama Suami</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control"
-                                                            ng-model="ItemSuami.nama" placeholder="Nama Suami">
+                                                            ng-model="model.data.suami.nama" placeholder="Nama Suami">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-sm-4 col-form-label">Nama Istri</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control"
-                                                            ng-model="ItemIstri.nama" placeholder="Nama Istri">
+                                                            ng-model="model.data.istri.nama" placeholder="Nama Istri">
                                                     </div>
                                                 </div>
                                             </div>
@@ -122,8 +121,7 @@
                                                     <label class="col-sm-4 col-form-label">Nomor Surat</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control"
-                                                            ng-model="SuratKetCerai.nomorsurat"
-                                                            placeholder="Nomor Surat">
+                                                            ng-model="model.nomorsurat" placeholder="Nomor Surat">
                                                     </div>
                                                 </div>
                                             </div>
@@ -131,9 +129,8 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-4 col-form-label">Keterangan Nikah</label>
                                                     <div class="col-sm-8">
-                                                        <textarea class="form-control"
-                                                            ng-model="SuratKetCerai.data.keterangan" rows="3"
-                                                            placeholder="Keterangan Nikah">
+                                                        <textarea class="form-control" ng-model="model.data.keterangan"
+                                                            rows="3" placeholder="Keterangan Nikah">
                                                     </textarea>
                                                     </div>
                                                 </div>
@@ -146,13 +143,14 @@
                                                     <label class="col-sm-4 col-form-label">Pejabat Atas Nama</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control"
-                                                            ng-model="Pejabat.data.atasnama">
+                                                            ng-model="model.pejabat.atasnama">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control" ng-model="Pejabat.nama">
+                                                        <input type="text" class="form-control"
+                                                            ng-model="model.pejabat.nama">
                                                     </div>
                                                 </div>
                                             </div>
@@ -161,14 +159,14 @@
                                                     <label class="col-sm-4 col-form-label">Jabatan Pengesah</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control"
-                                                            ng-model="Pejabat.namajabatan">
+                                                            ng-model="model.pejabat.namajabatan">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-sm-4 col-form-label">NIP/NIAP Pengesah</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control"
-                                                            ng-model="Pejabat.data.nik" placeholder="">
+                                                            ng-model="model.pejabat.nik" placeholder="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -190,7 +188,7 @@
         </div>
         <!-- /.card-body -->
     </div>
-    <div id="SuratKetCerai" class="printing">
+    <div id="model" class="printing">
         <div ng-include="'../../../apps/views/admin/formatsurat/formatketcerai.html'"></div>
     </div>
 </section>

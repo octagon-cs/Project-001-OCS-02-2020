@@ -60,7 +60,7 @@ cerai = async (data) => {
     if (!suami)
         return validate(false, "Data Suami Tidak Ditemukan");
 
-    var istri = await db.Penduduk.getById(data.data.idistri)
+    var istri = await db.Penduduk.getById(data.data.idpenduduk)
     if (!istri)
         return validate(false, "Data Istri Tidak Ditemukan");
 
