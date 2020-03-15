@@ -2,8 +2,8 @@
     <table align="center" cellpadding="1" style="width: 700px;margin-bottom: 50px;">
         <tbody>
             <tr>
-                <td style="width: 210px; text-align: right;"><img src="client/assets/images/logojayapura.png"
-                        width="110px" height="100px"></td>
+                <td style="width: 20%; text-align: left;"><img src="../../../assets/images/logojayapura.png"
+                        width="130px" height="120px"></td>
                 <td>
                     <div style="text-align: center;">
                         <span style="font-family: 'Times New Roman', Times, serif; font: bold; font-size: larger;"><b>PEMERINTAH
@@ -12,25 +12,25 @@
 
                     </div>
                 </td>
-                <td></td>
+                <td style="width: 20%;"></td>
             </tr>
             <tr>
                 <td colspan="3">
-                    <hr style="border-top: 4px double #000000; margin-top: -20px;"/>
+                    <hr style="border-top: 4px double #000000; margin-top: -20px;" />
                 </td>
             </tr>
             <tr>
                 <td colspan="3">
                     <div style="text-align: center;">
-                        <span style="font-family: verdana;">SURAT KETERANGAN BELUM MENIKAH<br>Nomor :
-                            212/SKD/VI/2020<br></span>
+                        <span style="font-family: 'Times New Roman', Times, serif; font-size: 14pt;">SURAT KETERANGAN BELUM MENIKAH<br>Nomor :
+                            {{dataPrint.data.nomorsurat}}<br></span>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td colspan="3">
-                    <div style="font-family: verdana; text-align: justify;">
-                        <span><br>&emsp;&emsp;Berdasarkan surat pengantar ketua RT. 07 nomor : 12345678 pada tanggal
+                    <div style="font-family: 'Times New Roman', Times, serif; text-align: justify; font-size: 12pt;">
+                        <span><br>&emsp;&emsp;Berdasarkan surat pengantar ketua RT. {{dataPrint.data.rt}} nomor : {{dataPrint.data.nomorsuratpengantar}} pada tanggal
                             <b>06 Maret 2020</b>,
                             yang Bertanda tangan dibawah ini kepala desa distrik heram kelurahan waena kota jayapura
                             menerangkan dengan ini sebenarnya bahwa :<br><br></span>
@@ -42,7 +42,8 @@
                     <table cellpadding="1" style="width: 500px;">
                         <tbody>
                             <tr>
-                                <td><span">Nama</span>
+                                <td>
+                                    <span">Nama</span>
                                 </td>
                                 <td><span>:</span></td>
                                 <td><span>{{dataPrint.nama}}</span></td>
@@ -91,8 +92,9 @@
             </tr>
             <tr>
                 <td colspan="2">&nbsp;</td>
-                <td width = "40%">
-                    <div style="text-align: center; margin-left: 60px; font-family: 'Times New Roman', Times, serif; font-size: 12pt;">
+                <td width="40%">
+                    <div
+                        style="text-align: center; margin-left: 60px; font-family: 'Times New Roman', Times, serif; font-size: 12pt;">
                         <span style="font-family: Verdana;">Jayapura, {{dataPrint.tampiltanggal}}<br>
                             {{dataPrint.data.pejabat.jabatan}}<br>
                             <br>
