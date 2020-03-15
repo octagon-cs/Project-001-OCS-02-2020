@@ -17,52 +17,40 @@ function adminsuratbelummenikahController($http, helperServices, AuthService, $s
     JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
     $scope.ItemPenduduk = "";
     $scope.ListPenduduk = [];
-    $scope.SuratBelumMenikah = {};
-    $scope.DatasSuratBelumMenikah = [];
-    $scope.TanggalSurat;
-    $scope.Jam;
-    $scope.Pejabat = {};
-    $scope.SuratBelumMenikah.data = {};
+    $scope.model = {};
+    $scope.Datas = [];
+    $scope.model.pejabat = {};
+    $scope.model.data = {};
     $scope.dataPrint;
     $scope.Init = function () {
         PendudukService.get().then(penduduk => {
             $scope.ListPenduduk = penduduk;
             PejabatService.getByJabatanName("Lurah", 1).then(lurah => {
-                $scope.Pejabat = lurah;
+                $scope.model.pejabat = lurah;
                 JenisPermohonanService.getByJenis("Belum Menikah").then(jenis => {
+                    $scope.JenisPermohonan = jenis;
                     PermohonanService.getByJenis(jenis.idjenispermohonan).then(permohonans => {
-                        $scope.DatasSuratBelumMenikah = angular.copy(permohonans);
+                        $scope.Datas = angular.copy(permohonans);
                     })
                 })
             })
         })
     }
-    $scope.SelectedPenduduk = function () {
-        var a = JSON.parse(angular.copy($scope.ItemPenduduk));
-        $scope.SuratBelumMenikah.idpenduduk = a.idpenduduk;
-        $scope.SuratBelumMenikah.nama = a.nama;
-    }
 
     $scope.Simpan = function () {
-        var today = new Date();
-        $scope.SuratBelumMenikah.tanggalpengajuan = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        $scope.SuratBelumMenikah.data.pejabat = $scope.Pejabat
-        $scope.SuratBelumMenikah.idjenispermohonan = 2;
-        $http({
-            method: 'post',
-            url: helperServices.url + "/api/permohonan",
-            headers: AuthService.getHeader(),
-            data: $scope.SuratBelumMenikah
-        }).then(param => {
-            $scope.SuratBelumMenikah.idpermohonan = param.idpermohonan;
-            $scope.DatasSuratBelumMenikah.push(angular.copy($scope.SuratBelumMenikah));
+        $scope.model.tanggalpengajuan = new Date();
+        $scope.model.idjenispermohonan = $scope.JenisPermohonan.idjenispermohonan;
+        PermohonanService.post($scope.model).then(param => {
+            $scope.model.idpermohonan = param.idpermohonan;
+            $scope.Datas.push(angular.copy($scope.model));
             message.info("Berhasil Menyimpan");
-            $scope.SuratBelumMenikah = {};
+            $scope.model = {};
             $scope.ItemPenduduk = "";
         }, error => {
             message.errorText(error.message);
-        })
+        });
     }
+
     $scope.Selecteddata = function (id, item) {
         $scope.dataPrint = angular.copy(item);
         $http({
@@ -99,14 +87,14 @@ function adminsuratketmenikahController($http, helperServices, AuthService, $sco
     $scope.DatasSuratMenikah = [];
     $scope.TanggalSurat;
     $scope.Jam;
-    $scope.Pejabat = {};
+    $scope.model.pejabat = {};
     $scope.SuratMenikah.data = {};
     $scope.dataPrint;
     $scope.Init = function () {
         PendudukService.get().then(penduduk => {
             $scope.ListPenduduk = penduduk;
             PejabatService.getByJabatanName("Lurah", 1).then(lurah => {
-                $scope.Pejabat = lurah;
+                $scope.model.pejabat = lurah;
                 JenisPermohonanService.getByJenis("Sudah Menikah").then(jenis => {
                     PermohonanService.getByJenis(jenis.idjenispermohonan).then(permohonans => {
                         $scope.DatasSuratMenikah = angular.copy(permohonans);
@@ -124,7 +112,7 @@ function adminsuratketmenikahController($http, helperServices, AuthService, $sco
     $scope.Simpan = function () {
         var today = new Date();
         $scope.SuratMenikah.tanggalpengajuan = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        $scope.SuratMenikah.data.pejabat = $scope.Pejabat
+        $scope.SuratMenikah.data.model.pejabat = $scope.model.pejabat
         $scope.SuratMenikah.idjenispermohonan = 2;
         $http({
             method: 'post',
@@ -176,7 +164,7 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
     $scope.DatasSuratTidakMampu = [];
     $scope.TanggalSurat;
     $scope.Jam;
-    $scope.Pejabat = {};
+    $scope.model.pejabat = {};
     $scope.SuratTidakMampu.data = {};
     $scope.dataPrint = {};
     $scope.IdJenis;
@@ -217,7 +205,7 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
             PendudukService.get().then(penduduk => {
                 $scope.ListPenduduk = penduduk;
                 PejabatService.getByJabatanName("Lurah", 1).then(lurah => {
-                    $scope.Pejabat = lurah;
+                    $scope.model.pejabat = lurah;
                     JenisPermohonanService.getByJenis("Tidak Mampu").then(jenis => {
                         PermohonanService.getByJenis(jenis.idjenispermohonan).then(param => {
                             if (param.length !== 0) {
@@ -266,7 +254,7 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
         }
         var today = new Date();
         $scope.SuratTidakMampu.tanggalpengajuan = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        $scope.SuratTidakMampu.data.pejabat = $scope.Pejabat
+        $scope.SuratTidakMampu.data.model.pejabat = $scope.model.pejabat
         $scope.SuratTidakMampu.idjenispermohonan = $scope.IdJenis;
         $http({
             method: Method,
@@ -330,7 +318,7 @@ function adminsuratkelahiranController($http, helperServices, AuthService,
     $scope.TanggalSurat;
     $scope.TanggalLahir;
     $scope.Jam;
-    $scope.Pejabat = {};
+    $scope.model.pejabat = {};
     $scope.SuratKelahiran.data = {};
     $scope.dataPrint;
     $scope.JenisKelamin = helperServices.JenisKelamin;
@@ -347,7 +335,7 @@ function adminsuratkelahiranController($http, helperServices, AuthService,
             PendudukService.get().then(penduduk => {
                 $scope.ListPenduduk = penduduk;
                 PejabatService.getByJabatanName("Lurah", 1).then(lurah => {
-                    $scope.Pejabat = lurah;
+                    $scope.model.pejabat = lurah;
                     JenisPermohonanService.getByJenis("Kelahiran").then(jenis => {
                         PermohonanService.getByJenis(jenis.idjenispermohonan).then(param => {
                             if (param.length !== 0) {
@@ -440,7 +428,7 @@ function adminsuratkelahiranController($http, helperServices, AuthService,
         }
         var today = new Date();
         $scope.SuratKelahiran.tanggalpengajuan = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        $scope.SuratKelahiran.data.pejabat = $scope.Pejabat;
+        $scope.SuratKelahiran.data.model.pejabat = $scope.model.pejabat;
         $scope.SuratKelahiran.idjenispermohonan = $scope.IdJenis;
 
         $http({
@@ -507,7 +495,7 @@ function adminsuratketceraiController($http, helperServices, AuthService, $scope
         PendudukService.get().then(penduduk => {
             $scope.ListPenduduk = penduduk;
             PejabatService.getByJabatanName("Lurah", 1).then(lurah => {
-                $scope.model.pejabat = lurah;
+                $scope.model.model.pejabat = lurah;
                 JenisPermohonanService.getByJenis("Keterangan Cerai").then(jenis => {
                     $scope.JenisPermohonan = jenis;
                     PermohonanService.getByJenis(jenis.idjenispermohonan).then(permohonans => {
@@ -566,14 +554,14 @@ function adminsuratketdesaController($http, helperServices, AuthService, $scope,
     $scope.DatasSuratKetDesa = [];
     $scope.TanggalSurat;
     $scope.Jam;
-    $scope.Pejabat = {};
+    $scope.model.pejabat = {};
     $scope.SuratKetDesa.data = {};
     $scope.dataPrint = {};
     $scope.Init = function () {
         PendudukService.get().then(penduduk => {
             $scope.ListPenduduk = penduduk;
             PejabatService.getByJabatanName("Lurah", 1).then(lurah => {
-                $scope.Pejabat = lurah;
+                $scope.model.pejabat = lurah;
                 JenisPermohonanService.getByJenis("Keterangan Desa").then(jenis => {
                     PermohonanService.getByJenis(jenis.idjenispermohonan).then(permohonans => {
                         $scope.DatasSuratKetDesa = angular.copy(permohonans);
@@ -591,7 +579,7 @@ function adminsuratketdesaController($http, helperServices, AuthService, $scope,
     $scope.Simpan = function () {
         var today = new Date();
         $scope.SuratKetDesa.tanggalpengajuan = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        $scope.SuratKetDesa.data.pejabat = $scope.Pejabat
+        $scope.SuratKetDesa.data.model.pejabat = $scope.model.pejabat
         $scope.SuratKetDesa.idjenispermohonan = 3;
         $http({
             method: 'post',
@@ -642,14 +630,14 @@ function adminsuratketlainnyaController($http, helperServices, AuthService, $sco
     $scope.DatasSuratKetDesa = [];
     $scope.TanggalSurat;
     $scope.Jam;
-    $scope.Pejabat = {};
+    $scope.model.pejabat = {};
     $scope.SuratKetDesa.data = {};
     $scope.dataPrint = {};
     $scope.Init = function () {
         PendudukService.get().then(penduduk => {
             $scope.ListPenduduk = penduduk;
             PejabatService.getByJabatanName("Lurah", 1).then(lurah => {
-                $scope.Pejabat = lurah;
+                $scope.model.pejabat = lurah;
                 JenisPermohonanService.getByJenis("Keterangan Lainnya").then(jenis => {
                     PermohonanService.getByJenis(jenis.idjenispermohonan).then(permohonans => {
                         $scope.DatasSuratKetDesa = angular.copy(permohonans);
@@ -667,7 +655,7 @@ function adminsuratketlainnyaController($http, helperServices, AuthService, $sco
     $scope.Simpan = function () {
         var today = new Date();
         $scope.SuratKetDesa.tanggalpengajuan = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        $scope.SuratKetDesa.data.pejabat = $scope.Pejabat
+        $scope.SuratKetDesa.data.model.pejabat = $scope.model.pejabat
         $scope.SuratKetDesa.idjenispermohonan = 3;
         $http({
             method: 'post',
@@ -712,7 +700,7 @@ function adminsuratketnikahController($http, helperServices, PejabatService, Aut
     $scope.DatasSuratNikah = [];
     $scope.TanggalSurat;
     $scope.Jam;
-    $scope.Pejabat = {};
+    $scope.model.pejabat = {};
     $scope.SuratNikah.data = {};
     $scope.dataPrint;
     $scope.suami = "";
@@ -721,7 +709,7 @@ function adminsuratketnikahController($http, helperServices, PejabatService, Aut
         PendudukService.get().then(penduduk => {
             $scope.ListPenduduk = penduduk;
             PejabatService.getByJabatanName("Lurah", 1).then(lurah => {
-                $scope.Pejabat = lurah;
+                $scope.model.pejabat = lurah;
                 JenisPermohonanService.getByJenis("Keterangan Lainnya").then(jenis => {
                     PermohonanService.getByJenis(jenis.idjenispermohonan).then(permohonans => {
                         $scope.DatasSuratNikah = angular.copy(permohonans);
@@ -746,7 +734,7 @@ function adminsuratketnikahController($http, helperServices, PejabatService, Aut
     $scope.Simpan = function () {
         var today = new Date();
         $scope.SuratNikah.tanggalpengajuan = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        $scope.SuratNikah.data.pejabat = $scope.Pejabat
+        $scope.SuratNikah.data.model.pejabat = $scope.model.pejabat
         $scope.SuratNikah.idjenispermohonan = 2;
         $http({
             method: 'post',
@@ -808,14 +796,14 @@ function adminsuratketdomisiliController($http, helperServices, AuthService, $sc
     $scope.DatasSuratDomisili = [];
     $scope.TanggalSurat;
     $scope.Jam;
-    $scope.Pejabat = {};
+    $scope.model.pejabat = {};
     $scope.SuratDomisili.data = {};
     $scope.dataPrint;
     $scope.Init = function () {
         PendudukService.get().then(penduduk => {
             $scope.ListPenduduk = penduduk;
             PejabatService.getByJabatanName("Lurah", 1).then(lurah => {
-                $scope.Pejabat = lurah;
+                $scope.model.pejabat = lurah;
                 JenisPermohonanService.getByJenis("Keterangan Domisili").then(jenis => {
                     PermohonanService.getByJenis(jenis.idjenispermohonan).then(permohonans => {
                         $scope.DatasSuratDomisili = angular.copy(permohonans);
@@ -833,7 +821,7 @@ function adminsuratketdomisiliController($http, helperServices, AuthService, $sc
     $scope.Simpan = function () {
         var today = new Date();
         $scope.SuratDomisili.tanggalpengajuan = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        $scope.SuratDomisili.data.pejabat = $scope.Pejabat
+        $scope.SuratDomisili.data.model.pejabat = $scope.model.pejabat
         $scope.SuratDomisili.idjenispermohonan = 6;
         $http({
             method: 'post',

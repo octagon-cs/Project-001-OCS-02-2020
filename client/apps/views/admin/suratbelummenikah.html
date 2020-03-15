@@ -16,7 +16,7 @@
             </div><!-- /.card-header -->
             <div class="card-body">
                 <div class="table-responsive p-0" ng-if="TabList">
-                    <table datatable="" class="table table-head-fixed text-nowrap">
+                    <table datatable="ng" class="table table-head-fixed text-nowrap">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -29,13 +29,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in DatasSuratBelumMenikah">
+                            <tr ng-repeat="item in Datas">
                                 <td>{{$index+1}}</td>
                                 <td>{{item.nik}}</td>
                                 <td>{{item.nama}}</td>
                                 <td>{{item.data.nomorsurat}}</td>
                                 <td>{{item.tanggalpengajuan}}</td>
-                                <td>{{item.data.pejabat.nama}}</td>
+                                <td>{{item.pejabat.nama}}</td>
                                 <td>
                                     <a href="javascript:void(0)" ng-hide="item.SetButtonPrint" class="btn btn-primary"
                                         ng-click="Selecteddata('suratTidakMampu', item)"><i
@@ -74,7 +74,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">No Surat</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" ng-model="SuratBelumMenikah.data.nomorsurat"
+                                    <input type="text" class="form-control" ng-model="model.nomorsurat"
                                         placeholder="No Surat">
                                 </div>
                             </div>
@@ -86,7 +86,8 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-4 col-form-label">RT</label>
                                 <div class="col-sm-8">
-                                    <select ui-select2 class="form-control" ng-model="ItemRT" data-placeholder="RT" ng-change="SelectedRT()">
+                                    <select ui-select2 class="form-control" ng-model="ItemRT" data-placeholder="RT"
+                                        ng-change="SelectedRT()">
                                         <option value=""></option>
                                         <option ng-repeat="item in ListRT" value="{{item}}">
                                             {{item.data.nomor}}</option>
@@ -98,10 +99,10 @@
                                     Pengantar</label>
                                 <div class="col-sm-8">
                                     <datepicker date-format="yyyy-MM-dd">
-                                        <input type="text" class="form-control" ng-model="TanggalSurat" ng-change="SelectedTanggal()"
-                                        placeholder="Tanggal Surat Pengantar">
+                                        <input type="text" class="form-control" ng-model="model.data.tanggalsurat"
+                                            placeholder="Tanggal Surat Pengantar">
                                     </datepicker>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -109,14 +110,15 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">No Surat Pengantar</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" ng-model="SuratBelumMenikah.data.nomorsuratpengantar"
+                                    <input type="text" class="form-control" ng-model="model.data.nomorsuratpengantar"
                                         placeholder="No Surat Pengantar">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Ketua RT</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" ng-model="SuratBelumMenikah.data.ketuart" placeholder="Ketua RT" disabled>
+                                    <input type="text" class="form-control" ng-model="model.data.ketuart"
+                                        placeholder="Ketua RT" disabled>
                                 </div>
                             </div>
                         </div>
@@ -127,11 +129,11 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-4 col-form-label">NIK</label>
                                 <div class="col-sm-8">
-                                    <select ui-select2 class="form-control" ng-model="ItemPenduduk" ng-change="SelectedPenduduk()"
-                                        data-placeholder=" NIK">
+                                    <select ui-select2 class="form-control" ng-model="ItemPenduduk"
+                                        ng-options="item.nama+'-'+item.nik for item in ListPenduduk"
+                                        ng-change="SelectedPenduduk()" data-placeholder=" NIK">
                                         <option value=""></option>
-                                        <option ng-repeat="item in ListPenduduk" value="{{item}}">
-                                            {{item.nik}}&nbsp;-&nbsp;{{item.nama}}</option>
+
                                     </select>
                                 </div>
                             </div>
@@ -141,8 +143,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Nama</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" ng-model="SuratBelumMenikah.nama"
-                                        placeholder="Nama">
+                                    <input type="text" class="form-control" ng-model="model" placeholder="Nama">
                                 </div>
                             </div>
                         </div>
@@ -153,13 +154,13 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Pejabat Atas Nama</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" ng-model="Pejabat.data.atasnama">
+                                    <input type="text" class="form-control" ng-model="model.pejabat.data.atasnama">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" ng-model="Pejabat.nama">
+                                    <input type="text" class="form-control" ng-model="model.pejabat.nama">
                                 </div>
                             </div>
                         </div>
@@ -167,13 +168,14 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Jabatan Pengesah</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" ng-model="Pejabat.namajabatan">
+                                    <input type="text" class="form-control" ng-model="model.pejabat.namajabatan">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">NIP/NIAP Pengesah</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" ng-model="Pejabat.data.nik" placeholder="">
+                                    <input type="text" class="form-control" ng-model="model.pejabat.data.nik"
+                                        placeholder="">
                                 </div>
                             </div>
                         </div>
@@ -203,14 +205,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form ng-submit="Simpan()"  ng-if="TabEdit">
+                <form ng-submit="Simpan()" ng-if="TabEdit">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">No Surat</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" ng-model="SuratBelumMenikah.data.nomorsurat"
+                                        <input type="text" class="form-control" ng-model="model.nomorsurat"
                                             placeholder="No Surat">
                                     </div>
                                 </div>
@@ -222,7 +224,8 @@
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-4 col-form-label">RT</label>
                                     <div class="col-sm-8">
-                                        <select ui-select2 class="form-control" ng-model="ItemRT" data-placeholder="RT" ng-change="SelectedRT()">
+                                        <select ui-select2 class="form-control" ng-model="ItemRT" data-placeholder="RT"
+                                            ng-change="SelectedRT()">
                                             <option value=""></option>
                                             <option ng-repeat="item in ListRT" value="{{item}}">
                                                 {{item.data.nomor}}</option>
@@ -234,10 +237,10 @@
                                         Pengantar</label>
                                     <div class="col-sm-8">
                                         <datepicker date-format="yyyy-MM-dd">
-                                            <input type="text" class="form-control" ng-model="TanggalSurat" ng-change="SelectedTanggal()"
-                                            placeholder="Tanggal Surat Pengantar">
+                                            <input type="text" class="form-control" ng-model="TanggalSurat"
+                                                ng-change="SelectedTanggal()" placeholder="Tanggal Surat Pengantar">
                                         </datepicker>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -245,14 +248,15 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">No Surat Pengantar</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" ng-model="SuratBelumMenikah.data.nomorsuratpengantar"
+                                        <input type="text" class="form-control" ng-model="model.nomorsuratpengantar"
                                             placeholder="No Surat Pengantar">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Ketua RT</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" ng-model="SuratBelumMenikah.data.ketuart" placeholder="Ketua RT" disabled>
+                                        <input type="text" class="form-control" ng-model="model.ketuart"
+                                            placeholder="Ketua RT" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -263,22 +267,21 @@
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-4 col-form-label">NIK</label>
                                     <div class="col-sm-8">
-                                        <select ui-select2 class="form-control" ng-model="ItemPenduduk" ng-change="SelectedPenduduk()"
-                                            data-placeholder=" NIK">
+                                        <select ui-select2 class="form-control" ng-model="ItemPenduduk"
+                                            ng-change="SelectedPenduduk()" data-placeholder=" NIK">
                                             <option value=""></option>
                                             <option ng-repeat="item in ListPenduduk" value="{{item}}">
                                                 {{item.nik}}&nbsp;-&nbsp;{{item.nama}}</option>
                                         </select>
                                     </div>
                                 </div>
-    
+
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Nama</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" ng-model="SuratBelumMenikah.nama"
-                                            placeholder="Nama">
+                                        <input type="text" class="form-control" ng-model="model" placeholder="Nama">
                                     </div>
                                 </div>
                             </div>
@@ -289,13 +292,13 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Pejabat Atas Nama</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" ng-model="Pejabat.data.atasnama">
+                                        <input type="text" class="form-control" ng-model="model.pejabat.data.atasnama">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" ng-model="Pejabat.nama">
+                                        <input type="text" class="form-control" ng-model="model.pejabat.nama">
                                     </div>
                                 </div>
                             </div>
@@ -303,13 +306,14 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Jabatan Pengesah</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" ng-model="Pejabat.namajabatan">
+                                        <input type="text" class="form-control" ng-model="model.pejabat.namajabatan">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">NIP/NIAP Pengesah</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" ng-model="Pejabat.data.nik" placeholder="">
+                                        <input type="text" class="form-control" ng-model="model.pejabat.data.nik"
+                                            placeholder="">
                                     </div>
                                 </div>
                             </div>
