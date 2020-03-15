@@ -4,20 +4,20 @@ angular.module("approved.controller", [])
     .controller("approvedSuratBelumMenikahController", approvedSuratBelumMenikahController);
 
 function approvedSuratTidakMampuController($http, helperServices, AuthService, $scope, message, $stateParams, $state) {
-    $scope.SuratKelahiran = {};
+    $scope.model = {};
     $http({
         method: "get",
         url: helperServices.url + "/api/permohonan/" + $stateParams.id,
         headers: AuthService.getHeader()
     }).then(params => {
-        $scope.SuratKelahiran = params.data;
+        $scope.model = params.data;
     })
     $scope.Setujui = function () {
         message.dialog("Yakin ingin Menyetujui Berkas???", "Setujui", "Batal").then(parammessage => {
             if (parammessage == true) {
                 $http({
                     method: "get",
-                    url: helperServices.url + "/api/permohonan/approve/" + $scope.SuratKelahiran.idpermohonan,
+                    url: helperServices.url + "/api/permohonan/approve/" + $scope.model.idpermohonan,
                     headers: AuthService.getHeader()
                 }).then(paramapproved => {
                     message.info("Disetujui");
