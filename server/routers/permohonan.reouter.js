@@ -37,15 +37,20 @@ router.post('/', [authJwt.verifyToken], async (req, res) => {
                     }
 
                     let data1 = await contextDb.Inbox.post(message);
-                    fcm.sendToDevice(req.User.devicetoken, data1);
+                    var device = contextDb.Users.getUserByEmail(req.User.email);
+                    if (device && device.devicetoken) {
+                        fcm.sendToDevice(device.devicetoken, data1);
+                    }
                     var activeUsers = await contextDb.Users.getUserPejabatAktif();
                     activeUsers.forEach(async (element) => {
                         if (element.role == "admin") {
                             message.idusers = element.idusers;
                             message.message = "Permohonan Baru Dibuat"
                             let item = await contextDb.Inbox.post(message);
-                            if (element.devicetoken)
-                                fcm.sendToDevice(element.devicetoken, item);
+                            device = contextDb.Users.getUserByEmail(req.User.email);
+                            if (device && device.devicetoken) {
+                                fcm.sendToDevice(device.devicetoken, item);
+                            }
                         }
                     });
 
@@ -337,6 +342,7 @@ router.post('/reject/:id', [authJwt.verifyToken], async (req, res) => {
                 permohonan.persetujuan = [persetujuan];
             }
 
+
             var resultData = await contextDb.Permohonan.put(permohonan);
             if (resultData && persetujuan.status == "ditolak") {
                 var message = {
@@ -352,7 +358,7 @@ router.post('/reject/:id', [authJwt.verifyToken], async (req, res) => {
                 }
                 let item = await contextDb.Inbox.post(message);
 
-                fcm.CreatePermohonan(element.username, item);
+                fcm.sendToDevice(element.username, item);
                 item.message = rejectData.message
                 fcm.sendToDevice(penduduk.device, item);
             }
