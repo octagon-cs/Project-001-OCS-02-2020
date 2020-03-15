@@ -167,7 +167,7 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
     $scope.Datasmodel = [];
     $scope.TanggalSurat;
     $scope.Jam;
-    $scope.model={};
+    $scope.model = {};
     $scope.model.data = {};
     $scope.dataPrint = {};
     $scope.IdJenis;
@@ -208,8 +208,8 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
             PendudukService.get().then(penduduk => {
                 $scope.ListPenduduk = penduduk;
                 PejabatService.get().then(pejabat => {
-                    $scope.dataPejabat = pejabat.filter(x=>x.status==1);
-                    $scope.model.data.pejabat = $scope.dataPejabat.find(x=>x.namajabatan=="Lurah")
+                    $scope.dataPejabat = pejabat.filter(x => x.status == 1);
+                    $scope.model.data.pejabat = $scope.dataPejabat.find(x => x.namajabatan == "Lurah")
                     JenisPermohonanService.getByJenis("Tidak Mampu").then(jenis => {
                         $scope.model.idjenispermohonan = jenis.idjenispermohonan;
                         PermohonanService.getByJenis(jenis.idjenispermohonan).then(param => {
@@ -260,8 +260,8 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
         var today = new Date();
         $scope.model.tanggalpengajuan = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         // $scope.model.data.pejabat = $scope.model.pejabat
-        $scope.model.idpenduduk= angular.copy($scope.model.idpenduduk.idpenduduk)
-        
+        $scope.model.idpenduduk = angular.copy($scope.model.idpenduduk.idpenduduk)
+
         $http({
             method: Method,
             url: helperServices.url + "/api/permohonan",
@@ -269,12 +269,25 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
             data: $scope.model
         }).then(param => {
             if ($scope.TabTambah) {
-                $scope.model.SetButtonPrint = true;
-                $scope.model.idpermohonan = param.idpermohonan;
-                $scope.DatasSuratTidakMampu.push(angular.copy($scope.model));
-                message.info("Berhasil Menyimpan");
-                $scope.model = {};
-                $scope.ItemPenduduk = "";
+                if ($scope.TabTambah) {
+                    $scope.model.SetButtonPrint = true;
+                    $scope.model.idpermohonan = param.idpermohonan;
+                    $scope.DatasSuratTidakMampu.push(angular.copy($scope.model));
+                    message.info("Berhasil Menyimpan");
+                    $scope.Init();
+                    $scope.TabList = true;
+                    $scope.TabTambah = false;
+                    $scope.TabEdit = false;
+                    $scope.TabApproved = false;
+                } else {
+                    message.info("Berhasil Menyimpan");
+                    $scope.Init();
+                    $scope.TabList = true;
+                    $scope.TabTambah = false;
+                    $scope.TabEdit = false;
+                    $scope.TabApproved = false;
+                }
+
             } else {
                 message.info("Berhasil Mengubah data");
             }
@@ -324,7 +337,7 @@ function adminsuratkelahiranController($http, helperServices, AuthService,
     $scope.TanggalSurat;
     $scope.TanggalLahir;
     $scope.Jam;
-    $scope.model={};
+    $scope.model = {};
     $scope.model.pejabat = {};
     $scope.SuratKelahiran.data = {};
     $scope.dataPrint;
@@ -518,10 +531,10 @@ function adminsuratketceraiController($http, helperServices, AuthService, $scope
         $scope.TabTambah = true;
         $scope.TabEdit = false;
         $scope.TabApproved = false;
-        $scope.model= {};
-        $scope.model.data={};
+        $scope.model = {};
+        $scope.model.data = {};
     }
-    $scope.ShowList= function(){
+    $scope.ShowList = function () {
         $scope.TabList = true;
         $scope.TabTambah = false;
         $scope.TabEdit = false;
