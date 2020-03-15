@@ -135,8 +135,8 @@ db.post = async (data) => {
         try {
             data.tanggalpengajuan = new Date();
             pool.query(
-                'insert into permohonan  (idpenduduk,tanggalpengajuan, data,persetujuan,idjenispermohonan) values(?,?,?,?,?)',
-                [data.idpenduduk, data.tanggalpengajuan, JSON.stringify(data.data), JSON.stringify(data.persetujuan), data.idjenispermohonan],
+                'insert into permohonan  (idpenduduk,tanggalpengajuan, data,persetujuan,idjenispermohonan, nomorsurat) values(?,?,?,?,?,?)',
+                [data.idpenduduk, data.tanggalpengajuan, JSON.stringify(data.data), JSON.stringify(data.persetujuan), data.idjenispermohonan, data.nomorsurat],
                 (err, result) => {
                     if (err) {
                         return reject(err);
@@ -157,8 +157,10 @@ db.put = async (data) => {
     return new Promise((resolve, reject) => {
         try {
             pool.query(
-                'update permohonan set idpenduduk=?,tanggalpengajuan=?, data=?, persetujuan=?, idjenispermohonan=? where idpermohonan=? ',
-                [data.idpenduduk, data.tanggalpengajuan, JSON.stringify(data.data), JSON.stringify(data.persetujuan), data.idjenispermohonan, data.idpermohonan],
+                'update permohonan set idpenduduk=?,tanggalpengajuan=?, data=?, persetujuan=?, idjenispermohonan=?, nomorsurat=? where idpermohonan=? ',
+                [data.idpenduduk, data.tanggalpengajuan, JSON.stringify(data.data), JSON.stringify(data.persetujuan),
+                    data.idjenispermohonan, data.idpermohonan, data.nomorsurat
+                ],
                 (err, result) => {
                     if (err) {
                         return reject(err);
