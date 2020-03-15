@@ -208,10 +208,12 @@ router.get('/approve/:id', [authJwt.verifyToken], async (req, res) => {
                     let item = await contextDb.Inbox.post(message);
 
 
-                    var device = contextDb.Users.getUserUserId(req.User.userid);
+                    var device = await contextDb.Users.getUserUserId(req.User.userid);
                     if (device && device.devicetoken) {
                         fcm.sendToDevice(device.devicetoken, item);
                     }
+                    var resultData = await contextDb.Permohonan.put(permohonan);
+                    res.status(200).json(true);
                 }
             } else {
                 var activeUsers = await contextDb.Users.getUserPejabatAktif();
@@ -221,7 +223,7 @@ router.get('/approve/:id', [authJwt.verifyToken], async (req, res) => {
                         var message = {
                             idusers: element.idusers,
                             data: {
-                                from: req.User.email,
+                                from: req.User.username,
                                 iddata: permohonan.idpermohonan,
                                 to: nexRole
                             },
@@ -231,15 +233,17 @@ router.get('/approve/:id', [authJwt.verifyToken], async (req, res) => {
                         }
                         permohonan.status = "disetujui";
                         let item = await contextDb.Inbox.post(message);
-                        var device = contextDb.Users.getUserUserId(element.idusers);
+                        var device = await contextDb.Users.getUserUserId(element.idusers);
                         if (device && device.devicetoken) {
                             fcm.sendToDevice(device.devicetoken, item);
                         }
+
+                        var resultData = await contextDb.Permohonan.put(permohonan);
+                        res.status(200).json(true);
                     }
                 });
             }
-            var resultData = await contextDb.Permohonan.put(permohonan);
-            res.status(200).json(true);
+
         } else {
             res.status(400).json({
                 message: "data permohonan tidak ditemukan"

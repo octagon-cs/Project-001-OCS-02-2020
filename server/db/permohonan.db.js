@@ -159,7 +159,7 @@ db.put = async (data) => {
             pool.query(
                 'update permohonan set idpenduduk=?,tanggalpengajuan=?, data=?, persetujuan=?, idjenispermohonan=?, nomorsurat=? where idpermohonan=? ',
                 [data.idpenduduk, data.tanggalpengajuan, JSON.stringify(data.data), JSON.stringify(data.persetujuan),
-                    data.idjenispermohonan, data.idpermohonan, data.nomorsurat
+                    data.idjenispermohonan, data.nomorsurat, data.idpermohonan
                 ],
                 (err, result) => {
                     if (err) {
