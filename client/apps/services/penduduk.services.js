@@ -55,28 +55,26 @@ function PendudukServices($http, $q, helperServices, AuthService) {
     function getById(id) {
         var def = $q.defer();
         if (service.instance) {
-            var data = service.find(x => x.idpenduduk == id);
+            var data = service.data.find(x => x.idpenduduk == id);
             if (data) {
                 def.resolve(data);
-                return;
             }
+        }else{
+            $http({
+                method: 'get',
+                url: helperServices.url + controller + "/" + id,
+                headers: AuthService.getHeader()
+            }).then(
+                (res) => {
+                    service.data.push(res.data);
+                    def.resolve(res.data);
+                },
+                (err) => {
+                    def.reject(err);
+                    message.error(err);
+                }
+            );
         }
-
-        $http({
-            method: 'get',
-            url: helperServices.url + controller + "/" + id,
-            headers: AuthService.getHeader()
-        }).then(
-            (res) => {
-                service.data.push(res.data);
-                def.resolve(res.data);
-            },
-            (err) => {
-                def.reject(err);
-                message.error(err);
-            }
-        );
-
         return def.promise;
     }
 

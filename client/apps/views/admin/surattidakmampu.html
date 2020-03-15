@@ -9,7 +9,7 @@
           <div class="card-header">
             <h3 class="card-title">List Surat</h3>
             <div class="card-tools">
-              <button class="btn btn-primary float-right" ng-click="SetTabTambah('Tambah','')"><i
+              <button class="btn btn-primary float-right" ng-click="SetTabTambah()"><i
                   class="fa fa-plus"></i></button>
             </div>
           </div>
@@ -44,7 +44,7 @@
                           ng-click="Selecteddata('suratTidakMampu', item)"><i class="fas fa-print"></i></a>
                         <a href="javascript:void(0)" ng-show="item.SetButtonPrint" class="btn btn-primary disabled"
                           title="Belum Disetujui Lurah"><i class="fas fa-print"></i></a>
-                        <a href="javascript:void(0)" class="btn btn-warning" ng-click="SetTabTambah('Edit', item)"><i
+                        <a href="javascript:void(0)" class="btn btn-warning" ng-click="SetTabEdit(item)"><i
                             class="fas fa-edit"></i></a>
                         <a ng-hide="item.SetButtonApproved" href="javascript:void(0)" class="btn btn-success"
                           ng-click="Setujui(item)"><i class="fas fa-check"></i></a>
@@ -58,7 +58,7 @@
             </div>
           </div>
         </div>
-        <div ng-if="TabTambah || TabEdit || TabApproved" class="card card-default">
+        <div ng-if="TabTambah || TabEdit" class="card card-default">
           <div class="card card-warning">
             <div class="card-header">
               <h3 class="card-title">Tambah Surat</h3>
@@ -79,10 +79,9 @@
                       <div class="form-group row">
                         <label class="col-sm-4 col-form-label">NIK/Nama</label>
                         <div class="col-sm-8">
-                          <select ng-show="TabTambah" ui-select2 class="form-control" ng-model="model.idpenduduk"
-                            ng-options="item.nik+'-'+item.nama for item in ListPenduduk"
-                            data-placeholder="Kepemilikanktp">
+                          <select ui-select2 class="form-control" ng-model="model.idpenduduk">
                             <option value=""></option>
+                            <option ng-repeat="item in ListPenduduk" ng-value="item">{{item.nik}} - {{item.nama}}</option>
                           </select>
                         </div>
                       </div>
@@ -102,8 +101,7 @@
                       <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
                         <div class="col-sm-8">
-                          <select ng-show="TabTambah" ui-select2 class="form-control" ng-model="model.data.pejabat"
-                            data-placeholder="Pilih Pejabat">
+                          <select ui-select2 class="form-control" ng-model="model.data.pejabat">
                             <option value=""></option>
                             <option ng-repeat="item in dataPejabat" ng-value="item">{{item.nama}} - {{item.namajabatan}}</option>
                           </select>
@@ -113,11 +111,8 @@
                   </div>
                   <div class="card-header"></div><br>
                   <div class="card-footer">
-                    <button ng-show="TabTambah || TabEdit" type="submit" class="btn btn-success">Simpan</button>
-                    <button ng-hide="TabTambah || TabEdit" type="button" ng-click="Setujui()"
-                      class="btn btn-info">Setujui</button>
-                    <button type="button" class="btn btn-danger float-right"
-                      ng-click="SetTabTambah('List')">Cancel</button>
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                    <button type="button" class="btn btn-danger float-right" ng-click="SetTabList()">Batal</button>
                   </div>
                 </div>
               </form>

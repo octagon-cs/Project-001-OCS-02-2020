@@ -177,30 +177,28 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
     $scope.TabApproved = false;
     $scope.UserRole;
     $scope.SetTabTambah = function (item, data) {
-        if (item == "Tambah") {
-            $scope.TabList = false;
-            $scope.TabTambah = true;
-            $scope.TabEdit = false;
-            $scope.TabApproved = false;
-            // $scope.model = {};
-            // $scope.model.data = {};
-        } else if (item == "Edit") {
+        $scope.TabList = false;
+        $scope.TabTambah = true;
+        $scope.TabEdit = false;
+        $scope.TabApproved = false;
+        $scope.Init()
+    }
+    $scope.SetTabEdit = function (data) {
+        $scope.model = {};
+        PendudukService.getById(data.idpenduduk).then(penduduk => {
+            data.idpenduduk = penduduk;
             $scope.model = data;
             $scope.TabList = false;
             $scope.TabEdit = true;
             $scope.TabList = false;
             $scope.TabApproved = false;
-        } else if (item == "approved") {
-            $scope.model = data;
-            $scope.TabList = false;
-            $scope.TabEdit = false;
-            $scope.TabList = false;
-            $scope.TabApproved = true;
-        } else {
-            $scope.TabList = true;
-            $scope.TabTambah = false;
-            $scope.TabEdit = false;
-        }
+        })
+    }
+    $scope.SetTabList = function () {
+        $scope.TabList = true;
+        $scope.TabTambah = false;
+        $scope.TabEdit = false;
+        $scope.TabApproved = false;
     }
     $scope.Init = function () {
         AuthService.profile().then(param => {
