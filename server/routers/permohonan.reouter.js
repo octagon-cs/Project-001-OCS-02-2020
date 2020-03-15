@@ -188,9 +188,7 @@ router.get('/approve/:id', [authJwt.verifyToken], async (req, res) => {
                 permohonan.persetujuan = [persetujuan];
             }
 
-            var penduduk = await contextDb.Penduduk.getById(permohonan.idpenduduk);
 
-            var activeUsers = await contextDb.Users.getUserPejabatAktif();
 
             if (resultData && persetujuan.status == "selesai") {
                 if (permohonan.idusers) {
@@ -208,10 +206,15 @@ router.get('/approve/:id', [authJwt.verifyToken], async (req, res) => {
                     }
 
                     let item = await contextDb.Inbox.post(message);
-                    fcm.sendToDevice(penduduk.device, item);
-                    fcm.CreatePermohonan(element.username, item);
+
+
+                    var device = contextDb.Users.getUserUserId(req.User.userid);
+                    if (device && device.devicetoken) {
+                        fcm.sendToDevice(device.devicetoken, item);
+                    }
                 }
             } else {
+                var activeUsers = await contextDb.Users.getUserPejabatAktif();
                 var nexRole = config.Roles[indexOfRole + 1];
                 activeUsers.forEach(async (element) => {
                     if (element.role == nexRole) {
@@ -228,8 +231,10 @@ router.get('/approve/:id', [authJwt.verifyToken], async (req, res) => {
                         }
                         permohonan.status = "disetujui";
                         let item = await contextDb.Inbox.post(message);
-                        fcm.sendToDevice(penduduk.device, item);
-                        fcm.CreatePermohonan(element.username, item);
+                        var device = contextDb.Users.getUserUserId(element.idusers);
+                        if (device && device.devicetoken) {
+                            fcm.sendToDevice(device.devicetoken, item);
+                        }
                     }
                 });
             }
@@ -295,9 +300,16 @@ router.post('/back', [authJwt.verifyToken], async (req, res) => {
 
                     let item = await contextDb.Inbox.post(message);
 
-                    fcm.CreatePermohonan(element.username, item);
+                    var device = contextDb.Users.getUserUserId(element.idusers);
+                    if (device && device.devicetoken) {
+                        fcm.sendToDevice(device.devicetoken, item);
+                    }
                     item.message = "Permohonan Anda Di kembalikan ke " + frxRole;
-                    fcm.sendToDevice(penduduk.device, item);
+                    if (permohonan.idusers) {
+                        device = contextDb.Users.getUserUserId(permohonan.idusers);
+                        fcm.sendToDevice(device.devicetoken, item);
+                    }
+
                 }
             });
             var resultData = await contextDb.Permohonan.put(permohonan);
@@ -358,9 +370,10 @@ router.post('/reject/:id', [authJwt.verifyToken], async (req, res) => {
                 }
                 let item = await contextDb.Inbox.post(message);
 
-                fcm.sendToDevice(element.username, item);
-                item.message = rejectData.message
-                fcm.sendToDevice(penduduk.device, item);
+                if (permohonan.idusers) {
+                    device = contextDb.Users.getUserUserId(permohonan.idusers);
+                    fcm.sendToDevice(device.devicetoken, item);
+                }
             }
             res.status(200).json(true);
         } else {
