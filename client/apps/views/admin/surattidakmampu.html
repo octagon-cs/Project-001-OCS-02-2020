@@ -20,7 +20,7 @@
               </div> -->
 
               <div class="card-body table-responsive p-0">
-                <table class="table table-head-fixed text-nowrap" id="table">
+                <table datatable="ng" class="table table-head-fixed text-nowrap" id="table">
                   <thead>
                     <tr>
                       <th width="2px">ID</th>
@@ -37,8 +37,8 @@
                       <td>{{item.nik}}</td>
                       <td>{{item.nama}}</td>
                       <td>{{item.data.nomorsurat}}</td>
-                      <td ng-show="item.data.pejabat.atasnama == undefined">{{item.data.pejabat.nama}}</td>
-                      <td ng-show="item.data.pejabat.atasnama != undefined">{{item.data.pejabat.atasnama}}</td>
+                      <td ng-if="item.data.pejabat.atasnama == undefined">{{item.data.pejabat.nama}}</td>
+                      <td ng-if="item.data.pejabat.atasnama != undefined">{{item.data.pejabat.atasnama}}</td>
                       <td>
                         <a href="javascript:void(0)" ng-hide="item.SetButtonPrint" class="btn btn-primary"
                           ng-click="Selecteddata('suratTidakMampu', item)"><i class="fas fa-print"></i></a>

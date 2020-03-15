@@ -191,6 +191,8 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
             $scope.TabTambah = true;
             $scope.TabEdit = false;
             $scope.TabApproved = false;
+            $scope.SuratTidakMampu={};
+            $scope.SuratTidakMampu.data = {};
         } else if (item == "Edit") {
             $scope.SuratTidakMampu = data;
             $scope.TabList = false;
@@ -339,42 +341,6 @@ function adminsuratkelahiranController($http, helperServices, AuthService,
     $scope.TabApproved = false;
     $scope.ItemAyah = "";
     $scope.ItemIbu = "";
-    $scope.SetTabTambah = function (item, data) {
-        if (item == "Tambah") {
-            $scope.TabList = false;
-            $scope.TabTambah = true;
-            $scope.TabEdit = false;
-            $scope.TabApproved = false;
-        } else if (item == "Edit") {
-            $scope.SuratKelahiran = data;
-            $scope.ListPenduduk.forEach(params => {
-                if (params.idpenduduk == data.idpenduduk) {
-                    $scope.ItemAyah = JSON.stringify(params);
-                } else if (params.idpenduduk == data.data.idpendudukibu) {
-                    $scope.ItemIbu = JSON.stringify(params);
-                }
-            })
-            data.data.tanggallahir = new Date(JSON.parse(data.data.tanggallahir));
-            $scope.TanggalLahir = data.data.tanggallahir.getFullYear() + "-" + (data.data.tanggallahir.getMonth() + 1) + "-" + data.data.tanggallahir.getDate();
-            $scope.TabList = false;
-            $scope.TabEdit = true;
-            $scope.TabList = false;
-            $scope.TabApproved = false;
-        } else if (item == "approved") {
-            $scope.SuratKelahiran = data;
-            data.data.tanggallahir = Date.parse(data.data.tanggallahir);
-            $scope.TanggalLahir = data.data.tanggallahir.getFullYear() + "-" + (data.data.tanggallahir.getMonth() + 1) + "-" + data.data.tanggallahir.getDate();
-            $scope.TabList = false;
-            $scope.TabEdit = false;
-            $scope.TabList = false;
-            $scope.TabApproved = true;
-        } else {
-            $scope.TabList = true;
-            $scope.TabTambah = false;
-            $scope.TabEdit = false;
-            $scope.TabApproved = false;
-        }
-    }
     $scope.Init = function () {
         AuthService.profile().then(param => {
             $scope.UserRole = param.rolename;
@@ -416,6 +382,43 @@ function adminsuratkelahiranController($http, helperServices, AuthService,
             })
         })
     }
+    $scope.SetTabTambah = function (item, data) {
+        if (item == "Tambah") {
+            $scope.TabList = false;
+            $scope.TabTambah = true;
+            $scope.TabEdit = false;
+            $scope.TabApproved = false;
+        } else if (item == "Edit") {
+            $scope.SuratKelahiran = data;
+            $scope.ListPenduduk.forEach(params => {
+                if (params.idpenduduk == data.idpenduduk) {
+                    $scope.ItemAyah = JSON.stringify(params);
+                } else if (params.idpenduduk == data.data.idpendudukibu) {
+                    $scope.ItemIbu = JSON.stringify(params);
+                }
+            })
+            data.data.tanggallahir = new Date(JSON.parse(data.data.tanggallahir));
+            $scope.TanggalLahir = data.data.tanggallahir.getFullYear() + "-" + (data.data.tanggallahir.getMonth() + 1) + "-" + data.data.tanggallahir.getDate();
+            $scope.TabList = false;
+            $scope.TabEdit = true;
+            $scope.TabList = false;
+            $scope.TabApproved = false;
+        } else if (item == "approved") {
+            $scope.SuratKelahiran = data;
+            data.data.tanggallahir = Date.parse(data.data.tanggallahir);
+            $scope.TanggalLahir = data.data.tanggallahir.getFullYear() + "-" + (data.data.tanggallahir.getMonth() + 1) + "-" + data.data.tanggallahir.getDate();
+            $scope.TabList = false;
+            $scope.TabEdit = false;
+            $scope.TabList = false;
+            $scope.TabApproved = true;
+        } else {
+            $scope.TabList = true;
+            $scope.TabTambah = false;
+            $scope.TabEdit = false;
+            $scope.TabApproved = false;
+        }
+    }
+    
     $scope.SelectedOrtu = function (item) {
         if (item == "Ayah") {
             var a = JSON.parse(angular.copy($scope.ItemAyah))
@@ -495,7 +498,6 @@ function adminsuratkelahiranController($http, helperServices, AuthService,
 
 function adminsuratketceraiController($http, helperServices, AuthService, $scope, message,
     JenisPermohonanService, PermohonanService, PendudukService, PejabatService) {
-
     $scope.ItemPenduduk = "";
     $scope.model = {};
     $scope.model.data = {};

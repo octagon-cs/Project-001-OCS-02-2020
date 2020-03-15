@@ -16,7 +16,7 @@
             </div><!-- /.card-header -->
             <div class="card-body">
                 <div class="table-responsive p-0" ng-if="TabList">
-                    <table datatable="" class="table table-head-fixed text-nowrap">
+                    <table datatable="ng" class="table table-head-fixed text-nowrap">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -37,8 +37,8 @@
                                 <td>{{item.data.namaanak}}</td>
                                 <td>{{item.data.namaibu}}</td>
                                 <td>{{item.nama}}</td>
-                                <td ng-show="item.data.pejabat.atasnama == undefined">{{item.data.pejabat.nama}}</td>
-                                <td ng-show="item.data.pejabat.atasnama != undefined">{{item.data.pejabat.atasnama}}
+                                <td ng-if="item.data.pejabat.atasnama == undefined">{{item.data.pejabat.nama}}</td>
+                                <td ng-if="item.data.pejabat.atasnama != undefined">{{item.data.pejabat.atasnama}}
                                 </td>
                                 <td>
                                     <a href="javascript:void(0)" ng-hide="item.SetButtonPrint" class="btn btn-primary"
