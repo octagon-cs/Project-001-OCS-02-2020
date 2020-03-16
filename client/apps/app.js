@@ -9,7 +9,7 @@ angular
 		'720kb.datepicker',
 		'swangular',
 		'message.service',
-		'ui.select2'
+		"ui.bootstrap"
 	])
 	.directive('chooseFile', function () {
 		return {
@@ -75,7 +75,4 @@ angular
 				});
 			}
 		};
-	})
-	.run(['uiSelect2Config', function (uiSelect2Config) {
-		uiSelect2Config.placeholder = "Placeholder text";
-	}]);;
+	});
