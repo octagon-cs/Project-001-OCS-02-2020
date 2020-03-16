@@ -6,10 +6,9 @@ angular
 		'app.controllers',
 		'app.component',
 		'datatables',
-		'720kb.datepicker',
 		'swangular',
 		'message.service',
-		"ui.bootstrap"
+		"ui.bootstrap",'ngLocale'
 	])
 	.directive('chooseFile', function () {
 		return {

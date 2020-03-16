@@ -166,11 +166,11 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
 
     $scope.Edit = function (data) {
         $scope.model = data;
-        PendudukService.getById(data.idpenduduk).then(penduduk=>{
-            $scope.model.penduduk=penduduk;
-            $scope.tab.show('edit')
+        PendudukService.getById(data.idpenduduk).then(penduduk => {
+            $scope.model.penduduk = penduduk;
+            $scope.tab.show('edit');
         })
-       
+
     }
     $scope.Init = function () {
         AuthService.profile().then(param => {
@@ -273,6 +273,7 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
 function adminsuratkelahiranController($http, helperServices, AuthService, tabService,
     PejabatService, PendudukService, JenisPermohonanService, PermohonanService,
     approvedService, $scope, message) {
+
     $scope.JenisKelamin = helperServices.JenisKelamin;
     $scope.tab = tabService.createTab();
     $scope.ItemPenduduk = "";
@@ -301,6 +302,13 @@ function adminsuratkelahiranController($http, helperServices, AuthService, tabSe
                 })
             })
         })
+    }
+    $scope.open1 = function () {
+        $scope.popup1.opened = true;
+    };
+
+    $scope.setHari=function(item){
+        $scope.model.data.hari=item.getDay();
     }
 
     $scope.Edit = function (data) {
