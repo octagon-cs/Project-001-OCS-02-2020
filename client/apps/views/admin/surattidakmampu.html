@@ -5,11 +5,11 @@
         <h4>Surat Keterangan Tidak Mampu</h4>
       </div>
       <div class="card-body">
-        <div ng-show="TabList" class="card card-warning">
+        <div ng-if="tab.list" class="card card-warning">
           <div class="card-header">
             <h3 class="card-title">List Surat</h3>
             <div class="card-tools">
-              <button class="btn btn-primary float-right" ng-click="SetTabTambah()"><i
+              <button class="btn btn-primary float-right" ng-click="tab.show('tambah')"><i
                   class="fa fa-plus"></i></button>
             </div>
           </div>
@@ -32,7 +32,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="item in DatasSuratTidakMampu">
+                    <tr ng-repeat="item in Datas">
                       <td>{{$index+1}}</td>
                       <td>{{item.nik}}</td>
                       <td>{{item.nama}}</td>
@@ -40,16 +40,14 @@
                       <td ng-if="item.data.pejabat.atasnama == undefined">{{item.data.pejabat.nama}}</td>
                       <td ng-if="item.data.pejabat.atasnama != undefined">{{item.data.pejabat.atasnama}}</td>
                       <td>
-                        <a href="javascript:void(0)" ng-hide="item.SetButtonPrint" class="btn btn-primary"
-                          ng-click="Selecteddata('suratTidakMampu', item)"><i class="fas fa-print"></i></a>
-                        <a href="javascript:void(0)" ng-show="item.SetButtonPrint" class="btn btn-primary disabled"
-                          title="Belum Disetujui Lurah"><i class="fas fa-print"></i></a>
-                        <a href="javascript:void(0)" class="btn btn-warning" ng-click="SetTabEdit(item)"><i
-                            class="fas fa-edit"></i></a>
-                        <a ng-hide="item.SetButtonApproved" href="javascript:void(0)" class="btn btn-success"
-                          ng-click="Setujui(item)"><i class="fas fa-check"></i></a>
-                        <a ng-show="item.SetButtonApproved" href="javascript:void(0)"
-                          class="btn btn-success disabled"><i class="fas fa-check"></i></a>
+                        <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'"
+                          class="btn btn-primary" ng-click="Print('suratTidakMampu', item)">
+                          <i class="fas fa-print"></i></a>
+
+                        <a href="javascript:void(0)" class="btn btn-warning" data-toggle="modal"
+                          data-target="#EditKelahiran" ng-click="Edit(item)"><i class="fas fa-edit"></i></a>
+                        <a href="javascript:void(0)" ng-class="item.SetButtonApproved?'':'disabled'"
+                          class="btn btn-success" ng-click="Setujui(item)"><i class="fas fa-check"></i></a>
                       </td>
                     </tr>
                   </tbody>
@@ -58,7 +56,8 @@
             </div>
           </div>
         </div>
-        <div ng-if="TabTambah || TabEdit" class="card card-default">
+
+        <div ng-if="tab.tambah || tab.edit" class="card card-default">
           <div class="card card-warning">
             <div class="card-header">
               <h3 class="card-title">Tambah Surat</h3>
@@ -79,14 +78,15 @@
                       <div class="form-group row">
                         <label class="col-sm-4 col-form-label">NIK/Nama</label>
                         <div class="col-sm-8">
-                          <select ui-select2 class="form-control" ng-model="model.idpenduduk">
-                            <option value=""></option>
-                            <option ng-repeat="item in ListPenduduk" ng-value="item">{{item.nik}} - {{item.nama}}</option>
-                          </select>
+                          <div class="form-group autoComplete">
+                            <input type="text" placeholder="Cari Kegiatan" ng-model="model.penduduk"
+                             typeahead=" state.nama+' - '+state.nik for state in ListPenduduk | filter:$viewValue
+                                | limitTo:8" class="form-control">
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class=" col-md-6">
                       <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Nomor Surat</label>
                         <div class="col-sm-8">
@@ -100,11 +100,10 @@
                     <div class="col-md-6">
                       <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
-                        <div class="col-sm-8">
-                          <select ui-select2 class="form-control" ng-model="model.data.pejabat">
-                            <option value=""></option>
-                            <option ng-repeat="item in dataPejabat" ng-value="item">{{item.nama}} - {{item.namajabatan}}</option>
-                          </select>
+                        <div class="col-sm-8 autoComplete">
+                          <input type="text" placeholder="Cari Kegiatan" ng-model="model.data.pejabat" typeahead="state as state.nama for state in dataPejabat | 
+                            filter:{nama:$viewValue}
+                            | limitTo:8" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -112,7 +111,7 @@
                   <div class="card-header"></div><br>
                   <div class="card-footer">
                     <button type="submit" class="btn btn-success">Simpan</button>
-                    <button type="button" class="btn btn-danger float-right" ng-click="SetTabList()">Batal</button>
+                    <button type="button" class="btn btn-danger float-right" ng-click="tab.show('list')">Batal</button>
                   </div>
                 </div>
               </form>

@@ -31,7 +31,7 @@ inbox.getById = async (Id) => {
             [Id],
             (err, result) => {
                 if (err) {
-                    return reject(err);
+                    reject(err);
                 } else {
                     result.forEach(element => {
                         element.data = JSON.parse(element.data)

@@ -1,4 +1,7 @@
-angular.module('helper.service', []).factory('helperServices', helperServices);
+angular.module('helper.service', [])
+	.factory('helperServices', helperServices)
+	.factory('approvedService', approvedService)
+	.factory('tabService', tabServices);
 
 function helperServices() {
 	var service = {};
@@ -88,9 +91,17 @@ function helperServices() {
 		"Penguasaan Tanah", "Keterangan Desa", "Keterangan Cerai", "Keterangan eKTP", "Keterangan Nikah", "Kelahiran", "Sudah Menikah",
 		"Belum Menikah", "Kematian", "Keterangan Lainnya", "Pindah"
 	];
-	service.Roles = ["pemohon", "admin", "kasi", "seklur", "lurah"];
+	service.Roles = ["pemohon", "admin", "seklur", "lurah"];
 	service.Hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", ];
 
+
+	function print(id) {
+		var innerContents = document.getElementById(id).innerHTML;
+		var popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+		popupWinindow.document.open();
+		popupWinindow.document.write('<html><head><title>Cetak Surat</title></head><body onload="window.print()"><div>' + innerContents + '</html>');
+		popupWinindow.document.close();
+	}
 
 	return {
 		url: service.url,
@@ -113,6 +124,91 @@ function helperServices() {
 		Kewarganegawaan: service.Kewarganegawaan,
 		PermohonanJenis: service.PermohonanJenis,
 		Roles: service.Roles,
-		Hari: service.Hari
+		Hari: service.Hari,
+		print: print
 	};
+}
+
+
+function tabServices() {
+	var service = {};
+	service.show = function (item, item1, item2, item3) {
+		service.list = false;
+		service.tambah = false;
+		service.edit = false;
+		service.approved = false;
+		if (item)
+			setTrue(item);
+		if (item1)
+			setTrue(item1);
+		if (item2)
+			setTrue(item2);
+		if (item3)
+			setTrue(item3);
+	}
+
+	function setTrue(data) {
+		switch (data) {
+			case "tambah":
+				service.tambah = true;
+				return;
+			case "edit":
+				service.edit = true;
+				return;
+			case "list":
+				service.list = true;
+				return;
+			case "approved":
+				service.approved = true;
+				return;
+			default:
+				break;
+		}
+	}
+
+	function getService() {
+		service.list = true;
+		service.tambah = false;
+		service.edit = false;
+		service.approved = false;
+		return service;
+	}
+
+	return {
+		createTab: getService
+	}
+}
+
+function approvedService(helperServices) {
+	approvedAction = function (param, userRole) {
+		if (param.length !== 0) {
+			param.forEach(value => {
+				if (value.persetujuan && value.persetujuan.length > 0) {
+					var lastPersetujuan = value.persetujuan[value.persetujuan.length - 1];
+					if (lastPersetujuan.role == "lurah" && lastPersetujuan.status == "selesai") {
+						value.SetButtonPrint = true;
+						value.SetButtonApproved = false;
+					} else {
+						var lastindex = helperServices.Roles.indexOf(lastPersetujuan.role);
+						var nextRole = lastPersetujuan.status == "dikembalikan" ? helperServices.Roles[lastindex - 1] :
+							helperServices.Roles[lastindex + 1];
+						if (nextRole == userRole) {
+							value.SetButtonPrint = false;
+							value.SetButtonApproved = true;
+						} else {
+							value.SetButtonPrint = false;
+							value.SetButtonApproved = false;
+						}
+					}
+				} else {
+					value.SetButtonPrint = false;
+					value.SetButtonApproved = true;
+				}
+			})
+		}
+	}
+
+	return {
+		approvedView: approvedAction
+	}
 }

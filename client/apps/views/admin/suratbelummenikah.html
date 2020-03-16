@@ -1,5 +1,5 @@
-<section class="content-header" ng-init="Init()">
-    <div class="col" ng-show="TabList">
+<section class="content-header" ng-init="Init(Tab.List=true)">
+    <div class="col" ng-show="Tab.List">
         <div class="card-tools">
             <h4>Surat Keterangan Belum Menikah</h4>
         </div>
@@ -10,12 +10,12 @@
                     List Surat
                 </h3>
                 <div class="card-tools">
-                    <button class="btn btn-primary float-right" ng-click="SetTabTambah('','Tambah')"><i
+                    <button class="btn btn-primary float-right" ng-click="Tab.Tambah=true;Tab.List=false"><i
                             class="fa fa-plus"></i></button>
                 </div>
             </div><!-- /.card-header -->
             <div class="card-body">
-                <div class="table-responsive p-0" ng-if="TabList">
+                <div class="table-responsive p-0">
                     <table datatable="ng" class="table table-head-fixed text-nowrap">
                         <thead>
                             <tr>
@@ -59,7 +59,7 @@
             </div><!-- /.card-body -->
         </div>
     </div>
-    <div ng-hide="TabList" class="card card-warning">
+    <div ng-show="Tab.Tambah" class="card card-warning">
         <div class="card-header">
             <h3 class="card-title">
                 <i class="fas fa-plus"></i>
@@ -184,7 +184,7 @@
                 <div class="card-footer">
                     <button ng-show="TabTambah || TabEdit" type="submit" class="btn btn-success">Simpan</button>
                     <button type="button" class="btn btn-danger float-right"
-                        ng-click="SetTabTambah('List')">Cancel</button>
+                        ng-click="Tab.Tambah=false;Tab.List=true">Cancel</button>
                 </div>
             </form>
         </div>
@@ -192,8 +192,8 @@
     <div id="suratTidakMampu" class="printing">
         <div ng-include="'../../../apps/views/admin/formatsurat/formatketbelummenikah.html'"></div>
     </div>
-
 </section>
+
 <div class="modal fade" id="EditKelahiran">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">

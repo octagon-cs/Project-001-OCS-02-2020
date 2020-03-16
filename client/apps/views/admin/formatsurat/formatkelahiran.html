@@ -6,7 +6,8 @@
                         width="130px" height="120px"></td>
                 <td>
                     <div style="text-align: center;">
-                        <span style="font-family: 'Times New Roman', Times, serif; font: bold; font-size: larger;"><b>PEMERINTAH KOTA JAYAPURA<br>KELURAHAN WAENA<br>DISTRIK
+                        <span style="font-family: 'Times New Roman', Times, serif; font: bold; font-size: larger;"><b>PEMERINTAH
+                                KOTA JAYAPURA<br>KELURAHAN WAENA<br>DISTRIK
                                 HERAM</b></span>
 
                     </div>
@@ -21,7 +22,8 @@
             <tr>
                 <td colspan="3">
                     <div style="text-align: center;">
-                        <span style="font-family: 'Times New Roman', Times, serif; font-size: 14pt;">SURAT KELAHIRAN<br>Nomor : 
+                        <span style="font-family: 'Times New Roman', Times, serif; font-size: 14pt;">SURAT
+                            KELAHIRAN<br>Nomor :
                             {{dataPrint.data.nomorsurat}}<br></span>
                     </div>
                 </td>
@@ -49,7 +51,7 @@
                             <tr>
                                 <td><span>Tanggal</span></td>
                                 <td><span>:</span></td>
-                                <td><span>{{dataPrint.data.tanggallahir}}</span></td>
+                                <td><span>{{dataPrint.data.tanggallahir| data:'dd-MM-yyyy'}}</span></td>
                             </tr>
                             <tr>
                                 <td><span>Di</span></td>
@@ -57,7 +59,8 @@
                                 <td><span>{{dataPrint.data.tempatlahir}}</span></td>
                             </tr>
                             <tr>
-                                <td colspan="4" style="height: 60px;">Telah Lahir seorang anak (pemohon) : {{dataPrint.data.jeniskelamin}}
+                                <td colspan="4" style="height: 60px;">Telah Lahir seorang anak (pemohon) :
+                                    {{dataPrint.data.jeniskelamin}}
                                 </td>
                             </tr>
                             <tr>

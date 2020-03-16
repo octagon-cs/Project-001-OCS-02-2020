@@ -6,45 +6,60 @@ fn.validate = async (data) => {
     try {
         var param = await db.JenisPermohonan.getById(data.idjenispermohonan)
         if (param.jenis) {
-
             switch (param.jenis) {
                 case "Pengantar KTP":
-                    return validate(true, null);
+                    return pengantarKTP(data);
+
                 case "Pengantar KK":
-                    return validate(true, null);
+                    return IdPenduduk(data);
+
                 case "Tidak Mampu":
                     return tidakMampu(data);
+
                 case "Keterangan Domisili":
-                    return validate(true, null);
+                    return IdPenduduk(data);
+
                 case "Keterangan SKCK":
-                    return validate(true, null);
+                    return IdPenduduk(data);
+
                 case "Keterangan Usaha":
-                    return validate(true, null);
+                    return IdPenduduk(data);
+
                 case "Penguasaan Tanah":
-                    return validate(true, null);
+                    return IdPenduduk(data);
+
                 case "Keterangan Desa":
-                    return validate(true, null);
+                    return IdPenduduk(data);
+
                 case "Keterangan Cerai":
                     return await cerai(data);
+
                 case "Keterangan eKTP":
-                    return validate(true, null);
+                    return IdPenduduk(data);
+
                 case "Keterangan Nikah":
-                    return validate(true, null);
+                    return IdPenduduk(data);
+
                 case "Kelahiran":
                     return await kelahiran(data);
-                    return validate(true, null);
+
                 case "Sudah Menikah":
-                    return validate(true, null);
+                    return IdPenduduk(data);
+
                 case "Belum Menikah":
-                    return validate(true, null);
+                    return IdPenduduk(data);
+
                 case "Kematian":
-                    return validate(true, null);
+                    return IdPenduduk(data);
+
                 case "Keterangan Lainnya":
-                    return validate(true, null);
+                    return IdPenduduk(data);
+
                 case "Pindah":
-                    return validate(true, null);
+                    return IdPenduduk(data);
+
                 default:
-                    return validate(true, null);
+                    return IdPenduduk(data);
             }
         } {
             return validate(false, "Jenis data Required");
@@ -56,51 +71,82 @@ fn.validate = async (data) => {
 }
 
 cerai = async (data) => {
+    try {
+        var suami = await db.Penduduk.getById(data.idpenduduk);
+        if (!suami)
+            return validate(false, "Data Suami Tidak Ditemukan");
 
-    var suami = await db.Penduduk.getById(data.idpenduduk);
-    if (!suami)
-        return validate(false, "Data Suami Tidak Ditemukan");
+        var istri = await db.Penduduk.getById(data.data.idpenduduk)
+        if (!istri)
+            return validate(false, "Data Istri Tidak Ditemukan");
 
-    var istri = await db.Penduduk.getById(data.data.idpenduduk)
-    if (!istri)
-        return validate(false, "Data Istri Tidak Ditemukan");
-
-    if (!data.data.keterangan)
-        return validate(false, "Keterangan Tidak Boleh Kosong");
-    data.data.suami = suami;
-    data.data.istri = istri;
-    return validate(true, null)
+        if (!data.data.keterangan)
+            return validate(false, "Keterangan Tidak Boleh Kosong");
+        data.data.suami = suami;
+        data.data.istri = istri;
+        return validate(true, null)
+    } catch (error) {
+        return validate(true, error.message);
+    }
 }
 
 
 tidakMampu = async (data) => {
-    if (!data.idpenduduk)
-        return validate(false, "Data Penduduk Tidak Boleh Kosong");
+    try {
+        if (!data.idpenduduk)
+            return validate(false, "Data Penduduk Tidak Boleh Kosong");
 
-    return validate(true, null)
+        return validate(true, null)
+    } catch (error) {
+        return validate(true, error.message);
+    }
 }
 
 kelahiran = async (item) => {
-    if (!item.idpenduduk)
-        return validate(false, "Data Pemohon Tidak Boleh Kosong");
-    if (item.data.tanggallahir)
-        return validate(false, "Tanggal Lahir Tidak Boleh Kosong");
-    if (item.data.tempatlahir)
-        return validate(false, "Tempat Lahir Tidak Boleh Kosong");
-    if (item.data.namaanak)
-        return validate(false, "Nama Anak Tidak Boleh Kosong");
-    if (item.data.jeniskelamin)
-        return validate(false, "Jenis Kelamin Tidak Boleh Kosong");
-    if (item.data.idayah)
-        return validate(false, "Ayah Tidak Boleh Kosong");
-    if (item.data.idayah)
-        return validate(false, "Ayah Tidak Boleh Kosong");
+    try {
+        if (!item.idpenduduk)
+            return validate(false, "Data Pemohon Tidak Boleh Kosong");
+        if (item.data.tanggallahir)
+            return validate(false, "Tanggal Lahir Tidak Boleh Kosong");
+        if (item.data.tempatlahir)
+            return validate(false, "Tempat Lahir Tidak Boleh Kosong");
+        if (item.data.namaanak)
+            return validate(false, "Nama Anak Tidak Boleh Kosong");
+        if (item.data.jeniskelamin)
+            return validate(false, "Jenis Kelamin Tidak Boleh Kosong");
+        if (item.data.idayah)
+            return validate(false, "Ayah Tidak Boleh Kosong");
+        if (item.data.idibu)
+            return validate(false, "Ayah Tidak Boleh Kosong");
+        return validate(true, null)
+    } catch (error) {
+        return validate(true, error.message);
+    }
+}
 
-    if (item.idayah)
+
+pengantarKTP = async (item) => {
+    try {
+
 
 
 
         return validate(true, null)
+    } catch (error) {
+        return validate(true, error.message);
+    }
+}
+
+
+
+IdPenduduk = async (item) => {
+    try {
+        if (!item.idpenduduk)
+            return validate(false, "Data Pemohon Tidak Boleh Kosong");
+        return validate(true, null)
+    } catch (error) {
+        return validate(true, error.message);
+    }
 }
 
 function validate(valid, message) {
