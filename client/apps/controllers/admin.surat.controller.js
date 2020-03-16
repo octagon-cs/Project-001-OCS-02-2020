@@ -176,6 +176,7 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
     $scope.TabEdit = false;
     $scope.TabApproved = false;
     $scope.UserRole;
+    $scope.Pejabat={};
     $scope.SetTabTambah = function (item, data) {
         $scope.TabList = false;
         $scope.TabTambah = true;
@@ -185,13 +186,15 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
     }
     $scope.SetTabEdit = function (data) {
         $scope.model = {};
+        $scope.TabEdit = true;
         PendudukService.getById(data.idpenduduk).then(penduduk => {
             data.idpenduduk = penduduk;
             $scope.model = data;
+            $scope.model.data.pejabat = angular.copy($scope.model.data.pejabat);
             $scope.TabList = false;
-            $scope.TabEdit = true;
-            $scope.TabList = false;
+            $scope.TabTambah = false;
             $scope.TabApproved = false;
+            
         })
     }
     $scope.SetTabList = function () {
@@ -199,6 +202,7 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
         $scope.TabTambah = false;
         $scope.TabEdit = false;
         $scope.TabApproved = false;
+        $scope.Init();
     }
     $scope.Init = function () {
         AuthService.profile().then(param => {
