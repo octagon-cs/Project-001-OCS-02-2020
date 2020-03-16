@@ -115,4 +115,35 @@
   margin-top: 60px;
   text-decoration: underline;
 }
+
+#typeahead-137-8142 {
+  padding: 20px;
+}
+
+.autoComplete .dropdown-menu {
+  color: white;
+  background-color: white;
+  min-width: 98%;
+}
+
+.autoComplete .dropdown-menu li {
+  border-bottom: 0.1px solid #e7e7e7;
+  padding: 5px 15px;
+  pointer-events: none;
+}
+
+.autoComplete .dropdown-menu li a {
+  font-size: medium;
+  color: black;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.autoComplete .dropdown-menu li:hover {
+  background: #a1a1a1;
+}
+
+.autoComplete .dropdown-menu li:hover a {
+  color: white;
+}
 /*# sourceMappingURL=sites.css.map */

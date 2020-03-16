@@ -110,3 +110,45 @@
     }
   }
 }
+
+
+// autocomplete start
+
+#typeahead-137-8142{
+  padding:20px;
+
+
+
+}
+
+
+.autoComplete{
+  .dropdown-menu{
+    color: white;
+      background-color:white;
+      min-width: 98%;
+    li{
+      border-bottom: 0.1px solid rgb(231, 231, 231);
+      padding:5px 15px;
+      pointer-events: none;
+      a{
+        font-size: medium;
+        color:black;
+        cursor: pointer;
+        pointer-events: auto;
+      }
+    }
+
+    li:hover{
+      background:rgb(161, 161, 161);
+      a{
+        color: white;
+      }
+    }
+  }
+  
+}
+
+
+
+// autcomplete end
