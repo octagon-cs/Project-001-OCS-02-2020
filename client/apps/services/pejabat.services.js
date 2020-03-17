@@ -2,12 +2,14 @@ angular.module("PejabatService", [])
     .factory("PejabatService", PejabatServices);
 
 function PejabatServices($http, $q, helperServices, AuthService) {
+    var controller= '/api/pejabat';
     var service = {};
     service.data = [];
     service.instance = false;
     return {
         get: get,
         getById: getById,
+        put:put, post:post,
         getByJabatanName: getByJabatanName
     }
 
@@ -18,7 +20,7 @@ function PejabatServices($http, $q, helperServices, AuthService) {
         } else {
             $http({
                 method: 'get',
-                url: helperServices.url + '/api/pejabat',
+                url: helperServices.url + controller,
                 headers: AuthService.getHeader()
             }).then(
 
@@ -36,6 +38,50 @@ function PejabatServices($http, $q, helperServices, AuthService) {
         return def.promise;
     }
 
+    function post(data) {
+        var def = $q.defer();
+        $http({
+            method: 'post',
+            url: helperServices.url + controller,
+            headers: AuthService.getHeader(), 
+             data:data
+        }).then(
+            (res) => {
+                service.data.push(res.data);
+                def.resolve(res.data);
+            },
+            (err) => {
+                def.reject(err);
+                message.error(err);
+            }
+        );
+        return def.promise;
+    }
+
+    function put(data) {
+        var def = $q.defer();
+        $http({
+            method: 'put',
+            url: helperServices.url + controller,
+            headers: AuthService.getHeader(), 
+             data:data
+        }).then(
+            (res) => {
+               var item = services.data.find(x=>x.idpejabat=data.idpejabat);
+               if(item){
+                    item.nama = data.nama;
+               }
+                def.resolve(res.data);
+            },
+            (err) => {
+                def.reject(err);
+                message.error(err);
+            }
+        );
+        return def.promise;
+
+    }
+
     function getById(id) {
         var def = $q.defer();
         if (service.instance) {
@@ -44,7 +90,7 @@ function PejabatServices($http, $q, helperServices, AuthService) {
         } else {
             $http({
                 method: 'get',
-                url: helperServices.url + '/api/pejabat/' + id,
+                url: helperServices.url + controller+'/'+ id,
                 headers: AuthService.getHeader()
             }).then(
                 (res) => {

@@ -89,12 +89,32 @@ cerai = async (data) => {
 tidakMampu = async (data) => {
 	try {
 		if (!data.idpenduduk) return validate(false, 'Data Penduduk Tidak Boleh Kosong');
-
-		return validate(true, null);
 	} catch (error) {
 		return validate(true, error.message);
 	}
-};
+}
+
+kelahiran = async (item) => {
+    try {
+        if (!item.idpenduduk)
+            return validate(false, "Data Pemohon Tidak Boleh Kosong");
+        if (!item.data.tanggallahir)
+            return validate(false, "Tanggal Lahir Tidak Boleh Kosong");
+        if (!item.data.tempatlahir)
+            return validate(false, "Tempat Lahir Tidak Boleh Kosong");
+        if (!item.data.namaanak)
+            return validate(false, "Nama Anak Tidak Boleh Kosong");
+        if (!item.data.jeniskelamin)
+            return validate(false, "Jenis Kelamin Tidak Boleh Kosong");
+        if (!item.data.idayah)
+            return validate(false, "Ayah Tidak Boleh Kosong");
+        if (!item.data.idibu)
+            return validate(false, "Ayah Tidak Boleh Kosong");
+        return validate(true, null)
+    } catch (error) {
+        return validate(true, error.message);
+    }
+}
 
 kelahiran = async (item) => {
 	try {
@@ -112,12 +132,14 @@ kelahiran = async (item) => {
 };
 
 pengantarKTP = async (item) => {
-	try {
-		return validate(true, null);
-	} catch (error) {
-		return validate(true, error.message);
-	}
-};
+    try {
+        return validate(true, null)
+    } catch (error) {
+        return validate(true, error.message);
+    }
+}
+
+
 
 IdPenduduk = async (item) => {
 	try {

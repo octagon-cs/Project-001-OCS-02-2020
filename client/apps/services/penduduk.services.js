@@ -41,12 +41,49 @@ function PendudukServices($http, $q, helperServices, AuthService) {
     }
 
     function post(data) {
-
-
+        var def = $q.defer();
+        $http({
+            method: 'post',
+            url: helperServices.url + controller,
+            headers: AuthService.getHeader(), 
+             data:data
+        }).then(
+            (res) => {
+                service.data.push(res.data);
+                def.resolve(res.data);
+            },
+            (err) => {
+                def.reject(err);
+                message.error(err);
+            }
+        );
+        return def.promise;
     }
 
     function put(data) {
-
+        var def = $q.defer();
+        $http({
+            method: 'put',
+            url: helperServices.url + controller,
+            headers: AuthService.getHeader(), 
+             data:data
+        }).then(
+            (res) => {
+               var item = services.data.find(x=>x.idpenduduk=data.idpenduduk);
+               if(item){
+                    item.nama = data.nama;
+                    item.nik=data.nik;
+                    item.nkk = data.nkk;
+                    item.data=data.data;
+               }
+                def.resolve(res.data);
+            },
+            (err) => {
+                def.reject(err);
+                message.error(err);
+            }
+        );
+        return def.promise;
 
     }
 
@@ -133,9 +170,4 @@ function PendudukServices($http, $q, helperServices, AuthService) {
 
         return def.promise;
     }
-
-
-
-
-
 }
