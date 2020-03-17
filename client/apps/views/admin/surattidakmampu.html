@@ -62,8 +62,7 @@
                   <label class="col-sm-4 col-form-label">NIK/Nama</label>
                   <div class="col-sm-8">
                     <div class="form-group autoComplete">
-                      <input type="text" placeholder="Cari NIK/Nama Warga" ng-model="model.penduduk" typeahead=" state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue
-                            | limitTo:8" class="form-control">
+                      <input type="text" ng-model="model.idpenduduk" placeholder="Cari NIK/Nama Warga" uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8" class="form-control">
                     </div>
                   </div>
                 </div>
@@ -83,8 +82,8 @@
                 <div class="form-group row">
                   <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
                   <div class="col-sm-8 autoComplete">
-                    <input type="text" placeholder="Cari Kegiatan" ng-model="model.data.pejabat" typeahead="state as state.nama+' - '+state.namajabatan for state in dataPejabat | 
-                        filter:{nama:$viewValue}
+                    <input type="text" placeholder="Cari Pejabat" ng-model="model.data.pejabat" uib-typeahead="state as state.nama+' - '+state.namajabatan for state in dataPejabat | 
+                        filter:$viewValue
                         | limitTo:8" class="form-control">
                   </div>
                 </div>

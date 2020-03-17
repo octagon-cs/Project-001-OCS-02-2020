@@ -96,8 +96,14 @@ function helperServices() {
 
 
 	function print(id) {
+		var w = 750;
+		var h = 850;
+		var centerLeft = parseInt((window.screen.availWidth - w) / 2);
+		var centerTop = parseInt((window.screen.availHeight - h) / 2);
+		var windowFeatures = 'width='+ w + ',height=' + h + ',left=' + centerLeft + ',top=' + centerTop + ',scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no';
+
 		var innerContents = document.getElementById(id).innerHTML;
-		var popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+		var popupWinindow = window.open('', '_blank', windowFeatures);
 		popupWinindow.document.open();
 		popupWinindow.document.write('<html><head><title>Cetak Surat</title></head><body onload="window.print()"><div>' + innerContents + '</html>');
 		popupWinindow.document.close();

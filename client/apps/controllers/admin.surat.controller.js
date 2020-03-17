@@ -167,7 +167,7 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
     $scope.Edit = function (data) {
         $scope.model = data;
         PendudukService.getById(data.idpenduduk).then(penduduk => {
-            $scope.model.penduduk = penduduk;
+            $scope.model.idpenduduk = penduduk;
             $scope.tab.show('edit');
         })
 
@@ -262,7 +262,18 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
         })
 
     }
+    $scope.Print = function (id, item) {
+        $scope.dataPrint = angular.copy(item);
+        PendudukService.getById(item.idpenduduk).then(param => {
+            $scope.dataPrint.penduduk = param.data;
+            $scope.dataPrint.tampiltanggallahir = getTanggalIndonesia(new Date(angular.copy(param.data.tanggallahir)));
+            $scope.dataPrint.tampiltanggalsurat = getTanggalIndonesia(new Date(item.persetujuan[item.persetujuan.length - 1].created));
 
+            setTimeout(function () {
+                helperServices.print(id);
+            }, 1300);
+        })
+    }
     $scope.Setujui = function (item) {
         $state.go('approved-surattidakmampu', {
             id: item.idpermohonan
@@ -280,7 +291,6 @@ function adminsuratkelahiranController($http, helperServices, AuthService, tabSe
     $scope.Datas = [];
     $scope.ListPenduduk = [];
     $scope.model = {};
-    $scope.model.pejabat = {};
     $scope.model.data = {};
     $scope.dataPrint;
     $scope.IdJenis
@@ -291,9 +301,11 @@ function adminsuratkelahiranController($http, helperServices, AuthService, tabSe
             $scope.UserRole = param.rolename;
             PendudukService.get().then(penduduk => {
                 $scope.ListPenduduk = penduduk;
-                PejabatService.getByJabatanName("Lurah", 1).then(lurah => {
-                    $scope.model.pejabat = lurah;
+                PejabatService.get().then(pejabat => {
+                    $scope.dataPejabat = pejabat.filter(x => x.status == 1);
+                    $scope.model.data.pejabat = $scope.dataPejabat.find(x => x.namajabatan == "Lurah");
                     JenisPermohonanService.getByJenis("Kelahiran").then(jenis => {
+                        $scope.model.idjenispermohonan = jenis.idjenispermohonan;
                         PermohonanService.getByJenis(jenis.idjenispermohonan).then(param => {
                             approvedService.approvedView(param, $scope.UserRole);
                             $scope.Datas = angular.copy(param);
@@ -303,16 +315,13 @@ function adminsuratkelahiranController($http, helperServices, AuthService, tabSe
             })
         })
     }
-    $scope.open1 = function () {
-        $scope.popup1.opened = true;
-    };
 
     $scope.setHari=function(item){
         $scope.model.data.hari=item.getDay();
     }
 
     $scope.Edit = function (data) {
-        $scope.model.idpenduduk = data.idpenduduk;
+        $scope.model = data;
         $scope.ListPenduduk.forEach(params => {
             if (params.idpenduduk == data.idpenduduk) {
                 $scope.ItemAyah = JSON.stringify(params);
@@ -352,6 +361,7 @@ function adminsuratkelahiranController($http, helperServices, AuthService, tabSe
         }
 
         $scope.model.tanggalpengajuan = new Date();
+        $scope.model.idpenduduk = angular.copy($scope.model.data.idpendudukayah.idpenduduk);
         $scope.model.data.model.pejabat = $scope.model.pejabat;
         $scope.model.idjenispermohonan = $scope.IdJenis;
 
@@ -418,14 +428,7 @@ function adminsuratketceraiController($http, helperServices, AuthService, $scope
             })
         })
     }
-    $scope.TabTambah = function () {
-        $scope.TabList = false;
-        $scope.TabTambah = true;
-        $scope.TabEdit = false;
-        $scope.TabApproved = false;
-        $scope.model = {};
-        $scope.model.data = {};
-    }
+    
     $scope.ShowList = function () {
         $scope.TabList = true;
         $scope.TabTambah = false;

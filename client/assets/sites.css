@@ -126,11 +126,6 @@
   min-width: 98%;
 }
 
-.autoComplete .dropdown-menu li {
-  border-bottom: 0.1px solid #e7e7e7;
-  padding: 5px 15px;
-  pointer-events: none;
-}
 
 .autoComplete .dropdown-menu li a {
   font-size: medium;
@@ -144,6 +139,6 @@
 }
 
 .autoComplete .dropdown-menu li:hover a {
-  color: white;
+  color: none;
 }
 /*# sourceMappingURL=sites.css.map */

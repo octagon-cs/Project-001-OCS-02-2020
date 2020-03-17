@@ -8,7 +8,8 @@ angular
 		'datatables',
 		'swangular',
 		'message.service',
-		"ui.bootstrap",'ngLocale'
+		'ngAnimate', 'ngSanitize',
+		"ui.bootstrap", 'ngLocale'
 	])
 	.directive('chooseFile', function () {
 		return {
@@ -72,6 +73,18 @@ angular
 						}
 					});
 				});
+			}
+		};
+	})
+	.directive('select', function ($interpolate) {
+		return {
+			restrict: 'E',
+			require: 'ngModel',
+			link: function (scope, elem, attrs, ctrl) {
+				var defaultOptionTemplate;
+				scope.defaultOptionText = attrs.defaultOption || 'Pilih...';
+				defaultOptionTemplate = '<option value="" disabled selected style="display: none;">{{defaultOptionText}}</option>';
+				elem.prepend($interpolate(defaultOptionTemplate)(scope));
 			}
 		};
 	});
