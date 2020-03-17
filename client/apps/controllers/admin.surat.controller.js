@@ -354,7 +354,7 @@ function adminsuratkelahiranController($http, helperServices, AuthService, tabSe
     }
     $scope.Simpan = function () {
         var Method;
-        if ($scope.TabTambah) {
+        if ($scope.tab.tambah) {
             Method = "post";
         } else {
             Method = "put";
@@ -362,8 +362,8 @@ function adminsuratkelahiranController($http, helperServices, AuthService, tabSe
 
         $scope.model.tanggalpengajuan = new Date();
         $scope.model.idpenduduk = angular.copy($scope.model.data.idpendudukayah.idpenduduk);
-        $scope.model.data.model.pejabat = $scope.model.pejabat;
-        $scope.model.idjenispermohonan = $scope.IdJenis;
+        $scope.model.data.idpendudukayah = angular.copy($scope.model.data.idpendudukayah.idpenduduk);
+        $scope.model.data.idpendudukibu = angular.copy($scope.model.data.idpendudukibu.idpenduduk);
 
         $http({
             method: Method,
