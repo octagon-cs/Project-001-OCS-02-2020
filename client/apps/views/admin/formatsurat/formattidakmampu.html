@@ -46,39 +46,39 @@
                                 <tr>
                                     <td><span>Tempat, Tanggal Lahir</span></td>
                                     <td><span>:</span></td>
-                                    <td><span>{{dataPrint.penduduk.tempatlahir | uppercase}}, {{dataPrint.tampiltanggallahir | uppercase}},
+                                    <td><span>{{dataPrint.tempatlahir | uppercase}}, {{dataPrint.tampiltanggallahir | uppercase}},
                                             </span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td><span>Jenis Kelamin</span></td>
                                     <td><span>:</span></td>
-                                    <td><span>{{dataPrint.penduduk.jeniskelamin}}</span></td>
+                                    <td><span>{{dataPrint.jeniskelamin}}</span></td>
                                 </tr>
                                 <tr>
                                     <td><span>Pekerjaan</span></td>
                                     <td><span>:</span></td>
-                                    <td><span>{{dataPrint.penduduk.pekerjaan}}</span></td>
+                                    <td><span>{{dataPrint.pekerjaan}}</span></td>
                                 </tr>
                                 <tr>
                                     <td><span>Agama</span></td>
                                     <td><span>:</span></td>
-                                    <td><span>{{dataPrint.penduduk.agama}}</span></td>
+                                    <td><span>{{dataPrint.agama}}</span></td>
                                 </tr>
                                 <tr>
                                     <td><span>Status Perkawinan</span></td>
                                     <td><span>:</span></td>
-                                    <td><span>{{dataPrint.penduduk.statusperkawinan}}</span></td>
+                                    <td><span>{{dataPrint.statusperkawinan}}</span></td>
                                 </tr>
                                 <tr>
                                     <td><span>Pendidikan Terakhir</span></td>
                                     <td><span>:</span></td>
-                                    <td><span>{{dataPrint.penduduk.pendidikanterakhir | uppercase}}</span></td>
+                                    <td><span>{{dataPrint.pendidikanterakhir | uppercase}}</span></td>
                                 </tr>
                                 <tr>
                                     <td><span>Alamat</span></td>
                                     <td><span>:</span></td>
-                                    <td><span>{{dataPrint.penduduk.alamatlangkap}}</span></td>
+                                    <td><span>{{dataPrint.alamatlangkap}}</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -105,8 +105,8 @@
         <p> Jayapura, {{dataPrint.tampiltanggalsurat}}</p>
         <p ng-if="dataPrint.pejabat.namajabatan==Lurah">LURAH WAENA</p>
         <p ng-if="dataPrint.pejabat.namajabatan!=Lurah">an. LURAH WAENA</p>
-        <p> {{dataPrint.data.pejabat.jabatan}}</p>
-        <p class="nama">{{dataPrint.data.pejabat.nama}}</p>
-        <p> NIK. {{dataPrint.data.pejabat.data.nik}}</p>
+        <p> {{dataPrint.pejabat.namajabatan}}</p>
+        <p class="nama">{{dataPrint.pejabat.namapejabat}}</p>
+        <p> NIK. {{dataPrint.pejabat.nik}}</p>
     </div>
 </div>

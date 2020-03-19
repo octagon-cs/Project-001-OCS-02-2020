@@ -337,21 +337,24 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
             var a = new Date(item.persetujuan[item.persetujuan.length - 1].created);
             $scope.dataPrint.tampiltanggal = getTanggalIndonesia(a);
             setTimeout(function () {
-                $scope.Print(id)
+                $scope.Print(id, item)
             }, 1300);
         })
 
     }
     $scope.Print = function (id, item) {
         $scope.dataPrint = angular.copy(item);
-        PendudukService.getById(item.idpenduduk).then(param => {
-            $scope.dataPrint.penduduk = param.data;
-            $scope.dataPrint.tampiltanggallahir = getTanggalIndonesia(new Date(angular.copy(param.data.tanggallahir)));
-            $scope.dataPrint.tampiltanggalsurat = getTanggalIndonesia(new Date(item.persetujuan[item.persetujuan.length - 1].created));
-
-            setTimeout(function () {
-                helperServices.print(id);
-            }, 1300);
+        PendudukService.getById(item.idpenduduk, true).then(param => {
+            PejabatService.getById(item.idpejabat).then(datapejabat=>{
+                $scope.dataPrint = param;
+                $scope.dataPrint.tampiltanggallahir = getTanggalIndonesia(new Date(angular.copy(param.tanggallahir)));
+                $scope.dataPrint.tampiltanggalsurat = getTanggalIndonesia(new Date(item.persetujuan[item.persetujuan.length - 1].created));
+                $scope.dataPrint.pejabat=datapejabat;
+                setTimeout(function () {
+                    helperServices.print(id);
+                }, 900);
+            })
+            
         })
     }
     $scope.Setujui = function (item) {
