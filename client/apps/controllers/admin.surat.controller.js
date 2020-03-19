@@ -153,7 +153,7 @@ function adminsuratketmenikahController($http, helperServices, AuthService, $sco
                     $scope.dataPejabat = pejabat.filter(x => x.status == 1);
                     $scope.model.data.pejabat = $scope.dataPejabat.find(x => x.namajabatan == "Lurah");
                     $scope.ListRT = pejabat.filter(x => x.status == 1 && x.namajabatan == "RT");
-                    JenisPermohonanService.getByJenis("Belum Menikah").then(jenis => {
+                    JenisPermohonanService.getByJenis("Sudah Menikah").then(jenis => {
                         $scope.model.idjenispermohonan = jenis.idjenispermohonan;
                         PermohonanService.getByJenis(jenis.idjenispermohonan).then(param => {
                             approvedService.approvedView(param, $scope.UserRole);
@@ -208,9 +208,11 @@ function adminsuratketmenikahController($http, helperServices, AuthService, $sco
             if ($scope.tab.tambah) {
                 $scope.model.idpermohonan = param.idpermohonan;
                 $scope.Datas.push(angular.copy($scope.model));
+                $scope.Init();
                 message.info("Berhasil Menyimpan");
             } else {
                 message.info("Berhasil Mengubah Data");
+                $scope.Init();
             }
             $scope.model = {};
             $scope.tab.show('list');
