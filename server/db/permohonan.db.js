@@ -45,12 +45,17 @@ db.getMyPermohonan = async (id) => {
             penduduk.nik,
             penduduk.nkk,
             jenispermohonan.nama AS namapermohonan,
-            jenispermohonan.jenis
+            jenispermohonan.jenis,
+            pejabat.nama AS namapejabat,
+            pejabat.nip,
+            jabatan.nama AS namajabatan
           FROM
             permohonan
             LEFT JOIN penduduk ON permohonan.idpenduduk = penduduk.idpenduduk
             LEFT JOIN jenispermohonan ON permohonan.idjenispermohonan =
-          jenispermohonan.idjenispermohonan where penduduk.idusers=?`,
+          jenispermohonan.idjenispermohonan
+            LEFT JOIN pejabat ON permohonan.idpejabat = pejabat.idpejabat
+            LEFT JOIN jabatan ON pejabat.idpejabat = jabatan.idjabatan where penduduk.idusers=?`,
 			[ id ],
 			(err, result) => {
 				if (err) {
@@ -76,12 +81,17 @@ db.getById = async (Id) => {
             penduduk.nik,
             penduduk.nkk,
             jenispermohonan.nama AS namapermohonan,
-            jenispermohonan.jenis
+            jenispermohonan.jenis,
+            pejabat.nama AS namapejabat,
+            pejabat.nip,
+            jabatan.nama AS namajabatan
           FROM
             permohonan
             LEFT JOIN penduduk ON permohonan.idpenduduk = penduduk.idpenduduk
             LEFT JOIN jenispermohonan ON permohonan.idjenispermohonan =
-          jenispermohonan.idjenispermohonan where idpermohonan=? `,
+          jenispermohonan.idjenispermohonan
+            LEFT JOIN pejabat ON permohonan.idpejabat = pejabat.idpejabat
+            LEFT JOIN jabatan ON pejabat.idpejabat = jabatan.idjabatan where idpermohonan=? `,
 			[ Id ],
 			(err, result) => {
 				if (err) {
@@ -109,12 +119,17 @@ db.getByJenis = async (Id) => {
             penduduk.nik,
             penduduk.nkk,
             jenispermohonan.nama AS namapermohonan,
-            jenispermohonan.jenis
+            jenispermohonan.jenis,
+            pejabat.nama AS namapejabat,
+            pejabat.nip,
+            jabatan.nama AS namajabatan
           FROM
             permohonan
             LEFT JOIN penduduk ON permohonan.idpenduduk = penduduk.idpenduduk
             LEFT JOIN jenispermohonan ON permohonan.idjenispermohonan =
-          jenispermohonan.idjenispermohonan where permohonan.idjenispermohonan=? `,
+          jenispermohonan.idjenispermohonan
+            LEFT JOIN pejabat ON permohonan.idpejabat = pejabat.idpejabat
+            LEFT JOIN jabatan ON pejabat.idpejabat = jabatan.idjabatan where permohonan.idjenispermohonan=? `,
 			[ Id ],
 			(err, result) => {
 				if (err) {
@@ -136,9 +151,10 @@ db.post = async (data) => {
 		try {
 			data.tanggalpengajuan = new Date();
 			pool.query(
-				'insert into permohonan  (idpenduduk,tanggalpengajuan, data,persetujuan,idjenispermohonan, nomorsurat) values(?,?,?,?,?,?)',
+				'insert into permohonan  (idpenduduk, idpejabat, tanggalpengajuan, data,persetujuan,idjenispermohonan, nomorsurat) values(?,?,?,?,?,?,?)',
 				[
 					data.idpenduduk,
+					data.idpejabat,
 					data.tanggalpengajuan,
 					JSON.stringify(data.data),
 					JSON.stringify(data.persetujuan),
@@ -165,9 +181,10 @@ db.put = async (data) => {
 		try {
 			data.tanggalpengajuan = new Date(data.tanggalpengajuan);
 			pool.query(
-				'update permohonan set idpenduduk=?,tanggalpengajuan=?, data=?, persetujuan=?, idjenispermohonan=?, nomorsurat=? where idpermohonan=? ',
+				'update permohonan set idpenduduk=?, idpejabat=?, tanggalpengajuan=?, data=?, persetujuan=?, idjenispermohonan=?, nomorsurat=? where idpermohonan=? ',
 				[
 					data.idpenduduk,
+					data.idpejabat,
 					data.tanggalpengajuan,
 					JSON.stringify(data.data),
 					JSON.stringify(data.persetujuan),
