@@ -157,7 +157,7 @@
                                                                     ng-model="Pejabat.data.agama"
                                                                     data-placeholder="Pilih Agama">
                                                                     <option value=""></option>
-                                                                    <option ng-repeat="item in Agama" value="{{item}}">
+                                                                    <option ng-repeat="item in helper.Agama" value="{{item}}">
                                                                         {{item}}</option>
                                                                 </select>
                                                             </div>
@@ -171,7 +171,7 @@
                                                                     ng-model="Pejabat.data.pendidikanterakhir"
                                                                     data-placeholder="Pilih Pendidikan">
                                                                     <option value=""></option>
-                                                                    <option ng-repeat="item in PendidikanTerakhir"
+                                                                    <option ng-repeat="item in helper.PendidikanTerakhir"
                                                                         value="{{item}}">{{item}}</option>
                                                                 </select>
                                                             </div>
