@@ -7,16 +7,15 @@ const authJwt = require('./verifyToken.js');
 const config = require('../auth/config');
 const fs = require('fs');
 const uuid = require('uuid');
-const fcm = require('../notification')
+const fcm = require('../notification');
 
 router.get('/', async (req, res, next) => {
 	try {
-		const data = await contextDb.Users.get().then(result => {
+		const data = await contextDb.Users.get().then((result) => {
 			res.status(200).json({
 				data: data
 			});
-		});;
-
+		});
 	} catch (err) {
 		res.status(400).json({
 			message: err.message
@@ -41,7 +40,6 @@ router.post('/login', async (req, res) => {
 							message: 'Silahkan Confirmasi Email Anda !'
 						});
 						return;
-
 					}
 
 					if (!bcrypt.compareSync(req.body.password, item.password)) {
@@ -49,19 +47,21 @@ router.post('/login', async (req, res) => {
 							message: 'Password Anda Salah'
 						});
 						return;
-
 					} else {
 						item.roles = [];
 						data.forEach((element) => {
 							item.roles.push(element.role);
 						});
 
-						var token = jwt.sign({
-							id: item.idusers,
-							username: item.email,
-							roles: item.roles,
-							iat: 86400 * 30
-						}, config.secret);
+						var token = jwt.sign(
+							{
+								id: item.idusers,
+								username: item.email,
+								roles: item.roles,
+								iat: 86400 * 30
+							},
+							config.secret
+						);
 						item.password = null;
 						item.token = token;
 						return res.status(200).send(item);
@@ -81,35 +81,31 @@ router.post('/login', async (req, res) => {
 	}
 });
 
-router.post('/devicetoken', [authJwt.verifyToken], async (req, res) => {
+router.post('/devicetoken', [ authJwt.verifyToken ], async (req, res) => {
 	try {
 		const data = req.body;
 		var user = req.User;
 		var result = await contextDb.Users.AddDeviceToken(data.token, user.userid);
 		if (result) {
-			await fcm.subscribe("all", data.token);
+			await fcm.subscribe('all', data.token);
 			res.status(200).json(result);
 		} else {
 			res.status(400).json({
-				message: "Anda Belum Registrasi Memiliki Akun"
+				message: 'Anda Belum Registrasi Memiliki Akun'
 			});
 		}
-
-
 	} catch (err) {
 		if (err.errno && err.errno == 1062) {
 			res.status(400).json({
 				errno: err.errno,
-				message: "Anda Belum Telah Memiliki Akun"
+				message: 'Anda Belum Telah Memiliki Akun'
 			});
 		} else
 			res.status(400).json({
 				message: err.message
 			});
 	}
-
 });
-
 
 router.post('/registrasi', async (req, res) => {
 	try {
@@ -117,52 +113,49 @@ router.post('/registrasi', async (req, res) => {
 
 		if (user.nik && user.nkk) {
 			var penduduk = await contextDb.Penduduk.getByNIK(user.nik);
-			if (penduduk.idusers)
-				throw Error("Anda Telah Memiliki Akun");
-
+			if (penduduk.idusers) throw Error('Anda Telah Memiliki Akun');
 
 			if (penduduk) {
-				if (penduduk.nkk != user.nkk)
-					throw Error("Nomor KK Anda Salah");
-				var hostname = req.protocol + "://" + req.headers.host
+				if (penduduk.nkk != user.nkk) throw Error('Nomor KK Anda Salah');
+				var hostname = req.protocol + '://' + req.headers.host;
 				var result = await contextDb.Users.register(penduduk.idpenduduk, user, hostname);
 				if (result) {
 					res.status(200).json({
-						message: "Berhasil !, Silahkan Confirmasi Email Anda",
+						message: 'Berhasil !, Silahkan Confirmasi Email Anda',
 						penduduk: penduduk
-					})
+					});
 				}
-			} else throw Error("Data Kependudukan Anda Tidak Ditemukan");
-
+			} else throw Error('Data Kependudukan Anda Tidak Ditemukan');
 		} else {
-			throw Error("Data Kependudukan Anda Tidak Ditemukan");
+			throw Error('Data Kependudukan Anda Tidak Ditemukan');
 		}
 	} catch (err) {
 		if (err.errno && err.errno == 1062) {
 			res.status(400).json({
 				errno: err.errno,
-				message: "Anda Telah Memiliki Akun"
+				message: 'Anda Telah Memiliki Akun'
 			});
 		} else
 			res.status(400).json({
 				message: err.message
 			});
 	}
-
 });
 
-
-router.post('/changepassword', [authJwt.verifyToken], async (req, res) => {
+router.post('/changepassword', [ authJwt.verifyToken ], async (req, res) => {
 	try {
 		const user = req.body;
 		var newpassword = bcrypt.hashSync(user.password, 8);
-		contextDb.Users.changepassword(req.User.userid, newpassword).then((x) => {
-			res.status(200).json(x);
-		}, err => {
-			res.status(400).json({
-				message: err.message
-			});
-		});
+		contextDb.Users.changepassword(req.User.userid, newpassword).then(
+			(x) => {
+				res.status(200).json(x);
+			},
+			(err) => {
+				res.status(400).json({
+					message: err.message
+				});
+			}
+		);
 	} catch (err) {
 		res.status(400).json({
 			message: err.message
@@ -170,7 +163,7 @@ router.post('/changepassword', [authJwt.verifyToken], async (req, res) => {
 	}
 });
 
-router.get('/confirmemail', [authJwt.verifyToken], async (req, res) => {
+router.get('/confirmemail', [ authJwt.verifyToken ], async (req, res) => {
 	try {
 		const data = req.body;
 		var result = await contextDb.Users.confirmemail(req.User.userid);
@@ -178,7 +171,7 @@ router.get('/confirmemail', [authJwt.verifyToken], async (req, res) => {
 			res.status(200).json(result);
 		} else {
 			res.status(400).json({
-				message: "Terjadi Kesalahan, Coba Ulangi Lagi Nanti.."
+				message: 'Terjadi Kesalahan, Coba Ulangi Lagi Nanti..'
 			});
 		}
 	} catch (err) {
@@ -191,7 +184,7 @@ router.get('/confirmemail', [authJwt.verifyToken], async (req, res) => {
 router.post('/resetpassword', async (req, res) => {
 	try {
 		const data = req.body;
-		var hostname = req.protocol + "://" + req.headers.host
+		var hostname = req.protocol + '://' + req.headers.host;
 		contextDb.Users.resetpassword(data.email, hostname).then(
 			(data) => {
 				res.status(200).json(data);
@@ -209,66 +202,54 @@ router.post('/resetpassword', async (req, res) => {
 	}
 });
 
-
-router.get('/profile', [authJwt.verifyToken], async (req, res) => {
+router.get('/profile', [ authJwt.verifyToken ], async (req, res) => {
 	try {
-		var userId = req.userId;
-		var isadministrator = req.roles.find((x) => x === 'administrator');
-		if (isadministrator) {
-			contextDb.Administrator.profile(userId).then(
-				(response) => {
-					res.status(200).json(response);
-				},
-				(err) => {
-					res.status(400).json(err);
-				}
-			);
-		} else {
-			contextDb.Users.profile(userId).then(
-				(response) => {
-					res.status(200).json(response);
-				},
-				(err) => {
-					res.status(400).json(err);
-				}
-			);
+		var result = await contextDb.Users.profile(req.User.userid, req.User.roles[0]);
+		result.rolename = req.User.roles[0];
+		if (result) res.status(200).json(result);
+		else {
+			res.status(400).json(err);
 		}
 	} catch (err) {
 		res.status(400).json(err);
 	}
 });
 
-router.post('/foto', [authJwt.verifyToken], async (req, res) => {
+router.post('/foto', [ authJwt.verifyToken ], async (req, res) => {
 	var data = req.body;
-	var userid = req.userId;
+	var userid = req.User.userid;
+
+	var user = await contextDb.Users.getUserUserId(userid);
+
 	var filename = uuid.v1() + '.png';
-	fs.writeFile('assets\\profile\\' + filename, data.data, 'base64', function (err) {
+	fs.writeFile('client\\assets\\images\\profiles\\' + filename, data.data, 'base64', function(err) {
 		if (err) {
 			res.status(400).json({
 				message: 'err'
 			});
 		} else {
-			contextDb.Users.changeFoto({
-				idusers: userid,
-				photo: filename
-			}).then(
-				(x) => {
-					res.status(200).json({
-						data: filename
-					});
-				},
-				(err) => {
-					res.status(400).json({
-						message: 'err'
-					});
-				}
-			);
+			contextDb.Users
+				.changeFoto({
+					idusers: userid,
+					photo: filename
+				})
+				.then(
+					(x) => {
+						res.status(200).json({
+							data: filename
+						});
+						if (user.photo) {
+							fs.unlink('client\\assets\\images\\profiles\\' + user.photo, function(err) {});
+						}
+					},
+					(err) => {
+						res.status(400).json({
+							message: 'err'
+						});
+					}
+				);
 		}
 	});
 });
-
-
-
-
 
 module.exports = router;

@@ -29,7 +29,6 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		}
 	}
 
-
 	function registrasi(user) {
 		var def = $q.defer();
 		$http({
@@ -39,7 +38,7 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 			data: user
 		}).then(
 			(res) => {
-				message.info("Berhasil !, Periksa Email Anda Untuk Memverifikasi Account Anda.");
+				message.info('Berhasil !, Periksa Email Anda Untuk Memverifikasi Account Anda.');
 				def.resolve(res.data);
 			},
 			(err) => {
@@ -53,7 +52,7 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 	function confirmEmail(token) {
 		var def = $q.defer();
 		var header = getHeader();
-		header.Authorization = "Bearer " + token
+		header.Authorization = 'Bearer ' + token;
 		$http({
 			method: 'get',
 			url: helperServices.url + '/api/auth/confirmemail',
@@ -61,7 +60,7 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		}).then(
 			(res) => {
 				def.resolve(res.data);
-				message.info("Berhasil !, Silahkan Login.");
+				message.info('Berhasil !, Silahkan Login.');
 			},
 			(err) => {
 				def.reject(err);
@@ -74,7 +73,7 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 	function changePassword(user, token) {
 		var def = $q.defer();
 		var header = getHeader();
-		header.Authorization = "Bearer " + token
+		header.Authorization = 'Bearer ' + token;
 		$http({
 			method: 'post',
 			url: helperServices.url + '/api/auth/changepassword',
@@ -94,17 +93,25 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 
 	function profile() {
 		var def = $q.defer();
-
-
-		var result = StorageService.getObject('user');
-
-		if (result)
-			def.resolve({
-				rolename: result.roles[0]
-			});
+		var result = StorageService.getObject('profile');
+		if (result) def.resolve(result);
 		else {
-			def.reject();
+			$http({
+				method: 'get',
+				url: helperServices.url + '/api/auth/profile',
+				headers: getHeader()
+			}).then(
+				(res) => {
+					StorageService.addObject('profile', res.data);
+					def.resolve(res.data);
+				},
+				(err) => {
+					def.reject();
+					message.error(err);
+				}
+			);
 		}
+
 		return def.promise;
 	}
 
@@ -178,7 +185,6 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		return '';
 	}
 
-
 	function getUserName() {
 		if (userIsLogin) {
 			var result = StorageService.getObject('user');
@@ -196,7 +202,7 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		var found = false;
 		if (user) {
 			roles.forEach((role) => {
-				var data = user.roles.find(x => x == role);
+				var data = user.roles.find((x) => x == role);
 				if (data) {
 					found = true;
 					return;
@@ -206,5 +212,4 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 
 		return found;
 	}
-
 }
