@@ -3,138 +3,105 @@
     <div class="card-tools">
       <h4>Surat Keterangan Domisili</h4>
     </div>
-    <div class="card card-primary card-outline card-tabs">
-      <div class="card-header p-0 pt-1 border-bottom-0">
-        <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href=""
-              data-target="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home"
-              aria-selected="true">Data Surat Keterangan Domisili</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href=""
-              data-target="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile"
-              aria-selected="false">Tambah Data
-              Surat
-            </a>
-          </li>
-          <!-- <li class="nav-item">
-                        <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href=""
-                            data-target="#custom-tabs-two-messages" role="tab"
-                            aria-controls="custom-tabs-two-messages" aria-selected="false">Ubah Data
-                            Surat
-                        </a>
-                    </li> -->
-        </ul>
-      </div>
+    <div class="card card-warning" ng-if="tab.list">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="fas fa-list"></i>
+          List Surat
+        </h3>
+        <div class="card-tools">
+          <button class="btn btn-primary float-right" ng-click="tab.show('tambah')"><i class="fa fa-plus"></i></button>
+        </div>
+      </div><!-- /.card-header -->
       <div class="card-body">
-        <div class="tab-content" id="custom-tabs-two-tabContent">
-          <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel"
-            aria-labelledby="custom-tabs-two-home-tab">
-            <div class="card-body table-responsive p-0" style="height: 550px;">
-              <table datatable="" class="table table-head-fixed text-nowrap">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>NIK</th>
-                    <th>Nama</th>
-                    <th>No.Surat</th>
-                    <th>Pejabat</th>
-                    <th>Option</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="item in DatasSuratDomisili">
-                    <td>{{$index+1}}</td>
-                    <td>{{item.nik}}</td>
-                    <td>{{item.nama}}</td>
-                    <td>{{item.data.nomorsurat}}</td>
-                    <td>{{item.data.pejabat.nama}}</td>
-                    <td>
-                      <button class="btn btn-primary" ng-click="Selecteddata('suratDomisili', item)"><i
-                          class="fas fa-print"></i></button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel"
-            aria-labelledby="custom-tabs-two-profile-tab">
-            <div class="tab-content" id="custom-tabs-one-tabContent">
-              <div class="card card-default">
-                <!-- /.card-header -->
-                <form ng-submit="Simpan()">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">NIK/Nama</label>
-                          <div class="col-sm-8">
-                            <select ui-select2 class="form-control" ng-model="ItemPenduduk"
-                              ng-change="SelectedPenduduk()" data-placeholder="NIK / Nama">
-                              <option value=""></option>
-                              <option ng-repeat="item in ListPenduduk" value="{{item}}">
-                                {{item.nik}}&nbsp;-&nbsp;{{item.nama}}</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">Nomor Surat</label>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="SuratDomisili.data.nomorsurat"
-                              placeholder="Nomor Surat">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-header"></div><br>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">Pejabat Atas Nama</label>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="Pejabat.data.atasnama">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="Pejabat.nama">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">Jabatan Pengesah</label>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="Pejabat.namajabatan">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">NIP/NIAP Pengesah</label>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="Pejabat.data.nik" placeholder="">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-header"></div><br>
-                    <div class="card-footer">
-                      <button type="submit" class="btn btn-success">Submit</button>
-                      <button type="submit" class="btn btn-danger float-right">Cancel</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+        <div class="table-responsive p-0">
+          <table datatable="" class="table table-head-fixed text-nowrap">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NIK</th>
+                <th>Nama</th>
+                <th>No.Surat</th>
+                <th>Pejabat</th>
+                <th>Option</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in Datas">
+                <td>{{$index+1}}</td>
+                <td>{{item.nik}}</td>
+                <td>{{item.nama}}</td>
+                <td>{{item.nomorsurat}}</td>
+                <td ng-if="item.data.pejabat.atasnama == undefined">{{item.data.pejabat.nama}}</td>
+                <td ng-if="item.data.pejabat.atasnama != undefined">{{item.data.pejabat.atasnama}}</td>
+                <td>
+                  <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'" class="btn btn-primary"
+                    ng-click="Print('suratTidakMampu', item)">
+                    <i class="fas fa-print"></i></a>
+                  <a href="javascript:void(0)" class="btn btn-warning" ng-click="Edit(item)"><i
+                      class="fas fa-edit"></i></a>
+                  <a href="javascript:void(0)" ng-class="item.SetButtonApproved?'':'disabled'" class="btn btn-success"
+                    ng-click="Setujui(item)"><i class="fas fa-check"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
+    <div ng-if="tab.tambah || tab.edit" class="card card-warning">
+      <div class="card-header">
+        <h3 class="card-title" ng-if="tab.tambah"><i class="fas fa-plus"></i>Tambah Surat Keterangan Domisili</h3>
+        <h3 class="card-title" ng-if="tab.edit"><i class="fas fa-plus"></i>Ubah Surat </h3>
+      </div>
+      <div class="card-body">
+        <form ng-submit="Simpan()">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-5">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">NIK/Nama</label>
+                  <div class="col-sm-8">
+                    <input type="text" ng-model="model.idpenduduk" placeholder="Cari NIK/Nama Warga" uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2"></div>
+              <div class="col-md-5">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Nomor Surat</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="model.nomorsurat"
+                      placeholder="Nomor Surat">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-header"></div><br>
+            <div class="row">
+              <div class="col-md-5">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
+                  <div class="col-sm-8 autoComplete">
+                    <input type="text" placeholder="Cari Pejabat" ng-model="model.data.pejabat" 
+                    uib-typeahead="state as state.nama+' - '+state.namajabatan for state in dataPejabat | 
+                        filter:$viewValue
+                        | limitTo:8" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-header"></div><br>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-success">Submit</button>
+              <button type="submit" class="btn btn-danger float-right">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
+
   <div id="suratDomisili" class="printing">
     <div ng-include="'../../../apps/views/admin/formatsurat/formatketdomisili.html'"></div>
   </div>

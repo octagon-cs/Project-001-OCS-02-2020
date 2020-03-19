@@ -266,11 +266,10 @@ function adminJenisPermohonanController($http, $scope, helperServices, AuthServi
 	$scope.DatasJenisPermohonan = [];
 	$scope.JenisPermohonan = {};
 	$scope.JenisPermohonan.persyaratan = [];
-	$scope.KepemilikanKTP = helperServices.StatusKepemilikanKTP;
 	$scope.InputPermohonan;
 	$scope.ItemPersyaratan = '';
 	$scope.Persyaratan = [];
-	$scope.PermohonanJenis = helperServices.PermohonanJenis;
+	$scope.PermohonanJenis = helperServices.source.PermohonanJenis;
 	$scope.Init = function() {
 		$http({
 			method: 'get',

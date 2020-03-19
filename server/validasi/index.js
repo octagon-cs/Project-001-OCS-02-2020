@@ -103,6 +103,7 @@ belumMenikah = async (data) => {
 tidakMampu = async (data) => {
 	try {
 		if (!data.idpenduduk) return validate(false, 'Data Penduduk Tidak Boleh Kosong');
+		return validate(true, null)
 	} catch (error) {
 		return validate(true, error.message);
 	}

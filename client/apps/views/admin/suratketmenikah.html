@@ -3,200 +3,172 @@
         <div class="card-tools">
             <h4>Surat Keterangan Sudah Menikah</h4>
         </div>
-        <div class="card card-primary card-outline card-tabs">
-            <div class="card-header p-0 pt-1 border-bottom-0">
-                <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="javascript:void(0)"
-                            data-target="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home"
-                            aria-selected="true">Lihat Data</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="javascript:void(0)"
-                            data-target="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile"
-                            aria-selected="false">Tambah Data
-                            Surat
-                        </a>
-                    </li>
-                </ul>
-            </div>
+        <div class="card card-warning" ng-if="tab.list">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-list"></i>
+                    List Surat
+                </h3>
+                <div class="card-tools">
+                    <button class="btn btn-primary float-right" ng-click="tab.show('tambah')"><i
+                            class="fa fa-plus"></i></button>
+                </div>
+            </div><!-- /.card-header -->
             <div class="card-body">
-                <div class="tab-content" id="custom-tabs-two-tabContent">
-                    <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel"
-                        aria-labelledby="custom-tabs-two-home-tab">
-                        <div class="card-body table-responsive p-0" style="height: 550px;">
-                            <table datatable="" class="table table-head-fixed text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>NIK</th>
-                                        <th>Nama </th>
-                                        <th>No Surat</th>
-                                        <th>Pejabat</th>
-                                        <th>Option</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="item in DatasSuratketMenikah">
-                                        <td>{{$index+1}}</td>
-                                        <td>{{item.NIK}}</td>
-                                        <td>{{item.Nama}}</td>
-                                        <td>{{item.No.Surat}}</td>
-                                        <td>{{item.Atas Nama}}</td>
-                                        <td>
-                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                                <label class="btn btn-secondary">
-                                                    <input type="radio" name="options" id="option1" autocomplete="off">
-                                                    <i class="fas fa-edit"></i>
-                                                </label>
-                                                <label class="btn btn-secondary">
-                                                    <input type="radio" name="options" id="option2" autocomplete="off">
-                                                    <i class="fas fa-print"></i>
-                                                </label>
-                                                <label class="btn btn-secondary">
-                                                    <input type="radio" name="options" id="option3"
-                                                        autocomplete="off"><i class="fas fa-search"></i>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel"
-                        aria-labelledby="custom-tabs-two-profile-tab">
-                        <div class="tab-content" id="custom-tabs-one-tabContent">
-                            <div class="card card-default">
-                                <!-- /.card-header -->
-                                <form ng-submit="Simpan()">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-4 col-form-label">No Surat</label>
-                                                    <div class="col-sm-8">
-                                                        <input type="text" class="form-control" ng-model="SuratMenikah.nomorsurat"
-                                                            placeholder="No Surat">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-header"></div><br>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label for="inputEmail3" class="col-sm-4 col-form-label">RT</label>
-                                                    <div class="col-sm-8">
-                                                        <select ui-select2 class="form-control" ng-model=""
-                                                            data-placeholder="RT">
-                                                            <option value=""></option>
-                                                            <option ng-repeat="item in JenisKelamin" value="{{item}}">
-                                                                {{item}}</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-4 col-form-label">Tanggal Surat
-                                                        Pengantar</label>
-                                                    <div class="col-sm-8">
-                                                        <input type="text" class="form-control" ng-model=""
-                                                            placeholder="Tanggal Surat Pengantar">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-4 col-form-label">No Surat Pengantar</label>
-                                                    <div class="col-sm-8">
-                                                        <input type="text" class="form-control" ng-model=""
-                                                            placeholder="No Surat Pengantar">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-4 col-form-label">Ketua RT</label>
-                                                    <div class="col-sm-8">
-                                                        <input type="text" class="form-control" ng-model=""
-                                                            placeholder="Ketua RT">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-header"></div><br>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label for="inputEmail3" class="col-sm-4 col-form-label">NIK</label>
-                                                    <div class="col-sm-8">
-                                                        <select ui-select2 class="form-control" ng-model="SelectedPenduduk()"
-                                                            data-placeholder=" NIK">
-                                                            <option value=""></option>
-                                                            <option ng-repeat="item in ListPenduduk" value="{{item}}">
-                                                                {{item.nik}}&nbsp;-&nbsp;{{item.nama}}</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-4 col-form-label">Nama</label>
-                                                    <div class="col-sm-8">
-                                                        <input type="text" class="form-control" ng-model="ItemPenduduk.nama"
-                                                            placeholder="Nama">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-header"></div><br>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                              <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Pejabat Atas Nama</label>
-                                                <div class="col-sm-8">
-                                                  <input type="text" class="form-control" ng-model="Pejabat.data.atasnama">
-                                                </div>
-                                              </div>
-                                              <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
-                                                <div class="col-sm-8">
-                                                  <input type="text" class="form-control" ng-model="Pejabat.nama">
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                              <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Jabatan Pengesah</label>
-                                                <div class="col-sm-8">
-                                                  <input type="text" class="form-control" ng-model="Pejabat.namajabatan">
-                                                </div>
-                                              </div>
-                                              <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">NIP/NIAP Pengesah</label>
-                                                <div class="col-sm-8">
-                                                  <input type="text" class="form-control" ng-model="Pejabat.data.nik" placeholder="">
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        <div class="card-header"></div><br>
-                                    </div>
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-success">Submit</button>
-                                        <button type="submit" class="btn btn-danger float-right">Cancel</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- /.row -->
-                        </div>
-                    </div>
+                <div class="table-responsive p-0">
+                    <table datatable="" class="table table-head-fixed text-nowrap">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>NIK</th>
+                                <th>Nama </th>
+                                <th>No Surat</th>
+                                <th>Tanggal Pengajuan</th>
+                                <th>Pejabat</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in Datas">
+                                <td>{{$index+1}}</td>
+                                <td>{{item.NIK}}</td>
+                                <td>{{item.Nama}}</td>
+                                <td>{{item.nomorsurat}}</td>
+                                <td>{{item.tanggalpengajuan | date: format: 'dd MMMM yyyy'}}</td>
+                                <td ng-if="item.data.pejabat.atasnama == undefined">{{item.data.pejabat.nama}}</td>
+                                <td ng-if="item.data.pejabat.atasnama != undefined">{{item.data.pejabat.atasnama}}</td>
+                                <td>
+                                    <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'"
+                                        class="btn btn-primary" ng-click="Print('suratTidakMampu', item)">
+                                        <i class="fas fa-print"></i></a>
+                                    <a href="javascript:void(0)" class="btn btn-warning" ng-click="Edit(item)"><i
+                                            class="fas fa-edit"></i></a>
+                                    <a href="javascript:void(0)" ng-class="item.SetButtonApproved?'':'disabled'"
+                                        class="btn btn-success" ng-click="Setujui(item)"><i
+                                            class="fas fa-check"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.card-body -->
+        <div ng-if="tab.tambah || tab.edit" class="card card-warning">
+            <div class="card-header">
+                <h3 class="card-title" ng-if="tab.tambah"><i class="fas fa-plus"></i>Tambah Surat Keterangan Sudah
+                    Menikah
+                </h3>
+                <h3 class="card-title" ng-if="tab.edit"><i class="fas fa-plus"></i>Ubah Surat </h3>
+            </div>
+            <div class="card-body">
+                <form ng-submit="Simpan()">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">No Surat</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="model.nomorsurat"
+                                            placeholder="No Surat">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header"></div><br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">NIK</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" ng-model="model.data.idpenduduk"
+                                            typeahead-on-select="SelectedRT()" placeholder="Cari NIK/Nama Warga"
+                                            uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">RT</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" placeholder="RT/RW" class="form-control"
+                                            ng-value="'RT. '+model.data.RT.data.nomorrt+' / RW.'+model.data.RT.data.nomorrw"
+                                            disabled>
+                                        <!-- <select ui-select2 class="form-control" ng-model="ItemRT" data-placeholder="RT"
+                                            ng-change="SelectedRT()">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in ListRT" value="{{item}}">
+                                                {{item.data.nomor}}</option>
+                                        </select> -->
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Tanggal Surat
+                                        Pengantar</label>
+                                    <div class="col-sm-8">
+                                        <p class="input-group">
+                                            <input type="text" class="form-control" uib-datepicker-popup="dd MMMM yyyy "
+                                                ng-model="model.data.tanggalsuratpengantar" is-open="popup1.opened"
+                                                ng-required="true" close-text="Close"
+                                                alt-input-formats="altInputFormats" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-secondary"
+                                                    ng-click="popup1.opened=!popup1.opened">
+                                                    <i class="fa-svg-icon">
+                                                        <svg width="1792" height="1792" viewBox="0 0 1792 1792"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M192 1664h288v-288h-288v288zm352 0h320v-288h-320v288zm-352-352h288v-320h-288v320zm352 0h320v-320h-320v320zm-352-384h288v-288h-288v288zm736 736h320v-288h-320v288zm-384-736h320v-288h-320v288zm768 736h288v-288h-288v288zm-384-352h320v-320h-320v320zm-352-864v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm736 864h288v-320h-288v320zm-384-384h320v-288h-320v288zm384 0h288v-288h-288v288zm32-480v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm384-64v1280q0 52-38 90t-90 38h-1408q-52 0-90-38t-38-90v-1280q0-52 38-90t90-38h128v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h384v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h128q52 0 90 38t38 90z" />
+                                                        </svg>
+                                                    </i>
+                                                </button>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">No Surat Pengantar</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control"
+                                            ng-model="model.data.nomorsuratpengantar" placeholder="No Surat Pengantar">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Ketua RT</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="model.data.RT.nama"
+                                            placeholder="Ketua RT" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header"></div><br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
+                                    <div class="col-sm-8 autoComplete">
+                                        <input type="text" placeholder="Cari Pejabat" ng-model="model.data.pejabat"
+                                            uib-typeahead="state as state.nama+' - '+state.namajabatan for state in dataPejabat | 
+                                          filter:$viewValue
+                                          | limitTo:8" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header"></div><br>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                        <button type="button" class="btn btn-danger float-right"
+                            ng-click="Tab.Tambah=false;Tab.List=true">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <div id="SuratMenikah" class="printing">
+
+    <div id="suratDomisili" class="printing">
         <div ng-include="'../../../apps/views/admin/formatsurat/formatketsudahmenikah.html'"></div>
     </div>
 </section>

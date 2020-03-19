@@ -244,11 +244,11 @@ function approvedService(helperServices) {
 						value.SetButtonPrint = true;
 						value.SetButtonApproved = false;
 					} else {
-						var lastindex = helperServices.Roles.indexOf(lastPersetujuan.role);
+						var lastindex = helperServices.source.Roles.indexOf(lastPersetujuan.role);
 						var nextRole =
 							lastPersetujuan.status == 'dikembalikan'
-								? helperServices.Roles[lastindex - 1]
-								: helperServices.Roles[lastindex + 1];
+								? helperServices.source.Roles[lastindex - 1]
+								: helperServices.source.Roles[lastindex + 1];
 						if (nextRole == userRole) {
 							value.SetButtonPrint = false;
 							value.SetButtonApproved = true;
@@ -258,7 +258,7 @@ function approvedService(helperServices) {
 						}
 					}
 				} else {
-					value.SetButtonPrint = true;
+					value.SetButtonPrint = false;
 					value.SetButtonApproved = true;
 				}
 			});

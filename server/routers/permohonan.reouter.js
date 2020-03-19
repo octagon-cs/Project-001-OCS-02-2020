@@ -22,7 +22,7 @@ router.get('/', [authJwt.verifyToken], async (req, res) => {
 router.post('/', [authJwt.verifyToken], async (req, res) => {
     try {
         const params = req.body;
-        var resultValidate = await (await validasi.validate(params));
+        var resultValidate = await validasi.validate(params);
         if (resultValidate.valid)
             contextDb.Permohonan.post(params).then(async (data) => {
                     var message = {
