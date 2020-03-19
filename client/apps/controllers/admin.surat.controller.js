@@ -302,8 +302,8 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
         var today = new Date();
         $scope.model.tanggalpengajuan = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         // $scope.model.data.pejabat = $scope.model.pejabat
-        $scope.model.idpenduduk = angular.copy($scope.model.idpenduduk.idpenduduk)
-
+        $scope.model.idpenduduk = angular.copy($scope.model.idpenduduk.idpenduduk);
+        $scope.model.idpejabat = angular.copy($scope.model.idpejabat.idpejabat);
         $http({
             method: Method,
             url: helperServices.url + "/api/permohonan",
