@@ -80,10 +80,10 @@
                                                                         Kepemilikan KTP</label>
                                                                     <div class="col-sm-8">
                                                                         <select ui-select2 class="form-control"
-                                                                            ng-model="Penduduk.data.statuskepemilikanktp"
+                                                                            ng-model="Penduduk.statuskepemilikanktp"
                                                                             data-placeholder="Kepemilikanktp">
                                                                             <option value=""></option>
-                                                                            <option ng-repeat="item in KepemilikanKTP"
+                                                                            <option ng-repeat="item in helper.KepemilikanKTP"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -102,7 +102,7 @@
                                                                         Lahir</label>
                                                                     <div class="col-sm-8">
                                                                         <input type="date" class="form-control"
-                                                                            ng-model="Penduduk.data.tanggallahir"
+                                                                            ng-model="Penduduk.tanggallahir"
                                                                             placeholder="Tanggal Lahir">
                                                                     </div>
                                                                 </div>
@@ -122,7 +122,7 @@
                                                                         Lahir</label>
                                                                     <div class="col-sm-8">
                                                                         <input type="text" class="form-control"
-                                                                            ng-model="Penduduk.data.tempatlahir"
+                                                                            ng-model="Penduduk.tempatlahir"
                                                                             placeholder="Tempat lahir">
                                                                     </div>
                                                                 </div>
@@ -132,7 +132,7 @@
                                                                         Lahir</label>
                                                                     <div class="col-sm-8">
                                                                         <input type="text" class="form-control"
-                                                                            ng-model="Penduduk.data.aktalahir"
+                                                                            ng-model="Penduduk.aktalahir"
                                                                             placeholder="No. Akta Lahir">
                                                                     </div>
                                                                 </div>
@@ -147,7 +147,7 @@
                                                                         class="col-sm-4 col-form-label">Dusun</label>
                                                                     <div class="col-sm-8">
                                                                         <input type="text" class="form-control"
-                                                                            ng-model="Penduduk.data.dusun"
+                                                                            ng-model="Penduduk.dusun"
                                                                             placeholder="Dusun">
                                                                     </div>
                                                                 </div>
@@ -157,7 +157,7 @@
                                                                     </label>
                                                                     <div class="col-sm-8">
                                                                         <input type="text" class="form-control"
-                                                                            ng-model="Penduduk.data.rt"
+                                                                            ng-model="Penduduk.rt"
                                                                             placeholder="RT">
                                                                     </div>
                                                                 </div>
@@ -167,7 +167,7 @@
                                                                     </label>
                                                                     <div class="col-sm-8">
                                                                         <input type="text" class="form-control"
-                                                                            ng-model="Penduduk.data.kodepost"
+                                                                            ng-model="Penduduk.kodepost"
                                                                             placeholder="Kode Post">
                                                                     </div>
                                                                 </div>
@@ -176,7 +176,7 @@
                                                                         class="col-sm-4 col-form-label">email</label>
                                                                     <div class="col-sm-8">
                                                                         <input type="email" class="form-control"
-                                                                            ng-model="Penduduk.data.email"
+                                                                            ng-model="Penduduk.email"
                                                                             placeholder="example@mail.com">
                                                                     </div>
                                                                 </div>
@@ -188,7 +188,7 @@
                                                                         Lengkap</label>
                                                                     <div class="col-sm-8">
                                                                         <textarea class="form-control"
-                                                                            ng-model="Penduduk.data.alamatlangkap"
+                                                                            ng-model="Penduduk.alamatlangkap"
                                                                             rows="3"></textarea>
                                                                     </div>
                                                                 </div>
@@ -197,7 +197,7 @@
                                                                         class="col-sm-4 col-form-label">RW</label>
                                                                     <div class="col-sm-8">
                                                                         <input type="text" class="form-control"
-                                                                            ng-model="Penduduk.data.rw"
+                                                                            ng-model="Penduduk.rw"
                                                                             placeholder="RW">
                                                                     </div>
                                                                 </div>
@@ -207,7 +207,7 @@
                                                                         HP</label>
                                                                     <div class="col-sm-8">
                                                                         <input type="text" class="form-control"
-                                                                            ng-model="Penduduk.data.kontakhp"
+                                                                            ng-model="Penduduk.kontakhp"
                                                                             placeholder="Nomor Kontak HP">
                                                                     </div>
                                                                 </div>
@@ -224,10 +224,10 @@
                                                                         Darah</label>
                                                                     <div class="col-sm-8">
                                                                         <select ui-select2 class="form-control"
-                                                                            ng-model="Penduduk.data.golongandarah"
+                                                                            ng-model="Penduduk.golongandarah"
                                                                             data-placeholder="Golongan Darah">
                                                                             <option value=""></option>
-                                                                            <option ng-repeat="item in GolonganDarah"
+                                                                            <option ng-repeat="item in helper.GolonganDarah"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -238,10 +238,10 @@
                                                                         Perkawinan</label>
                                                                     <div class="col-sm-8">
                                                                         <select ui-select2 class="form-control"
-                                                                            ng-model="Penduduk.data.statusperkawinan"
+                                                                            ng-model="Penduduk.statusperkawinan"
                                                                             data-placeholder="Pilih Status Perkawinan">
                                                                             <option value=""></option>
-                                                                            <option ng-repeat="item in StatusPerkawinan"
+                                                                            <option ng-repeat="item in helper.StatusPerkawinan"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -251,10 +251,10 @@
                                                                         class="col-sm-4 col-form-label">Agama</label>
                                                                     <div class="col-sm-8">
                                                                         <select ui-select2 class="form-control"
-                                                                            ng-model="Penduduk.data.agama"
+                                                                            ng-model="Penduduk.agama"
                                                                             data-placeholder="Pilih Agama">
                                                                             <option value=""></option>
-                                                                            <option ng-repeat="item in Agama"
+                                                                            <option ng-repeat="item in helper.Agama"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -265,10 +265,10 @@
                                                                         KELAMIN</label>
                                                                     <div class="col-sm-8">
                                                                         <select ui-select2 class="form-control"
-                                                                            ng-model="Penduduk.data.jeniskelamin"
+                                                                            ng-model="Penduduk.jeniskelamin"
                                                                             data-placeholder="Pilih Jenis Kelamin">
                                                                             <option value=""></option>
-                                                                            <option ng-repeat="item in JenisKelamin"
+                                                                            <option ng-repeat="item in helper.JenisKelamin"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -279,10 +279,10 @@
                                                                         Huruf</label>
                                                                     <div class="col-sm-8">
                                                                         <select ui-select2 class="form-control"
-                                                                            ng-model="Penduduk.data.bacahuruf"
+                                                                            ng-model="Penduduk.bacahuruf"
                                                                             data-placeholder="Pilih Huruf">
                                                                             <option value=""></option>
-                                                                            <option ng-repeat="item in BacaHuruf"
+                                                                            <option ng-repeat="item in helper.BacaHuruf"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -293,10 +293,10 @@
                                                                         Tetap</label>
                                                                     <div class="col-sm-8">
                                                                         <select ui-select2 class="form-control"
-                                                                            ng-model="Penduduk.data.penghasilantetap"
+                                                                            ng-model="Penduduk.penghasilantetap"
                                                                             data-placeholder="Pilih Penghasilan">
                                                                             <option value=""></option>
-                                                                            <option ng-repeat="item in PenghasilanTetap"
+                                                                            <option ng-repeat="item in helper.PenghasilanTetap"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -308,10 +308,10 @@
                                                                         class="col-sm-4 col-form-label">Pekerjaan</label>
                                                                     <div class="col-sm-8">
                                                                         <select ui-select2 class="form-control"
-                                                                            ng-model="Penduduk.data.pekerjaan"
+                                                                            ng-model="Penduduk.pekerjaan"
                                                                             data-placeholder="Pilih Pekerjaan">
                                                                             <option value=""></option>
-                                                                            <option ng-repeat="item in Pekerjaan"
+                                                                            <option ng-repeat="item in helper.Pekerjaan"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -322,11 +322,11 @@
                                                                         Terakhir</label>
                                                                     <div class="col-sm-8">
                                                                         <select ui-select2 class="form-control"
-                                                                            ng-model="Penduduk.data.pendidikanterakhir"
+                                                                            ng-model="Penduduk.pendidikanterakhir"
                                                                             data-placeholder="Pilih Pendidikan">
                                                                             <option value=""></option>
                                                                             <option
-                                                                                ng-repeat="item in PendidikanTerakhir"
+                                                                                ng-repeat="item in helper.PendidikanTerakhir"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -336,7 +336,7 @@
                                                                         class="col-sm-4 col-form-label">Suku</label>
                                                                     <div class="col-sm-8">
                                                                         <input type="text" class="form-control"
-                                                                            ng-model="Penduduk.data.suku">
+                                                                            ng-model="Penduduk.suku">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
@@ -344,10 +344,10 @@
                                                                         class="col-sm-4 col-form-label">Kewarganegawaan</label>
                                                                     <div class="col-sm-8">
                                                                         <select ui-select2 class="form-control"
-                                                                            ng-model="Penduduk.data.kewarganegawaan"
+                                                                            ng-model="Penduduk.kewarganegawaan"
                                                                             data-placeholder="Pilih Kewargaan">
                                                                             <option value=""></option>
-                                                                            <option ng-repeat="item in Kewarganegawaan"
+                                                                            <option ng-repeat="item in helper.Kewarganegawaan"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -358,10 +358,10 @@
                                                                         Tinggal</label>
                                                                     <div class="col-sm-8">
                                                                         <select ui-select2 class="form-control"
-                                                                            ng-model="Penduduk.data.tempattinggal"
+                                                                            ng-model="Penduduk.tempattinggal"
                                                                             data-placeholder="Pilih Tempat Tinggal">
                                                                             <option value=""></option>
-                                                                            <option ng-repeat="item in StatusTT"
+                                                                            <option ng-repeat="item in helper.StatusTT"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -372,10 +372,10 @@
                                                                         Sosial</label>
                                                                     <div class="col-sm-8">
                                                                         <select ui-select2 class="form-control"
-                                                                            ng-model="Penduduk.data.statussosial"
+                                                                            ng-model="Penduduk.statussosial"
                                                                             data-placeholder="Pilih Status Sosial">
                                                                             <option value=""></option>
-                                                                            <option ng-repeat="item in StatusSosial"
+                                                                            <option ng-repeat="item in helper.StatusSosial"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -392,10 +392,10 @@
                                                                         Kepemilikan KIS</label>
                                                                     <div class="col-sm-8">
                                                                         <select ui-select2 class="form-control"
-                                                                            ng-model="Penduduk.data.statuskis"
+                                                                            ng-model="Penduduk.statuskis"
                                                                             data-placeholder="Kartu Indonesia Sehat">
                                                                             <option value=""></option>
-                                                                            <option ng-repeat="item in StatusKIS"
+                                                                            <option ng-repeat="item in helper.StatusKIS"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -408,10 +408,10 @@
                                                                         KIP</label>
                                                                     <div class="col-sm-8">
                                                                         <select ui-select2 class="form-control"
-                                                                            ng-model="Penduduk.data.statuskip"
+                                                                            ng-model="Penduduk.statuskip"
                                                                             data-placeholder="Kartu Indonesia Pintar">
                                                                             <option value=""></option>
-                                                                            <option ng-repeat="item in StatusKIP"
+                                                                            <option ng-repeat="item in helper.StatusKIP"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -428,10 +428,10 @@
                                                                         Kepemilikan KK</label>
                                                                     <div class="col-sm-8">
                                                                         <select ui-select2 class="form-control"
-                                                                            ng-model="Penduduk.data.statuskk"
+                                                                            ng-model="Penduduk.statuskk"
                                                                             data-placeholder="Kartu Keluarga">
                                                                             <option value=""></option>
-                                                                            <option ng-repeat="item in StatusKK"
+                                                                            <option ng-repeat="item in helper.StatusKK"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -450,7 +450,7 @@
                                                                         Ayah</label>
                                                                     <div class="col-sm-8">
                                                                         <input type="text" class="form-control"
-                                                                            ng-model="Penduduk.data.namaayah">
+                                                                            ng-model="Penduduk.namaayah">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -464,7 +464,7 @@
                                                                             ng-model="Penduduk.statusdalamkeluarga"
                                                                             data-placeholder="Kartu Pilih Status Keluarga">
                                                                             <option value=""></option>
-                                                                            <option ng-repeat="item in StatusKeluarga"
+                                                                            <option ng-repeat="item in helper.StatusKeluarga"
                                                                                 value="{{item}}">{{item}}</option>
                                                                         </select>
                                                                     </div>
@@ -480,7 +480,7 @@
                                                                         class="col-sm-4 col-form-label">Keterangan</label>
                                                                     <div class="col-sm-8">
                                                                         <textarea class="form-control"
-                                                                            ng-model="Penduduk.data.keterangan"></textarea>
+                                                                            ng-model="Penduduk.keterangan"></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -531,15 +531,15 @@
                                             Kepemilikan KTP</label>
                                         <div class="col-sm-8" ng-if="edit">
                                             <select ui-select2 class="form-control"
-                                                ng-model="Penduduk.data.statuskepemilikanktp"
+                                                ng-model="Penduduk.statuskepemilikanktp"
                                                 data-placeholder="Kepemilikanktp">
                                                 <option value=""></option>
-                                                <option ng-repeat="item in KepemilikanKTP" value="{{item}}">{{item}}
+                                                <option ng-repeat="item in helper.KepemilikanKTP" value="{{item}}">{{item}}
                                                 </option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.statuskepemilikanktp}}
+                                            {{Penduduk.statuskepemilikanktp}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -557,10 +557,10 @@
                                             Lahir</label>
                                         <div class="col-sm-8" ng-if="edit">
                                             <input type="date" class="form-control"
-                                                ng-model="Penduduk.data.tanggallahir" placeholder="Tanggal Lahir">
+                                                ng-model="Penduduk.tanggallahir" placeholder="Tanggal Lahir">
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.tanggallahir}}
+                                            {{Penduduk.tanggallahir}}
                                         </div>
                                     </div>
                                 </div>
@@ -579,22 +579,22 @@
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Tempat
                                             Lahir</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <input type="text" class="form-control" ng-model="Penduduk.data.tempatlahir"
+                                            <input type="text" class="form-control" ng-model="Penduduk.tempatlahir"
                                                 placeholder="Tempat lahir">
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.tempatlahir}}
+                                            {{Penduduk.tempatlahir}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Nomor Akta
                                             Lahir</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <input type="text" class="form-control" ng-model="Penduduk.data.aktalahir"
+                                            <input type="text" class="form-control" ng-model="Penduduk.aktalahir"
                                                 placeholder="No. Akta Lahir">
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.aktalahir}}
+                                            {{Penduduk.aktalahir}}
                                         </div>
                                     </div>
                                 </div>
@@ -606,43 +606,43 @@
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Dusun</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <input type="text" class="form-control" ng-model="Penduduk.data.dusun"
+                                            <input type="text" class="form-control" ng-model="Penduduk.dusun"
                                                 placeholder="Dusun">
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.dusun}}
+                                            {{Penduduk.dusun}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">RT
                                         </label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <input type="text" class="form-control" ng-model="Penduduk.data.rt"
+                                            <input type="text" class="form-control" ng-model="Penduduk.rt"
                                                 placeholder="RT" ng-if="edit">
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.rt}}
+                                            {{Penduduk.rt}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Kode Post
                                         </label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <input type="text" class="form-control" ng-model="Penduduk.data.kodepost"
+                                            <input type="text" class="form-control" ng-model="Penduduk.kodepost"
                                                 placeholder="Kode Post">
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.kodepost}}
+                                            {{Penduduk.kodepost}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">email</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <input type="email" class="form-control" ng-model="Penduduk.data.email"
+                                            <input type="email" class="form-control" ng-model="Penduduk.email"
                                                 placeholder="example@mail.com">
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.email}}
+                                            {{Penduduk.email}}
                                         </div>
                                     </div>
                                 </div>
@@ -651,32 +651,32 @@
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Alamat
                                             Lengkap</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <textarea class="form-control" ng-model="Penduduk.data.alamatlangkap"
+                                            <textarea class="form-control" ng-model="Penduduk.alamatlangkap"
                                                 rows="3"></textarea>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.alamatlangkap}}
+                                            {{Penduduk.alamatlangkap}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">RW</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <input type="text" class="form-control" ng-model="Penduduk.data.rw"
+                                            <input type="text" class="form-control" ng-model="Penduduk.rw"
                                                 placeholder="RW">
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.rw}}
+                                            {{Penduduk.rw}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Nomor Kontak
                                             HP</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <input type="text" class="form-control" ng-model="Penduduk.data.kontakhp"
+                                            <input type="text" class="form-control" ng-model="Penduduk.kontakhp"
                                                 placeholder="Nomor Kontak HP">
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.kontakhp}}
+                                            {{Penduduk.kontakhp}}
                                         </div>
                                     </div>
                                 </div>
@@ -691,15 +691,15 @@
                                             Darah</label>
                                         <div class="col-sm-8" ng-if="edit">
                                             <select ui-select2 class="form-control"
-                                                ng-model="Penduduk.data.golongandarah"
+                                                ng-model="Penduduk.golongandarah"
                                                 data-placeholder="Golongan Darah">
                                                 <option value=""></option>
-                                                <option ng-repeat="item in GolonganDarah" value="{{item}}">{{item}}
+                                                <option ng-repeat="item in helper.GolonganDarah" value="{{item}}">{{item}}
                                                 </option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.golongandarah}}
+                                            {{Penduduk.golongandarah}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -707,28 +707,28 @@
                                             Perkawinan</label>
                                         <div class="col-sm-8" ng-if="edit">
                                             <select ui-select2 class="form-control"
-                                                ng-model="Penduduk.data.statusperkawinan"
+                                                ng-model="Penduduk.statusperkawinan"
                                                 data-placeholder="Pilih Status Perkawinan">
                                                 <option value=""></option>
-                                                <option ng-repeat="item in StatusPerkawinan" value="{{item}}">{{item}}
+                                                <option ng-repeat="item in helper.StatusPerkawinan" value="{{item}}">{{item}}
                                                 </option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.statusperkawinan}}
+                                            {{Penduduk.statusperkawinan}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Agama</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <select ui-select2 class="form-control" ng-model="Penduduk.data.agama"
+                                            <select ui-select2 class="form-control" ng-model="Penduduk.agama"
                                                 selected data-placeholder="Pilih Agama">
-                                                <option value="Penduduk.data.agama">{{Penduduk.data.agama}}</option>
-                                                <option ng-repeat="item in Agama" value="{{item}}">{{item}}</option>
+                                                <option value="Penduduk.agama">{{Penduduk.agama}}</option>
+                                                <option ng-repeat="item in helper.Agama" value="{{item}}">{{item}}</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.agama}}
+                                            {{Penduduk.agama}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -736,29 +736,29 @@
                                             KELAMIN</label>
                                         <div class="col-sm-8" ng-if="edit">
                                             <select ui-select2 class="form-control"
-                                                ng-model="Penduduk.data.jeniskelamin"
+                                                ng-model="Penduduk.jeniskelamin"
                                                 data-placeholder="Pilih Jenis Kelamin">
                                                 <option value=""></option>
-                                                <option ng-repeat="item in JenisKelamin" value="{{item}}">{{item}}
+                                                <option ng-repeat="item in helper.JenisKelamin" value="{{item}}">{{item}}
                                                 </option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.jeniskelamin}}
+                                            {{Penduduk.jeniskelamin}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Dapat Membaca
                                             Huruf</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <select ui-select2 class="form-control" ng-model="Penduduk.data.bacahuruf"
+                                            <select ui-select2 class="form-control" ng-model="Penduduk.bacahuruf"
                                                 data-placeholder="Pilih Huruf">
                                                 <option value=""></option>
-                                                <option ng-repeat="item in BacaHuruf" value="{{item}}">{{item}}</option>
+                                                <option ng-repeat="item in helper.BacaHuruf" value="{{item}}">{{item}}</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.bacahuruf}}
+                                            {{Penduduk.bacahuruf}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -766,15 +766,15 @@
                                             Tetap</label>
                                         <div class="col-sm-8" ng-if="edit">
                                             <select ui-select2 class="form-control"
-                                                ng-model="Penduduk.data.penghasilantetap"
+                                                ng-model="Penduduk.penghasilantetap"
                                                 data-placeholder="Pilih Penghasilan">
                                                 <option value=""></option>
-                                                <option ng-repeat="item in PenghasilanTetap" value="{{item}}">{{item}}
+                                                <option ng-repeat="item in helper.PenghasilanTetap" value="{{item}}">{{item}}
                                                 </option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.penghasilantetap}}
+                                            {{Penduduk.penghasilantetap}}
                                         </div>
                                     </div>
                                 </div>
@@ -782,14 +782,14 @@
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Pekerjaan</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <select ui-select2 class="form-control" ng-model="Penduduk.data.pekerjaan"
+                                            <select ui-select2 class="form-control" ng-model="Penduduk.pekerjaan"
                                                 data-placeholder="Pilih Pekerjaan">
                                                 <option value=""></option>
-                                                <option ng-repeat="item in Pekerjaan" value="{{item}}">{{item}}</option>
+                                                <option ng-repeat="item in helper.Pekerjaan" value="{{item}}">{{item}}</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.pekerjaan}}
+                                            {{Penduduk.pekerjaan}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -797,39 +797,39 @@
                                             Terakhir</label>
                                         <div class="col-sm-8" ng-if="edit">
                                             <select ui-select2 class="form-control"
-                                                ng-model="Penduduk.data.pendidikanterakhir"
+                                                ng-model="Penduduk.pendidikanterakhir"
                                                 data-placeholder="Pilih Pendidikan">
                                                 <option value=""></option>
-                                                <option ng-repeat="item in PendidikanTerakhir" value="{{item}}">{{item}}
+                                                <option ng-repeat="item in helper.PendidikanTerakhir" value="{{item}}">{{item}}
                                                 </option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.pendidikanterakhir}}
+                                            {{Penduduk.pendidikanterakhir}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Suku</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <input type="text" class="form-control" ng-model="Penduduk.data.suku">
+                                            <input type="text" class="form-control" ng-model="Penduduk.suku">
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.suku}}
+                                            {{Penduduk.suku}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Kewarganegawaan</label>
                                         <div class="col-sm-8" ng-if="edit">
                                             <select ui-select2 class="form-control"
-                                                ng-model="Penduduk.data.kewarganegawaan"
+                                                ng-model="Penduduk.kewarganegawaan"
                                                 data-placeholder="Pilih Kewargaan">
                                                 <option value=""></option>
-                                                <option ng-repeat="item in Kewarganegawaan" value="{{item}}">{{item}}
+                                                <option ng-repeat="item in helper.Kewarganegawaan" value="{{item}}">{{item}}
                                                 </option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.kewarganegawaan}}
+                                            {{Penduduk.kewarganegawaan}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -837,14 +837,14 @@
                                             Tinggal</label>
                                         <div class="col-sm-8" ng-if="edit">
                                             <select ui-select2 class="form-control"
-                                                ng-model="Penduduk.data.tempattinggal"
+                                                ng-model="Penduduk.tempattinggal"
                                                 data-placeholder="Pilih Tempat Tinggal">
                                                 <option value=""></option>
-                                                <option ng-repeat="item in StatusTT" value="{{item}}">{{item}}</option>
+                                                <option ng-repeat="item in helper.StatusTT" value="{{item}}">{{item}}</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.tempattinggal}}
+                                            {{Penduduk.tempattinggal}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -852,15 +852,15 @@
                                             Sosial</label>
                                         <div class="col-sm-8" ng-if="edit">
                                             <select ui-select2 class="form-control"
-                                                ng-model="Penduduk.data.statussosial"
+                                                ng-model="Penduduk.statussosial"
                                                 data-placeholder="Pilih Status Sosial">
                                                 <option value=""></option>
-                                                <option ng-repeat="item in StatusSosial" value="{{item}}">{{item}}
+                                                <option ng-repeat="item in helper.StatusSosial" value="{{item}}">{{item}}
                                                 </option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.statussosial}}
+                                            {{Penduduk.statussosial}}
                                         </div>
                                     </div>
                                 </div>
@@ -873,14 +873,14 @@
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Status
                                             Kepemilikan KIS</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <select ui-select2 class="form-control" ng-model="Penduduk.data.statuskis"
+                                            <select ui-select2 class="form-control" ng-model="Penduduk.statuskis"
                                                 data-placeholder="Kartu Indonesia Sehat">
                                                 <option value=""></option>
-                                                <option ng-repeat="item in StatusKIS" value="{{item}}">{{item}}</option>
+                                                <option ng-repeat="item in helper.StatusKIS" value="{{item}}">{{item}}</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.statuskis}}
+                                            {{Penduduk.statuskis}}
                                         </div>
                                     </div>
                                 </div>
@@ -889,14 +889,14 @@
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">StatusKepemilikan
                                             KIP</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <select ui-select2 class="form-control" ng-model="Penduduk.data.statuskip"
+                                            <select ui-select2 class="form-control" ng-model="Penduduk.statuskip"
                                                 data-placeholder="Kartu Indonesia Pintar">
                                                 <option value=""></option>
-                                                <option ng-repeat="item in StatusKIP" value="{{item}}">{{item}}</option>
+                                                <option ng-repeat="item in helper.StatusKIP" value="{{item}}">{{item}}</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.statuskip}}
+                                            {{Penduduk.statuskip}}
                                         </div>
                                     </div>
                                 </div>
@@ -909,14 +909,14 @@
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Status
                                             Kepemilikan KK</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <select ui-select2 class="form-control" ng-model="Penduduk.data.statuskk"
+                                            <select ui-select2 class="form-control" ng-model="Penduduk.statuskk"
                                                 data-placeholder="Kartu Keluarga">
                                                 <option value=""></option>
-                                                <option ng-repeat="item in StatusKK" value="{{item}}">{{item}}</option>
+                                                <option ng-repeat="item in helper.StatusKK" value="{{item}}">{{item}}</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.statuskk}}
+                                            {{Penduduk.statuskk}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -932,10 +932,10 @@
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Nama
                                             Ayah</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <input type="text" class="form-control" ng-model="Penduduk.data.namaayah">
+                                            <input type="text" class="form-control" ng-model="Penduduk.namaayah">
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.namaayah}}
+                                            {{Penduduk.namaayah}}
                                         </div>
                                     </div>
                                 </div>
@@ -948,7 +948,7 @@
                                                 ng-model="Penduduk.statusdalamkeluarga"
                                                 data-placeholder="Kartu Pilih Status Keluarga">
                                                 <option value=""></option>
-                                                <option ng-repeat="item in StatusKeluarga" value="{{item}}">{{item}}
+                                                <option ng-repeat="item in helper.StatusKeluarga" value="{{item}}">{{item}}
                                                 </option>
                                             </select>
                                         </div>
@@ -960,10 +960,10 @@
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Nama
                                             Ibu</label>
                                         <div class="col-sm-8" ng-if="edit">
-                                            <input type="text" class="form-control" ng-model="Penduduk.data.namaibu">
+                                            <input type="text" class="form-control" ng-model="Penduduk.namaibu">
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.namaibu}}
+                                            {{Penduduk.namaibu}}
                                         </div>
                                     </div>
                                 </div>
@@ -976,10 +976,10 @@
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Keterangan</label>
                                         <div class="col-sm-8" ng-if="edit">
                                             <textarea class="form-control"
-                                                ng-model="Penduduk.data.keterangan"></textarea>
+                                                ng-model="Penduduk.keterangan"></textarea>
                                         </div>
                                         <div class="col-sm-8" ng-if="view">
-                                            {{Penduduk.data.keterangan}}
+                                            {{Penduduk.keterangan}}
                                         </div>
                                     </div>
                                 </div>

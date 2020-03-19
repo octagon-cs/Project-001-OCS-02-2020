@@ -1,10 +1,9 @@
 angular
 	.module('login.component', [])
-
 	.component('userlogin', {
-		controller: function ($scope, AuthService, $state) {
+		controller: function($scope, AuthService, $state) {
 			this.userName = AuthService.getUserName();
-			$scope.logoff = function () {
+			$scope.logoff = function() {
 				AuthService.logOff();
 				setTimeout((x) => {
 					$state.go('login');
@@ -33,12 +32,12 @@ angular
 				</div>`
 	})
 	.component('profiles', {
-		controller: function ($scope, AuthService) {},
+		controller: function($scope, AuthService) {},
 		template: `<a class="nav-link" ui-sref="dosen-home">Profiles</a>`
 	})
 	.component('changepassword', {
-		controller: function ($scope, AuthService, message) {
-			$scope.changepassword = function (model) {
+		controller: function($scope, AuthService, message) {
+			$scope.changepassword = function(model) {
 				if (model.newpassword !== model.confirmpassword) {
 					message.errorText('Password Baru dan Konfirmasi Password Tidak Sama');
 				} else {
@@ -103,13 +102,13 @@ angular
 `
 	})
 	.component('fotoprofile', {
-		controller: function ($scope, AuthService, helperServices, $http, StorageService, message) {
+		controller: function($scope, AuthService, helperServices, $http, StorageService, message) {
 			AuthService.profile().then((x) => {
-				var iddosen = x.iddosen;
 				$scope.Profile = x;
+				if (!x.photo) $scope.Profile.photo = 'user.jpg';
 			});
 
-			$scope.changeFoto = function (data) {
+			$scope.changeFoto = function(data) {
 				setTimeout((x) => {
 					$scope.foto = data;
 					$http({
@@ -130,14 +129,18 @@ angular
 				}, 300);
 			};
 		},
-		template: ` <choose-file>
-		<input id="fileInput" type="file" class="ng-hide">
-		<input type="text" ng-model="foto.fileName" class="ng-hide" disabled required>
-		<div id="output">
-			<img src="/assets/profile/{{Profile.photo}}" width="155" height="156"
-				ng-src="data:image/{{foto.type}};base64,{{foto.data}}">
-		</div>
-	</choose-file>
-	NIDN : {{Profile.nidn}} <br>
-	Nama : {{Profile.namadosen}} <br>`
-	})
+		template: `
+		<choose-file>
+			<div class="image">
+				<input id="fileInput" type="file" class="ng-hide">
+				<input type="text" ng-model="foto.fileName" class="ng-hide" disabled required>
+				<div id="output">
+					<img src="/assets/images/profiles/{{Profile.photo}}" class="img-circle elevation-2"
+						ng-src="data:image/{{foto.type}};base64,{{foto.data}}">
+				</div>
+			</div>
+			<div class="info">
+				<a href="" class="d-block">{{Profile.nama}}</a>
+			</div>
+		</choose-file>`
+	});

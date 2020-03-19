@@ -10,21 +10,21 @@ angular
 	.controller('InboxController', InboxController);
 
 function AccountController(AuthService, $state, $scope) {
-	// if (AuthService.userIsLogin()) {
-	// 	AuthService.profile().then(
-	// 		(x) => {
-	// 			if (x) $state.go(x.rolename + '-home');
-	// 			else $state.go('admin' + '-home');
-	// 		},
-	// 		(err) => {
-	// 			$state.go('login');
-	// 		}
-	// 	);
-	// }
+	if (AuthService.userIsLogin()) {
+		AuthService.profile().then(
+			(x) => {
+				if (x) $state.go(x.rolename + '-home');
+				else $state.go('admin' + '-home');
+			},
+			(err) => {
+				$state.go('login');
+			}
+		);
+	}
 }
 
 function LoginController($scope, $state, AuthService, FcmService) {
-	$scope.login = function (user) {
+	$scope.login = function(user) {
 		$scope.isBusy = true;
 		AuthService.login(user).then((x) => {
 			$scope.isBusy = false;
@@ -37,15 +37,13 @@ function LoginController($scope, $state, AuthService, FcmService) {
 				$state.go(role + '-home');
 			}
 		});
-
 	};
 
-	$scope.registrasi = function (user) {};
+	$scope.registrasi = function(user) {};
 }
 
 function RegisterController($scope, $state, AuthService) {
-
-	$scope.registrasi = function (user) {
+	$scope.registrasi = function(user) {
 		AuthService.registrasi(user).then((x) => {
 			$state.go('login');
 		});
@@ -54,25 +52,22 @@ function RegisterController($scope, $state, AuthService) {
 
 function ResetPasswordController($scope, AuthService, message) {
 	$scope.resetPassword = (model) => {
-		AuthService.resetPassword(model).then(res => {
-			message.info("Password Anda telah di reset, Periksa Email Anda Untuk Membuat Password Baru");
+		AuthService.resetPassword(model).then((res) => {
+			message.info('Password Anda telah di reset, Periksa Email Anda Untuk Membuat Password Baru');
 		});
-	}
+	};
 }
-
 
 function NewPasswordController($scope, $stateParams, AuthService, message) {
 	var token = $stateParams.token;
-	$scope.changePassword = function (data) {
-		AuthService.changePassword(data, token).then(res => {
-			message.info("Password Anda Berhasil Diubah, Silahkan Login Dengan Password Yang Baru");
+	$scope.changePassword = function(data) {
+		AuthService.changePassword(data, token).then((res) => {
+			message.info('Password Anda Berhasil Diubah, Silahkan Login Dengan Password Yang Baru');
 		});
-	}
+	};
 }
 
-function ConfirmPasswordController() {
-
-}
+function ConfirmPasswordController() {}
 
 function ConfirmEmailController($state, $stateParams, AuthService) {
 	var token = $stateParams.token;
@@ -81,71 +76,60 @@ function ConfirmEmailController($state, $stateParams, AuthService) {
 	});
 }
 
-
 function InboxController(AuthService, $state, $scope, InboxService) {
-
-
-	InboxService.get().then(res => {
+	InboxService.get().then((res) => {
 		$scope.messages = res;
 	});
-
 
 	$scope.changedate = (date) => {
 		date = new Date(date);
 
 		return timesince(date);
-
-	}
-
+	};
 
 	$scope.delete = (messages) => {
-		var datas = messages.filter(x => x.isChecked);
+		var datas = messages.filter((x) => x.isChecked);
 		$scope.deleteBusy = true;
-		InboxService.delete(datas).then(res => {
+		InboxService.delete(datas).then((res) => {
 			if (res.data) {
-				datas.forEach(element => {
+				datas.forEach((element) => {
 					var index = messages.indexOf(element);
 					datas.splice(index, 1);
 				});
 			}
 			$scope.deleteBusy = false;
-		})
-	}
-
+		});
+	};
 
 	$scope.read = (data) => {
-		InboxService.read(data).then(res => {
+		InboxService.read(data).then((res) => {
 			//messages.info()
-		})
-	}
+		});
+	};
 
 	function timesince(date) {
 		var seconds = Math.floor((new Date() - date) / 1000);
 		var interval = Math.floor(seconds / 31536000);
 
 		if (interval > 1) {
-			return interval + " years";
+			return interval + ' years';
 		}
 		interval = Math.floor(seconds / 2592000);
 		if (interval > 1) {
-			return interval + " months";
+			return interval + ' months';
 		}
 		interval = Math.floor(seconds / 86400);
 		if (interval > 1) {
-			return interval + " days";
+			return interval + ' days';
 		}
 		interval = Math.floor(seconds / 3600);
 		if (interval > 1) {
-			return interval + " hours";
+			return interval + ' hours';
 		}
 		interval = Math.floor(seconds / 60);
 		if (interval > 1) {
-			return interval + " minutes";
+			return interval + ' minutes';
 		}
-		return Math.floor(seconds) + " seconds";
+		return Math.floor(seconds) + ' seconds';
 	}
-
-
-
-
 }

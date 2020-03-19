@@ -1,4 +1,118 @@
-<div>
+<link rel="stylesheet" href="/assets/sites.css">
+<div class="surat">
+    <div class="header">
+        <img class="logo" src="assets/images/logojayapura.png">
+        <div>
+            <b>PEMERINTAH KOTA JAYAPURA<br>
+                KELURAHAN WAENA<br>
+                DISTRIK HERAM</b>
+        </div>
+    </div>
+    <hr id="hr-formatSurat" />
+    <div class="subheader">
+        <p style="font-size:14pt; margin-bottom: -18px;"><b><u>{{dataPrint.namapermohonan | uppercase}}</u></b></p>
+        <br>Nomor : {{dataPrint.nomorsurat}}<br></br>
+    </div>
+    <div class="body">
+        <table align="center" cellpadding="1" style="width: 700px;margin-bottom: 50px;">
+            <tbody>
+                <tr>
+                    <td colspan="3">
+                        <div
+                            style="font-family: 'Times New Roman', Times, serif; text-align: justify; font-size: 12pt;">
+                            <span><br>&emsp;&emsp;Yang Bertanda tangan dibawah ini kepala desa distrik heram kelurahan
+                                waena kota jayapura menerangkan dengan ini sebenarnya bahwa :<br><br></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="font-family: 'Times New Roman', Times, serif; font-size: 12pt;">
+                        <table cellpadding="1" style="width: 500px;">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="9" style="width: 20px;"></td>
+                                    <td width="93">
+                                        <span">NIK</span>
+                                    </td>
+                                    <td width="8"><span>:</span></td>
+                                    <td width="200"><span>{{dataPrint.nik}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span">Nama</span>
+                                    </td>
+                                    <td><span>:</span></td>
+                                    <td><span>{{dataPrint.nama}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Tempat, Tanggal Lahir</span></td>
+                                    <td><span>:</span></td>
+                                    <td><span>{{dataPrint.penduduk.data.tempatlahir}},
+                                            {{dataPrint.tampiltanggal}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span>Jenis Kelamin</span></td>
+                                    <td><span>:</span></td>
+                                    <td><span>{{dataPrint.penduduk.data.jeniskelamin}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Pekerjaan</span></td>
+                                    <td><span>:</span></td>
+                                    <td><span>{{dataPrint.penduduk.data.pekerjaan}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Agama</span></td>
+                                    <td><span>:</span></td>
+                                    <td><span>{{dataPrint.penduduk.data.agama}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Status Perkawinan</span></td>
+                                    <td><span>:</span></td>
+                                    <td><span>{{dataPrint.penduduk.data.statusperkawinan}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Pendidikan Terakhir</span></td>
+                                    <td><span>:</span></td>
+                                    <td><span>{{dataPrint.penduduk.data.pendidikanterakhir}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Alamat</span></td>
+                                    <td><span>:</span></td>
+                                    <td><span>{{dataPrint.penduduk.data.alamatlangkap}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div style="text-align: justify;">
+                            <span
+                                style="font-family: 'Times New Roman', Times, serif; font-size: 12pt;"><br>&emsp;&emsp;Orang
+                                tersebut diatas, memang benar adalah
+                                warga kami dan berdomisili di
+                                Distrik Heram Kelurahan Waena Kota Jayapura.<br>
+                                <br>&emsp;&emsp;Demikian surat pengantar ini kami buat agar dapat dipergunakan
+                                sebagaimana
+                                mestinya dan penuh tanggung jawab.<br><br><br><br></span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="footer">
+        <p> Jayapura, {{dataPrint.tampiltanggalsurat}}</p>
+        <p ng-if="dataPrint.pejabat.namajabatan==Lurah">LURAH WAENA</p>
+        <p ng-if="dataPrint.pejabat.namajabatan!=Lurah">an. LURAH WAENA</p>
+        <p> {{dataPrint.data.pejabat.jabatan}}</p>
+        <p class="nama">{{dataPrint.data.pejabat.nama}}</p>
+        <p> NIK. {{dataPrint.data.pejabat.data.nik}}</p>
+    </div>
+</div>
+
+<!-- <div>
     <table align="center" cellpadding="1" style="width: 700px;margin-bottom: 50px;">
         <tbody>
             <tr>
@@ -124,4 +238,4 @@
             </td>
         </tr>
     </table>
-</div>
+</div> -->
