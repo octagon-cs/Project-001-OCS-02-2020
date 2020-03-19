@@ -45,19 +45,18 @@ function adminpejabatController($http, helperServices, AuthService, $scope) {
 			$scope.DataJabatan = param.data;
 		});
 	};
-	$scope.SelectedJabatan = function() {
-		$scope.ItemJabatan = JSON.parse($scope.ItemJabatan);
+	$scope.SelectedJabatan = function(item) {
 		if (
-			$scope.ItemJabatan.nama == 'Lurah' ||
-			$scope.ItemJabatan.nama == 'Sekertaris Lurah' ||
-			$scope.ItemJabatan.nama == 'Sekertaris Lurah'
+			item.nama == 'Lurah' ||
+			item.nama == 'Sekertaris Lurah' ||
+			item.nama == 'Admin'
 		) {
 			$scope.NoJabatan = false;
-			$scope.Pejabat.idjabatan = $scope.ItemJabatan.idjabatan;
+			$scope.Pejabat.idjabatan = item.idjabatan;
 			$scope.SetEmail = true;
 		} else {
 			$scope.NoJabatan = true;
-			$scope.Pejabat.idjabatan = $scope.ItemJabatan.idjabatan;
+			$scope.Pejabat.idjabatan = item.idjabatan;
 			$scope.SetJabatan = $scope.ItemJabatan.nama;
 			$scope.SetEmail = false;
 		}

@@ -86,7 +86,7 @@
                                                             <label for="inputEmail3"
                                                                 class="col-sm-4 col-form-label">No Induk Pegawai</label>
                                                             <div class="col-sm-8">
-                                                                <input type="email" class="form-control"
+                                                                <input type="text" class="form-control"
                                                                     ng-model="Pejabat.nip"
                                                                     placeholder="No Induk Pegawai">
                                                             </div>
@@ -109,13 +109,8 @@
                                                             <label for="inputEmail3"
                                                                 class="col-sm-4 col-form-label">Jabatan</label>
                                                             <div class="col-sm-8">
-                                                                <select ui-select2 class="form-control"
-                                                                    ng-change="SelectedJabatan()" ng-model="ItemJabatan"
+                                                                <select class="form-control" ng-change="SelectedJabatan(ItemJabatan)" ng-model="ItemJabatan" ng-options="item as item.nama for item in DataJabatan"
                                                                     data-placeholder="Pilih Jabatan">
-                                                                    <option value=""></option>
-                                                                    <option ng-repeat="item in DataJabatan"
-                                                                        value="{{item}}">
-                                                                        {{item.nama}}</option>
                                                                 </select>
                                                             </div>
                                                         </div>
