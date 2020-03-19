@@ -91,7 +91,7 @@ db.getById = async (Id) => {
             LEFT JOIN jenispermohonan ON permohonan.idjenispermohonan =
           jenispermohonan.idjenispermohonan
             LEFT JOIN pejabat ON permohonan.idpejabat = pejabat.idpejabat
-            LEFT JOIN jabatan ON pejabat.idpejabat = jabatan.idjabatan where idpermohonan=? `,
+            LEFT JOIN jabatan ON pejabat.idjabatan = jabatan.idjabatan where idpermohonan=? `,
 			[ Id ],
 			(err, result) => {
 				if (err) {
@@ -129,7 +129,7 @@ db.getByJenis = async (Id) => {
             LEFT JOIN jenispermohonan ON permohonan.idjenispermohonan =
           jenispermohonan.idjenispermohonan
             LEFT JOIN pejabat ON permohonan.idpejabat = pejabat.idpejabat
-            LEFT JOIN jabatan ON pejabat.idpejabat = jabatan.idjabatan where permohonan.idjenispermohonan=? `,
+            LEFT JOIN jabatan ON pejabat.idjabatan = jabatan.idjabatan where permohonan.idjenispermohonan=? `,
 			[ Id ],
 			(err, result) => {
 				if (err) {

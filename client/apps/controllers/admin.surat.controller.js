@@ -263,6 +263,7 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
         $scope.model = data;
         PendudukService.getById(data.idpenduduk).then(penduduk => {
             $scope.model.idpenduduk = penduduk;
+            $scope.model.idpejabat = angular.copy($scope.dataPejabat.find(x => x.idpejabat == data.idpejabat));
             $scope.tab.show('edit');
         })
 
@@ -274,7 +275,7 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
                 $scope.ListPenduduk = penduduk;
                 PejabatService.get().then(pejabat => {
                     $scope.dataPejabat = pejabat.filter(x => x.status == 1);
-                    $scope.model.data.pejabat = $scope.dataPejabat.find(x => x.namajabatan == "Lurah");
+                    $scope.model.idpejabat = $scope.dataPejabat.find(x => x.namajabatan == "Lurah");
                     JenisPermohonanService.getByJenis("Tidak Mampu").then(jenis => {
                         $scope.model.idjenispermohonan = jenis.idjenispermohonan;
                         PermohonanService.getByJenis(jenis.idjenispermohonan).then(param => {
@@ -315,13 +316,14 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
                 $scope.model.idpermohonan = param.idpermohonan;
                 $scope.Datas.push(angular.copy($scope.model));
                 $scope.tab.show('list');
-                $scope.Init();
                 message.info("Berhasil Menyimpan");
             } else {
                 message.info("Berhasil Mengubah");
-                $scope.Init();
                 $scope.tab.show('list');
             }
+            $scope.model = {};
+                $scope.model.data = {};
+                $scope.Init();
         }, error => {
             message.errorText(error.message);
         })
