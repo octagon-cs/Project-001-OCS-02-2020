@@ -207,7 +207,7 @@ function approvedService(helperServices) {
 						}
 					}
 				} else {
-					value.SetButtonPrint = false;
+					value.SetButtonPrint = true;
 					value.SetButtonApproved = true;
 				}
 			})

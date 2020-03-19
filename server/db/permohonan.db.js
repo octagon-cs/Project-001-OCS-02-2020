@@ -156,6 +156,7 @@ db.post = async (data) => {
 db.put = async (data) => {
     return new Promise((resolve, reject) => {
         try {
+            data.tanggalpengajuan = new Date(data.tanggalpengajuan);
             pool.query(
                 'update permohonan set idpenduduk=?,tanggalpengajuan=?, data=?, persetujuan=?, idjenispermohonan=?, nomorsurat=? where idpermohonan=? ',
                 [data.idpenduduk, data.tanggalpengajuan, JSON.stringify(data.data), JSON.stringify(data.persetujuan),

@@ -47,7 +47,7 @@ fn.validate = async (data) => {
                     return IdPenduduk(data);
 
                 case "Belum Menikah":
-                    return IdPenduduk(data);
+                    return await belumMenikah(data);
 
                 case "Kematian":
                     return IdPenduduk(data);
@@ -84,6 +84,16 @@ cerai = async (data) => {
             return validate(false, "Keterangan Tidak Boleh Kosong");
         data.data.suami = suami;
         data.data.istri = istri;
+        return validate(true, null)
+    } catch (error) {
+        return validate(true, error.message);
+    }
+}
+
+belumMenikah = async (data) => {
+    try {
+        if (!data.idpenduduk)
+            return validate(false, "Data Pemohon Tidak Boleh Kosong");
         return validate(true, null)
     } catch (error) {
         return validate(true, error.message);
