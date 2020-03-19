@@ -62,7 +62,7 @@ function adminpejabatController($http, helperServices, AuthService, $scope) {
 		}
 	};
 	$scope.Simpan = function() {
-		var role = $scope.ItemJabatan.nama.includes('lurah')
+		var role = $scope.ItemJabatan.nama.includes('Lurah')
 			? 'lurah'
 			: $scope.ItemJabatan.nama.includes('Sekertaris') ? 'seklur' : null;
 		if (role) {
