@@ -345,7 +345,7 @@ function adminJenisPermohonanController($http, $scope, helperServices, AuthServi
 
 function adminsuratpengantarktpController() {}
 
-function admindatapendudukController($scope, $http, helperServices, AuthService) {
+function admindatapendudukController($scope, $http, helperServices, AuthService, PendudukService) {
 	$scope.DataPenduduk = [];
 	$scope.DataInput = {};
 	$scope.Penduduk = {};
@@ -366,14 +366,16 @@ function admindatapendudukController($scope, $http, helperServices, AuthService)
 		);
 	};
 	$scope.SelectedItemPenduduk = function(item, set) {
-		$scope.Penduduk = item;
-		if (set == 'edit') {
-			$scope.edit = true;
-			$scope.view = false;
-		} else {
-			$scope.edit = false;
-			$scope.view = true;
-		}
+		PendudukService.getById(item.idpenduduk, true).then((penduduk) => {
+			$scope.Penduduk = penduduk;
+			if (set == 'edit') {
+				$scope.edit = true;
+				$scope.view = false;
+			} else {
+				$scope.edit = false;
+				$scope.view = true;
+			}
+		});
 	};
 	$scope.Simpan = function() {
 		$http({
@@ -390,6 +392,7 @@ function admindatapendudukController($scope, $http, helperServices, AuthService)
 			(error) => {}
 		);
 	};
+
 	$scope.Ubah = function() {
 		$http({
 			method: 'put',

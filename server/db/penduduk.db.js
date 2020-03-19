@@ -102,35 +102,6 @@ db.getByNKK = async (nkk) => {
 	});
 };
 
-// db.post = async (data) => {
-// 	return new Promise((resolve, reject) => {
-// 		try {
-// 			pool.query(
-// 				'insert into penduduk  (nama, nik, nkk, idusers, data, statusdalamkeluarga,status) values(?,?,?,?,?,?,?)',
-// 				[
-// 					data.nama,
-// 					data.nik,
-// 					data.nkk,
-// 					data.idusers,
-// 					JSON.stringify(data.data),
-// 					data.statusdalamkeluarga,
-// 					data.status
-// 				],
-// 				(err, result) => {
-// 					if (err) {
-// 						return reject(err);
-// 					} else {
-// 						data.idpenduduk = result.insertId;
-// 						resolve(data);
-// 					}
-// 				}
-// 			);
-// 		} catch (err) {
-// 			return reject(err);
-// 		}
-// 	});
-// };
-
 db.post = async (data) => {
 	return new Promise((resolve, reject) => {
 		try {
