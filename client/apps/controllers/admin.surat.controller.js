@@ -208,13 +208,11 @@ function adminsuratketmenikahController($http, helperServices, AuthService, $sco
             if ($scope.tab.tambah) {
                 $scope.model.idpermohonan = param.idpermohonan;
                 $scope.Datas.push(angular.copy($scope.model));
-                $scope.Init();
                 message.info("Berhasil Menyimpan");
             } else {
                 message.info("Berhasil Mengubah Data");
-                $scope.Init();
             }
-            $scope.model = {};
+            $scope.Init();
             $scope.tab.show('list');
         }, error => {
             message.errorText(error.message);
@@ -322,10 +320,7 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
             } else {
                 message.info("Berhasil Mengubah");
                 $scope.Init();
-                $scope.TabList = true;
-                $scope.TabTambah = false;
-                $scope.TabEdit = false;
-                $scope.TabApproved = false;
+                $scope.tab.show('list');
             }
         }, error => {
             message.errorText(error.message);
