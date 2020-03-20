@@ -263,6 +263,7 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
         $scope.model = data;
         PendudukService.getById(data.idpenduduk).then(penduduk => {
             $scope.model.idpenduduk = penduduk;
+            $scope.model.idpejabat = angular.copy($scope.dataPejabat.find(x => x.idpejabat == data.idpejabat));
             $scope.tab.show('edit');
         })
 
@@ -315,13 +316,14 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
                 $scope.model.idpermohonan = param.idpermohonan;
                 $scope.Datas.push(angular.copy($scope.model));
                 $scope.tab.show('list');
-                $scope.Init();
                 message.info("Berhasil Menyimpan");
             } else {
                 message.info("Berhasil Mengubah");
-                $scope.Init();
                 $scope.tab.show('list');
             }
+            $scope.model = {};
+                $scope.model.data = {};
+                $scope.Init();
         }, error => {
             message.errorText(error.message);
         })
