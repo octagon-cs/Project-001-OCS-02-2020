@@ -10,10 +10,10 @@ function helperServices() {
 
 	//service.url = 'http://waena-desa.id';
 	service.url = 'http://localhost:3000';
-	source.KepemilikanKTP = ['Sudah Memiliki KTP', 'Belum Memiliki KTP', 'Pembuatan KTP Dalam Proses'];
-	source.GolonganDarah = ['O', 'A', 'A-', 'A+', 'AB', 'AB-', 'AB+', 'B', 'B-', 'O-', 'O+', 'TIDAK TAHU'];
-	source.Agama = ['ISLAM', 'KATOLIK', 'KRISTEN', 'HINDU', 'BUDHA', 'KONGHUCHU', 'LAINNYA'];
-	source.JenisKelamin = ['LAKI-LAKI', 'PEREMPUAN'];
+	source.KepemilikanKTP = [ 'Sudah Memiliki KTP', 'Belum Memiliki KTP', 'Pembuatan KTP Dalam Proses' ];
+	source.GolonganDarah = [ 'O', 'A', 'A-', 'A+', 'AB', 'AB-', 'AB+', 'B', 'B-', 'O-', 'O+', 'TIDAK TAHU' ];
+	source.Agama = [ 'ISLAM', 'KATOLIK', 'KRISTEN', 'HINDU', 'BUDHA', 'KONGHUCHU', 'LAINNYA' ];
+	source.JenisKelamin = [ 'LAKI-LAKI', 'PEREMPUAN' ];
 	source.PendidikanTerakhir = [
 		'Tidak/Belum Sekolah',
 		'Belum Tamat SD/Sederajat',
@@ -32,7 +32,7 @@ function helperServices() {
 		'Lebih Dari Rp 500.000 s/d Rp 750.000',
 		'Rp 500.000 atau Kurang'
 	];
-	source.Kewarganegaraan = ['Warga Negara Indonesia (WNI)', 'Warga Negara Asing (WNA)', 'Lainnya...'];
+	source.Kewarganegaraan = [ 'Warga Negara Indonesia (WNI)', 'Warga Negara Asing (WNA)', 'Lainnya...' ];
 	source.StatusTT = [
 		'Rumah Milik Sendiri',
 		'Kontrak Rumah',
@@ -45,7 +45,7 @@ function helperServices() {
 		'Tidak Memiliki Rumah',
 		'Lainnya...'
 	];
-	source.StatusKIS = ['Sudah Memiliki KIS', 'Belum Memiliki KIS', 'KIS Masih Dalam Proses'];
+	source.StatusKIS = [ 'Sudah Memiliki KIS', 'Belum Memiliki KIS', 'KIS Masih Dalam Proses' ];
 	source.StatusSosial = [
 		'Penduduk Sangat Miskin',
 		'Penduduk Miskin',
@@ -54,8 +54,8 @@ function helperServices() {
 		'Penduduk Tidak Miskin',
 		'Tidak Tahu'
 	];
-	source.StatusKK = ['Sudah Memiliki KK', 'belum Memiliki KK', 'KK Masih Dalam Proses'];
-	source.StatusKIP = ['Sudah Memiliki KIP', 'Belum Memiliki KIP', 'KIP Masih Dalam Proses'];
+	source.StatusKK = [ 'Sudah Memiliki KK', 'belum Memiliki KK', 'KK Masih Dalam Proses' ];
+	source.StatusKIP = [ 'Sudah Memiliki KIP', 'Belum Memiliki KIP', 'KIP Masih Dalam Proses' ];
 	source.StatusKeluarga = [
 		'Kepala Keluarga',
 		'Orang Tua',
@@ -69,8 +69,8 @@ function helperServices() {
 		'Pembantu',
 		'Lainnya...'
 	];
-	source.StatusPerkawinan = ['BELUM KAWIN', 'KAWIN', 'DUDA', 'JANDA', 'CERAI HIDUP', 'CERAI MATI'];
-	source.Kewarganegawaan = ['WNI', 'WNA'];
+	source.StatusPerkawinan = [ 'BELUM KAWIN', 'KAWIN', 'DUDA', 'JANDA', 'CERAI HIDUP', 'CERAI MATI' ];
+	source.Kewarganegawaan = [ 'WNI', 'WNA' ];
 
 	source.BacaHuruf = [
 		'Tidak Dapat Membaca (Buta Huruf)',
@@ -152,8 +152,8 @@ function helperServices() {
 		'Keterangan Lainnya',
 		'Pindah'
 	];
-	source.Roles = ['pemohon', 'admin', 'seklur', 'lurah'];
-	source.Hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+	source.Roles = [ 'pemohon', 'admin', 'seklur', 'lurah' ];
+	source.Hari = [ 'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu' ];
 
 	function print(id) {
 		var w = 750;
@@ -176,8 +176,8 @@ function helperServices() {
 		popupWinindow.document.open();
 		popupWinindow.document.write(
 			'<html><head><title>Cetak Surat</title></head><body onload="window.print()"><div>' +
-			innerContents +
-			'</html>'
+				innerContents +
+				'</html>'
 		);
 		popupWinindow.document.close();
 	}
@@ -221,17 +221,26 @@ function helperServices() {
 		}
 	}
 
+	function pad(number) {
+		var str = '' + number;
+		while (str.length < 7) {
+			str = '0' + str;
+		}
+		return str;
+	}
+
 	return {
 		url: service.url,
 		source: source,
 		print: print,
-		state: getState
+		state: getState,
+		pad: pad
 	};
 }
 
 function tabServices() {
 	var service = {};
-	service.show = function (item, item1, item2, item3) {
+	service.show = function(item, item1, item2, item3) {
 		service.list = false;
 		service.tambah = false;
 		service.edit = false;
@@ -275,7 +284,7 @@ function tabServices() {
 }
 
 function approvedService(helperServices) {
-	approvedAction = function (param, userRole) {
+	approvedAction = function(param, userRole) {
 		if (param.length !== 0) {
 			param.forEach((value) => {
 				if (value.persetujuan && value.persetujuan.length > 0) {

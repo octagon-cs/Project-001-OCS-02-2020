@@ -11,29 +11,44 @@ angular
 	.controller('admintambahpermohonanController', admintambahpermohonanController)
 	.controller('adminpermohonanController', adminpermohonanController)
 	.controller('adminSuratController', adminSuratController)
+	.controller('adminSuratAllController', adminSuratAllController)
 	.controller('adminpejabatController', adminpejabatController);
 
 function adminSuratController($scope, $state, helperServices, JenisPermohonanService) {
 	$scope.DatasJenis = [];
-	JenisPermohonanService.get().then(jenispermohonan=>{
+	JenisPermohonanService.get().then((jenispermohonan) => {
 		$scope.DatasJenis = jenispermohonan;
-	})
+	});
 	$scope.ShowLayanan = true;
 	// $scope.state;
 	$scope.helper = helperServices.source;
 	$scope.SelectePermohonan = (param) => {
 		setTimeout((x) => {
 			var state = helperServices.state(param.jenis);
-			if (state)
-			{
+			if (state) {
 				$state.go(state);
 				$scope.ShowLayanan = false;
-			} else{
+			} else {
 				$state.go('admin-surat');
 				$scope.ShowLayanan = false;
 			}
-			
 		}, 300);
+	};
+}
+
+function adminSuratAllController($scope, PermohonanService, helperServices, $rootScope, $state) {
+	PermohonanService.get().then((data) => {
+		$scope.datas = data.filter((x) => x.status != 'Selesai');
+	});
+
+	$scope.go = (permohonan) => {
+		var state = helperServices.state(permohonan.jenis);
+		$rootScope.permohonan = permohonan;
+		$state.go(state);
+	};
+
+	$scope.pad = (number) => {
+		return helperServices.pad(number);
 	};
 }
 

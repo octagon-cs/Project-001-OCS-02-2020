@@ -1,0 +1,46 @@
+<div class="card card-warning" >
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-list"></i>
+            List Permohonan
+        </h3>
+        <div class="card-tools">
+            <button class="btn btn-primary float-right" ng-click="tab.show('tambah')"><i
+                    class="fa fa-plus"></i></button>
+        </div>
+    </div><!-- /.card-header -->
+    <div class="card-body">
+        <div class="table-responsive p-0">
+            <table datatable="ng" class="table table-head-fixed text-nowrap">
+                <thead>
+                    <tr>
+                        <th width="5px">No</th>
+                        <th>Kode</th>
+                        <th>NIK</th>
+                        <th>Nama </th>
+                        <th>No Surat</th>
+                        <th>Tanggal Pengajuan</th>
+                        <th>Jenis Permohonan</th>
+                        <th width="10px">Option</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in datas">
+                        <td>{{$index+1}}</td>
+                        <td>{{pad(item.idpermohonan)}}</td>
+                        <td>{{item.nik}}</td>
+                        <td>{{item.nama}}</td>
+                        <td>{{item.nomorsurat}}</td>
+                        <td>{{item.tanggalpengajuan | date: format: 'dd MMMM yyyy'}}</td>
+                        <td>{{item.namapermohonan}}</td>
+                        <td>
+                          <a href="javascript:void(0)" class="btn btn-warning" 
+                                ng-click="go(item)"><i
+                                    class="fas fa-edit"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
