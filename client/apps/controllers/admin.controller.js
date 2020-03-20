@@ -10,7 +10,20 @@ angular
 	.controller('adminpreviewController', adminpreviewController)
 	.controller('admintambahpermohonanController', admintambahpermohonanController)
 	.controller('adminpermohonanController', adminpermohonanController)
+	.controller('adminSuratController', adminSuratController)
 	.controller('adminpejabatController', adminpejabatController);
+
+function adminSuratController($scope, $state, helperServices) {
+	$scope.state = '';
+	$scope.helper = helperServices.source;
+	$scope.SelectePermohonan = (param) => {
+		setTimeout((x) => {
+			var state = helperServices.state(param);
+			if (state) $state.go(state);
+			else $state.go('admin-surat');
+		}, 300);
+	};
+}
 
 function adminController(AuthService) {
 	AuthService.Init([ 'admin' ]);
@@ -46,11 +59,7 @@ function adminpejabatController($http, helperServices, AuthService, $scope) {
 		});
 	};
 	$scope.SelectedJabatan = function(item) {
-		if (
-			item.nama == 'Lurah' ||
-			item.nama == 'Sekertaris Lurah' ||
-			item.nama == 'Admin'
-		) {
+		if (item.nama == 'Lurah' || item.nama == 'Sekertaris Lurah' || item.nama == 'Admin') {
 			$scope.NoJabatan = false;
 			$scope.Pejabat.idjabatan = item.idjabatan;
 			$scope.SetEmail = true;

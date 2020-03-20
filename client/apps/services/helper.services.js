@@ -182,10 +182,21 @@ function helperServices() {
 		popupWinindow.document.close();
 	}
 
+	function getState(state) {
+		switch (state) {
+			case 'Pengantar KTP':
+				return 'admin-suratpengantarktp';
+
+			default:
+				return null;
+		}
+	}
+
 	return {
 		url: service.url,
 		source: source,
-		print: print
+		print: print,
+		state: getState
 	};
 }
 

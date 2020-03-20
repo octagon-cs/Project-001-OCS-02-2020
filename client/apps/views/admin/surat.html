@@ -1,0 +1,5 @@
+<h1>Page Surat</h1>
+
+<select ng-model="state" ng-options="item for item in  helper.PermohonanJenis" ng-change="SelectePermohonan(state)"></select>
+<a  ui-sref="admin-surat-suratketnikah">Surat Nikah</a>
+<ui-view></ui-view>
