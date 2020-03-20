@@ -13,14 +13,26 @@ angular
 	.controller('adminSuratController', adminSuratController)
 	.controller('adminpejabatController', adminpejabatController);
 
-function adminSuratController($scope, $state, helperServices) {
-	$scope.state = '';
+function adminSuratController($scope, $state, helperServices, JenisPermohonanService) {
+	$scope.DatasJenis = [];
+	JenisPermohonanService.get().then(jenispermohonan=>{
+		$scope.DatasJenis = jenispermohonan;
+	})
+	$scope.ShowLayanan = true;
+	// $scope.state;
 	$scope.helper = helperServices.source;
 	$scope.SelectePermohonan = (param) => {
 		setTimeout((x) => {
-			var state = helperServices.state(param);
-			if (state) $state.go(state);
-			else $state.go('admin-surat');
+			var state = helperServices.state(param.jenis);
+			if (state)
+			{
+				$state.go(state);
+				$scope.ShowLayanan = false;
+			} else{
+				$state.go('admin-surat');
+				$scope.ShowLayanan = false;
+			}
+			
 		}, 300);
 	};
 }

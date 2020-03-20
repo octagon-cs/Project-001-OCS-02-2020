@@ -266,7 +266,12 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
             $scope.model.idpejabat = angular.copy($scope.dataPejabat.find(x => x.idpejabat == data.idpejabat));
             $scope.tab.show('edit');
         })
-
+    }
+    $scope.Batal = function () {
+        $scope.model = {};
+        $scope.model.data = {};
+        $scope.Init();
+        $scope.tab.show('list');
     }
     $scope.Init = function () {
         AuthService.profile().then(param => {
