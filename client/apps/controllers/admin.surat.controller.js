@@ -70,7 +70,7 @@ function adminsuratbelummenikahController($http, helperServices, AuthService, $s
 
 
     $scope.SelectedRT = function () {
-        $scope.model.data.RT = $scope.ListRT.find(x => x.data.nomorrt == $scope.model.data.idpenduduk.data.rt && x.data.nomorrw == $scope.model.data.idpenduduk.data.rw);
+        $scope.model.data.RT = $scope.ListRT.find(x => x.data.nomorrt == $scope.model.data.idpenduduk.rt && x.data.nomorrw == $scope.model.data.idpenduduk.rw);
     }
     $scope.Simpan = function () {
         var Method;
@@ -274,7 +274,7 @@ function adminsurattidakmampuController($http, helperServices, AuthService, $sco
                 $scope.ListPenduduk = penduduk;
                 PejabatService.get().then(pejabat => {
                     $scope.dataPejabat = pejabat.filter(x => x.status == 1);
-                    $scope.model.data.pejabat = $scope.dataPejabat.find(x => x.namajabatan == "Lurah");
+                    $scope.model.idpejabat = $scope.dataPejabat.find(x => x.namajabatan == "Lurah");
                     JenisPermohonanService.getByJenis("Tidak Mampu").then(jenis => {
                         $scope.model.idjenispermohonan = jenis.idjenispermohonan;
                         PermohonanService.getByJenis(jenis.idjenispermohonan).then(param => {
@@ -776,7 +776,7 @@ function adminsuratketnikahController($http, helperServices, AuthService, $scope
         $scope.model.idpenduduk = a.idpenduduk;
         $scope.model.nama = a.nama;
     }
-    
+
     $scope.Simpan = function () {
         var Method;
         if ($scope.tab.tambah) {

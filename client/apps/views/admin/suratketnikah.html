@@ -63,6 +63,28 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Nomor Surat</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="model.nomorsurat"
+                                            placeholder="Nomor Surat">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Keterangan Nikah</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" ng-model="model.data.keterangan" rows="3"
+                                            placeholder="Keterangan Nikah">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header"></div><br>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">NIK Suami</label>
                                     <div class="col-sm-8">
                                         <input type="text" ng-model="model.data.idpenduduksuami" placeholder="Pilih Data Suami" uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8" class="form-control">
@@ -80,28 +102,7 @@
                             </div>
                         </div>
                         <div class="card-header"></div><br>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Nomor Surat</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" ng-model="model.nomorsurat"
-                                            placeholder="Nomor Surat">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Keterangan Nikah</label>
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" ng-model="model.data.keterangan" rows="3"
-                                            placeholder="Keterangan Nikah">
-                                        </textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-header"></div><br>
+                        
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
