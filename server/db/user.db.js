@@ -282,8 +282,7 @@ UserDb.profile = async (userid, role) => {
             users.email,
             users.username,
             users.photo,
-            users.idusers,
-            penduduk.nama AS nama
+            penduduk.*
           FROM
             users
             LEFT JOIN penduduk ON users.idusers = penduduk.idusers
