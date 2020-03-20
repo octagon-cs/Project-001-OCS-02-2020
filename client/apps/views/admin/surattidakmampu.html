@@ -32,8 +32,7 @@
                 <td>{{item.nik}}</td>
                 <td>{{item.nama}}</td>
                 <td>{{item.nomorsurat}}</td>
-                <td ng-if="item.data.pejabat.atasnama == undefined">{{item.data.pejabat.nama}}</td>
-                <td ng-if="item.data.pejabat.atasnama != undefined">{{item.data.pejabat.atasnama}}</td>
+                <td>{{item.namapejabat}}</td>
                 <td>
                   <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'" class="btn btn-primary"
                     ng-click="Print('suratTidakMampu', item)">
@@ -82,7 +81,7 @@
                 <div class="form-group row">
                   <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
                   <div class="col-sm-8 autoComplete">
-                    <input type="text" placeholder="Cari Pejabat" ng-model="model.data.pejabat" 
+                    <input type="text" placeholder="Cari Pejabat" ng-model="model.idpejabat" 
                     uib-typeahead="state as state.nama+' - '+state.namajabatan for state in dataPejabat | 
                         filter:$viewValue
                         | limitTo:8" class="form-control">
