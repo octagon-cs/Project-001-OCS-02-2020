@@ -16,12 +16,12 @@
             </div><!-- /.card-header -->
             <div class="card-body">
                 <div class="table-responsive p-0">
-                    <table datatable="" class="table table-head-fixed text-nowrap">
+                    <table datatable="ng" class="table table-head-fixed text-nowrap">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>NIK Suami</th>
-                                <th>Nama Suami</th>
+                                <th>NIK Pemohon</th>
+                                <th>Nama Pemohon</th>
                                 <th>No.Surat</th>
                                 <th>Keterangan Nikah</th>
                                 <th>Pejabat</th>
@@ -34,10 +34,11 @@
                                 <td>{{item.nik}}</td>
                                 <td>{{item.nama}}</td>
                                 <td>{{item.nomorsurat}}</td>
+                                <td>{{item.data.keterangan}}</td>
                                 <td>{{item.namapejabat}}</td>
                                 <td>
                                     <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'"
-                                        class="btn btn-primary" ng-click="Print('suratTidakMampu', item)">
+                                        class="btn btn-primary" ng-click="Print('suratKetNikah', item)">
                                         <i class="fas fa-print"></i></a>
                                     <a href="javascript:void(0)" class="btn btn-warning" ng-click="Edit(item)"><i
                                             class="fas fa-edit"></i></a>
@@ -70,16 +71,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Keterangan Nikah</label>
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" ng-model="model.data.keterangan" rows="3"
-                                            placeholder="Keterangan Nikah">
-                                        </textarea>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="card-header"></div><br>
                         <div class="row">
@@ -87,7 +78,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">NIK Suami</label>
                                     <div class="col-sm-8">
-                                        <input type="text" ng-model="model.data.idpenduduksuami" placeholder="Pilih Data Suami" uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8" class="form-control">
+                                        <input type="text" ng-model="model.data.idpenduduksuami"
+                                            placeholder="Pilih Data Suami"
+                                            uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                            class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -96,15 +90,26 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">NIK Istri</label>
                                     <div class="col-sm-8">
-                                        <input type="text" ng-model="model.data.idpendudukistri" placeholder="Pilih Data Istri" uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8" class="form-control">
+                                        <input type="text" ng-model="model.data.idpendudukistri"
+                                            placeholder="Pilih Data Istri"
+                                            uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Keterangan Nikah</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" ng-model="model.data.keterangan" rows="2"
+                                            placeholder="Keterangan Nikah">
+                                            </textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-header"></div><br>
-                        
+
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
                                     <div class="col-sm-8 autoComplete">
@@ -114,20 +119,21 @@
                                           | limitTo:8" class="form-control">
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                         <div class="card-header"></div><br>
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-success">Simpan</button>
-                        <button type="submit" class="btn btn-danger float-right">Cancel</button>
+                        <button type="button" class="btn btn-danger float-right" ng-click="Batal()">Cancel</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <div id="suratDomisili" class="printing">
+    <div id="suratKetNikah" class="printing">
         <div ng-include="'../../../apps/views/admin/formatsurat/formatkenikah.html'"></div>
     </div>
 </section>
