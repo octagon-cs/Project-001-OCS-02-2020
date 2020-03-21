@@ -14,13 +14,16 @@ angular
 	.controller('adminSuratAllController', adminSuratAllController)
 	.controller('adminpejabatController', adminpejabatController);
 
-function adminSuratController($scope, $state, helperServices, JenisPermohonanService, PersetujuanService, message) {
+function adminSuratController($scope, $state, helperServices, JenisPermohonanService, PersetujuanService, message, AuthService) {
 	$scope.DatasJenis = [];
+	$scope.UserRole;
 	JenisPermohonanService.get().then((jenispermohonan) => {
 		$scope.DatasJenis = jenispermohonan;
 	});
 	$scope.Init = function () {
-		$state.go('admin-suratall');
+		AuthService.profile().then((param) => {
+			$scope.UserRole = param.rolename;
+		})
 	}
 	// $scope.state;
 	$scope.helper = helperServices.source;
@@ -30,7 +33,7 @@ function adminSuratController($scope, $state, helperServices, JenisPermohonanSer
 			if (state) {
 				$state.go(state);
 			} else {
-				$state.go('admin-suratall');
+				$scope.UserRole=="admin"?$state.go('admin-suratall') : $scope.UserRole=="seklur"?$state.go('seklur-suratall'):$state.go('lurah-suratall');
 			}
 		}, 300);
 	};
