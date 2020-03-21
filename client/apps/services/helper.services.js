@@ -185,37 +185,37 @@ function helperServices() {
 	function getState(state, role) {
 		switch (state) {
 			case 'Pengantar KTP':
-				return 'admin-suratpengantarktp';
+				return role+'-suratpengantarktp';
 			case 'Tidak Mampu':
-				return 'admin-surattidakmampu';
+				return role+'-surattidakmampu';
 			case 'Pengantar KK':
 				return null;
 			case 'Keterangan Domisili':
-				return 'admin-suratketdomisili';
+				return role+'-suratketdomisili';
 			case 'Keterangan SKCK':
-				return 'admin-suratskck';
+				return role+'-suratskck';
 			case 'Keterangan Usaha':
-				return 'admin-suratketusaha';
+				return role+'-suratketusaha';
 			case 'Penguasaan Tanah':
-				return 'admin-suratpenguasaantanah';
+				return role+'-suratpenguasaantanah';
 			case 'Keterangan Desa':
-				return 'admin-suratketdesa';
+				return role+'-suratketdesa';
 			case 'Keterangan Cerai':
-				return 'admin-suratketcerai';
+				return role+'-suratketcerai';
 			case 'Keterangan eKTP':
-				return 'admin-suratketektp';
+				return role+'-suratketektp';
 			case 'Keterangan Nikah':
-				return 'admin-suratketnikah';
+				return role+'-suratketnikah';
 			case 'Kelahiran':
-				return 'admin-suratkelahiran';
+				return role+'-suratkelahiran';
 			case 'Sudah Menikah':
-				return 'admin-suratketmenikah';
+				return role+'-suratketmenikah';
 			case 'Belum Menikah':
-				return 'admin-suratbelummenikah';
+				return role+'-suratbelummenikah';
 			case 'Kematian':
-				return 'admin-suratkematian';
+				return role+'-suratkematian';
 			case 'Pindah':
-				return 'admin-suratpindah';
+				return role+'-suratpindah';
 			default:
 				return null;
 		}
@@ -316,8 +316,15 @@ function approvedService(helperServices) {
 						}
 					}
 				} else {
-					value.SetButtonPrint = false;
-					value.SetButtonApproved = true;
+					if(userRole=="admin"){
+						value.SetButtonPrint = false;
+						value.SetButtonApproved = true;
+					}else
+					{
+						value.SetButtonPrint = false;
+						value.SetButtonApproved = false;
+					}
+					
 				}
 			});
 		}

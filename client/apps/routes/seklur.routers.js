@@ -43,7 +43,7 @@ angular.module('seklur.router', ['ui.router']).config(function ($stateProvider, 
             templateUrl: 'apps/views/admin/jenisPermohonan.html'
         }).state('seklur-suratpengantarktp', {
             url: '/suratpengantarktp',
-            parent: 'seklur',
+            parent: 'seklur-surat',
             controller: 'adminsuratpengantarktpController',
             templateUrl: 'apps/views/admin/suratpengantarktp.html'
         }).state('seklur-datapenduduk', {
@@ -73,7 +73,7 @@ angular.module('seklur.router', ['ui.router']).config(function ($stateProvider, 
             templateUrl: 'apps/views/admin/surattidakmampu.html'
         }).state('seklur-suratketdomisili', {
             url: '/suratketdomisili',
-            parent: 'seklur',
+            parent: 'seklur-surat',
             controller: 'adminsuratketdomisiliController',
             templateUrl: 'apps/views/admin/suratketdomisili.html'
         }).state('seklur-inbox', {
@@ -93,57 +93,57 @@ angular.module('seklur.router', ['ui.router']).config(function ($stateProvider, 
             templateUrl: 'apps/views/admin/pejabat.html'
         }).state('seklur-suratskck', {
             url: '/suratskck',
-            parent: 'seklur',
+            parent: 'seklur-surat',
             controller: 'adminsuratskckController',
             templateUrl: 'apps/views/admin/suratskck.html'
         }).state('seklur-suratpenguasaantanah', {
             url: '/suratpenguasaantanah',
-            parent: 'seklur',
+            parent: 'seklur-surat',
             controller: 'adminsuratpenguasaantanahController',
             templateUrl: 'apps/views/admin/suratpenguasaantanah.html'
         }).state('seklur-suratketusaha', {
             url: '/suratketusaha',
-            parent: 'seklur',
+            parent: 'seklur-surat',
             controller: 'adminsuratketusahaController',
             templateUrl: 'apps/views/admin/suratketusaha.html'
         }).state('seklur-suratbelummenikah', {
             url: '/suratbelummenikah',
-            parent: 'seklur',
+            parent: 'seklur-surat',
             controller: 'adminsuratbelummenikahController',
             templateUrl: 'apps/views/admin/suratbelummenikah.html'
         }).state('seklur-suratketmenikah', {
             url: '/suratketmenikah',
-            parent: 'seklur',
+            parent: 'seklur-surat',
             controller: 'adminsuratketmenikahController',
             templateUrl: 'apps/views/admin/suratketmenikah.html'
         }).state('seklur-suratkelahiran', {
             url: '/suratkelahiran',
-            parent: 'seklur',
+            parent: 'seklur-surat',
             controller: 'adminsuratkelahiranController',
             templateUrl: 'apps/views/admin/suratkelahiran.html'
         }).state('seklur-suratketcerai', {
             url: '/suratketcerai',
-            parent: 'seklur',
+            parent: 'seklur-surat',
             controller: 'adminsuratketceraiController',
             templateUrl: 'apps/views/admin/suratketcerai.html'
         }).state('seklur-suratketdesa', {
             url: '/suratketdesa',
-            parent: 'seklur',
+            parent: 'seklur-surat',
             controller: 'adminsuratketdesaController',
             templateUrl: 'apps/views/admin/suratketdesa.html'
         }).state('seklur-suratketektp', {
             url: '/suratketektp',
-            parent: 'seklur',
+            parent: 'seklur-surat',
             controller: 'adminsuratketektpController',
             templateUrl: 'apps/views/admin/suratketektp.html'
         }).state('seklur-suratketlainnya', {
             url: '/suratketlainnya',
-            parent: 'seklur',
+            parent: 'seklur-surat',
             controller: 'adminsuratketlainnyaController',
             templateUrl: 'apps/views/admin/suratketlainnya.html'
         }).state('seklur-suratketnikah', {
             url: '/suratketnikah',
-            parent: 'seklur',
+            parent: 'seklur-surat',
             controller: 'adminsuratketnikahController',
             templateUrl: 'apps/views/admin/suratketnikah.html'
         }).state('seklur-suratall', {

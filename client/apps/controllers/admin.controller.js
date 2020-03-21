@@ -23,17 +23,18 @@ function adminSuratController($scope, $state, helperServices, JenisPermohonanSer
 	$scope.Init = function () {
 		AuthService.profile().then((param) => {
 			$scope.UserRole = param.rolename;
+			$scope.UserRole == "admin" ? $state.go('admin-suratall') : $scope.UserRole == "seklur" ? $state.go('seklur-suratall') : $state.go('lurah-suratall');
 		})
 	}
 	// $scope.state;
 	$scope.helper = helperServices.source;
 	$scope.SelectePermohonan = (param) => {
 		setTimeout((x) => {
-			var state = helperServices.state(param.jenis);
+			var state = helperServices.state(param.jenis, $scope.UserRole);
 			if (state) {
 				$state.go(state);
 			} else {
-				$scope.UserRole=="admin"?$state.go('admin-suratall') : $scope.UserRole=="seklur"?$state.go('seklur-suratall'):$state.go('lurah-suratall');
+				$scope.UserRole == "admin" ? $state.go('admin-suratall') : $scope.UserRole == "seklur" ? $state.go('seklur-suratall') : $state.go('lurah-suratall');
 			}
 		}, 300);
 	};
@@ -52,7 +53,7 @@ function adminSuratAllController($scope, PermohonanService, helperServices, $roo
 	})
 
 	$scope.go = (permohonan) => {
-		var state = helperServices.state(permohonan.jenis);
+		var state = helperServices.state(permohonan.jenis, $scope.UserRole);
 		$rootScope.permohonan = permohonan;
 		$state.go(state);
 	};
@@ -124,7 +125,7 @@ function adminpejabatController($http, helperServices, AuthService, $scope, tabS
 			})
 		})
 
-	
+
 	};
 	$scope.SelectedJabatan = function (item) {
 		if (item.namajabatan == 'Lurah' || item.namajabatan == 'Sekertaris Lurah' || item.namajabatan == 'Admin') {
@@ -357,7 +358,7 @@ function admindatakepaladesaController() { }
 
 function admindataumumdesaController() { }
 
-function adminJenisPermohonanController($http, $scope, helperServices, AuthService, message, tabService,JenisPermohonanService) {
+function adminJenisPermohonanController($http, $scope, helperServices, AuthService, message, tabService, JenisPermohonanService) {
 	$scope.tab = tabService.createTab();
 	$scope.DatasJenisPermohonan = [];
 	$scope.JenisPermohonan = {};
@@ -367,24 +368,24 @@ function adminJenisPermohonanController($http, $scope, helperServices, AuthServi
 	$scope.Persyaratan = [];
 	$scope.PermohonanJenis = helperServices.source.PermohonanJenis;
 	$scope.Init = function () {
-		JenisPermohonanService.get().then(jenis=>{
+		JenisPermohonanService.get().then(jenis => {
 			$scope.DatasJenisPermohonan = jenis;
 			$scope.tab.show("list");
 		})
 	}
 
-	$scope.SelectedItemJenisPermohonan = function (item,set) {
+	$scope.SelectedItemJenisPermohonan = function (item, set) {
 		JenisPermohonanService.getById(item.idjenispermohonan, true).then((jenispermohonan) => {
 			$scope.JenisPermohonan = jenispermohonan;
-			$scope.Persyaratan=item.persyaratan;
+			$scope.Persyaratan = item.persyaratan;
 			$scope.tab.show("edit");
 		});
 	}
 
 	$scope.add = function () {
-		if($scope.model){
+		if ($scope.model) {
 			$scope.Persyaratan.push(angular.copy($scope.model));
-			$scope.model= ""
+			$scope.model = ""
 		}
 	}
 
@@ -466,10 +467,10 @@ function admindatapendudukController(
 	$scope.Init = function () {
 		PendudukService.get().then(penduduk => {
 			$scope.Datas = penduduk;
-			PejabatService.get().then((pejabat)=>{
-				var DataPejabat = pejabat.filter((x) => x.status == 1 && x.namajabatan=="RW");
-				DataPejabat.forEach(itempejabat=>{
-					itempejabat.RT = pejabat.filter((x) => x.status == 1 && x.namajabatan=="RT" && x.data.nomorrw==itempejabat.data.nomorrw);
+			PejabatService.get().then((pejabat) => {
+				var DataPejabat = pejabat.filter((x) => x.status == 1 && x.namajabatan == "RW");
+				DataPejabat.forEach(itempejabat => {
+					itempejabat.RT = pejabat.filter((x) => x.status == 1 && x.namajabatan == "RT" && x.data.nomorrw == itempejabat.data.nomorrw);
 				})
 			})
 		})
