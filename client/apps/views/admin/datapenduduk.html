@@ -1,4 +1,432 @@
 <section class="content-header" ng-init="Init()">
+    <div class="col">
+        <div class="card-tools">
+            <h4>Penduduk</h4>
+        </div>
+        <div class="card card-warning" ng-if="tab.list">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-list"></i>
+                    &nbsp; List Permohonan Keterangan Cerai
+                </h3>
+                <div class="card-tools">
+                    <button class="btn btn-primary float-right" ng-click="tab.show('tambah')"><i
+                            class="fa fa-plus"></i></button>
+                </div>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+                <div class="table-responsive p-0">
+                    <table datatable="ng" class="table table-head-fixed text-nowrap">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>NIK</th>
+                                <th>NKK</th>
+                                <th>Status Dalam Keluarga</th>
+                                <th class="text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in Datas">
+                                <td>{{$index+1}}</td>
+                                <td>{{item.nama}}</td>
+                                <td>{{item.nik}}</td>
+                                <td>{{item.nkk}}</td>
+                                <td>{{item.statusdalamkeluarga}}</td>
+                                <td class="text-right">
+                                    <button type="button" class="btn btn-info" data-toggle="modal"
+                                        data-target="#detailpenduduk" ng-click="SelectedItemPenduduk(item, 'view')">
+                                        <i class="fas fa-list"></i>
+                                    </button>
+                                    <button class="btn btn-warning" data-toggle="modal" data-target="#detailpenduduk"
+                                        ng-click="SelectedItemPenduduk(item, 'edit')"> <i
+                                            class="fas fa-edit"></i></button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div ng-if="tab.tambah || tab.edit" class="card card-warning">
+            <div class="card-header">
+                <h3 class="card-title" ng-if="tab.tambah"><i class="fas fa-plus"></i>Tambah Surat Keterangan Cerai
+                </h3>
+                <h3 class="card-title" ng-if="tab.edit"><i class="fas fa-plus"></i>Ubah Surat </h3>
+            </div>
+            <div class="card-body">
+                <form ng-submit="Simpan()" class="form-horizontal">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Status
+                                        Kepemilikan KTP</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.statuskepemilikanktp"
+                                            data-placeholder="Kepemilikanktp">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.KepemilikanKTP" value="{{item}}">{{item}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Nama</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="Penduduk.nama"
+                                            placeholder="Nama">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Tanggal
+                                        Lahir</label>
+                                    <div class="col-sm-8">
+                                        <input type="date" class="form-control" ng-model="Penduduk.tanggallahir"
+                                            placeholder="Tanggal Lahir">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">NIK</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="Penduduk.nik"
+                                            placeholder="NIK">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Tempat
+                                        Lahir</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="Penduduk.tempatlahir"
+                                            placeholder="Tempat lahir">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Nomor Akta
+                                        Lahir</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="Penduduk.aktalahir"
+                                            placeholder="No. Akta Lahir">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header">
+                        </div><br>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Dusun</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="Penduduk.dusun"
+                                            placeholder="Dusun">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">RT
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="Penduduk.rt" placeholder="RT">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Kode Post
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="Penduduk.kodepost"
+                                            placeholder="Kode Post">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">email</label>
+                                    <div class="col-sm-8">
+                                        <input type="email" class="form-control" ng-model="Penduduk.email"
+                                            placeholder="example@mail.com">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Alamat
+                                        Lengkap</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" ng-model="Penduduk.alamatlangkap"
+                                            rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">RW</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="Penduduk.rw" placeholder="RW">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Nomor Kontak
+                                        HP</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="Penduduk.kontakhp"
+                                            placeholder="Nomor Kontak HP">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header">
+                        </div><br>
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Golongan
+                                        Darah</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.golongandarah"
+                                            data-placeholder="Golongan Darah">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.GolonganDarah" value="{{item}}">{{item}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Status
+                                        Perkawinan</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.statusperkawinan"
+                                            data-placeholder="Pilih Status Perkawinan">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.StatusPerkawinan" value="{{item}}">
+                                                {{item}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Agama</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.agama"
+                                            data-placeholder="Pilih Agama">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.Agama" value="{{item}}">{{item}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">JENIS
+                                        KELAMIN</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.jeniskelamin"
+                                            data-placeholder="Pilih Jenis Kelamin">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.JenisKelamin" value="{{item}}">{{item}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Dapat Membaca
+                                        Huruf</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.bacahuruf"
+                                            data-placeholder="Pilih Huruf">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.BacaHuruf" value="{{item}}">{{item}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Penghasilan
+                                        Tetap</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.penghasilantetap"
+                                            data-placeholder="Pilih Penghasilan">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.PenghasilanTetap" value="{{item}}">
+                                                {{item}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Pekerjaan</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.pekerjaan"
+                                            data-placeholder="Pilih Pekerjaan">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.Pekerjaan" value="{{item}}">{{item}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Pendidikan
+                                        Terakhir</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.pendidikanterakhir"
+                                            data-placeholder="Pilih Pendidikan">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.PendidikanTerakhir" value="{{item}}">
+                                                {{item}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Suku</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="Penduduk.suku">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Kewarganegawaan</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.kewarganegawaan"
+                                            data-placeholder="Pilih Kewargaan">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.Kewarganegawaan" value="{{item}}">{{item}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Status Tempat
+                                        Tinggal</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.tempattinggal"
+                                            data-placeholder="Pilih Tempat Tinggal">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.StatusTT" value="{{item}}">{{item}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Status
+                                        Sosial</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.statussosial"
+                                            data-placeholder="Pilih Status Sosial">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.StatusSosial" value="{{item}}">{{item}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header">
+                        </div><br>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Status
+                                        Kepemilikan KIS</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.statuskis"
+                                            data-placeholder="Kartu Indonesia Sehat">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.StatusKIS" value="{{item}}">{{item}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">StatusKepemilikan
+                                        KIP</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.statuskip"
+                                            data-placeholder="Kartu Indonesia Pintar">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.StatusKIP" value="{{item}}">{{item}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header">
+                        </div><br>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Status
+                                        Kepemilikan KK</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.statuskk"
+                                            data-placeholder="Kartu Keluarga">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.StatusKK" value="{{item}}">{{item}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Nomor KK</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="Penduduk.nkk">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Nama
+                                        Ayah</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="Penduduk.namaayah">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Status Dalam
+                                        Keluarga</label>
+                                    <div class="col-sm-8">
+                                        <select ui-select2 class="form-control" ng-model="Penduduk.statusdalamkeluarga"
+                                            data-placeholder="Kartu Pilih Status Keluarga">
+                                            <option value=""></option>
+                                            <option ng-repeat="item in helper.StatusKeluarga" value="{{item}}">{{item}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header">
+                        </div><br>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Keterangan</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" ng-model="Penduduk.keterangan"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                            </div>
+                        </div>
+                        <div class="card-header">
+                        </div><br>
+
+
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button type="submit" class="btn btn-danger float-right">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- <section class="content-header" ng-init="Init()">
     <div class="container-fluid">
         <div class="row">
             <div class="col">
@@ -73,7 +501,7 @@
                                                 <form ng-submit="Simpan()" class="form-horizontal">
                                                     <div class="card-body">
                                                         <div class="row">
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-5">
                                                                 <div class="form-group row">
                                                                     <label for="inputEmail3"
                                                                         class="col-sm-4 col-form-label">Status
@@ -107,7 +535,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-5">
                                                                 <div class="form-group row">
                                                                     <label for="inputEmail3"
                                                                         class="col-sm-4 col-form-label">NIK</label>
@@ -141,7 +569,7 @@
                                                         <div class="card-header">
                                                         </div><br>
                                                         <div class="row">
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-5">
                                                                 <div class="form-group row">
                                                                     <label for="inputEmail3"
                                                                         class="col-sm-4 col-form-label">Dusun</label>
@@ -181,7 +609,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-5">
                                                                 <div class="form-group row">
                                                                     <label for="inputEmail3"
                                                                         class="col-sm-4 col-form-label">Alamat
@@ -217,7 +645,7 @@
                                                         </div><br>
 
                                                         <div class="row">
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-5">
                                                                 <div class="form-group row">
                                                                     <label for="inputEmail3"
                                                                         class="col-sm-4 col-form-label">Golongan
@@ -302,7 +730,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-5">
                                                                 <div class="form-group row">
                                                                     <label for="inputEmail3"
                                                                         class="col-sm-4 col-form-label">Pekerjaan</label>
@@ -385,7 +813,7 @@
                                                         <div class="card-header">
                                                         </div><br>
                                                         <div class="row">
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-5">
                                                                 <div class="form-group row">
                                                                     <label for="inputEmail3"
                                                                         class="col-sm-4 col-form-label">Status
@@ -401,7 +829,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-5">
                                                                 <div class="form-group row">
                                                                     <label for="inputEmail3"
                                                                         class="col-sm-4 col-form-label">StatusKepemilikan
@@ -421,7 +849,7 @@
                                                         <div class="card-header">
                                                         </div><br>
                                                         <div class="row">
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-5">
                                                                 <div class="form-group row">
                                                                     <label for="inputEmail3"
                                                                         class="col-sm-4 col-form-label">Status
@@ -454,7 +882,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-5">
                                                                 <div class="form-group row">
                                                                     <label for="inputEmail3"
                                                                         class="col-sm-4 col-form-label">Status Dalam
@@ -474,7 +902,7 @@
                                                         <div class="card-header">
                                                         </div><br>
                                                         <div class="row">
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-5">
                                                                 <div class="form-group row">
                                                                     <label for="inputEmail3"
                                                                         class="col-sm-4 col-form-label">Keterangan</label>
@@ -484,7 +912,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-5">
                                                             </div>
                                                         </div>
                                                         <div class="card-header">
@@ -504,11 +932,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- /.card -->
                         </div>
                     </div>
                 </div>
-                <!-- /.card -->
             </div>
         </div>
     </div>
@@ -525,7 +951,7 @@
                     <form ng-submit="Ubah()" class="form-horizontal">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Status
                                             Kepemilikan KTP</label>
@@ -564,7 +990,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">NIK</label>
                                         <div class="col-sm-8" ng-if="edit">
@@ -602,7 +1028,7 @@
                             <div class="card-header">
                             </div><br>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Dusun</label>
                                         <div class="col-sm-8" ng-if="edit">
@@ -646,7 +1072,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Alamat
                                             Lengkap</label>
@@ -685,7 +1111,7 @@
                             </div><br>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Golongan
                                             Darah</label>
@@ -778,7 +1204,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Pekerjaan</label>
                                         <div class="col-sm-8" ng-if="edit">
@@ -868,7 +1294,7 @@
                             <div class="card-header">
                             </div><br>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Status
                                             Kepemilikan KIS</label>
@@ -884,7 +1310,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">StatusKepemilikan
                                             KIP</label>
@@ -904,7 +1330,7 @@
                             <div class="card-header">
                             </div><br>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Status
                                             Kepemilikan KK</label>
@@ -939,7 +1365,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Status Dalam
                                             Keluarga</label>
@@ -971,7 +1397,7 @@
                             <div class="card-header">
                             </div><br>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-4 col-form-label">Keterangan</label>
                                         <div class="col-sm-8" ng-if="edit">
@@ -983,7 +1409,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                 </div>
                             </div>
                             <div class="card-header">
@@ -998,8 +1424,6 @@
                     </form>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
-</section>
+</section> -->

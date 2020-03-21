@@ -127,7 +127,7 @@ angular.module('admin.router', [ 'ui.router' ]).config(function($stateProvider, 
 		})
 		.state('admin-suratketdesa', {
 			url: '/suratketdesa',
-			parent: 'admin',
+			parent: 'admin-surat',
 			controller: 'adminsuratketdesaController',
 			templateUrl: 'apps/views/admin/suratketdesa.html'
 		})

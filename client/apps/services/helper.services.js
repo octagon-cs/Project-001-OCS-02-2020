@@ -199,7 +199,7 @@ function helperServices() {
 			case 'Penguasaan Tanah':
 				return 'admin-suratpenguasaantanah';
 			case 'Keterangan Desa':
-				return 'admin-datakepaladesa';
+				return 'admin-suratketdesa';
 			case 'Keterangan Cerai':
 				return 'admin-suratketcerai';
 			case 'Keterangan eKTP':

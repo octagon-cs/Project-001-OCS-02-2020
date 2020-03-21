@@ -181,13 +181,14 @@ db.put = async (data) => {
 		try {
 			data.tanggalpengajuan = new Date(data.tanggalpengajuan);
 			pool.query(
-				'update permohonan set idpenduduk=?, idpejabat=?, tanggalpengajuan=?, data=?, persetujuan=?, idjenispermohonan=?, nomorsurat=? where idpermohonan=? ',
+				'update permohonan set idpenduduk=?, idpejabat=?, tanggalpengajuan=?, data=?, persetujuan=?, status=?, idjenispermohonan=?, nomorsurat=? where idpermohonan=? ',
 				[
 					data.idpenduduk,
 					data.idpejabat,
 					data.tanggalpengajuan,
 					JSON.stringify(data.data),
 					JSON.stringify(data.persetujuan),
+					data.status,
 					data.idjenispermohonan,
 					data.nomorsurat,
 					data.idpermohonan
