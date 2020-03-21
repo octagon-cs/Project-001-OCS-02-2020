@@ -412,7 +412,7 @@ function adminsuratketdomisiliController(
 	message,
 	tabService,
 	PersetujuanService,
-	$rootScope,
+	$rootScope
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.ItemPenduduk = '';
@@ -812,7 +812,7 @@ function adminsuratbelummenikahController(
 	$scope,
 	message,
 	tabService,
-	$rootScope,
+	$rootScope
 
 ) {
 	$scope.JenisKelamin = helperServices.JenisKelamin;
@@ -1350,7 +1350,7 @@ function adminsuratketdesaController(
 	PejabatService,
 	approvedService,
 	$rootScope,
-	PersetujuanService,
+	PersetujuanService
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.ListPenduduk = [];
