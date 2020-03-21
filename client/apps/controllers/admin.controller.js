@@ -443,19 +443,10 @@ function admindatapendudukController($http, helperServices, AuthService, $scope,
 			$scope.Datas=penduduk;
 		})
 	};
-	$scope.SelectedItemPenduduk = function (item, set) {
-		PendudukService.getById(item.idpenduduk, true).then((penduduk) => {
-			$scope.Penduduk = penduduk;
-			if (set == 'edit') {
-				$scope.edit = true;
-				$scope.view = false;
-			} else {
-				$scope.edit = false;
-				$scope.view = true;
-			}
-		});
-	};
 	$scope.SelectedItemPenduduk = function(item){
+		PendudukService.getById(item.idpenduduk, true).then(penduduk=>{
+			$scope.Penduduk = penduduk;
+		})
 		$scope.Penduduk=item;
 		$scope.tab.show("edit");
 	}
