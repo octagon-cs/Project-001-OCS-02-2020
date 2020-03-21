@@ -357,33 +357,36 @@ function admindatakepaladesaController() { }
 
 function admindataumumdesaController() { }
 
-function adminJenisPermohonanController($http, $scope, helperServices, AuthService, message, tabService) {
+function adminJenisPermohonanController($http, $scope, helperServices, AuthService, message, tabService,JenisPermohonanService) {
 	$scope.tab = tabService.createTab();
 	$scope.DatasJenisPermohonan = [];
 	$scope.JenisPermohonan = {};
 	$scope.JenisPermohonan.persyaratan = [];
 	$scope.InputPermohonan;
-	$scope.ItemPersyaratan = '';
+	$scope.ItemPersyaratan = "";
 	$scope.Persyaratan = [];
 	$scope.PermohonanJenis = helperServices.source.PermohonanJenis;
 	$scope.Init = function () {
-		$http({
-			method: 'get',
-			url: helperServices.url + '/api/jenispermohonan',
-			headers: AuthService.getHeader()
-		}).then(
-			(param) => {
-				$scope.DatasJenisPermohonan = param.data;
-			},
-			(error) => { }
-		);
-	};
+		JenisPermohonanService.get().then(x=>{
+			$scope.DatasJenisPermohonan = x;
+			$scope.tab.show("list");
+		})
+		
+	}
+	$scope.SelectedItemJenisPermohonan = function (item,set) {
+		JenisPermohonanService.getById(item.idjenispermohonan, true).then((jenispermohonan) => {
+			$scope.JenisPermohonan = jenispermohonan;
+			$scope.Persyaratan=item.persyaratan;
+			$scope.tab.show("edit");
+		});
+	}
 	$scope.addPersyaratan = function () {
-		if ($scope.ItemPersyaratan !== '') {
+		if ($scope.ItemPersyaratan) {
 			$scope.Persyaratan.push(angular.copy($scope.ItemPersyaratan));
-			$scope.ItemPersyaratan = '';
+			
 		}
-	};
+		$scope.ItemPersyaratan = "";
+	}
 
 	$scope.Simpan = function () {
 		$scope.JenisPermohonan.persyaratan = $scope.Persyaratan;
@@ -404,7 +407,7 @@ function adminJenisPermohonanController($http, $scope, helperServices, AuthServi
 				message.errorText(error.message);
 			}
 		);
-	};
+	}
 
 	$scope.Ubah = function () {
 		$http({
@@ -420,7 +423,7 @@ function adminJenisPermohonanController($http, $scope, helperServices, AuthServi
 				alert(error.message);
 			}
 		);
-	};
+	}
 
 	$scope.Hapus = function (item) {
 		$http({
@@ -435,7 +438,7 @@ function adminJenisPermohonanController($http, $scope, helperServices, AuthServi
 				alert(error.message);
 			}
 		);
-	};
+	}
 }
 
 function adminsuratpengantarktpController() { }

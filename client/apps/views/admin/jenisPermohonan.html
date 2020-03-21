@@ -1,13 +1,13 @@
 <section class="content-header" ng-init="Init()">
   <div class="col">
     <div class="card-tools">
-      <h4>Penduduk</h4>
+      <h4>Jenis Permohonan</h4>
     </div>
     <div class="card card-warning" ng-if="tab.list">
       <div class="card-header">
         <h3 class="card-title">
           <i class="fas fa-list"></i>
-          &nbsp; List Permohonan Keterangan Cerai
+          &nbsp; List Jenis Permohonan
         </h3>
         <div class="card-tools">
           <button class="btn btn-primary float-right" ng-click="tab.show('tambah')"><i class="fa fa-plus"></i></button>
@@ -40,7 +40,7 @@
                     ng-click="SelectedItemPenduduk(item, 'view')">
                     <i class="fas fa-list"></i>
                   </button>
-                  <button class="btn btn-warning" ng-click="Selected(item)"> <i class="fas fa-edit"></i></button>
+                  <button class="btn btn-warning" ng-click="SelectedItemJenisPermohonan(item)"> <i class="fas fa-edit"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -107,7 +107,7 @@
           </div>
           <div class="card-footer">
             <button type="submit" class="btn btn-success">Tambah</button>
-            <button type="button" class="btn btn-danger float-right">Cancel</button>
+            <button type="button" class="btn btn-danger float-right" ng-click="tab.show('list')">Cancel</button>
           </div>
         </form>
       </div>
