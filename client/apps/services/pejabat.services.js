@@ -40,6 +40,30 @@ function PejabatServices($http, $q, helperServices, AuthService) {
 		return def.promise;
 	}
 
+	function getById(id) {
+		var def = $q.defer();
+		if (service.instance) {
+			def.resolve(service.data);
+		} else {
+			$http({
+				method: 'get',
+				url: helperServices.url + controller + "/" + id,
+				headers: AuthService.getHeader()
+			}).then(
+				(res) => {
+					service.instance = true;
+					service.data = res.data;
+					def.resolve(res.data);
+				},
+				(err) => {
+					def.reject(err);
+					message.error(err);
+				}
+			);
+		}
+		return def.promise;
+	}
+
 	function post(data) {
 		var def = $q.defer();
 		$http({
@@ -59,6 +83,7 @@ function PejabatServices($http, $q, helperServices, AuthService) {
 		);
 		return def.promise;
 	}
+	
 
 	function put(data) {
 		var def = $q.defer();

@@ -363,16 +363,16 @@ function adminJenisPermohonanController($http, $scope, helperServices, AuthServi
 	$scope.JenisPermohonan = {};
 	$scope.JenisPermohonan.persyaratan = [];
 	$scope.InputPermohonan;
-	$scope.ItemPersyaratan = "";
+	$scope.model = "";
 	$scope.Persyaratan = [];
 	$scope.PermohonanJenis = helperServices.source.PermohonanJenis;
 	$scope.Init = function () {
-		JenisPermohonanService.get().then(x=>{
-			$scope.DatasJenisPermohonan = x;
+		JenisPermohonanService.get().then(jenis=>{
+			$scope.DatasJenisPermohonan = jenis;
 			$scope.tab.show("list");
 		})
-		
 	}
+
 	$scope.SelectedItemJenisPermohonan = function (item,set) {
 		JenisPermohonanService.getById(item.idjenispermohonan, true).then((jenispermohonan) => {
 			$scope.JenisPermohonan = jenispermohonan;
@@ -380,12 +380,12 @@ function adminJenisPermohonanController($http, $scope, helperServices, AuthServi
 			$scope.tab.show("edit");
 		});
 	}
-	$scope.addPersyaratan = function () {
-		if ($scope.ItemPersyaratan) {
-			$scope.Persyaratan.push(angular.copy($scope.ItemPersyaratan));
-			
+
+	$scope.add = function () {
+		if($scope.model){
+			$scope.Persyaratan.push(angular.copy($scope.model));
+			$scope.model= ""
 		}
-		$scope.ItemPersyaratan = "";
 	}
 
 	$scope.Simpan = function () {
@@ -450,12 +450,14 @@ function admindatapendudukController(
 	$scope,
 	message,
 	tabService,
-	PendudukService
+	PendudukService,
+	PejabatService
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.Datas = [];
 	$scope.DataInput = {};
 	$scope.Penduduk = {};
+	$scope.RW = [];
 	$scope.helper = helperServices.source;
 
 	$scope.edit = false;
@@ -464,6 +466,12 @@ function admindatapendudukController(
 	$scope.Init = function () {
 		PendudukService.get().then(penduduk => {
 			$scope.Datas = penduduk;
+			PejabatService.get().then((pejabat)=>{
+				var DataPejabat = pejabat.filter((x) => x.status == 1 && x.namajabatan=="RW");
+				DataPejabat.forEach(itempejabat=>{
+					itempejabat.RT = pejabat.filter((x) => x.status == 1 && x.namajabatan=="RT" && x.data.nomorrw==itempejabat.data.nomorrw);
+				})
+			})
 		})
 	};
 	$scope.SelectedItemPenduduk = function (item, set) {
