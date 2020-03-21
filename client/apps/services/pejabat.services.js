@@ -67,7 +67,7 @@ function PejabatServices($http, $q, helperServices, AuthService) {
              data:data
         }).then(
             (res) => {
-               var item = services.data.find(x=>x.idpejabat=data.idpejabat);
+               var item = service.data.find(x=>x.idpejabat=data.idpejabat);
                if(item){
                     item.nama = data.nama;
                }
