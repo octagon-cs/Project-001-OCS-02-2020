@@ -21,6 +21,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Kode</th>
+                                <th>Pemohon</th>
                                 <th>No.Surat</th>
                                 <th>Hari</th>
                                 <th>Nama Anak</th>
@@ -34,11 +35,12 @@
                             <tr ng-repeat="item in Datas">
                                 <td>{{$index+1}}</td>
                                 <td>{{pad(item.idpermohonan)}}</td>
+                                <td>{{item.nama}}</td>
                                 <td>{{item.data.nomorsurat}}</td>
                                 <td>{{item.data.harilahir}}</td>
                                 <td>{{item.data.namaanak}}</td>
                                 <td>{{item.data.namaibu}}</td>
-                                <td>{{item.nama}}</td>
+                                <td>{{item.data.namaayah}}</td>
                                 <td>{{item.namapejabat}} &nbsp;({{item.namajabatan}})</td>
                                 <td>
                                     <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'"
@@ -173,7 +175,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
                                     <div class="col-sm-8 autoComplete">
-                                        <input type="text" placeholder="Cari Pejabat" ng-model="model.data.idpejabat" uib-typeahead="state as state.nama+' - '+state.namajabatan for state in dataPejabat | filter:$viewValue | limitTo:8" class="form-control">
+                                        <input type="text" placeholder="Cari Pejabat" ng-model="model.idpejabat" uib-typeahead="state as state.nama+' - '+state.namajabatan for state in dataPejabat | filter:$viewValue | limitTo:8" class="form-control">
                                     </div>
                                 </div>
                             </div>

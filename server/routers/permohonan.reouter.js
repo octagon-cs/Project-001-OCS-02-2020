@@ -168,12 +168,13 @@ router.get('/approve/:id', [authJwt.verifyToken], async (req, res) => {
                 created: new Date(),
                 status: "disetujui",
                 message: "",
-                idusers: req.User.idusers,
+                idusers: req.User.userid,
+                role: req.User.roles[0],
                 read: false,
                 data: {
-                    from: req.User.email,
+                    from: req.User.username,
                     iddata: permohonan.idpermohonan,
-                    to: role
+                    to: config.Roles[indexOfRole+1]
                 }
             }
 
