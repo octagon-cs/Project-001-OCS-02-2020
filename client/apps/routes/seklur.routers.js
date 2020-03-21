@@ -149,12 +149,12 @@ angular.module('seklur.router', ['ui.router']).config(function ($stateProvider, 
         }).state('seklur-suratall', {
 			url: '/suratall',
 			parent: 'seklur-surat',
-			controller: 'seklurSuratAllController',
+			controller: 'adminSuratAllController',
 			templateUrl: 'apps/views/admin/suratall.html'
 		}).state('seklur-surat', {
 			url: '/surat',
 			parent: 'seklur',
-			controller: 'seklurSuratController',
+			controller: 'adminSuratController',
 			templateUrl: 'apps/views/admin/surat.html'
 		});
 
