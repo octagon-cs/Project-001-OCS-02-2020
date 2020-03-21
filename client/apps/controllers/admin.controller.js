@@ -455,6 +455,10 @@ function admindatapendudukController($http, helperServices, AuthService, $scope,
 			}
 		});
 	};
+	$scope.SelectedItemPenduduk = function(item){
+		$scope.Penduduk=item;
+		$scope.tab.show("edit");
+	}
 	$scope.stringnumber = (number) => {
 		return helperServices.stringnumber(number);
 	};
