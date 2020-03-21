@@ -23,7 +23,10 @@
                                 <th>Nama</th>
                                 <th>NIK</th>
                                 <th>NKK</th>
-                                <th>Status Dalam Keluarga</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Agama</th>
+                                <th>Pekerjaan</th>
+                                <th>RT / RW</th>
                                 <th class="text-right">Action</th>
                             </tr>
                         </thead>
@@ -33,7 +36,10 @@
                                 <td>{{item.nama}}</td>
                                 <td>{{item.nik}}</td>
                                 <td>{{item.nkk}}</td>
-                                <td>{{item.statusdalamkeluarga}}</td>
+                                <td>{{item.jeniskelamin}}</td>
+                                <td>{{item.agama}}</td>
+                                <td>{{item.pekerjaan}}</td>
+                                <td>{{stringnumber(item.rt)}} / {{stringnumber(item.rw)}}</td>
                                 <td class="text-right">
                                     <button type="button" class="btn btn-info" data-toggle="modal"
                                         data-target="#detailpenduduk" ng-click="SelectedItemPenduduk(item, 'view')">

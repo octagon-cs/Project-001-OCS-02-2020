@@ -455,6 +455,9 @@ function admindatapendudukController($http, helperServices, AuthService, $scope,
 			}
 		});
 	};
+	$scope.stringnumber = (number) => {
+		return helperServices.stringnumber(number);
+	};
 	$scope.Simpan = function () {
 		$http({
 			method: 'post',
@@ -463,9 +466,11 @@ function admindatapendudukController($http, helperServices, AuthService, $scope,
 			data: $scope.Penduduk
 		}).then(
 			(param) => {
-				alert('Data Berhasil di Simpan');
-				$scope.DataPenduduk.push(angular.copy(param.data));
+				message.info("Data Berhasil Disimpan");
+				$scope.Datas.push(angular.copy(param.data));
 				$scope.Penduduk = {};
+				tab.show('list');
+
 			},
 			(error) => { }
 		);
