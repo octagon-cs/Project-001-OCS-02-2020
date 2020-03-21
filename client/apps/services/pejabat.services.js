@@ -83,30 +83,6 @@ function PejabatServices($http, $q, helperServices, AuthService) {
 		return def.promise;
 	}
 
-	function getById(id) {
-		var def = $q.defer();
-		if (service.instance) {
-			var data = service.data.find((x) => x.idpejabat == id);
-			def.resolve(data);
-		} else {
-			$http({
-				method: 'get',
-				url: helperServices.url + controller + '/' + id,
-				headers: AuthService.getHeader()
-			}).then(
-				(res) => {
-					service.data = res.data;
-					def.resolve(res.data);
-				},
-				(err) => {
-					def.reject(err);
-					message.error(err);
-				}
-			);
-		}
-		return def.promise;
-	}
-
 	function getByJabatanName(jabatanName, status) {
 		var def = $q.defer();
 		if (service.instance) {

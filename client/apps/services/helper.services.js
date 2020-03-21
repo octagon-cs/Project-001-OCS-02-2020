@@ -81,9 +81,9 @@ function helperServices() {
 		'Indonesia dan Daerah',
 		'Indonesia dan Inggris',
 		'Indonesia dan Arab',
-		'Indoneisa Daeah dan Inggris',
-		'Indoneisa Daeah dan Arab',
-		'Indoneisa Daeah Inggris dan Arab',
+		'Indonesia Daeah dan Inggris',
+		'Indonesia Daeah dan Arab',
+		'Indonesia Daeah Inggris dan Arab',
 		'Huruf Lainnya',
 		'Belum Membaca'
 	];
@@ -182,7 +182,7 @@ function helperServices() {
 		popupWinindow.document.close();
 	}
 
-	function getState(state) {
+	function getState(state, role) {
 		switch (state) {
 			case 'Pengantar KTP':
 				return 'admin-suratpengantarktp';
@@ -199,7 +199,7 @@ function helperServices() {
 			case 'Penguasaan Tanah':
 				return 'admin-suratpenguasaantanah';
 			case 'Keterangan Desa':
-				return 'admin-datakepaladesa';
+				return 'admin-suratketdesa';
 			case 'Keterangan Cerai':
 				return 'admin-suratketcerai';
 			case 'Keterangan eKTP':
@@ -229,12 +229,21 @@ function helperServices() {
 		return str;
 	}
 
+	function stringnumber(number) {
+		var str = '' + number;
+		while (str.length < 3) {
+			str = '0' + str;
+		}
+		return str;
+	}
+
 	return {
 		url: service.url,
 		source: source,
 		print: print,
 		state: getState,
-		pad: pad
+		pad: pad,
+		stringnumber:stringnumber
 	};
 }
 

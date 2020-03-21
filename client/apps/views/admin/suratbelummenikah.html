@@ -1,13 +1,10 @@
 <section class="content-header" ng-init="Init()">
     <div class="col">
-        <div class="card-tools">
-            <h4>Surat Keterangan Belum Menikah</h4>
-        </div>
         <div class="card card-warning" ng-if="tab.list">
             <div class="card-header">
                 <h3 class="card-title">
                     <i class="fas fa-list"></i>
-                    List Surat
+                    List Permohonan Keterangan Belum Menikah
                 </h3>
                 <div class="card-tools">
                     <button class="btn btn-primary float-right" ng-click="tab.show('tambah')"><i
@@ -20,6 +17,7 @@
                         <thead>
                             <tr>
                                 <th width="5px">No</th>
+                                <th>Kode</th>
                                 <th>NIK</th>
                                 <th>Nama </th>
                                 <th>No Surat</th>
@@ -31,26 +29,24 @@
                         <tbody>
                             <tr ng-repeat="item in Datas">
                                 <td>{{$index+1}}</td>
+                                <td>{{pad(item.idpermohonan)}}</td>
                                 <td>{{item.nik}}</td>
                                 <td>{{item.nama}}</td>
                                 <td>{{item.nomorsurat}}</td>
                                 <td>{{item.tanggalpengajuan | date: format: 'dd MMMM yyyy'}}</td>
-                                <td>{{item.data.pejabat.nama}}</td>
+                                <td>{{item.namapejabat}}<br>({{item.namajabatan}})</td>
                                 <td>
-                                    <a href="javascript:void(0)" ng-hide="item.SetButtonPrint" class="btn btn-primary"
-                                        ng-click="Selecteddata('suratTidakMampu', item)"><i
-                                            class="fas fa-print"></i></a>
-                                    <a href="javascript:void(0)" ng-show="item.SetButtonPrint"
-                                        class="btn btn-primary disabled" title="Belum Disetujui Lurah"><i
-                                            class="fas fa-print"></i></a>
-                                    <a href="javascript:void(0)" class="btn btn-warning" data-toggle="modal"
-                                        data-target="#EditKelahiran" ng-click="Edit(item)"><i
-                                            class="fas fa-edit"></i></a>
-                                    <a ng-hide="item.SetButtonApproved" href="javascript:void(0)"
-                                        class="btn btn-success" ng-click="Setujui(item)"><i
-                                            class="fas fa-check"></i></a>
-                                    <a ng-show="item.SetButtonApproved" href="javascript:void(0)"
-                                        class="btn btn-success disabled"><i class="fas fa-check"></i></a>
+                                    <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'"
+                                        class="btn btn-primary" ng-click="Print('suratTidakMampu', item)">
+                                        <i class="fas fa-print"></i></a>
+                                    <a href="javascript:void(0)" title="Detail Permohonan" class="btn btn-warning"
+                                        ng-click="Edit(item)"><i class="fas fa-eye"></i></a>
+                                    <a href="javascript:void(0)" ng-if="item.SetButtonApproved"
+                                        title="Setujui Permohonan" ng-class="item.SetButtonApproved?'':'disabled'"
+                                        class="btn btn-success" ng-click="Setuju(item)"><i class="fas fa-check"></i></a>
+                                    <a href="javascript:void(0)" ng-if="UserRole !== 'admin' && item.SetButtonApproved"
+                                        title="Tolak Permohonan" class="btn btn-danger" ng-click="TampilPesan(item)"><i
+                                            class="fas fa-ban"></i></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -60,9 +56,10 @@
         </div>
         <div ng-if="tab.tambah || tab.edit" class="card card-warning">
             <div class="card-header">
-                <h3 class="card-title" ng-if="tab.tambah"><i class="fas fa-plus"></i>Tambah Surat Keterangan Belum Menikah
+                <h3 class="card-title" ng-if="tab.tambah"><i class="fas fa-plus"></i>Tambah Surat Keterangan Belum
+                    Menikah
                 </h3>
-                <h3 class="card-title" ng-if="tab.edit"><i class="fas fa-plus"></i>Ubah Surat </h3>
+                <h3 class="card-title" ng-if="tab.edit"><i class="fas fa-plus"></i>&nbsp; Detail Permohonan</h3>
             </div>
             <div class="card-body">
                 <form ng-submit="Simpan()">
@@ -84,13 +81,18 @@
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-4 col-form-label">NIK</label>
                                     <div class="col-sm-8">
-                                        <input type="text" ng-model="model.data.idpenduduk" typeahead-on-select="SelectedRT()" placeholder="Cari NIK/Nama Warga" uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8" class="form-control">
+                                        <input type="text" ng-model="model.data.idpenduduk"
+                                            typeahead-on-select="SelectedRT()" placeholder="Cari NIK/Nama Warga"
+                                            uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                            class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-4 col-form-label">RT</label>
                                     <div class="col-sm-8">
-                                        <input type="text" placeholder="RT/RW" class="form-control" ng-value="'RT. '+model.data.RT.data.nomorrt+' / RW.'+model.data.RT.data.nomorrw" disabled>
+                                        <input type="text" placeholder="RT/RW" class="form-control"
+                                            ng-value="'RT. '+model.data.RT.data.nomorrt+' / RW.'+model.data.RT.data.nomorrw"
+                                            disabled>
                                         <!-- <select ui-select2 class="form-control" ng-model="ItemRT" data-placeholder="RT"
                                             ng-change="SelectedRT()">
                                             <option value=""></option>
@@ -104,8 +106,7 @@
                                         Pengantar</label>
                                     <div class="col-sm-8">
                                         <p class="input-group">
-                                            <input type="text" class="form-control"
-                                                uib-datepicker-popup="dd MMMM yyyy "
+                                            <input type="text" class="form-control" uib-datepicker-popup="dd MMMM yyyy "
                                                 ng-model="model.data.tanggalsuratpengantar" is-open="popup1.opened"
                                                 ng-required="true" close-text="Close"
                                                 alt-input-formats="altInputFormats" />
@@ -129,8 +130,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">No Surat Pengantar</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" ng-model="model.data.nomorsuratpengantar"
-                                            placeholder="No Surat Pengantar">
+                                        <input type="text" class="form-control"
+                                            ng-model="model.data.nomorsuratpengantar" placeholder="No Surat Pengantar">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -148,7 +149,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
                                     <div class="col-sm-8 autoComplete">
-                                      <input type="text" placeholder="Cari Pejabat" ng-model="model.data.pejabat" uib-typeahead="state as state.nama+' - '+state.namajabatan for state in dataPejabat | 
+                                        <input type="text" placeholder="Cari Pejabat" ng-model="model.data.pejabat"
+                                            uib-typeahead="state as state.nama+' - '+state.namajabatan for state in dataPejabat | 
                                           filter:$viewValue
                                           | limitTo:8" class="form-control">
                                     </div>
@@ -158,9 +160,12 @@
                         <div class="card-header"></div><br>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-success">Simpan</button>
-                        <button type="button" class="btn btn-danger float-right"
-                            ng-click="Tab.Tambah=false;Tab.List=true">Cancel</button>
+                        <button type="button" class="btn btn-warning float-right" ng-click="Batal()">Kembali</button>
+                        <button type="button" ng-if="UserRole !== 'admin' && item.SetButtonApproved"
+                            class="btn btn-danger float-right" ng-click="TampilPesan(item)">Tolak</button>
+                        <button ng-if="item.SetButtonApproved" type="button" class="btn btn-primary float-right"
+                            ng-click="Setuju()">Setuju</button>
+                        <button type="submit" class="btn btn-success float-right">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -171,3 +176,26 @@
         <div ng-include="'../../../apps/views/admin/formatsurat/formatkematian.html'"></div>
     </div>
 </section>
+
+<div class="modal fade" id="Pesan">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-warning">
+          <h4 class="modal-title">Pesan Penolakan</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p><textarea id="" cols="30" rows="10" ng-model="model.message" class="form-control"></textarea> &hellip;</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal"
+            ng-click="pesanbatal.errorText('Proses Penolakan di batalkan!!!')">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="Tolak()">Tolak</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>

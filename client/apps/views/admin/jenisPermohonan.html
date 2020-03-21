@@ -1,132 +1,115 @@
 <section class="content-header" ng-init="Init()">
   <div class="col">
     <div class="card-tools">
-      <h4>Jenis Permohonan</h4>
+      <h4>Penduduk</h4>
     </div>
-    <div class="card card-primary card-outline card-tabs">
-      <div class="card-header p-0 pt-1 border-bottom-0">
-        <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="javascript:void(0);"
-              data-target="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home"
-              aria-selected="true">Lihat Data</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="javascript:void(0);"
-              data-target="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile"
-              aria-selected="false">Tambah Data
-            </a>
-          </li>
-        </ul>
+    <div class="card card-warning" ng-if="tab.list">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="fas fa-list"></i>
+          &nbsp; List Permohonan Keterangan Cerai
+        </h3>
+        <div class="card-tools">
+          <button class="btn btn-primary float-right" ng-click="tab.show('tambah')"><i class="fa fa-plus"></i></button>
+        </div>
+      </div><!-- /.card-header -->
+      <div class="card-body">
+        <div class="table-responsive p-0">
+          <table datatable="ng" class="table table-head-fixed text-nowrap">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Jenis Permohonan</th>
+                <th>Keteangan</th>
+                <th>Persyaratan</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in DatasJenisPermohonan">
+                <td>{{$index+1}}</td>
+                <td>{{item.nama}}</td>
+                <td>{{item.deskripsi}}</td>
+                <td>
+                  <ol>
+                    <li ng-repeat="persyaratan in item.persyaratan">{{persyaratan}}</li>
+                  </ol>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailpenduduk"
+                    ng-click="SelectedItemPenduduk(item, 'view')">
+                    <i class="fas fa-list"></i>
+                  </button>
+                  <button class="btn btn-warning" ng-click="Selected(item)"> <i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div ng-if="tab.tambah || tab.edit" class="card card-warning">
+      <div class="card-header">
+        <h3 class="card-title" ng-if="tab.tambah"><i class="fas fa-plus"></i>Tambah Surat Keterangan Cerai
+        </h3>
+        <h3 class="card-title" ng-if="tab.edit"><i class="fas fa-plus"></i>Ubah Surat </h3>
       </div>
       <div class="card-body">
-        <div class="tab-content" id="custom-tabs-two-tabContent">
-          <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel"
-            aria-labelledby="custom-tabs-two-home-tab">
-            <div class="card-body table-responsive p-0" style="height: 550px;">
-              <table datatable="" class="table table-head-fixed text-nowrap">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Jenis Permohonan</th>
-                    <th>Keteangan</th>
-                    <th>Persyaratan</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="item in DatasJenisPermohonan">
-                    <td>{{$index+1}}</td>
-                    <td>{{item.nama}}</td>
-                    <td>{{item.deskripsi}}</td>
-                    <td>
-                      <ol>
-                        <li ng-repeat="persyaratan in item.persyaratan">{{persyaratan}}</li>
-                      </ol>
-                    </td>
-                    <td>
-                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-secondary">
-                          <input type="radio" name="options" id="option1" autocomplete="off">
-                          <i class="fas fa-edit"></i>
-                        </label>
-                        <label class="btn btn-secondary">
-                          <input type="radio" name="options" id="option2" autocomplete="off">
-                          <i class="fas fa-print"></i>
-                        </label>
-                        <label class="btn btn-secondary">
-                          <input type="radio" name="options" id="option3" autocomplete="off"><i
-                            class="fas fa-search"></i>
-                        </label>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel"
-            aria-labelledby="custom-tabs-two-profile-tab">
-            <div class="tab-content" id="custom-tabs-one-tabContent">
-              <div class="card card-default">
-                <form ng-submit="Simpan()">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">Nama Permohonan</label>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="JenisPermohonan.nama"
-                              placeholder="Nama Permohonan">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">Keterangan</label>
-                          <div class="col-sm-8">
-                            <textarea class="form-control" rows="3" ng-model="JenisPermohonan.deskripsi"></textarea>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">Pilih Jenis</label>
-                          <div class="col-sm-8">
-                            <input type="text" ng-model="JenisPermohonan.jenis" placeholder="Pilih Jenis" uib-typeahead="state as state for state in PermohonanJenis | filter:$viewValue   | limitTo:8" class="form-control">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">Persyaratan</label>
-                          <div class="col-sm-8">
-                            <div class="input-group input-group-sm">
-                              <input type="text" class="form-control" ng-model="ItemPersyaratan">
-                              <span class="input-group-append">
-                                <button type="button" class="btn btn-info btn-plus"
-                                  ng-click="addPersyaratan()">Go!</button>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">&nbsp;</label>
-                          <div class="col-sm-8">
-                            <ol>
-                              <li ng-repeat="item in Persyaratan">{{item}}</li>
-                            </ol>
-                          </div>
-                        </div>
-                      </div>
+        <form ng-submit="Simpan()">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Nama Permohonan</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="JenisPermohonan.nama"
+                      placeholder="Nama Permohonan">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Keterangan</label>
+                  <div class="col-sm-8">
+                    <textarea class="form-control" rows="3" ng-model="JenisPermohonan.deskripsi"></textarea>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Pilih Jenis</label>
+                  <div class="col-sm-8">
+                    <input type="text" ng-model="JenisPermohonan.jenis" placeholder="Pilih Jenis"
+                      uib-typeahead="state as state for state in PermohonanJenis | filter:$viewValue   | limitTo:8"
+                      class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Persyaratan</label>
+                  <div class="col-sm-8">
+                    <div class="input-group input-group-sm">
+                      <input type="text" class="form-control" ng-model="ItemPersyaratan">
+                      <span class="input-group-append">
+                        <button type="button" class="btn btn-info btn-plus" ng-click="addPersyaratan()">Go!</button>
+                      </span>
                     </div>
-                    <div class="card-header"></div><br>
                   </div>
-                  <div class="card-footer">
-                    <button type="submit" class="btn btn-success">Tambah</button>
-                    <!-- <button type="submit" class="btn btn-danger float-right" >Cancel</button> -->
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">&nbsp;</label>
+                  <div class="col-sm-8">
+                    <ol>
+                      <li ng-repeat="item in Persyaratan">{{item}}</li>
+                    </ol>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
+            <div class="card-header"></div><br>
           </div>
-        </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-success">Tambah</button>
+            <button type="button" class="btn btn-danger float-right">Cancel</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

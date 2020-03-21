@@ -212,6 +212,7 @@ router.get('/approve/:id', [authJwt.verifyToken], async (req, res) => {
                     if (device && device.devicetoken) {
                         fcm.sendToDevice(device.devicetoken, item);
                     }
+                    permohonan.status=persetujuan.status;
                     var resultData = await contextDb.Permohonan.put(permohonan);
                     res.status(200).json(true);
                 }
@@ -315,6 +316,7 @@ router.post('/back', [authJwt.verifyToken], async (req, res) => {
                         device = contextDb.Users.getUserUserId(permohonan.idusers);
                         fcm.sendToDevice(device.devicetoken, item);
                     }
+                    permohonan.status="dikembalikan"
                     var resultData = await contextDb.Permohonan.put(permohonan);
                     res.status(200).json(true);
                 }
@@ -345,7 +347,7 @@ router.post('/reject/:id', [authJwt.verifyToken], async (req, res) => {
                 created: new Date(),
                 status: "ditolak",
                 message: rejectData.message,
-                idusers: req.User.idusers,
+                idusers: req.User.userid,
                 read: false,
                 data: {
                     from: req.User.email,
@@ -362,14 +364,14 @@ router.post('/reject/:id', [authJwt.verifyToken], async (req, res) => {
 
             var resultData = await contextDb.Permohonan.put(permohonan);
             res.status(200).json(true);
-
+            permohonan.status="ditolak";
             var resultData = await contextDb.Permohonan.put(permohonan);
             if (resultData && persetujuan.status == "ditolak") {
                 var message = {
-                    idusers: element.idusers,
+                    idusers: req.User.userid,
                     data: {
                         from: req.User.email,
-                        iddata: data.id,
+                        iddata: permohonan.idpermohonan,
                         to: "pemohon"
                     },
                     message: rejectData.message,

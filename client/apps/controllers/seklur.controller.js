@@ -7,13 +7,13 @@ angular
 	.controller('datarwController', datarwController);
 
 function seklurController(AuthService) {
-	AuthService.Init([ 'seklur' ]);
+	AuthService.Init(['seklur']);
 }
 
-function seklurHomeController() {}
+function seklurHomeController() { }
 
-function dataseklurController() {}
+function dataseklurController() { }
 
-function datartController() {}
+function datartController() { }
 
-function datarwController() {}
+function datarwController() { }

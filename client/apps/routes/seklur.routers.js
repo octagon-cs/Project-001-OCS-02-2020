@@ -68,7 +68,7 @@ angular.module('seklur.router', ['ui.router']).config(function ($stateProvider, 
             templateUrl: 'apps/views/admin/preview.html'
         }).state('seklur-surattidakmampu', {
             url: '/surattidakmampu',
-            parent: 'seklur',
+            parent: 'seklur-surat',
             controller: 'adminsurattidakmampuController',
             templateUrl: 'apps/views/admin/surattidakmampu.html'
         }).state('seklur-suratketdomisili', {
@@ -146,6 +146,16 @@ angular.module('seklur.router', ['ui.router']).config(function ($stateProvider, 
             parent: 'seklur',
             controller: 'adminsuratketnikahController',
             templateUrl: 'apps/views/admin/suratketnikah.html'
-        });
+        }).state('seklur-suratall', {
+			url: '/suratall',
+			parent: 'seklur-surat',
+			controller: 'adminSuratAllController',
+			templateUrl: 'apps/views/admin/suratall.html'
+		}).state('seklur-surat', {
+			url: '/surat',
+			parent: 'seklur',
+			controller: 'adminSuratController',
+			templateUrl: 'apps/views/admin/surat.html'
+		});
 
 });

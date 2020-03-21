@@ -6,5 +6,6 @@ angular.module('app.services', [
 	'notification.service',
 	'PendudukService',
 	'SuratService',
-	'PejabatService'
+	'PejabatService',
+	'PersetujuanService'
 ]);
