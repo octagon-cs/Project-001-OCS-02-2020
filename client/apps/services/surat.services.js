@@ -4,6 +4,8 @@ angular
 	.factory('JenisPermohonanService', JanisPermohonanService);
 
 function JanisPermohonanService($http, $q, helperServices, AuthService, message) {
+	var controller = '/api/jenispermohonan';
+
 	var service = {};
 	service.data = [];
 	service.instance = false;
@@ -11,6 +13,8 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 	return {
 		get: get,
 		getById: getById,
+		post: post,
+		put: put,
 		getByJenis: getByJenis
 	};
 
@@ -21,7 +25,7 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 		} else {
 			$http({
 				method: 'get',
-				url: helperServices.url + '/api/jenispermohonan',
+				url: helperServices.url + controller,
 				headers: AuthService.getHeader()
 			}).then(
 				(res) => {
@@ -37,6 +41,42 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 		}
 		return def.promise;
 	}
+	function post(data) {
+		var def = $q.defer();
+		$http({
+			method: 'Post',
+			url: helperServices.url + controller,
+			headers: AuthService.getHeader(),
+			data: data
+		}).then(
+			(param) => {
+				service.data.push(param);
+				def.resolve(param);
+			},
+			(error) => {
+				message.error(error);
+			}
+		);
+		return def.promise;
+	}
+
+	function put(data) {
+		var def = $q.defer();
+		$http({
+			method: 'PUT',
+			url: helperServices.url + controller,
+			headers: AuthService.getHeader(),
+			data: data
+		}).then(
+			(param) => {
+				def.resolve(param);
+			},
+			(error) => {
+				message.error(error);
+			}
+		);
+		return def.promise;
+	}
 
 	function getById(id) {
 		var def = $q.defer();
@@ -46,7 +86,7 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 		} else {
 			$http({
 				method: 'get',
-				url: helperServices.url + '/api/jenispermohonan/byid/' + id,
+				url: helperServices.url + controller + '/' + id,
 				headers: AuthService.getHeader()
 			}).then(
 				(res) => {
@@ -69,7 +109,7 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 		} else {
 			$http({
 				method: 'get',
-				url: helperServices.url + '/api/jenispermohonan/jenis/' + jenis,
+				url: helperServices.url + controller + '/jenis/' + jenis,
 				headers: AuthService.getHeader()
 			}).then(
 				(res) => {
