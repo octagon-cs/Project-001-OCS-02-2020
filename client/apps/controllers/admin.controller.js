@@ -341,7 +341,8 @@ function admindatakepaladesaController() { }
 
 function admindataumumdesaController() { }
 
-function adminJenisPermohonanController($http, $scope, helperServices, AuthService, message) {
+function adminJenisPermohonanController($http, $scope, helperServices, AuthService, message, tabService) {
+	$scope.tab = tabService.createTab();
 	$scope.DatasJenisPermohonan = [];
 	$scope.JenisPermohonan = {};
 	$scope.JenisPermohonan.persyaratan = [];
