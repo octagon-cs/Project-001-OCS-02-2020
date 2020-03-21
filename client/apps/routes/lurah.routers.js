@@ -28,7 +28,7 @@ angular.module('lurah.router', ['ui.router']).config(function ($stateProvider, $
             templateUrl: 'apps/views/admin/jenisPermohonan.html'
         }).state('lurah-suratpengantarktp', {
             url: '/suratpengantarktp',
-            parent: 'lurah',
+            parent: 'lurah-surat',
             controller: 'adminsuratpengantarktpController',
             templateUrl: 'apps/views/admin/suratpengantarktp.html'
         }).state('lurah-datapenduduk', {
@@ -53,12 +53,12 @@ angular.module('lurah.router', ['ui.router']).config(function ($stateProvider, $
             templateUrl: 'apps/views/admin/preview.html'
         }).state('lurah-surattidakmampu', {
             url: '/surattidakmampu',
-            parent: 'lurah',
+            parent: 'lurah-surat',
             controller: 'adminsurattidakmampuController',
             templateUrl: 'apps/views/admin/surattidakmampu.html'
         }).state('lurah-suratketdomisili', {
             url: '/suratketdomisili',
-            parent: 'lurah',
+            parent: 'lurah-surat',
             controller: 'adminsuratketdomisiliController',
             templateUrl: 'apps/views/admin/suratketdomisili.html'
         }).state('lurah-inbox', {
@@ -78,69 +78,69 @@ angular.module('lurah.router', ['ui.router']).config(function ($stateProvider, $
             templateUrl: 'apps/views/admin/pejabat.html'
         }).state('lurah-suratskck', {
             url: '/suratskck',
-            parent: 'lurah',
+            parent: 'lurah-surat',
             controller: 'adminsuratskckController',
             templateUrl: 'apps/views/admin/suratskck.html'
         }).state('lurah-suratpenguasaantanah', {
             url: '/suratpenguasaantanah',
-            parent: 'lurah',
+            parent: 'lurah-surat',
             controller: 'adminsuratpenguasaantanahController',
             templateUrl: 'apps/views/admin/suratpenguasaantanah.html'
         }).state('lurah-suratketusaha', {
             url: '/suratketusaha',
-            parent: 'lurah',
+            parent: 'lurah-surat',
             controller: 'adminsuratketusahaController',
             templateUrl: 'apps/views/admin/suratketusaha.html'
         }).state('lurah-suratbelummenikah', {
             url: '/suratbelummenikah',
-            parent: 'lurah',
+            parent: 'lurah-surat',
             controller: 'adminsuratbelummenikahController',
             templateUrl: 'apps/views/admin/suratbelummenikah.html'
         }).state('lurah-suratketmenikah', {
             url: '/suratketmenikah',
-            parent: 'lurah',
+            parent: 'lurah-surat',
             controller: 'adminsuratketmenikahController',
             templateUrl: 'apps/views/admin/suratketmenikah.html'
         }).state('lurah-suratkelahiran', {
             url: '/suratkelahiran',
-            parent: 'lurah',
+            parent: 'lurah-surat',
             controller: 'adminsuratkelahiranController',
             templateUrl: 'apps/views/admin/suratkelahiran.html'
         }).state('lurah-suratketcerai', {
             url: '/suratketcerai',
-            parent: 'lurah',
+            parent: 'lurah-surat',
             controller: 'adminsuratketceraiController',
             templateUrl: 'apps/views/admin/suratketcerai.html'
         }).state('lurah-suratketdesa', {
             url: '/suratketdesa',
-            parent: 'lurah',
+            parent: 'lurah-surat',
             controller: 'adminsuratketdesaController',
             templateUrl: 'apps/views/admin/suratketdesa.html'
         }).state('lurah-suratketektp', {
             url: '/suratketektp',
-            parent: 'lurah',
+            parent: 'lurah-surat',
             controller: 'adminsuratketektpController',
             templateUrl: 'apps/views/admin/suratketektp.html'
         }).state('lurah-suratketlainnya', {
             url: '/suratketlainnya',
-            parent: 'lurah',
+            parent: 'lurah-surat',
             controller: 'adminsuratketlainnyaController',
             templateUrl: 'apps/views/admin/suratketlainnya.html'
         }).state('lurah-suratketnikah', {
             url: '/suratketnikah',
-            parent: 'lurah',
+            parent: 'lurah-surat',
             controller: 'adminsuratketnikahController',
             templateUrl: 'apps/views/admin/suratketnikah.html'
         }).state('lurah-suratall', {
 			url: '/suratall',
 			parent: 'lurah-surat',
-			controller: 'lurahSuratAllController',
+			controller: 'adminSuratAllController',
 			templateUrl: 'apps/views/admin/suratall.html'
 		})
 		.state('lurah-surat', {
 			url: '/surat',
 			parent: 'lurah',
-			controller: 'lurahSuratController',
+			controller: 'adminSuratController',
 			templateUrl: 'apps/views/admin/surat.html'
 		});
 

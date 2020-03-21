@@ -78,7 +78,7 @@ function adminSuratAllController($scope, PermohonanService, helperServices, $roo
 	$scope.pesanbatal = message;
 	$scope.Setting = ""
 	$scope.TampilPesan = function (item, set) {
-		message.dialog("Anda Yakin menolak permohonan???", "Ya", "Batal").then((x) => {
+		message.dialog("Anda Yakin???", "Ya", "Batal").then((x) => {
 			$scope.model.idpermohonan = item.idpermohonan;
 			$scope.Setting = set
 			$('#TampilPesan').modal('show');
@@ -99,11 +99,12 @@ function adminSuratAllController($scope, PermohonanService, helperServices, $roo
 	}
 
 	$scope.Kembali = function(){
+		$('#TampilPesan').modal('hide');
 		PersetujuanService.kembalikan($scope.model).then((x) => {
 			var item = $scope.datas.find((x) => x.idpermohonan == $scope.model.idpermohonan);
 			var index = $scope.datas.indexOf(item);
 			$scope.datas[index].SetButtonApproved=false;
-			message.info("Anda berhasil menolak permohonan!!!");
+			message.info("Berhasil!!!");
 		})
 	}
 }

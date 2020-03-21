@@ -191,13 +191,13 @@ router.get('/approve/:id', [authJwt.verifyToken], async (req, res) => {
 
 
 
-            if (resultData && persetujuan.status == "selesai") {
+            if (persetujuan.status == "selesai") {
                 if (permohonan.idusers) {
                     persetujuan.message = "Permohonan Anda Telah Disetujui Oleh Lurah, Silahkan Anda Mengambilnya di Kantor Lurah Waena"
                     var message = {
                         idusers: req.idusers,
                         data: {
-                            from: req.User.email,
+                            from: req.User.username,
                             iddata: permohonan.idpermohonan,
                             to: "pemohon"
                         },
@@ -213,6 +213,10 @@ router.get('/approve/:id', [authJwt.verifyToken], async (req, res) => {
                     if (device && device.devicetoken) {
                         fcm.sendToDevice(device.devicetoken, item);
                     }
+                    permohonan.status=persetujuan.status;
+                    var resultData = await contextDb.Permohonan.put(permohonan);
+                    res.status(200).json(true);
+                }else{
                     permohonan.status=persetujuan.status;
                     var resultData = await contextDb.Permohonan.put(permohonan);
                     res.status(200).json(true);
@@ -264,18 +268,19 @@ router.post('/back', [authJwt.verifyToken], async (req, res) => {
     try {
         var role = req.User.roles[0];
         var indexOfRole = config.Roles.indexOf(role);
-        var permohonan = await contextDb.Permohonan.getById(data.id);
+        var permohonan = await contextDb.Permohonan.getById(data.idpermohonan);
         if (permohonan) {
             var persetujuan = {
                 created: new Date(),
                 status: "dikembalikan",
                 message: data.message,
                 idusers: req.User.idusers,
+                role: req.User.roles[0],
                 read: false,
                 data: {
-                    from: req.User.email,
+                    from: req.User.username,
                     iddata: permohonan.idpermohonan,
-                    to: role
+                    to: config.Roles[indexOfRole-1]
                 }
             }
             if (data.message) {
