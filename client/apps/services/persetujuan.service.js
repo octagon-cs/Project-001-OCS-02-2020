@@ -8,7 +8,8 @@ function PersetujuanService($http, $q, helperServices, AuthService) {
     service.instance = false;
     return {
         get: get,
-        tolak: tolak
+        tolak: tolak,
+        kembalikan:kembalikan
     }
 
     function get(id) {
@@ -41,6 +42,29 @@ function PersetujuanService($http, $q, helperServices, AuthService) {
             $http({
                 method: 'post',
                 url: helperServices.url + controller + "/reject/" + item.idpermohonan,
+                data: item,
+                headers: AuthService.getHeader()
+            }).then(
+                (res) => {
+                    def.resolve(res.data);
+                },
+                (err) => {
+                    def.reject(err);
+                    message.error(err);
+                }
+            );
+        }
+        return def.promise;
+    }
+
+    function kembalikan(item) {
+        var def = $q.defer();
+        if (service.instance) {
+            def.resolve(service.data);
+        } else {
+            $http({
+                method: 'post',
+                url: helperServices.url + controller + "/back",
                 data: item,
                 headers: AuthService.getHeader()
             }).then(

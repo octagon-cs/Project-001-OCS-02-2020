@@ -76,12 +76,14 @@ function adminSuratAllController($scope, PermohonanService, helperServices, $roo
 	}
 	$scope.model = {};
 	$scope.pesanbatal = message;
-	$scope.TampilPesan = function (item) {
+	$scope.Setting = ""
+	$scope.TampilPesan = function (item, set) {
 		message.dialog("Anda Yakin menolak permohonan???", "Ya", "Batal").then((x) => {
 			$scope.model.idpermohonan = item.idpermohonan;
+			$scope.Setting = set
 			$('#TampilPesan').modal('show');
 		}, error => {
-			message.errorText("Proses Penolakan di batalkan!!!");
+			message.errorText("Proses di batalkan!!!");
 		})
 	}
 	$scope.Tolak = function () {
@@ -93,6 +95,15 @@ function adminSuratAllController($scope, PermohonanService, helperServices, $roo
 			message.info("Anda berhasil menolak permohonan!!!");
 		}, error => {
 			message.errorText("Penolakan Gagal, Sistem Error");
+		})
+	}
+
+	$scope.Kembali = function(){
+		PersetujuanService.kembalikan($scope.model).then((x) => {
+			var item = $scope.datas.find((x) => x.idpermohonan == $scope.model.idpermohonan);
+			var index = $scope.datas.indexOf(item);
+			$scope.datas[index].SetButtonApproved=false;
+			message.info("Anda berhasil menolak permohonan!!!");
 		})
 	}
 }

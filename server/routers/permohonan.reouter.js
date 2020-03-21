@@ -258,7 +258,7 @@ router.get('/approve/:id', [authJwt.verifyToken], async (req, res) => {
 });
 
 router.post('/back', [authJwt.verifyToken], async (req, res) => {
-    var id = req.params.id;
+    // var id = req.params.id;
     var data = req.body;
     try {
         var role = req.User.roles[0];
