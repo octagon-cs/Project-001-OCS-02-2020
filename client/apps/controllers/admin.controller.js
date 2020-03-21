@@ -338,8 +338,7 @@ function admindatakepaladesaController() { }
 
 function admindataumumdesaController() { }
 
-function adminJenisPermohonanController($http, $scope, helperServices, AuthService, message, tabService) {
-	$scope.tab = tabService.createTab();
+function adminJenisPermohonanController($http, $scope, helperServices, AuthService, message) {
 	$scope.DatasJenisPermohonan = [];
 	$scope.JenisPermohonan = {};
 	$scope.JenisPermohonan.persyaratan = [];
@@ -356,17 +355,15 @@ function adminJenisPermohonanController($http, $scope, helperServices, AuthServi
 			(param) => {
 				$scope.DatasJenisPermohonan = param.data;
 			},
-			(error) => {
-
-			}
+			(error) => { }
 		);
-	}
+	};
 	$scope.addPersyaratan = function () {
 		if ($scope.ItemPersyaratan !== '') {
 			$scope.Persyaratan.push(angular.copy($scope.ItemPersyaratan));
 			$scope.ItemPersyaratan = '';
 		}
-	}
+	};
 
 	$scope.Simpan = function () {
 		$scope.JenisPermohonan.persyaratan = $scope.Persyaratan;
@@ -387,12 +384,7 @@ function adminJenisPermohonanController($http, $scope, helperServices, AuthServi
 				message.errorText(error.message);
 			}
 		);
-	}
-
-	$scope.Selected =  function(item){
-		$scope.tab.show('edit');
-		$scope.JenisPermohonan = item;
-	}
+	};
 
 	$scope.Ubah = function () {
 		$http({
@@ -408,7 +400,7 @@ function adminJenisPermohonanController($http, $scope, helperServices, AuthServi
 				alert(error.message);
 			}
 		);
-	}
+	};
 
 	$scope.Hapus = function (item) {
 		$http({
@@ -423,12 +415,20 @@ function adminJenisPermohonanController($http, $scope, helperServices, AuthServi
 				alert(error.message);
 			}
 		);
-	}
+	};
 }
 
 function adminsuratpengantarktpController() { }
 
-function admindatapendudukController($http, helperServices, AuthService, $scope, message, tabService, PendudukService) {
+function admindatapendudukController(
+	$http,
+	helperServices,
+	AuthService,
+	$scope,
+	message,
+	tabService,
+	PendudukService
+) {
 	$scope.tab = tabService.createTab();
 	$scope.Datas = [];
 	$scope.DataInput = {};
@@ -443,15 +443,11 @@ function admindatapendudukController($http, helperServices, AuthService, $scope,
 			$scope.Datas=penduduk;
 		})
 	};
-	$scope.SelectedItemPenduduk = function(item){
-		PendudukService.getById(item.idpenduduk, true).then(penduduk=>{
+	$scope.SelectedItemPenduduk = function (item, set) {
+		PendudukService.getById(item.idpenduduk, true).then((penduduk) => {
 			$scope.Penduduk = penduduk;
-		})
-		$scope.Penduduk=item;
-		$scope.tab.show("edit");
-	}
-	$scope.stringnumber = (number) => {
-		return helperServices.stringnumber(number);
+			
+		});
 	};
 	$scope.Simpan = function () {
 		$http({
@@ -461,11 +457,9 @@ function admindatapendudukController($http, helperServices, AuthService, $scope,
 			data: $scope.Penduduk
 		}).then(
 			(param) => {
-				message.info("Data Berhasil Disimpan");
-				$scope.Datas.push(angular.copy(param.data));
+				m
+				$scope.DataPenduduk.push(angular.copy(param.data));
 				$scope.Penduduk = {};
-				tab.show('list');
-
 			},
 			(error) => { }
 		);
