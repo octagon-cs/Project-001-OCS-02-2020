@@ -980,7 +980,8 @@ function adminsuratkelahiranController(
 	approvedService,
 	$scope,
 	message,
-	$rootScope
+	$rootScope,
+	PersetujuanService
 ) {
 	$scope.JenisKelamin = helperServices.source.JenisKelamin;
 	$scope.tab = tabService.createTab();
@@ -1036,8 +1037,9 @@ function adminsuratkelahiranController(
 			} else if (params.idpenduduk == data.data.idpendudukibu) {
 				$scope.model.data.idpendudukibu = params;
 			}
-			$scope.model.idpejabat =  $scope.dataPejabat.find((x)=>x.idpejabat==$scope.model.idpejabat);
+			
 		});
+		$scope.model.idpejabat =  $scope.dataPejabat.find((x)=>x.idpejabat==$scope.model.idpejabat);
 		// data.data.tanggallahir = new Date(data.data.tanggallahir);
 		$scope.tab.show('edit');
 	};
