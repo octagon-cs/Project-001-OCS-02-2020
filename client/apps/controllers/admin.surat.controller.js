@@ -981,7 +981,7 @@ function adminsuratkelahiranController(
 	$scope,
 	message
 ) {
-	$scope.JenisKelamin = helperServices.JenisKelamin;
+	$scope.JenisKelamin = helperServices.source.JenisKelamin;
 	$scope.tab = tabService.createTab();
 	$scope.ItemPenduduk = '';
 	$scope.Datas = [];
@@ -999,12 +999,18 @@ function adminsuratkelahiranController(
 				$scope.ListPenduduk = penduduk;
 				PejabatService.get().then((pejabat) => {
 					$scope.dataPejabat = pejabat.filter((x) => x.status == 1);
-					$scope.model.data.pejabat = $scope.dataPejabat.find((x) => x.namajabatan == 'Lurah');
+					$scope.model.idpejabat = $scope.dataPejabat.find((x) => x.namajabatan == 'Lurah');
 					JenisPermohonanService.getByJenis('Kelahiran').then((jenis) => {
 						$scope.model.idjenispermohonan = jenis.idjenispermohonan;
 						PermohonanService.getByJenis(jenis.idjenispermohonan).then((param) => {
 							approvedService.approvedView(param, $scope.UserRole);
 							$scope.Datas = angular.copy(param);
+							$scope.Datas.forEach(item=>{
+								var a = $scope.ListPenduduk.find(y=>y.idpenduduk==item.data.idpendudukibu);
+								var b = $scope.ListPenduduk.find(y=>y.idpenduduk==item.data.idpendudukayah);
+								item.data.namaibu=a.nama;
+								item.data.namaayah=b.nama;
+							})
 							if ($rootScope.permohonan) {
 								$scope.Edit($rootScope.permohonan);
 							}
@@ -1063,6 +1069,7 @@ function adminsuratkelahiranController(
 		$scope.model.idpenduduk = angular.copy($scope.model.data.idpendudukayah.idpenduduk);
 		$scope.model.data.idpendudukayah = angular.copy($scope.model.data.idpendudukayah.idpenduduk);
 		$scope.model.data.idpendudukibu = angular.copy($scope.model.data.idpendudukibu.idpenduduk);
+		$scope.model.idpejabat = angular.copy($scope.model.idpejabat.idpejabat);
 
 		$http({
 			method: Method,
@@ -1077,6 +1084,8 @@ function adminsuratkelahiranController(
 				$scope.model = {};
 				$scope.ItemPenduduk = '';
 				$scope.tab.show('list');
+				$scope.Datas=[];
+				$scope.Init();
 			},
 			(error) => {
 				message.errorText(error.message);
