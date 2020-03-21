@@ -979,9 +979,10 @@ function adminsuratkelahiranController(
 	PermohonanService,
 	approvedService,
 	$scope,
-	message
+	message,
+	$rootScope
 ) {
-	$scope.JenisKelamin = helperServices.JenisKelamin;
+	$scope.JenisKelamin = helperServices.source.JenisKelamin;
 	$scope.tab = tabService.createTab();
 	$scope.ItemPenduduk = '';
 	$scope.Datas = [];
@@ -999,7 +1000,7 @@ function adminsuratkelahiranController(
 				$scope.ListPenduduk = penduduk;
 				PejabatService.get().then((pejabat) => {
 					$scope.dataPejabat = pejabat.filter((x) => x.status == 1);
-					$scope.model.data.pejabat = $scope.dataPejabat.find((x) => x.namajabatan == 'Lurah');
+					$scope.model.idpejabat = $scope.dataPejabat.find((x) => x.namajabatan == 'Lurah');
 					JenisPermohonanService.getByJenis('Kelahiran').then((jenis) => {
 						$scope.model.idjenispermohonan = jenis.idjenispermohonan;
 						PermohonanService.getByJenis(jenis.idjenispermohonan).then((param) => {
@@ -1029,6 +1030,7 @@ function adminsuratkelahiranController(
 			} else if (params.idpenduduk == data.data.idpendudukibu) {
 				$scope.model.data.idpendudukibu = params;
 			}
+			$scope.model.idpejabat =  $scope.dataPejabat.find((x)=>x.idpejabat==$scope.model.idpejabat);
 		});
 		// data.data.tanggallahir = new Date(data.data.tanggallahir);
 		$scope.tab.show('edit');
