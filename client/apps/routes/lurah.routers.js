@@ -1,6 +1,5 @@
 angular.module('lurah.router', ['ui.router']).config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
-
         .state('lurah', {
             url: '/lurah',
             controller: 'lurahController',
@@ -132,6 +131,17 @@ angular.module('lurah.router', ['ui.router']).config(function ($stateProvider, $
             parent: 'lurah',
             controller: 'adminsuratketnikahController',
             templateUrl: 'apps/views/admin/suratketnikah.html'
-        });
+        }).state('lurah-suratall', {
+			url: '/suratall',
+			parent: 'lurah-surat',
+			controller: 'lurahSuratAllController',
+			templateUrl: 'apps/views/admin/suratall.html'
+		})
+		.state('lurah-surat', {
+			url: '/surat',
+			parent: 'lurah',
+			controller: 'lurahSuratController',
+			templateUrl: 'apps/views/admin/surat.html'
+		});
 
 });

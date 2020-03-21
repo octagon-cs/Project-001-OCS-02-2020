@@ -182,7 +182,7 @@ function helperServices() {
 		popupWinindow.document.close();
 	}
 
-	function getState(state) {
+	function getState(state, role) {
 		switch (state) {
 			case 'Pengantar KTP':
 				return 'admin-suratpengantarktp';

@@ -161,7 +161,7 @@ function adminsurattidakmampuController(
 			PejabatService.getById(item.idpejabat).then((datapejabat) => {
 				$scope.dataPrint = param;
 				$scope.dataPrint.tampiltanggallahir = getTanggalIndonesia(new Date(angular.copy(param.tanggallahir)));
-				$scope.dataPrint.tampiltanggalsurat = getTanggalIndonesia(
+				$scope.dataPrint.tampiltanggaladminsurat = getTanggalIndonesia(
 					new Date(item.persetujuan[item.persetujuan.length - 1].created)
 				);
 				$scope.dataPrint.pejabat = datapejabat;
@@ -354,7 +354,7 @@ function adminsuratketnikahController(
 			PejabatService.getById(item.idpejabat).then((datapejabat) => {
 				$scope.dataPrint = param;
 				$scope.dataPrint.tampiltanggallahir = getTanggalIndonesia(new Date(angular.copy(param.tanggallahir)));
-				$scope.dataPrint.tampiltanggalsurat = getTanggalIndonesia(
+				$scope.dataPrint.tampiltanggaladminsurat = getTanggalIndonesia(
 					new Date(item.persetujuan[item.persetujuan.length - 1].created)
 				);
 				$scope.dataPrint.pejabat = datapejabat;
@@ -408,11 +408,10 @@ function adminsuratketdomisiliController(
 	JenisPermohonanService,
 	PermohonanService,
 	approvedService,
-	$scope,
 	message,
 	tabService,
 	PersetujuanService,
-	$rootScope,
+	$rootScope
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.ItemPenduduk = '';
@@ -549,7 +548,7 @@ function adminsuratketdomisiliController(
 		PendudukService.getById(item.idpenduduk).then((param) => {
 			$scope.dataPrint.penduduk = param.data;
 			$scope.dataPrint.tampiltanggallahir = getTanggalIndonesia(new Date(angular.copy(param.data.tanggallahir)));
-			$scope.dataPrint.tampiltanggalsurat = getTanggalIndonesia(
+			$scope.dataPrint.tampiltanggaladminsurat = getTanggalIndonesia(
 				new Date(item.persetujuan[item.persetujuan.length - 1].created)
 			);
 
@@ -652,7 +651,7 @@ function adminsuratketmenikahController(
 	$scope.Edit = function (data) {
 		$scope.model = angular.copy(data);
 		$rootScope.permohonan = null;
-		$scope.model.data.tanggalsuratpengantar = new Date(angular.copy($scope.model.data.tanggalsuratpengantar));
+		$scope.model.data.tanggaladminsuratpengantar = new Date(angular.copy($scope.model.data.tanggaladminsuratpengantar));
 		$scope.model.data.idpenduduk = $scope.ListPenduduk.find((x) => x.idpenduduk == data.data.idpenduduk);
 		$scope.tab.show('edit');
 	};
@@ -755,7 +754,7 @@ function adminsuratketmenikahController(
 		PendudukService.getById(item.idpenduduk).then((param) => {
 			$scope.dataPrint.penduduk = param.data;
 			$scope.dataPrint.tampiltanggallahir = getTanggalIndonesia(new Date(angular.copy(param.data.tanggallahir)));
-			$scope.dataPrint.tampiltanggalsurat = getTanggalIndonesia(
+			$scope.dataPrint.tampiltanggaladminsurat = getTanggalIndonesia(
 				new Date(item.persetujuan[item.persetujuan.length - 1].created)
 			);
 
@@ -809,10 +808,9 @@ function adminsuratbelummenikahController(
 	JenisPermohonanService,
 	PermohonanService,
 	approvedService,
-	$scope,
 	message,
 	tabService,
-	$rootScope,
+	$rootScope
 
 ) {
 	$scope.JenisKelamin = helperServices.JenisKelamin;
@@ -858,7 +856,7 @@ function adminsuratbelummenikahController(
 	$scope.Edit = function (data) {
 		$scope.model = angular.copy(data);
 		$rootScope.permohonan = null;
-		$scope.model.data.tanggalsuratpengantar = new Date(angular.copy($scope.model.data.tanggalsuratpengantar));
+		$scope.model.data.tanggaladminsuratpengantar = new Date(angular.copy($scope.model.data.tanggaladminsuratpengantar));
 		$scope.model.data.idpenduduk = $scope.ListPenduduk.find((x) => x.idpenduduk == data.data.idpenduduk);
 		// data.data.tanggallahir = new Date(data.data.tanggallahir);
 		$scope.tab.show('edit');
@@ -1283,7 +1281,7 @@ function adminsuratketceraiController(
 			PejabatService.getById(item.idpejabat).then((datapejabat) => {
 				$scope.dataPrint = param;
 				$scope.dataPrint.tampiltanggallahir = getTanggalIndonesia(new Date(angular.copy(param.tanggallahir)));
-				$scope.dataPrint.tampiltanggalsurat = getTanggalIndonesia(
+				$scope.dataPrint.tampiltanggaladminsurat = getTanggalIndonesia(
 					new Date(item.persetujuan[item.persetujuan.length - 1].created)
 				);
 				$scope.dataPrint.pejabat = datapejabat;
@@ -1350,17 +1348,17 @@ function adminsuratketdesaController(
 	PejabatService,
 	approvedService,
 	$rootScope,
-	PersetujuanService,
+	PersetujuanService
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.ListPenduduk = [];
-	$scope.SuratKetDesa = {};
+	$scope.adminSuratKetDesa = {};
 	$scope.Datas = [];
-	$scope.TanggalSurat;
+	$scope.TanggaladminSurat;
 	$scope.Jam;
 	$scope.model = {};
 	$scope.model.data = {};
-	$scope.SuratKetDesa.data = {};
+	$scope.adminSuratKetDesa.data = {};
 	$scope.dataPrint = {};
 	$scope.Init = function () {
 		AuthService.profile().then((param) => {
@@ -1396,8 +1394,8 @@ function adminsuratketdesaController(
 
 	$scope.SelectedPenduduk = function () {
 		var a = JSON.parse(angular.copy($scope.ItemPenduduk));
-		$scope.SuratKetDesa.idpenduduk = a.idpenduduk;
-		$scope.SuratKetDesa.nama = a.nama;
+		$scope.adminSuratKetDesa.idpenduduk = a.idpenduduk;
+		$scope.adminSuratKetDesa.nama = a.nama;
 	};
 
 	$scope.Simpan = function () {
@@ -1432,13 +1430,13 @@ function adminsuratketdesaController(
 			method: 'post',
 			url: helperServices.url + '/api/permohonan',
 			headers: AuthService.getHeader(),
-			data: $scope.SuratKetDesa
+			data: $scope.adminSuratKetDesa
 		}).then(
 			(param) => {
-				$scope.SuratKetDesa.idpermohonan = param.idpermohonan;
-				$scope.DatasSuratKetDesa.push(angular.copy($scope.SuratKetDesa));
+				$scope.adminSuratKetDesa.idpermohonan = param.idpermohonan;
+				$scope.DatasadminSuratKetDesa.push(angular.copy($scope.adminSuratKetDesa));
 				message.info('Berhasil Menyimpan');
-				$scope.SuratKetDesa = {};
+				$scope.adminSuratKetDesa = {};
 				$scope.ItemPenduduk = '';
 			},
 			(error) => {
@@ -1465,7 +1463,7 @@ function adminsuratketdesaController(
 		);
 		popupWinindow.document.open();
 		popupWinindow.document.write(
-			'<html><head><title>Cetak Surat</title></head><body onload="window.print()"><div>' +
+			'<html><head><title>Cetak adminSurat</title></head><body onload="window.print()"><div>' +
 			innerContents +
 			'</html>'
 		);
@@ -1532,13 +1530,13 @@ function adminsuratketektpController(
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.ListPenduduk = [];
-	$scope.SuratKetDesa = {};
+	$scope.adminSuratKetDesa = {};
 	$scope.Datas = [];
-	$scope.TanggalSurat;
+	$scope.TanggaladminSurat;
 	$scope.Jam;
 	$scope.model = {};
 	$scope.model.data = {};
-	$scope.SuratKetDesa.data = {};
+	$scope.adminSuratKetDesa.data = {};
 	$scope.dataPrint = {};
 	$scope.Init = function () {
 		AuthService.profile().then((param) => {
@@ -1574,8 +1572,8 @@ function adminsuratketektpController(
 
 	$scope.SelectedPenduduk = function () {
 		var a = JSON.parse(angular.copy($scope.ItemPenduduk));
-		$scope.SuratKetDesa.idpenduduk = a.idpenduduk;
-		$scope.SuratKetDesa.nama = a.nama;
+		$scope.adminSuratKetDesa.idpenduduk = a.idpenduduk;
+		$scope.adminSuratKetDesa.nama = a.nama;
 	};
 
 	$scope.Simpan = function () {
@@ -1610,13 +1608,13 @@ function adminsuratketektpController(
 			method: 'post',
 			url: helperServices.url + '/api/permohonan',
 			headers: AuthService.getHeader(),
-			data: $scope.SuratKetDesa
+			data: $scope.adminSuratKetDesa
 		}).then(
 			(param) => {
-				$scope.SuratKetDesa.idpermohonan = param.idpermohonan;
-				$scope.DatasSuratKetDesa.push(angular.copy($scope.SuratKetDesa));
+				$scope.adminSuratKetDesa.idpermohonan = param.idpermohonan;
+				$scope.DatasadminSuratKetDesa.push(angular.copy($scope.adminSuratKetDesa));
 				message.info('Berhasil Menyimpan');
-				$scope.SuratKetDesa = {};
+				$scope.adminSuratKetDesa = {};
 				$scope.ItemPenduduk = '';
 			},
 			(error) => {
@@ -1643,7 +1641,7 @@ function adminsuratketektpController(
 		);
 		popupWinindow.document.open();
 		popupWinindow.document.write(
-			'<html><head><title>Cetak Surat</title></head><body onload="window.print()"><div>' +
+			'<html><head><title>Cetak adminSurat</title></head><body onload="window.print()"><div>' +
 			innerContents +
 			'</html>'
 		);
@@ -1714,13 +1712,13 @@ function adminsuratskckController(
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.ListPenduduk = [];
-	$scope.SuratKetDesa = {};
+	$scope.adminSuratKetDesa = {};
 	$scope.Datas = [];
-	$scope.TanggalSurat;
+	$scope.TanggaladminSurat;
 	$scope.Jam;
 	$scope.model = {};
 	$scope.model.data = {};
-	$scope.SuratKetDesa.data = {};
+	$scope.adminSuratKetDesa.data = {};
 	$scope.dataPrint = {};
 	$scope.Init = function () {
 		AuthService.profile().then((param) => {
@@ -1756,8 +1754,8 @@ function adminsuratskckController(
 
 	$scope.SelectedPenduduk = function () {
 		var a = JSON.parse(angular.copy($scope.ItemPenduduk));
-		$scope.SuratKetDesa.idpenduduk = a.idpenduduk;
-		$scope.SuratKetDesa.nama = a.nama;
+		$scope.adminSuratKetDesa.idpenduduk = a.idpenduduk;
+		$scope.adminSuratKetDesa.nama = a.nama;
 	};
 
 	$scope.Simpan = function () {
@@ -1792,13 +1790,13 @@ function adminsuratskckController(
 			method: 'post',
 			url: helperServices.url + '/api/permohonan',
 			headers: AuthService.getHeader(),
-			data: $scope.SuratKetDesa
+			data: $scope.adminSuratKetDesa
 		}).then(
 			(param) => {
-				$scope.SuratKetDesa.idpermohonan = param.idpermohonan;
-				$scope.DatasSuratKetDesa.push(angular.copy($scope.SuratKetDesa));
+				$scope.adminSuratKetDesa.idpermohonan = param.idpermohonan;
+				$scope.DatasadminSuratKetDesa.push(angular.copy($scope.adminSuratKetDesa));
 				message.info('Berhasil Menyimpan');
-				$scope.SuratKetDesa = {};
+				$scope.adminSuratKetDesa = {};
 				$scope.ItemPenduduk = '';
 			},
 			(error) => {
@@ -1825,7 +1823,7 @@ function adminsuratskckController(
 		);
 		popupWinindow.document.open();
 		popupWinindow.document.write(
-			'<html><head><title>Cetak Surat</title></head><body onload="window.print()"><div>' +
+			'<html><head><title>Cetak adminSurat</title></head><body onload="window.print()"><div>' +
 			innerContents +
 			'</html>'
 		);
