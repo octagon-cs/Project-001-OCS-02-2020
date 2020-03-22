@@ -3,6 +3,7 @@ angular.module('app.services', [
 	'message.service',
 	'storage.service',
 	'helper.service',
+	'dashboard.service',
 	'notification.service',
 	'PendudukService',
 	'SuratService',

@@ -1,6 +1,5 @@
 angular
 	.module('app', [
-
 		'app.services',
 		'app.routers',
 		'app.controllers',
@@ -8,27 +7,29 @@ angular
 		'datatables',
 		'swangular',
 		'message.service',
-		'ngAnimate', 'ngSanitize',
-		"ui.bootstrap", 'ngLocale'
+		'ngAnimate',
+		'ngSanitize',
+		'ui.bootstrap',
+		'ngLocale'
 	])
-	.directive('chooseFile', function () {
+	.directive('chooseFile', function() {
 		return {
-			link: function (scope, elem, attrs) {
+			link: function(scope, elem, attrs) {
 				var button = elem.find('#output');
 				var input = angular.element(elem[0].querySelector('input#fileInput'));
-				button.bind('click', function () {
+				button.bind('click', function() {
 					input[0].click();
 				});
-				input.bind('change', function (e) {
-					scope.$apply(function () {
+				input.bind('change', function(e) {
+					scope.$apply(function() {
 						var files = e.target.files;
 						if (files[0]) {
 							var f = files[0];
 							var foto = {};
 							foto.fileName = f.name;
 							r = new FileReader();
-							r.onload = (function (theFile) {
-								return function (e) {
+							r.onload = (function(theFile) {
+								return function(e) {
 									//var binaryData = e.target.result;
 									var img = document.createElement('img');
 									img.src = e.target.result;
@@ -76,14 +77,15 @@ angular
 			}
 		};
 	})
-	.directive('select', function ($interpolate) {
+	.directive('select', function($interpolate) {
 		return {
 			restrict: 'E',
 			require: 'ngModel',
-			link: function (scope, elem, attrs, ctrl) {
+			link: function(scope, elem, attrs, ctrl) {
 				var defaultOptionTemplate;
 				scope.defaultOptionText = attrs.defaultOption || 'Pilih...';
-				defaultOptionTemplate = '<option value="" disabled selected style="display: none;">{{defaultOptionText}}</option>';
+				defaultOptionTemplate =
+					'<option value="" disabled selected style="display: none;">{{defaultOptionText}}</option>';
 				elem.prepend($interpolate(defaultOptionTemplate)(scope));
 			}
 		};
