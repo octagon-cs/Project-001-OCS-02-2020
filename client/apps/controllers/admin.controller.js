@@ -286,7 +286,8 @@ function admintambahpermohonanController($http, helperServices, AuthService, $sc
 
 function adminpreviewController() {}
 
-function adminHomeController($http, helperServices, AuthService, $scope, InboxService) {
+function adminHomeController($http, helperServices, AuthService, $scope, InboxService, loaderService) {
+	loaderService.setValue(false);
 	$scope.LuasWilayah = {};
 	$scope.Profile = {};
 	$scope.Penduduk = {};
@@ -427,11 +428,10 @@ function adminJenisPermohonanController(
 	$scope.InputPermohonan;
 	$scope.tab.show('tambah');
 	$scope.PermohonanJenis = helperServices.source.PermohonanJenis;
-	JenisPermohonanService.get().then(data=>{
+	JenisPermohonanService.get().then((data) => {
 		$scope.DatasJenisPermohonan = data;
 		$scope.tab.show('list');
-	})
-
+	});
 
 	$scope.SelectedItemJenisPermohonan = function(item, set) {
 		JenisPermohonanService.getById(item.idjenispermohonan, true).then((jenispermohonan) => {
@@ -452,11 +452,11 @@ function adminJenisPermohonanController(
 
 	$scope.Simpan = function() {
 		$scope.JenisPermohonan.persyaratan = $scope.Persyaratan;
-		JenisPermohonanService.post($scope.JenisPermohonan).then(x=>{
+		JenisPermohonanService.post($scope.JenisPermohonan).then((x) => {
 			message.info('Berhasil Simpan');
 			$scope.JenisPermohonan = {};
 			$scope.ItemPersyaratan = [];
-		})
+		});
 	};
 
 	$scope.Ubah = function() {

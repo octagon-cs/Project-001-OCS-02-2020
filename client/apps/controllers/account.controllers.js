@@ -9,7 +9,8 @@ angular
 	.controller('ConfirmEmailController', ConfirmEmailController)
 	.controller('InboxController', InboxController);
 
-function AccountController(AuthService, $state, $scope) {
+function AccountController(AuthService, $state, loaderService) {
+	loaderService.setValue(false);
 	if (AuthService.userIsLogin()) {
 		AuthService.profile().then(
 			(x) => {
@@ -23,9 +24,10 @@ function AccountController(AuthService, $state, $scope) {
 	}
 }
 
-function LoginController($scope, $state, AuthService, FcmService) {
+function LoginController($scope, $state, AuthService, FcmService, loaderService) {
 	$scope.login = function(user) {
 		$scope.isBusy = true;
+		loaderService.setValue(true);
 		AuthService.login(user).then((x) => {
 			$scope.isBusy = false;
 			if (x.roles.length == 1) {
