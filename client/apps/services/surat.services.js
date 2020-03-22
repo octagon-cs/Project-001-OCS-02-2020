@@ -9,7 +9,6 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 	var service = {};
 	service.data = [];
 	service.instance = false;
-
 	return {
 		get: get,
 		getById: getById,
@@ -30,8 +29,8 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 			}).then(
 				(res) => {
 					service.instance = true;
-					service.data = res.data;
-					def.resolve(res.data);
+					service.data=res.data;
+					def.resolve(service.data);
 				},
 				(err) => {
 					def.reject(err);
@@ -50,8 +49,8 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 			data: data
 		}).then(
 			(param) => {
-				service.data.push(param);
-				def.resolve(param);
+				service.data.push(param.data);
+				def.resolve(param.data);
 			},
 			(error) => {
 				message.error(error);
@@ -124,19 +123,18 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 		return def.promise;
 	}
 }
-
 function PermohonanService($http, $q, helperServices, AuthService, message) {
 	var controller = '/api/permohonan';
 	var service = {};
-	service.data = [];
-	service.instance = false;
+	clean();
 
 	return {
 		get: get,
 		post: post,
 		put: put,
 		getById: getById,
-		getByJenis: getByJenis
+		getByJenis: getByJenis,
+		clean:clean
 	};
 
 	function get() {
@@ -152,7 +150,7 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 				(res) => {
 					service.instance = true;
 					service.data = res.data;
-					def.resolve(res.data);
+					def.resolve(service.data);
 				},
 				(err) => {
 					def.reject(err);
@@ -173,8 +171,8 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 		}).then(
 			(param) => {
 				data.idpermohonan = param.idpermohonan;
-				service.data.push(data);
-				def.resolve(data);
+				service.data.push(param.data);
+				def.resolve(param.data);
 			},
 			(error) => {
 				message.error(error);
@@ -192,10 +190,11 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 			data: data
 		}).then(
 			(param) => {
-				def.resolve(param);
+				def.resolve(param.data);
 			},
 			(error) => {
 				message.error(error);
+				def.reject(error);
 			}
 		);
 		return def.promise;
@@ -245,5 +244,10 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 			);
 		}
 		return def.promise;
+	}
+
+	function clean(){
+		service.data=[];
+		service.instance=false;
 	}
 }

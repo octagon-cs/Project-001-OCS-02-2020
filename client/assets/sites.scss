@@ -149,6 +149,29 @@
   
 }
 
+//Loading
 
-
-// autcomplete end
+.loading{
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(153, 205, 50, 0.288);
+  .loading-body{
+    h1{
+      margin: 20px;
+    }
+    .image {
+      top: 50%;
+      left: 50%;
+      width: 120px;
+      height: 120px;
+      margin:0;
+      -webkit-animation:spin 4s linear infinite;
+      -moz-animation:spin 4s linear infinite;
+      animation:spin 2s linear infinite;
+  }
+      @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+      @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+      @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+  }
+}

@@ -1,10 +1,12 @@
 angular
 	.module('login.component', [])
 	.component('userlogin', {
-		controller: function($scope, AuthService, $state) {
+		controller: function($scope, AuthService, $state, $window, PermohonanService, InboxService) {
 			this.userName = AuthService.getUserName();
 			$scope.logoff = function() {
 				AuthService.logOff();
+				PermohonanService.clean();
+				InboxService.clean();
 				setTimeout((x) => {
 					$state.go('login');
 				}, 500);
