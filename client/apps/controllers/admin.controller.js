@@ -376,7 +376,7 @@ function adminJenisPermohonanController($http, $scope, helperServices, AuthServi
 	$scope.JenisPermohonan = {};
 	$scope.JenisPermohonan.persyaratan = [];
 	$scope.InputPermohonan;
-	$scope.model = "";
+	$scope.model = "Testing";
 	$scope.Persyaratan = [];
 	$scope.PermohonanJenis = helperServices.source.PermohonanJenis;
 	$scope.Init = function () {

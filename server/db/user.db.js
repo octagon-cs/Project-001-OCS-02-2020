@@ -52,7 +52,7 @@ UserDb.login = async (user) => {
 															});
 														} else {
 															if (result.insertId > 0) {
-																user.idUser = result.insertId;
+																user.idusers = result.insertId;
 																connection.query(
 																	'select * from roles where name=?',
 																	[ 'admin' ],
@@ -66,7 +66,7 @@ UserDb.login = async (user) => {
 																			var data = roleResult[0];
 																			connection.query(
 																				'insert into userinrole(idusers,idroles) values(?,?)',
-																				[ user.idUser, data.idroles ],
+																				[ user.idusers, data.idroles ],
 																				(err, result) => {
 																					if (err) {
 																						connection.rollback(function() {
@@ -125,7 +125,7 @@ UserDb.login = async (user) => {
 														return reject(err);
 													});
 												} else {
-													connection.commit(function(err) {
+													 connection.commit(function(err) {
 														if (err) {
 															connection.rollback(function() {
 																connection.release();
@@ -183,7 +183,7 @@ UserDb.register = async (idpenduduk, user, hostname) => {
 									});
 								} else {
 									if (result.insertId > 0) {
-										user.idUser = result.insertId;
+										user.idusers = result.insertId;
 										connection.query(
 											'select * from roles where name=?',
 											[ 'pemohon' ],
@@ -197,7 +197,7 @@ UserDb.register = async (idpenduduk, user, hostname) => {
 													var data = roleResult[0];
 													connection.query(
 														'insert into userinrole(idusers,idroles) values(?,?)',
-														[ user.idUser, data.idroles ],
+														[ user.idusers, data.idroles ],
 														(err, result) => {
 															if (err) {
 																connection.rollback(function() {
@@ -207,7 +207,7 @@ UserDb.register = async (idpenduduk, user, hostname) => {
 															} else {
 																connection.query(
 																	'update penduduk set idusers=? where idpenduduk=?',
-																	[ user.idUser, idpenduduk ],
+																	[ user.idusers, idpenduduk ],
 																	(err, result) => {
 																		if (err) {
 																			connection.rollback(function() {
@@ -285,31 +285,31 @@ UserDb.profile = async (userid, role) => {
             penduduk.*
           FROM
             users
-            LEFT JOIN penduduk ON users.idusers = penduduk.idusers
+            LEFT JOIN penduduk ON users.iduserss = penduduk.iduserss
           WHERE
-            users.idusers = ?`;
+            users.iduserss = ?`;
 		} else if (role == 'admin') {
 			query = `SELECT
                             users.email,
                             users.username,
                             users.username as nama,
                             users.photo,
-                            users.idusers
+                            users.iduserss
                         FROM
                             users
-                        where users.idusers=?`;
+                        where users.iduserss=?`;
 		} else {
 			query = `SELECT
             users.email,
             users.username,
             users.photo,
-            users.idusers,
+            users.iduserss,
             pejabat.nama AS nama
           FROM
             users
-            LEFT JOIN pejabat ON users.idusers = pejabat.idusers
+            LEFT JOIN pejabat ON users.iduserss = pejabat.iduserss
           WHERE
-            users.idusers = ?`;
+            users.iduserss = ?`;
 		}
 		pool.query(query, [ userid ], (err, result) => {
 			if (err) {
@@ -418,7 +418,7 @@ UserDb.resetpassword = async (email, hostname) => {
 
 UserDb.changeFoto = async (user) => {
 	return new Promise((resolve, reject, nex) => {
-		pool.query('update users set photo=? where idusers=?', [ user.photo, user.idusers ], (err, result) => {
+		pool.query('update users set photo=? where idusers=?', [ user.photo, user.iduserss ], (err, result) => {
 			if (err) {
 				return reject(err);
 			} else resolve(true);
@@ -476,7 +476,7 @@ UserDb.getUserPejabatAktif = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
 			`SELECT
-            users.idusers,
+            users.iduserss,
             users.username,
             users.email,
             users.aktif,
@@ -485,7 +485,7 @@ UserDb.getUserPejabatAktif = async () => {
             users.devicetoken
           FROM
             users
-            LEFT JOIN userinrole ON users.idusers = userinrole.idusers
+            LEFT JOIN userinrole ON users.iduserss = userinrole.iduserss
             LEFT JOIN roles ON userinrole.idroles = roles.idroles
             WHERE
             users.aktif = 1 AND
