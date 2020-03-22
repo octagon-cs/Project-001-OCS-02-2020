@@ -15,15 +15,15 @@ function DashboarServices(params) {
 				headers: AuthService.getHeader()
 			}).then(
 				(response) => {
-					dash.data = response;
-					def.resolve(data);
+					dash.data = response.data;
+					def.resolve(dash.data);
 				},
 				(err) => {
 					message.errorText(err.message);
+					def.reject(ex);
 				}
 			);
 		}
-
 		return def.promise;
 	}
 

@@ -1,13 +1,12 @@
-<section class="content-header" ng-init="Init()">
+<section class="content-header">
   <div class="col">
     <div class="card-tools">
-      <h4>Jenis Permohonan</h4>
+
     </div>
     <div class="card card-warning" ng-if="tab.list">
       <div class="card-header">
         <h3 class="card-title">
-          <i class="fas fa-list"></i>
-          &nbsp; List Jenis Permohonan
+          List Jenis Permohonan
         </h3>
         <div class="card-tools">
           <button class="btn btn-primary float-right" ng-click="tab.show('tambah')"><i class="fa fa-plus"></i></button>
@@ -40,7 +39,8 @@
                     ng-click="SelectedItemPenduduk(item, 'view')">
                     <i class="fas fa-list"></i>
                   </button>
-                  <button class="btn btn-warning" ng-click="SelectedItemJenisPermohonan(item)"> <i class="fas fa-edit"></i></button>
+                  <button class="btn btn-warning" ng-click="SelectedItemJenisPermohonan(item)"> <i
+                      class="fas fa-edit"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -48,7 +48,7 @@
         </div>
       </div>
     </div>
-    <div ng-if="tab.tambah || tab.edit" class="card card-warning">
+    <div ng-show="tab.tambah || tab.edit" class="card card-warning">
       <div class="card-header">
         <h3 class="card-title" ng-if="tab.tambah"><i class="fas fa-plus"></i>Tambah Surat Keterangan Cerai
         </h3>
@@ -86,10 +86,8 @@
                   <label class="col-sm-4 col-form-label">Persyaratan</label>
                   <div class="col-sm-8">
                     <div class="input-group input-group-sm">
-                      <input type="text" class="form-control" ng-model="model">
-                      <span class="input-group-append">
-                        <button type="button" class="btn btn-info btn-plus" ng-click="add()"><i class="fas fa-plus"></i></button>
-                      </span>
+                      <input type="text" class="form-control" ng-model="syarat">
+                      <span><button type="button" ng-click="add(syarat)">+</button></span>
                     </div>
                   </div>
                 </div>
@@ -97,7 +95,7 @@
                   <label class="col-sm-4 col-form-label">&nbsp;</label>
                   <div class="col-sm-8">
                     <ol>
-                      <li ng-repeat="item in Persyaratan">{{item}}</li>
+                      <li ng-repeat="item in JenisPermohonan.persyaratan">{{item}}</li>
                     </ol>
                   </div>
                 </div>

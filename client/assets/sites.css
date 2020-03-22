@@ -126,6 +126,11 @@
   min-width: 98%;
 }
 
+.autoComplete .dropdown-menu li {
+  border-bottom: 0.1px solid #e7e7e7;
+  padding: 5px 15px;
+  pointer-events: none;
+}
 
 .autoComplete .dropdown-menu li a {
   font-size: medium;
@@ -139,6 +144,40 @@
 }
 
 .autoComplete .dropdown-menu li:hover a {
-  color: none;
+  color: white;
+}
+
+.loading {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(153, 205, 50, 0.288);
+}
+
+.loading .loading-body h1 {
+  margin: 20px;
+}
+
+.loading .loading-body .image {
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  margin: 0;
+  -webkit-animation: spin 4s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 /*# sourceMappingURL=sites.css.map */

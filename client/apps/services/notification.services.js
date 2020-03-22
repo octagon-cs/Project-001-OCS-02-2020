@@ -4,9 +4,7 @@ angular.module("notification.service", [])
 
 function InboxService($http, $q, AuthService, message, helperServices) {
     var service = {};
-    service.data = [];
-    service.unread = 0;
-    service.instance = false;
+    clean();
 
     get = () => {
         var def = $q.defer();
@@ -107,6 +105,12 @@ function InboxService($http, $q, AuthService, message, helperServices) {
         return service.data.length
     }
 
+   function clean(){
+        service.data = [];
+        service.unread = 0;
+        service.instance = false;
+    }
+
 
     return {
         get: get,
@@ -115,7 +119,7 @@ function InboxService($http, $q, AuthService, message, helperServices) {
         subscribe: subscribe,
         unread: unreadMessage,
         all: all,
-        read: read
+        read: read, clean:clean
     }
 
 
