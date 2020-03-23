@@ -2,6 +2,7 @@ angular
 	.module('helper.service', [])
 	.factory('helperServices', helperServices)
 	.factory('approvedService', approvedService)
+	.factory('loaderService', loaderService)
 	.factory('tabService', tabServices);
 
 function helperServices() {
@@ -185,37 +186,37 @@ function helperServices() {
 	function getState(state, role) {
 		switch (state) {
 			case 'Pengantar KTP':
-				return role+'-suratpengantarktp';
+				return role + '-suratpengantarktp';
 			case 'Tidak Mampu':
-				return role+'-surattidakmampu';
+				return role + '-surattidakmampu';
 			case 'Pengantar KK':
 				return null;
 			case 'Keterangan Domisili':
-				return role+'-suratketdomisili';
+				return role + '-suratketdomisili';
 			case 'Keterangan SKCK':
-				return role+'-suratskck';
+				return role + '-suratskck';
 			case 'Keterangan Usaha':
-				return role+'-suratketusaha';
+				return role + '-suratketusaha';
 			case 'Penguasaan Tanah':
-				return role+'-suratpenguasaantanah';
+				return role + '-suratpenguasaantanah';
 			case 'Keterangan Desa':
-				return role+'-suratketdesa';
+				return role + '-suratketdesa';
 			case 'Keterangan Cerai':
-				return role+'-suratketcerai';
+				return role + '-suratketcerai';
 			case 'Keterangan eKTP':
-				return role+'-suratketektp';
+				return role + '-suratketektp';
 			case 'Keterangan Nikah':
-				return role+'-suratketnikah';
+				return role + '-suratketnikah';
 			case 'Kelahiran':
-				return role+'-suratkelahiran';
+				return role + '-suratkelahiran';
 			case 'Sudah Menikah':
-				return role+'-suratketmenikah';
+				return role + '-suratketmenikah';
 			case 'Belum Menikah':
-				return role+'-suratbelummenikah';
+				return role + '-suratbelummenikah';
 			case 'Kematian':
-				return role+'-suratkematian';
+				return role + '-suratkematian';
 			case 'Pindah':
-				return role+'-suratpindah';
+				return role + '-suratpindah';
 			default:
 				return null;
 		}
@@ -243,7 +244,7 @@ function helperServices() {
 		print: print,
 		state: getState,
 		pad: pad,
-		stringnumber:stringnumber
+		stringnumber: stringnumber
 	};
 }
 
@@ -316,15 +317,13 @@ function approvedService(helperServices) {
 						}
 					}
 				} else {
-					if(userRole=="admin"){
+					if (userRole == 'admin') {
 						value.SetButtonPrint = false;
 						value.SetButtonApproved = true;
-					}else
-					{
+					} else {
 						value.SetButtonPrint = false;
 						value.SetButtonApproved = false;
 					}
-					
 				}
 			});
 		}
@@ -333,4 +332,14 @@ function approvedService(helperServices) {
 	return {
 		approvedView: approvedAction
 	};
+}
+
+function loaderService($rootScope) {
+	var service = {};
+	service.IsBusy = true;
+	service.setValue = (value) => {
+		$rootScope.$emit('show', value);
+	};
+
+	return service;
 }
