@@ -85,23 +85,23 @@
             </p>
           </a>
         </li>
-        <li class="nav-item has-treeview">
-          <a href="javascript:void(0)" class="nav-link">
+        <li class="nav-item has-treeview dropdown">
+          <a class="nav-link has-treeview" data-toggle="dropdown" href="javascript:void(0)">
             <i class="nav-icon fas fa-users"></i>
             <p>
-              Data Penduduk
+              Kependudukan
               <i class="fas fa-angle-left right"></i>
             </p>
           </a>
-          <ul class="nav nav-treeview">
+          <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="dropdown-menu">
             <li class="nav-item">
-              <a href="pages/UI/general.html" class="nav-link">
+              <a ui-sref="admin-datapenduduk" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Statistik Penduduk</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="pages/UI/icons.html" class="nav-link">
+              <a ui-sref="admin-pejabat" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Data Kartu Keluarga</p>
               </a>
