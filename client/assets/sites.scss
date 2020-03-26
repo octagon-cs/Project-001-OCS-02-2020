@@ -111,44 +111,78 @@
   }
 }
 
-
 // autocomplete start
 
-#typeahead-137-8142{
-  padding:20px;
-
-
-
+#typeahead-137-8142 {
+  padding: 20px;
 }
 
-
-.autoComplete{
-  .dropdown-menu{
+.autoComplete {
+  .dropdown-menu {
     color: white;
-      background-color:white;
-      min-width: 98%;
-    li{
+    background-color: white;
+    min-width: 98%;
+    li {
       border-bottom: 0.1px solid rgb(231, 231, 231);
-      padding:5px 15px;
+      padding: 5px 15px;
       pointer-events: none;
-      a{
+      a {
         font-size: medium;
-        color:black;
+        color: black;
         cursor: pointer;
         pointer-events: auto;
       }
     }
 
-    li:hover{
-      background:rgb(161, 161, 161);
-      a{
+    li:hover {
+      background: rgb(161, 161, 161);
+      a {
         color: white;
       }
     }
   }
-  
 }
 
+//Loading........
 
-
-// autcomplete end
+.loading {
+  position: fixed;
+  z-index: 9999;
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  color: white;
+  background-color: rgba(41, 41, 41, 0.822);
+  .loading-body {
+    h1 {
+      margin: 20px;
+    }
+    .image {
+      top: 50%;
+      left: 50%;
+      width: 50px;
+      height: 50px;
+      margin: 0;
+      -webkit-animation: spin 4s linear infinite;
+      -moz-animation: spin 4s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+    @-moz-keyframes spin {
+      100% {
+        -moz-transform: rotate(360deg);
+      }
+    }
+    @-webkit-keyframes spin {
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+    @keyframes spin {
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
