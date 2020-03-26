@@ -149,6 +149,12 @@ angular.module('admin.router', [ 'ui.router' ]).config(function($stateProvider, 
 			controller: 'adminsuratketnikahController',
 			templateUrl: 'apps/views/admin/suratketnikah.html'
 		})
+		.state('admin-suratpindah', {
+			url: '/suratpindah',
+			parent: 'admin-surat',
+			controller: 'adminsuratpindahController',
+			templateUrl: 'apps/views/admin/suratpindah.html'
+		})
 		.state('admin-suratall', {
 			url: '/suratall',
 			parent: 'admin-surat',

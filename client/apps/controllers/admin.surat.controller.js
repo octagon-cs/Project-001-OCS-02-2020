@@ -11,9 +11,12 @@ angular
 	.controller('adminsuratketceraiController', adminsuratketceraiController)
 	.controller('adminsuratketdesaController', adminsuratketdesaController)
 	.controller('adminsuratketektpController', adminsuratketektpController)
-	.controller('adminsuratskckController', adminsuratskckController);
+	.controller('adminsuratskckController', adminsuratskckController)
+	.controller('adminsuratpindahController', adminsuratpindahController);
 
-
+function adminsuratpindahController(){
+	
+}
 function adminsurattidakmampuController(
 	$http,
 	helperServices,
