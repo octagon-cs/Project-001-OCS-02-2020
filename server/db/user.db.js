@@ -285,31 +285,31 @@ UserDb.profile = async (userid, role) => {
             penduduk.*
           FROM
             users
-            LEFT JOIN penduduk ON users.iduserss = penduduk.iduserss
+            LEFT JOIN penduduk ON users.idusers = penduduk.idusers
           WHERE
-            users.iduserss = ?`;
+            users.idusers = ?`;
 		} else if (role == 'admin') {
 			query = `SELECT
                             users.email,
                             users.username,
                             users.username as nama,
                             users.photo,
-                            users.iduserss
+                            users.idusers
                         FROM
                             users
-                        where users.iduserss=?`;
+                        where users.idusers=?`;
 		} else {
 			query = `SELECT
             users.email,
             users.username,
             users.photo,
-            users.iduserss,
+            users.idusers,
             pejabat.nama AS nama
           FROM
             users
-            LEFT JOIN pejabat ON users.iduserss = pejabat.iduserss
+            LEFT JOIN pejabat ON users.idusers = pejabat.idusers
           WHERE
-            users.iduserss = ?`;
+            users.idusers = ?`;
 		}
 		pool.query(query, [ userid ], (err, result) => {
 			if (err) {

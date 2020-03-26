@@ -10,7 +10,9 @@ function seklurController(AuthService) {
 	AuthService.Init(['seklur']);
 }
 
-function seklurHomeController() { }
+function seklurHomeController(loaderService) {
+	loaderService.setValue(false);	
+}
 
 function dataseklurController() { }
 
