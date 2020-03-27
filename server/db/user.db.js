@@ -87,9 +87,24 @@ UserDb.login = async (user) => {
 																									}
 																								);
 																							} else {
-																								connection.release();
-																								return resolve(
-																									result[0]
+																								connection.commit(
+																									function(err) {
+																										if (err) {
+																											connection.rollback(
+																												function() {
+																													connection.release();
+																													return reject(
+																														err
+																													);
+																												}
+																											);
+																										} else {
+																											connection.release();
+																											resolve(
+																												result[0]
+																											);
+																										}
+																									}
 																								);
 																							}
 																						});
@@ -125,7 +140,7 @@ UserDb.login = async (user) => {
 														return reject(err);
 													});
 												} else {
-													 connection.commit(function(err) {
+													connection.commit(function(err) {
 														if (err) {
 															connection.rollback(function() {
 																connection.release();

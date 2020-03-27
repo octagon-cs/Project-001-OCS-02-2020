@@ -10,8 +10,33 @@ angular
 		'ngAnimate',
 		'ngSanitize',
 		'ui.bootstrap',
-		'ngLocale'
+		'ngLocale',
+		'chart.js'
 	])
+	.config(function(ChartJsProvider) {
+		Chart.defaults.global.colors = [
+			'#97bbcd',
+			'#dcdcdc',
+			'#f7464a',
+			'#46bfbd',
+			'#fdb45c',
+			'#949fb1',
+			'#4d5360',
+			'#803690',
+			'#00ADF9',
+			'#DCDCDC',
+			'#46BFBD',
+			'#FDB45C',
+			'#949FB1',
+			'#4D5360'
+		];
+		ChartJsProvider.setOptions({
+			colors: [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360' ]
+		});
+		ChartJsProvider.setOptions('doughnut', {
+			cutoutPercentage: 60
+		});
+	})
 	.directive('chooseFile', function() {
 		return {
 			link: function(scope, elem, attrs) {

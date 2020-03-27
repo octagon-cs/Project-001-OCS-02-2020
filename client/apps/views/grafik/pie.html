@@ -1,0 +1,24 @@
+<section class="content-header">
+    <div class="card card-warning">
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="fas fa-list"></i>
+                &nbsp; {{Title}}
+            </h3>
+        </div><!-- /.card-header -->
+        <div class="card-body">
+            <div class="chart-main row">
+                <div class="col-md-10">
+                    <canvas id="pie" class="chart chart-pie" chart-data="data" chart-labels="labels"
+                        chart-series="series" chart-options="options"></canvas>
+                </div>
+                <div class="col-md-2 chart-series">
+                    <div class="chart-label" ng-repeat="item in labels">
+                        <div class="label-color" style='background-color: {{colors[$index]}}'></div>
+                        <span>{{item}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
