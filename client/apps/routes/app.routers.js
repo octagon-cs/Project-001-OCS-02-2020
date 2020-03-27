@@ -5,7 +5,8 @@ angular
 		'approved.router',
 		'ui.router',
 		'seklur.router',
-		'lurah.router'
+		'lurah.router',
+		'grafik.router'
 	])
 	.config(function($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise('/');

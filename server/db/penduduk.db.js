@@ -182,7 +182,7 @@ db.registrasi = async (data) => {
 								});
 							} else {
 								data.idusers = result.insertId;
-								pool.query(
+								connection.query(
 									'insert into penduduk  (nama, nik, nkk, idusers, data, statusdalamkeluarga,status) values(?,?,?,?,?,?,?)',
 									[
 										data.nama,
@@ -195,7 +195,10 @@ db.registrasi = async (data) => {
 									],
 									(err, result) => {
 										if (err) {
-											return reject(err);
+											connection.rollback(function() {
+												connection.release();
+												return reject(error);
+											});
 										} else {
 											data.idpenduduk = result.insertId;
 											resolve(data);
@@ -276,6 +279,58 @@ db.delete = (id) => {
 				if (err) {
 					return reject(err);
 				} else resolve(true);
+			});
+		} catch (err) {
+			return reject(err);
+		}
+	});
+};
+
+db.updateStatusPenduduk = (idpenduduk, status, data) => {
+	return new Promise((resolve, reject) => {
+		try {
+			pool.getConnection((err, connection) => {
+				if (err) {
+					return reject(err);
+				} else {
+					connection.query(
+						'update penduduk set status=? where idpenduduk=?',
+						[ status, idpenduduk ],
+						(err, result) => {
+							if (err) {
+								connection.rollback(function() {
+									connection.release();
+									return reject(err);
+								});
+							} else {
+								connection.query(
+									'insert into detailpenduduk (idpenduduk, idjenispermohonan, data) values (?,?,?)',
+									[ idpenduduk, data.idjenispermohonan, JSON.parse(data) ],
+									(err, result) => {
+										if (err) {
+											connection.rollback(function() {
+												connection.release();
+												return reject(err);
+											});
+										} else {
+											connection.commit(function(err) {
+												if (err) {
+													connection.rollback(function() {
+														connection.release();
+														return reject(err);
+													});
+												} else {
+													connection.release();
+													resolve(true);
+												}
+											});
+										}
+									}
+								);
+							}
+						}
+					);
+				}
 			});
 		} catch (err) {
 			return reject(err);

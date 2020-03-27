@@ -1,17 +1,14 @@
-angular.module('lurah.controller', [])
-    .controller('lurahController', lurahController)
-    .controller('lurahHomeController', lurahHomeController)
-    .controller('datalurahController', datalurahController);
+angular
+	.module('lurah.controller', [])
+	.controller('lurahController', lurahController)
+	.controller('lurahHomeController', lurahHomeController)
+	.controller('datalurahController', datalurahController);
 
-
-function lurahController(AuthService) {
-    AuthService.Init(["lurah"]);
+function lurahController(AuthService, loaderService) {
+	AuthService.Init([ 'lurah' ]);
+	loaderService.setValue(false);
 }
 
-function lurahHomeController() {
+function lurahHomeController() {}
 
-}
-
-function datalurahController() {
-
-}
+function datalurahController() {}

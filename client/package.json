@@ -12,6 +12,7 @@
     "@fortawesome/fontawesome-free": "^5.12.0",
     "@uirouter/angularjs": "^1.0.22",
     "angular": "^1.7.8",
+    "angular-chart.js": "^1.1.1",
     "angular-datatables": "^0.6.2",
     "angular-local-storage": "^0.7.1",
     "angular-route": "1.7.8",

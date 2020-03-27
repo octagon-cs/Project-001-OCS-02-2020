@@ -156,6 +156,23 @@ function helperServices() {
 	source.Roles = [ 'pemohon', 'admin', 'seklur', 'lurah' ];
 	source.Hari = [ 'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu' ];
 
+	source.colors = [
+		'#97bbcd',
+		'#dcdcdc',
+		'#f7464a',
+		'#46bfbd',
+		'#fdb45c',
+		'#949fb1',
+		'#4d5360',
+		'#803690',
+		'#00ADF9',
+		'#DCDCDC',
+		'#46BFBD',
+		'#FDB45C',
+		'#949FB1',
+		'#4D5360'
+	];
+
 	function print(id) {
 		var w = 750;
 		var h = 850;

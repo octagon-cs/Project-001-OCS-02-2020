@@ -7,5 +7,5 @@ module.exports = function(app) {
 	app.use('/api/penduduk', require('../routers/penduduk.router'));
 	app.use('/api/inbox', require('../routers/inbox.router'));
 	app.use('/api/permohonan', require('../routers/permohonan.reouter'));
-	app.use('/api/dashboard', require('../routers/dashboard.router'));
+	app.use('/api/resume', require('../routers/resume.router'));
 };
