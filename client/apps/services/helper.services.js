@@ -9,7 +9,7 @@ function helperServices() {
 	var service = {};
 	var source = {};
 
-	service.url = 'http://waena-desa.id';
+	service.url = 'https://waena-desa.id';
 	// service.url = 'http://localhost:3000';
 	source.KepemilikanKTP = [ 'Sudah Memiliki KTP', 'Belum Memiliki KTP', 'Pembuatan KTP Dalam Proses' ];
 	source.GolonganDarah = [ 'O', 'A', 'A-', 'A+', 'AB', 'AB-', 'AB+', 'B', 'B-', 'O-', 'O+', 'TIDAK TAHU' ];
