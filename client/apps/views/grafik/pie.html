@@ -6,12 +6,15 @@
                 &nbsp; {{Title}}
             </h3>
             <div class="card-tools">
-                <button class="btn btn-info float-right" ng-click="tab.show('tambah')"><i
-                        class="fa fa-plus"></i></button>
+                <button class="btn btn-info btn-tool" ng-click="TampilData=false"><i
+                        class="fas fa-chart-pie"></i></button>
+                <button class="btn btn-primary btn-tool" ng-click="tab.show('tambah')"><i
+                        class="fas fa-print"></i></button>
             </div>
         </div><!-- /.card-header -->
         <div class="card-body">
-            <div class="chart-main row">
+            <div ng-show="TampilData" ng-include="include"></div>
+            <div ng-hide="TampilData" class="chart-main row">
                 <div class="col-md-10">
                     <canvas id="pie" class="chart chart-pie" chart-data="data" chart-labels="labels"
                         chart-series="series" chart-options="options"></canvas>

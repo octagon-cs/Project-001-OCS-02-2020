@@ -1171,7 +1171,8 @@ function adminsuratketceraiController(
 	PermohonanService,
 	PendudukService,
 	PejabatService,
-	$rootScope
+	$rootScope,
+	PersetujuanService
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.ItemPenduduk = '';
