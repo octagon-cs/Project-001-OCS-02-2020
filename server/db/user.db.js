@@ -433,7 +433,7 @@ UserDb.resetpassword = async (email, hostname) => {
 
 UserDb.changeFoto = async (user) => {
 	return new Promise((resolve, reject, nex) => {
-		pool.query('update users set photo=? where idusers=?', [ user.photo, user.iduserss ], (err, result) => {
+		pool.query('update users set photo=? where idusers=?', [ user.photo, user.idusers ], (err, result) => {
 			if (err) {
 				return reject(err);
 			} else resolve(true);
@@ -491,7 +491,7 @@ UserDb.getUserPejabatAktif = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
 			`SELECT
-            users.iduserss,
+            users.idusers,
             users.username,
             users.email,
             users.aktif,
@@ -500,7 +500,7 @@ UserDb.getUserPejabatAktif = async () => {
             users.devicetoken
           FROM
             users
-            LEFT JOIN userinrole ON users.iduserss = userinrole.iduserss
+            LEFT JOIN userinrole ON users.idusers = userinrole.idusers
             LEFT JOIN roles ON userinrole.idroles = roles.idroles
             WHERE
             users.aktif = 1 AND
