@@ -31,6 +31,7 @@ jenispermohonan.get = async () => {
 							persyaratan: [],
 							idjenispermohonan: items[0].idjenispermohonan,
 							nama: items[0].nama,
+							deskripsi: items[0].deskripsi,
 							jenis: items[0].jenis
 						};
 
@@ -88,6 +89,7 @@ jenispermohonan.getById = async (Id) => {
 							persyaratan: [],
 							idjenispermohonan: items[0].idjenispermohonan,
 							nama: items[0].nama,
+							deskripsi: items[0].deskripsi,
 							jenis: items[0].jenis
 						};
 
@@ -145,6 +147,7 @@ jenispermohonan.getByJenis = async (Jenis) => {
 							persyaratan: [],
 							idjenispermohonan: items[0].idjenispermohonan,
 							nama: items[0].nama,
+							deskripsi: items[0].deskripsi,
 							jenis: items[0].jenis
 						};
 
