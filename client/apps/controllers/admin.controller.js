@@ -12,7 +12,8 @@ angular
 	.controller('adminpermohonanController', adminpermohonanController)
 	.controller('adminSuratController', adminSuratController)
 	.controller('adminSuratAllController', adminSuratAllController)
-	.controller('adminpejabatController', adminpejabatController);
+	.controller('adminpejabatController', adminpejabatController)
+	.controller('adminpersyaratanController', adminpersyaratanController);
 
 function adminSuratController(
 	$scope,
@@ -150,6 +151,88 @@ function adminSuratAllController(
 
 function adminController(AuthService) {
 	AuthService.Init(['admin']);
+}
+
+function adminpersyaratanController(
+	$http,
+	$scope,
+	helperServices,
+	AuthService,
+	message,
+	tabService,
+	JenisPermohonanService,
+	loaderService
+) {
+	$scope.tab = tabService.createTab();
+	$scope.DatasJenisPermohonan = [];
+	$scope.JenisPermohonan = {};
+	$scope.JenisPermohonan.persyaratan = [];
+	$scope.InputPermohonan;
+	$scope.tab.show('tambah');
+	$scope.PermohonanJenis = helperServices.source.PermohonanJenis;
+	JenisPermohonanService.get().then((data) => {
+		$scope.DatasJenisPermohonan = data;
+		$scope.tab.show('list');
+		loaderService.setValue(false);
+	});
+
+	$scope.SelectedItemJenisPermohonan = function (item, set) {
+		JenisPermohonanService.getById(item.idjenispermohonan, true).then((jenispermohonan) => {
+			$scope.JenisPermohonan = jenispermohonan;
+			$scope.Persyaratan = item.persyaratan;
+			$scope.tab.show('edit');
+		});
+	};
+
+	$scope.add = function (model) {
+		if (model) {
+			if (!$scope.JenisPermohonan.persyaratan) $scope.JenisPermohonan.persyaratan = [];
+			$scope.JenisPermohonan.persyaratan.push(angular.copy(model));
+			$scope.syarat = null;
+			model = null;
+		}
+	};
+
+	$scope.Simpan = function () {
+		$scope.JenisPermohonan.persyaratan = $scope.Persyaratan;
+		JenisPermohonanService.post($scope.JenisPermohonan).then((x) => {
+			message.info('Berhasil Simpan');
+			$scope.JenisPermohonan = {};
+			$scope.ItemPersyaratan = [];
+		});
+	};
+
+	$scope.Ubah = function () {
+		$http({
+			method: 'put',
+			url: helperServices.url + '/api/jenispermohonan',
+			Header: AuthService.getHeader(),
+			data: $scope.InputPermohonan
+		}).then(
+			(param) => {
+				alert('Berhasil Melakukan perubahan');
+			},
+			(error) => {
+				alert(error.message);
+			}
+		);
+	};
+
+	$scope.Hapus = function (item) {
+		$http({
+			method: 'delete',
+			url: helperServices.url + '/api/jenispermohonan/' + item.idjenispermohonan,
+			Header: AuthService.getHeader()
+		}).then(
+			(param) => {
+				alert('Data Berhasil Di hapus');
+			},
+			(error) => {
+				alert(error.message);
+			}
+		);
+	};
+
 }
 
 function admininboxController() { }

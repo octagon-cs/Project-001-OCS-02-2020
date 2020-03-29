@@ -1,0 +1,105 @@
+<section class="content-header">
+    <div class="col">
+      <div class="card-tools">
+  
+      </div>
+      <div class="card card-warning" ng-if="tab.list">
+        <div class="card-header">
+          <h3 class="card-title">
+            List Persyaratan
+          </h3>
+        </div><!-- /.card-header -->
+        <div class="card-body">
+          <div class="table-responsive p-0">
+            <table datatable="ng" class="table table-head-fixed text-nowrap">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Persyaratan</th>
+                  <th>Keteangan</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in DatasJenisPermohonan">
+                  <td>{{$index+1}}</td>
+                  <td>{{item.nama}}</td>
+                  <td>{{item.deskripsi}}</td>
+                  <td>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailpenduduk"
+                      ng-click="SelectedItemPenduduk(item, 'view')">
+                      <i class="fas fa-list"></i>
+                    </button>
+                    <button class="btn btn-warning" ng-click="SelectedItemJenisPermohonan(item)"> <i
+                        class="fas fa-edit"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div ng-show="tab.tambah || tab.edit" class="card card-warning">
+        <div class="card-header">
+          <h3 class="card-title" ng-if="tab.tambah"><i class="fas fa-plus"></i>Tambah Surat Keterangan Cerai
+          </h3>
+          <h3 class="card-title" ng-if="tab.edit"><i class="fas fa-plus"></i>Ubah Surat </h3>
+        </div>
+        <div class="card-body">
+          <form ng-submit="Simpan()">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Nama Permohonan</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="JenisPermohonan.nama"
+                        placeholder="Nama Permohonan">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Keterangan</label>
+                    <div class="col-sm-8">
+                      <textarea class="form-control" rows="3" ng-model="JenisPermohonan.deskripsi"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Pilih Jenis</label>
+                    <div class="col-sm-8">
+                      <input type="text" ng-model="JenisPermohonan.jenis" placeholder="Pilih Jenis"
+                        uib-typeahead="state as state for state in PermohonanJenis | filter:$viewValue   | limitTo:8"
+                        class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Persyaratan</label>
+                    <div class="col-sm-8">
+                      <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" ng-model="syarat">
+                        <span><button type="button" ng-click="add(syarat)" class="btn btn-primary">+</button></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">&nbsp;</label>
+                    <div class="col-sm-8">
+                      <ol>
+                        <li ng-repeat="item in JenisPermohonan.persyaratan">{{item}}</li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-header"></div><br>
+            </div>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-success">Tambah</button>
+              <button type="button" class="btn btn-danger float-right" ng-click="tab.show('list')">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
