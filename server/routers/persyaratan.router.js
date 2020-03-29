@@ -6,7 +6,7 @@ const permit = require('../auth/permission');
 
 router.get('/', async (req, res) => {
 	try {
-		contextDb.JenisPermohonan.get().then((data) => {
+		contextDb.Persyaratan.get().then((data) => {
 			res.status(200).json(data);
 		});
 	} catch (err) {
@@ -19,20 +19,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
 	var id = req.params.id;
 	try {
-		contextDb.JenisPermohonan.getById(id).then((data) => {
-			res.status(200).json(data);
-		});
-	} catch (err) {
-		res.status(400).json({
-			message: err.message
-		});
-	}
-});
-
-router.get('/jenis/:jenis', async (req, res) => {
-	var jenis = req.params.jenis;
-	try {
-		contextDb.JenisPermohonan.getByJenis(jenis).then((data) => {
+		contextDb.Persyaratan.getById(id).then((data) => {
 			res.status(200).json(data);
 		});
 	} catch (err) {
@@ -45,7 +32,7 @@ router.get('/jenis/:jenis', async (req, res) => {
 router.post('/', async (req, res) => {
 	try {
 		const user = req.body;
-		contextDb.JenisPermohonan.post(user).then(
+		contextDb.Persyaratan.post(user).then(
 			(data) => {
 				res.status(200).json(data);
 			},
@@ -65,7 +52,7 @@ router.post('/', async (req, res) => {
 router.put('/', async (req, res) => {
 	try {
 		const user = req.body;
-		contextDb.JenisPermohonan.put(user).then(
+		contextDb.Persyaratan.put(user).then(
 			(data) => {
 				res.status(200).json(data);
 			},
@@ -86,47 +73,7 @@ router.delete('/:id', async (req, res) => {
 	var id = req.params.id;
 	try {
 		const user = req.body;
-		contextDb.JenisPermohonan.delete(id).then(
-			(data) => {
-				res.status(200).json(data);
-			},
-			(err) => {
-				res.status(400).json({
-					message: err.message
-				});
-			}
-		);
-	} catch (err) {
-		res.status(400).json({
-			message: err.message
-		});
-	}
-});
-
-router.post('/persyaratan', async (req, res) => {
-	try {
-		const model = req.body;
-		contextDb.JenisPermohonan.postPersyaratan(model).then(
-			(data) => {
-				res.status(200).json(data);
-			},
-			(err) => {
-				res.status(400).json({
-					message: err.message
-				});
-			}
-		);
-	} catch (err) {
-		res.status(400).json({
-			message: err.message
-		});
-	}
-});
-
-router.delete('/persyaratan', async (req, res) => {
-	try {
-		const model = req.body;
-		contextDb.JenisPermohonan.deletePersyaratan(model).then(
+		contextDb.Persyaratan.delete(id).then(
 			(data) => {
 				res.status(200).json(data);
 			},

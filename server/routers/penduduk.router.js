@@ -132,4 +132,35 @@ router.delete('/:id', async (req, res) => {
 	}
 });
 
+router.post('/dokumen', [ authJwt.verifyToken ], async (req, res) => {
+	try {
+		var data = req.body;
+		var fileType = data.jenis === 'ktp' ? 'ktp' : data.jenis === 'kk' ? 'kk' : 'lain';
+		var filename = 'client\\document\\' + fileType + '\\' + uuid.v1() + '.' + data.extention;
+		data.file = filename;
+		fs.writeFile(filename, data.data, 'base64', async function(err) {
+			if (err) {
+				res.status(400).json({
+					message: 'document tidak tersimpan'
+				});
+			} else {
+				var document = await contextDb.Penduduk.getDocument(model.idpenduduk);
+				var docExist = document.find((x) => x.jenis == fileType && x.jenis !== 'lain');
+				if (docExist) {
+					fs.unlink(docExist.file, function(err) {});
+					docExist.file = data.file;
+					data = await contextDb.Penduduk.updateDocument(docExist);
+				} else {
+					data = await contextDb.Penduduk.insertDocuemnt(data);
+				}
+				res.status(200).json(data);
+			}
+		});
+	} catch (err) {
+		res.status(400).json({
+			message: err.message
+		});
+	}
+});
+
 module.exports = router;
