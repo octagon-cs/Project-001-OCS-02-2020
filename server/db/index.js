@@ -8,7 +8,8 @@ const dbContext = {
 	Penduduk: require('./penduduk.db'),
 	Permohonan: require('./permohonan.db'),
 	Inbox: require('./inbox.db'),
-	Resume: require('./resume.db')
+	Resume: require('./resume.db'),
+	Persyaratan: require('./persyaratan.db')
 };
 
 module.exports = dbContext;

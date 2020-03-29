@@ -286,6 +286,45 @@ db.delete = (id) => {
 	});
 };
 
+db.updateDocument = (model) => {
+	return new Promise((resolve, reject) => {
+		try {
+			pool.query(
+				'update dokumenpenduduk set file=?, jenis=?, typefile=?  where iddokumenpenduduk=? ',
+				[ model.file, model.jenis, model.typefile, model.iddokumenpenduduk ],
+				(err, result) => {
+					if (err) {
+						return reject(err);
+					} else resolve(model);
+				}
+			);
+		} catch (err) {
+			return reject(err);
+		}
+	});
+};
+
+db.insertDocument = (model) => {
+	return new Promise((resolve, reject) => {
+		try {
+			pool.query(
+				'insert into dokumenpenduduk (idpenduduk, file, jenis,typefile) values(?,?,?,?)',
+				[ model.idpenduduk, model.file, model.jenis, model.typefile ],
+				(err, result) => {
+					if (err) {
+						return reject(err);
+					} else {
+						model.iddokumenpenduduk = result.insertId;
+						resolve(model);
+					}
+				}
+			);
+		} catch (err) {
+			return reject(err);
+		}
+	});
+};
+
 db.updateStatusPenduduk = (idpenduduk, status, data) => {
 	return new Promise((resolve, reject) => {
 		try {

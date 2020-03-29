@@ -45,8 +45,8 @@ fn.validate = async (data) => {
 				case 'Sudah Menikah':
 					return IdPenduduk(data);
 
-                case "Belum Menikah":
-                    return await belumMenikah(data);
+				case 'Belum Menikah':
+					return await belumMenikah(data);
 
 				case 'Kematian':
 					return IdPenduduk(data);
@@ -55,7 +55,7 @@ fn.validate = async (data) => {
 					return IdPenduduk(data);
 
 				case 'Pindah':
-					return IdPenduduk(data);
+					return pindah(data);
 
 				default:
 					return IdPenduduk(data);
@@ -70,46 +70,39 @@ fn.validate = async (data) => {
 };
 
 cerai = async (data) => {
-    try {
-        var suami = await db.Penduduk.getById(data.idpenduduk);
-        if (!suami)
-            return validate(false, "Data Suami Tidak Ditemukan");
+	try {
+		var suami = await db.Penduduk.getById(data.idpenduduk);
+		if (!suami) return validate(false, 'Data Suami Tidak Ditemukan');
 
-        var istri = await db.Penduduk.getById(data.data.idpenduduk)
-        if (!istri)
-            return validate(false, "Data Istri Tidak Ditemukan");
+		var istri = await db.Penduduk.getById(data.data.idpenduduk);
+		if (!istri) return validate(false, 'Data Istri Tidak Ditemukan');
 
-        if (!data.data.keterangan)
-            return validate(false, "Keterangan Tidak Boleh Kosong");
-        data.data.suami = suami;
-        data.data.istri = istri;
-        return validate(true, null)
-    } catch (error) {
-        return validate(true, error.message);
-    }
-}
+		if (!data.data.keterangan) return validate(false, 'Keterangan Tidak Boleh Kosong');
+		data.data.suami = suami;
+		data.data.istri = istri;
+		return validate(true, null);
+	} catch (error) {
+		return validate(true, error.message);
+	}
+};
 
 belumMenikah = async (data) => {
-    try {
-        if (!data.idpenduduk)
-            return validate(false, "Data Pemohon Tidak Boleh Kosong");
-        return validate(true, null)
-    } catch (error) {
-        return validate(true, error.message);
-    }
-}
-
+	try {
+		if (!data.idpenduduk) return validate(false, 'Data Pemohon Tidak Boleh Kosong');
+		return validate(true, null);
+	} catch (error) {
+		return validate(true, error.message);
+	}
+};
 
 tidakMampu = async (data) => {
 	try {
 		if (!data.idpenduduk) return validate(false, 'Data Penduduk Tidak Boleh Kosong');
-		return validate(true, null)
+		return validate(true, null);
 	} catch (error) {
 		return validate(true, error.message);
 	}
-}
-
-
+};
 
 kelahiran = async (item) => {
 	try {
@@ -127,14 +120,26 @@ kelahiran = async (item) => {
 };
 
 pengantarKTP = async (item) => {
-    try {
-        return validate(true, null)
-    } catch (error) {
-        return validate(true, error.message);
-    }
-}
+	try {
+		return validate(true, null);
+	} catch (error) {
+		return validate(true, error.message);
+	}
+};
 
+pindah = async (item) => {
+	try {
+		if (item.data && item.data.nik) {
+			var penduduk = await db.Penduduk.getByNIK(item.data.nik);
+			if (!penduduk) throw Error('nik tidak ditemukan');
 
+			item.data.nama = penduduk.nama;
+		}
+		return validate(true, null);
+	} catch (error) {
+		return validate(true, error.message);
+	}
+};
 
 IdPenduduk = async (item) => {
 	try {

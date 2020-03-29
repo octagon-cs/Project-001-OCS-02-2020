@@ -219,4 +219,43 @@ db.delete = (id) => {
 	});
 };
 
+db.postDocument = async (data) => {
+	return new Promise((resolve, reject) => {
+		try {
+			data.tanggalpengajuan = new Date();
+			pool.query(
+				'insert into dokumenpenduduk  (idpermohonan, file, typefile, iddetailpersyaratan) values(?,?,?,?)',
+				[ data.idpermohonan, data.file, data.typefile, data.iddetailpersyaratan ],
+				(err, result) => {
+					if (err) {
+						return reject(err);
+					} else {
+						data.idpermohonan = result.insertId;
+						resolve(data);
+					}
+				}
+			);
+		} catch (err) {
+			return reject(err);
+		}
+	});
+};
+
+db.deleteDocument = async (id) => {
+	return new Promise((resolve, reject) => {
+		try {
+			data.tanggalpengajuan = new Date();
+			pool.query('delete from dokumenpermohonan where iddokumen=?', [ id ], (err, result) => {
+				if (err) {
+					return reject(err);
+				} else {
+					resolve(true);
+				}
+			});
+		} catch (err) {
+			return reject(err);
+		}
+	});
+};
+
 module.exports = db;
