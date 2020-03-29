@@ -14,9 +14,10 @@ angular
 	.controller('adminsuratskckController', adminsuratskckController)
 	.controller('adminsuratpindahController', adminsuratpindahController);
 
-function adminsuratpindahController(){
-	
+function adminsuratpindahController() {
+
 }
+
 function adminsurattidakmampuController(
 	$http,
 	helperServices,
@@ -668,7 +669,7 @@ function adminsuratketmenikahController(
 	$scope.SelectedRT = function () {
 		$scope.model.data.RT = $scope.ListRT.find(
 			(x) =>
-				x.data.nomorrt == $scope.model.data.idpenduduk.rt && x.data.nomorrw == $scope.model.data.idpenduduk.rw
+			x.data.nomorrt == $scope.model.data.idpenduduk.rt && x.data.nomorrw == $scope.model.data.idpenduduk.rw
 		);
 	};
 	$scope.pad = (number) => {
@@ -813,8 +814,8 @@ function adminsuratbelummenikahController(
 	approvedService,
 	message,
 	tabService,
-	$rootScope
-
+	$rootScope,
+	PersetujuanService
 ) {
 	$scope.JenisKelamin = helperServices.JenisKelamin;
 	$scope.ListRT = [];
@@ -874,7 +875,7 @@ function adminsuratbelummenikahController(
 	$scope.SelectedRT = function () {
 		$scope.model.data.RT = $scope.ListRT.find(
 			(x) =>
-				x.data.nomorrt == $scope.model.data.idpenduduk.rt && x.data.nomorrw == $scope.model.data.idpenduduk.rw
+			x.data.nomorrt == $scope.model.data.idpenduduk.rt && x.data.nomorrw == $scope.model.data.idpenduduk.rw
 		);
 	};
 	$scope.Simpan = function () {
@@ -1010,11 +1011,11 @@ function adminsuratkelahiranController(
 						PermohonanService.getByJenis(jenis.idjenispermohonan).then((param) => {
 							approvedService.approvedView(param, $scope.UserRole);
 							$scope.Datas = angular.copy(param);
-							$scope.Datas.forEach(item=>{
-								var a = $scope.ListPenduduk.find(y=>y.idpenduduk==item.data.idpendudukibu);
-								var b = $scope.ListPenduduk.find(y=>y.idpenduduk==item.data.idpendudukayah);
-								item.data.namaibu=a.nama;
-								item.data.namaayah=b.nama;
+							$scope.Datas.forEach(item => {
+								var a = $scope.ListPenduduk.find(y => y.idpenduduk == item.data.idpendudukibu);
+								var b = $scope.ListPenduduk.find(y => y.idpenduduk == item.data.idpendudukayah);
+								item.data.namaibu = a.nama;
+								item.data.namaayah = b.nama;
 							})
 							if ($rootScope.permohonan) {
 								$scope.Edit($rootScope.permohonan);
@@ -1040,9 +1041,9 @@ function adminsuratkelahiranController(
 			} else if (params.idpenduduk == data.data.idpendudukibu) {
 				$scope.model.data.idpendudukibu = params;
 			}
-			
+
 		});
-		$scope.model.idpejabat =  $scope.dataPejabat.find((x)=>x.idpejabat==$scope.model.idpejabat);
+		$scope.model.idpejabat = $scope.dataPejabat.find((x) => x.idpejabat == $scope.model.idpejabat);
 		// data.data.tanggallahir = new Date(data.data.tanggallahir);
 		$scope.tab.show('edit');
 	};
@@ -1091,7 +1092,7 @@ function adminsuratkelahiranController(
 				$scope.model = {};
 				$scope.ItemPenduduk = '';
 				$scope.tab.show('list');
-				$scope.Datas=[];
+				$scope.Datas = [];
 				$scope.Init();
 			},
 			(error) => {
@@ -1171,7 +1172,8 @@ function adminsuratketceraiController(
 	PermohonanService,
 	PendudukService,
 	PejabatService,
-	$rootScope
+	$rootScope,
+	PersetujuanService
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.ItemPenduduk = '';
@@ -1706,9 +1708,9 @@ function adminsuratketektpController(
 	}
 }
 
-function adminsuratketusahaController() { }
+function adminsuratketusahaController() {}
 
-function adminsuratpenguasaantanahController() { }
+function adminsuratpenguasaantanahController() {}
 
 function adminsuratskckController(
 	$http,
