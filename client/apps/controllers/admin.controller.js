@@ -294,6 +294,8 @@ function adminpreviewController() {}
 
 function adminHomeController($http, helperServices, AuthService, $scope, InboxService, loaderService) {
 	loaderService.setValue(false);
+	$scope.hasil = 'Dr. H';
+	$scope.datas = [ { drname: 'Dr.Test1' }, { drname: 'Dr.Test2' }, { drname: 'Dr.Test3' } ];
 	$scope.LuasWilayah = {};
 	$scope.Profile = {};
 	$scope.Penduduk = {};
