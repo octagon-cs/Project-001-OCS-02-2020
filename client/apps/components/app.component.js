@@ -1,5 +1,1 @@
-angular.module('app.component', [
-    'login.component',
-    'inbox.component',
-    'spinner.component'
-]);
+angular.module('app.component', [ 'login.component', 'inbox.component', 'spinner.component', 'searchSurat.component' ]);

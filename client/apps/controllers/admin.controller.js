@@ -15,45 +15,12 @@ angular
 	.controller('adminpejabatController', adminpejabatController)
 	.controller('adminpersyaratanController', adminpersyaratanController);
 
-function adminSuratController(
-	$scope,
-	$state,
-	helperServices,
-	JenisPermohonanService,
-	PersetujuanService,
-	message,
-	AuthService,
-	loaderService
-) {
+function adminSuratController($scope, $state, helperServices, loaderService) {
 	$scope.DatasJenis = [];
 	$scope.UserRole;
 
-	$scope.Init = function () {
-		AuthService.profile().then((param) => {
-			$scope.UserRole = param.rolename;
-			$scope.UserRole == 'admin'
-				? $state.go('admin-suratall')
-				: $scope.UserRole == 'seklur' ? $state.go('seklur-suratall') : $state.go('lurah-suratall');
-			JenisPermohonanService.get().then((jenispermohonan) => {
-				$scope.DatasJenis = jenispermohonan;
-				
-				loaderService.setValue(false);
-			});
-		});
-	};
-	// $scope.state;
-	$scope.helper = helperServices.source;
-	$scope.SelectePermohonan = (param) => {
-		setTimeout((x) => {
-			var state = helperServices.state(param.jenis, $scope.UserRole);
-			if (state) {
-				$state.go(state);
-			} else {
-				$scope.UserRole == 'admin'
-					? $state.go('admin-suratall')
-					: $scope.UserRole == 'seklur' ? $state.go('seklur-suratall') : $state.go('lurah-suratall');
-			}
-		}, 300);
+	$scope.Init = function() {
+		loaderService.setValue(false);
 	};
 }
 
@@ -69,6 +36,7 @@ function adminSuratAllController(
 	PermohonanService,
 	AuthService,
 	PersetujuanService,
+	JenisPermohonanService,
 	loaderService
 ) {
 	$scope.tab = tabService.createTab();
@@ -176,9 +144,9 @@ function adminpersyaratanController(
 		loaderService.setValue(false);
 	});
 
-	$scope.SelectedItem = function (item) {
+	$scope.SelectedItem = function(item) {
 		$scope.model = item;
-		if ($scope.model.status = 1) {
+		if (($scope.model.status = 1)) {
 			$scope.model.status = true;
 		} else {
 			$scope.model.status = false;
@@ -186,12 +154,12 @@ function adminpersyaratanController(
 		$scope.tab.show('edit');
 	};
 
-	$scope.Tambah = function () {
+	$scope.Tambah = function() {
 		$scope.tab.show('tambah');
 		$scope.model = {};
-	}
+	};
 
-	$scope.Simpan = function () {
+	$scope.Simpan = function() {
 		if ($scope.tab.tambah) {
 			PersyaratanService.post($scope.model).then((x) => {
 				$scope.model = {};
@@ -205,10 +173,9 @@ function adminpersyaratanController(
 				message.info('Berhasil Mengubah');
 			});
 		}
-
 	};
 
-	$scope.Ubah = function () {
+	$scope.Ubah = function() {
 		$http({
 			method: 'put',
 			url: helperServices.url + '/api/jenispermohonan',
@@ -224,7 +191,7 @@ function adminpersyaratanController(
 		);
 	};
 
-	$scope.Hapus = function (item) {
+	$scope.Hapus = function(item) {
 		$http({
 			method: 'delete',
 			url: helperServices.url + '/api/jenispermohonan/' + item.idjenispermohonan,
@@ -238,10 +205,9 @@ function adminpersyaratanController(
 			}
 		);
 	};
-
 }
 
-function admininboxController() { }
+function admininboxController() {}
 
 function adminpejabatController(
 	$http,
@@ -534,7 +500,6 @@ function adminJenisPermohonanController(
 		$scope.Datas = data;
 		$scope.tab.show('list');
 		loaderService.setValue(false);
-
 	});
 
 	$scope.SelectedItemJenisPermohonan = function(item, set) {
@@ -545,20 +510,20 @@ function adminJenisPermohonanController(
 		});
 	};
 
-	$scope.ShowPersyaratan = function (item) {
+	$scope.ShowPersyaratan = function(item) {
 		$scope.model = {};
 		$scope.model = item;
 		PersyaratanService.get().then((persyaratan) => {
 			$scope.Persyaratan = angular.copy(persyaratan);
-			$scope.Persyaratan.forEach(value => {
+			$scope.Persyaratan.forEach((value) => {
 				if (item.persyaratan.filter((x) => x.idpersyaratan == value.idpersyaratan).length > 0) {
 					value.itemsyarat = true;
 				} else {
 					value.itemsyarat = false;
 				}
-			})
+			});
 			$('#TambahPersyaratan').modal('show');
-		})
+		});
 		// if (model) {
 		// 	if (!$scope.JenisPermohonan.persyaratan) $scope.JenisPermohonan.persyaratan = [];
 		// 	$scope.JenisPermohonan.persyaratan.push(angular.copy(model));
@@ -567,23 +532,23 @@ function adminJenisPermohonanController(
 		// }
 	};
 
-	$scope.addSyarat = function (item) {
+	$scope.addSyarat = function(item) {
 		loaderService.setValue(true);
 		if (item.itemsyarat) {
 			item.idjenispermohonan = $scope.model.idjenispermohonan;
 			JenisPermohonanService.postPersyaratan(angular.copy(item)).then((x) => {
 				loaderService.setValue(false);
-			})
+			});
 		} else {
 			var data = $scope.model.persyaratan.find((x) => x.idpersyaratan == item.idpersyaratan);
 			data.idjenispermohonan = $scope.model.idjenispermohonan;
 			JenisPermohonanService.deletePersyaratan(data).then((a) => {
 				loaderService.setValue(false);
-			})
+			});
 		}
-	}
+	};
 
-	$scope.Simpan = function () {
+	$scope.Simpan = function() {
 		$scope.JenisPermohonan.persyaratan = $scope.Persyaratan;
 		JenisPermohonanService.post($scope.JenisPermohonan).then((x) => {
 			message.info('Berhasil Simpan');

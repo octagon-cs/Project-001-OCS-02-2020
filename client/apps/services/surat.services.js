@@ -15,8 +15,8 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 		post: post,
 		put: put,
 		getByJenis: getByJenis,
-		postPersyaratan:postPersyaratan,
-		deletePersyaratan:deletePersyaratan
+		postPersyaratan: postPersyaratan,
+		deletePersyaratan: deletePersyaratan
 	};
 
 	function get() {
@@ -31,7 +31,7 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 			}).then(
 				(res) => {
 					service.instance = true;
-					service.data=res.data;
+					service.data = res.data;
 					def.resolve(service.data);
 				},
 				(err) => {
@@ -65,14 +65,14 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 		var def = $q.defer();
 		$http({
 			method: 'Post',
-			url: helperServices.url + controller + "/persyaratan",
+			url: helperServices.url + controller + '/persyaratan',
 			headers: AuthService.getHeader(),
 			data: data
 		}).then(
 			(param) => {
 				data.iddetailpersyaratan = param.data.iddetailpersyaratan;
 				delete data.itemsyarat;
-				var item = service.data.find((x) => (x.idjenispermohonan == data.idjenispermohonan));
+				var item = service.data.find((x) => x.idjenispermohonan == data.idjenispermohonan);
 				item.persyaratan.push(data);
 				def.resolve(param.data);
 			},
@@ -105,11 +105,11 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 		var def = $q.defer();
 		$http({
 			method: 'DELETE',
-			url: helperServices.url + controller + "/persyaratan/" + data.iddetailpersyaratan,
+			url: helperServices.url + controller + '/persyaratan/' + data.iddetailpersyaratan,
 			headers: AuthService.getHeader()
 		}).then(
 			(param) => {
-				var item = service.data.find((x) => (x.idjenispermohonan == data.idjenispermohonan));
+				var item = service.data.find((x) => x.idjenispermohonan == data.idjenispermohonan);
 				delete data.idjenispermohonan;
 				var index = item.persyaratan.indexOf(data);
 				item.persyaratan.splice(index, 1);
@@ -179,7 +179,7 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 		put: put,
 		getById: getById,
 		getByJenis: getByJenis,
-		clean:clean
+		clean: clean
 	};
 
 	function get() {
@@ -248,12 +248,12 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 	function getById(id) {
 		var def = $q.defer();
 		if (service.instance) {
-			var data = service.data.find((x) => x.idjenispermohonan == id);
+			var data = service.data.find((x) => x.idpermohonan == id);
 			def.resolve(data);
 		} else {
 			$http({
 				method: 'get',
-				url: helperServices.url + controller + '/byid/' + id,
+				url: helperServices.url + controller + '/' + id,
 				headers: AuthService.getHeader()
 			}).then(
 				(res) => {
@@ -291,8 +291,8 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 		return def.promise;
 	}
 
-	function clean(){
-		service.data=[];
-		service.instance=false;
+	function clean() {
+		service.data = [];
+		service.instance = false;
 	}
 }
