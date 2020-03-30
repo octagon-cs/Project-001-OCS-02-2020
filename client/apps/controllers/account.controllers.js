@@ -78,9 +78,10 @@ function ConfirmEmailController($state, $stateParams, AuthService) {
 	});
 }
 
-function InboxController(AuthService, $state, $scope, InboxService) {
+function InboxController(AuthService, $state, $scope, InboxService, loaderService) {
 	InboxService.get().then((res) => {
 		$scope.messages = res;
+		loaderService.setValue(false);
 	});
 
 	$scope.changedate = (date) => {

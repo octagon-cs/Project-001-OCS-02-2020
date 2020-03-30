@@ -36,15 +36,15 @@
             <table datatable="ng" class="table table-hover table-striped">
               <tbody>
                 <tr ng-repeat="item in messages|filter : search | orderBy: '-created'">
-                  <td>
+                  <td style="width: 2%;">
                     <div class="icheck-primary">
                       <input type="checkbox" value="" id="check1" ng-model="item.isChecked">
                       <label for="check1"></label>
                     </div>
                   </td>
-                  <td ng-click="read(item)" class="mailbox-name"><b>System</b></td>
+                  <td ng-click="read(item)" class="mailbox-name" style="width: 15%;"><b>{{item.data.from}}</b></td>
                   <td ng-click="read(item)" class="mailbox-subject">
-                    <b ng-if="!item.readed">{{item.message |limitTo:25}} {{item.message.length >25 ?"....":""}}</b>
+                    <b ng-if="!item.readed">{{item.message |limitTo:100}} {{item.message.length >100 ?"....":""}}</b>
                     <span ng-if="item.readed">{{item.message}}</span>
                   </td>
                   <td class="mailbox-date text-right">{{changedate(item.created)}}</td>
