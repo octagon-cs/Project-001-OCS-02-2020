@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular-ui-select2": "^0.0.5"
+    "angular-ui-select2": "^0.0.5",
+    "select2": "~4.0"
   }
 }

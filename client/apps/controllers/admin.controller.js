@@ -12,7 +12,8 @@ angular
 	.controller('adminpermohonanController', adminpermohonanController)
 	.controller('adminSuratController', adminSuratController)
 	.controller('adminSuratAllController', adminSuratAllController)
-	.controller('adminpejabatController', adminpejabatController);
+	.controller('adminpejabatController', adminpejabatController)
+	.controller('adminpersyaratanController', adminpersyaratanController);
 
 function adminSuratController(
 	$scope,
@@ -26,16 +27,18 @@ function adminSuratController(
 ) {
 	$scope.DatasJenis = [];
 	$scope.UserRole;
-	JenisPermohonanService.get().then((jenispermohonan) => {
-		$scope.DatasJenis = jenispermohonan;
-	});
-	$scope.Init = function() {
+
+	$scope.Init = function () {
 		AuthService.profile().then((param) => {
 			$scope.UserRole = param.rolename;
 			$scope.UserRole == 'admin'
 				? $state.go('admin-suratall')
 				: $scope.UserRole == 'seklur' ? $state.go('seklur-suratall') : $state.go('lurah-suratall');
-			loaderService.setValue(false);
+			JenisPermohonanService.get().then((jenispermohonan) => {
+				$scope.DatasJenis = jenispermohonan;
+				
+				loaderService.setValue(false);
+			});
 		});
 	};
 	// $scope.state;
@@ -152,7 +155,93 @@ function adminController(AuthService) {
 	AuthService.Init([ 'admin' ]);
 }
 
-function admininboxController() {}
+function adminpersyaratanController(
+	$http,
+	$scope,
+	helperServices,
+	AuthService,
+	message,
+	tabService,
+	loaderService,
+	PersyaratanService
+) {
+	$scope.tab = tabService.createTab();
+	$scope.Datas = [];
+	$scope.JenisPermohonan = {};
+	$scope.JenisPermohonan.persyaratan = [];
+	$scope.InputPermohonan;
+	PersyaratanService.get().then((data) => {
+		$scope.Datas = data;
+		$scope.tab.show('list');
+		loaderService.setValue(false);
+	});
+
+	$scope.SelectedItem = function (item) {
+		$scope.model = item;
+		if ($scope.model.status = 1) {
+			$scope.model.status = true;
+		} else {
+			$scope.model.status = false;
+		}
+		$scope.tab.show('edit');
+	};
+
+	$scope.Tambah = function () {
+		$scope.tab.show('tambah');
+		$scope.model = {};
+	}
+
+	$scope.Simpan = function () {
+		if ($scope.tab.tambah) {
+			PersyaratanService.post($scope.model).then((x) => {
+				$scope.model = {};
+				$scope.tab.show('list');
+				message.info('Berhasil Simpan');
+			});
+		} else {
+			PersyaratanService.put($scope.model).then((x) => {
+				$scope.model = {};
+				$scope.tab.show('list');
+				message.info('Berhasil Mengubah');
+			});
+		}
+
+	};
+
+	$scope.Ubah = function () {
+		$http({
+			method: 'put',
+			url: helperServices.url + '/api/jenispermohonan',
+			Header: AuthService.getHeader(),
+			data: $scope.InputPermohonan
+		}).then(
+			(param) => {
+				alert('Berhasil Melakukan perubahan');
+			},
+			(error) => {
+				alert(error.message);
+			}
+		);
+	};
+
+	$scope.Hapus = function (item) {
+		$http({
+			method: 'delete',
+			url: helperServices.url + '/api/jenispermohonan/' + item.idjenispermohonan,
+			Header: AuthService.getHeader()
+		}).then(
+			(param) => {
+				alert('Data Berhasil Di hapus');
+			},
+			(error) => {
+				alert(error.message);
+			}
+		);
+	};
+
+}
+
+function admininboxController() { }
 
 function adminpejabatController(
 	$http,
@@ -430,19 +519,22 @@ function adminJenisPermohonanController(
 	message,
 	tabService,
 	JenisPermohonanService,
-	loaderService
+	loaderService,
+	PersyaratanService
 ) {
 	$scope.tab = tabService.createTab();
-	$scope.DatasJenisPermohonan = [];
+	$scope.Datas = [];
 	$scope.JenisPermohonan = {};
+	$scope.model = {};
 	$scope.JenisPermohonan.persyaratan = [];
 	$scope.InputPermohonan;
 	$scope.tab.show('tambah');
 	$scope.PermohonanJenis = helperServices.source.PermohonanJenis;
 	JenisPermohonanService.get().then((data) => {
-		$scope.DatasJenisPermohonan = data;
+		$scope.Datas = data;
 		$scope.tab.show('list');
 		loaderService.setValue(false);
+
 	});
 
 	$scope.SelectedItemJenisPermohonan = function(item, set) {
@@ -453,16 +545,45 @@ function adminJenisPermohonanController(
 		});
 	};
 
-	$scope.add = function(model) {
-		if (model) {
-			if (!$scope.JenisPermohonan.persyaratan) $scope.JenisPermohonan.persyaratan = [];
-			$scope.JenisPermohonan.persyaratan.push(angular.copy(model));
-			$scope.syarat = null;
-			model = null;
-		}
+	$scope.ShowPersyaratan = function (item) {
+		$scope.model = {};
+		$scope.model = item;
+		PersyaratanService.get().then((persyaratan) => {
+			$scope.Persyaratan = angular.copy(persyaratan);
+			$scope.Persyaratan.forEach(value => {
+				if (item.persyaratan.filter((x) => x.idpersyaratan == value.idpersyaratan).length > 0) {
+					value.itemsyarat = true;
+				} else {
+					value.itemsyarat = false;
+				}
+			})
+			$('#TambahPersyaratan').modal('show');
+		})
+		// if (model) {
+		// 	if (!$scope.JenisPermohonan.persyaratan) $scope.JenisPermohonan.persyaratan = [];
+		// 	$scope.JenisPermohonan.persyaratan.push(angular.copy(model));
+		// 	$scope.syarat = null;
+		// 	model = null;
+		// }
 	};
 
-	$scope.Simpan = function() {
+	$scope.addSyarat = function (item) {
+		loaderService.setValue(true);
+		if (item.itemsyarat) {
+			item.idjenispermohonan = $scope.model.idjenispermohonan;
+			JenisPermohonanService.postPersyaratan(angular.copy(item)).then((x) => {
+				loaderService.setValue(false);
+			})
+		} else {
+			var data = $scope.model.persyaratan.find((x) => x.idpersyaratan == item.idpersyaratan);
+			data.idjenispermohonan = $scope.model.idjenispermohonan;
+			JenisPermohonanService.deletePersyaratan(data).then((a) => {
+				loaderService.setValue(false);
+			})
+		}
+	}
+
+	$scope.Simpan = function () {
 		$scope.JenisPermohonan.persyaratan = $scope.Persyaratan;
 		JenisPermohonanService.post($scope.JenisPermohonan).then((x) => {
 			message.info('Berhasil Simpan');

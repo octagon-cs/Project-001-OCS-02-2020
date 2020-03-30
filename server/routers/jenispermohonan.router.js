@@ -123,9 +123,9 @@ router.post('/persyaratan', async (req, res) => {
 	}
 });
 
-router.delete('/persyaratan', async (req, res) => {
+router.delete('/persyaratan/:id', async (req, res) => {
 	try {
-		const model = req.body;
+		const model = req.params.id;
 		contextDb.JenisPermohonan.deletePersyaratan(model).then(
 			(data) => {
 				res.status(200).json(data);

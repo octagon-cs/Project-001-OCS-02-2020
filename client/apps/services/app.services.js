@@ -8,5 +8,6 @@ angular.module('app.services', [
 	'PendudukService',
 	'SuratService',
 	'PejabatService',
-	'PersetujuanService'
+	'PersetujuanService',
+	'persyaratan.services'
 ]);

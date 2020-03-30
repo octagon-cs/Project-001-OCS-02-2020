@@ -14,7 +14,9 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 		getById: getById,
 		post: post,
 		put: put,
-		getByJenis: getByJenis
+		getByJenis: getByJenis,
+		postPersyaratan:postPersyaratan,
+		deletePersyaratan:deletePersyaratan
 	};
 
 	function get() {
@@ -59,6 +61,28 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 		return def.promise;
 	}
 
+	function postPersyaratan(data) {
+		var def = $q.defer();
+		$http({
+			method: 'Post',
+			url: helperServices.url + controller + "/persyaratan",
+			headers: AuthService.getHeader(),
+			data: data
+		}).then(
+			(param) => {
+				data.iddetailpersyaratan = param.data.iddetailpersyaratan;
+				delete data.itemsyarat;
+				var item = service.data.find((x) => (x.idjenispermohonan == data.idjenispermohonan));
+				item.persyaratan.push(data);
+				def.resolve(param.data);
+			},
+			(error) => {
+				message.error(error);
+			}
+		);
+		return def.promise;
+	}
+
 	function put(data) {
 		var def = $q.defer();
 		$http({
@@ -68,6 +92,27 @@ function JanisPermohonanService($http, $q, helperServices, AuthService, message)
 			data: data
 		}).then(
 			(param) => {
+				def.resolve(param);
+			},
+			(error) => {
+				message.error(error);
+			}
+		);
+		return def.promise;
+	}
+
+	function deletePersyaratan(data) {
+		var def = $q.defer();
+		$http({
+			method: 'DELETE',
+			url: helperServices.url + controller + "/persyaratan/" + data.iddetailpersyaratan,
+			headers: AuthService.getHeader()
+		}).then(
+			(param) => {
+				var item = service.data.find((x) => (x.idjenispermohonan == data.idjenispermohonan));
+				delete data.idjenispermohonan;
+				var index = item.persyaratan.indexOf(data);
+				item.persyaratan.splice(index, 1);
 				def.resolve(param);
 			},
 			(error) => {

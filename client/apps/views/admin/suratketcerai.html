@@ -83,10 +83,13 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">NIK Suami</label>
                                     <div class="col-sm-8">
-                                        <input type="text" ng-model="model.data.idpenduduksuami"
+                                        <select class="form-control" select2="" name="country" data-ng-model="model.data.idpenduduksuami" ng-options="state as state.nik+' - '+state.nama for state in ListPenduduk">
+                                            <option value="">Select Country</option>
+                                          </select>
+                                        <!-- <input type="text" ng-model="model.data.idpenduduksuami"
                                             placeholder="Pilih Data Suami"
                                             uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
-                                            class="form-control">
+                                            class="form-control"> -->
                                     </div>
                                 </div>
                             </div>
@@ -95,10 +98,13 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">NIK Istri</label>
                                     <div class="col-sm-8">
-                                        <input type="text" ng-model="model.data.idpendudukistri"
+                                        <select class="form-control" select2="" name="country" data-ng-model="model.data.idpendudukistri" ng-options="state as state.nik+' - '+state.nama for state in ListPenduduk">
+                                            <option value="">Select Country</option>
+                                          </select>
+                                        <!-- <input type="text" ng-model="model.data.idpendudukistri"
                                             placeholder="Pilih Data Istri"
                                             uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
-                                            class="form-control">
+                                            class="form-control"> -->
                                     </div>
                                 </div>
                                 <div class="form-group row">
