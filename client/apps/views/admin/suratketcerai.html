@@ -5,9 +5,7 @@
         </div> -->
         <div class="card card-warning" ng-if="tab.list">
             <div class="card-header">
-                <h3 class="card-title">
-                    <i class="fas fa-list"></i>
-                    &nbsp; List Permohonan Keterangan Cerai
+                <h3 class="card-title">List Permohonan Keterangan Cerai
                 </h3>
                 <div class="card-tools">
                     <button class="btn btn-primary float-right" ng-click="tab.show('tambah')"><i
@@ -59,9 +57,9 @@
         </div>
         <div ng-if="tab.tambah || tab.edit" class="card card-warning">
             <div class="card-header">
-                <h3 class="card-title" ng-if="tab.tambah"><i class="fas fa-plus"></i>Tambah Surat Keterangan Cerai
-                </h3>
-                <h3 class="card-title" ng-if="tab.edit"><i class="fas fa-plus"></i>Ubah Surat </h3>
+                <h4 class="card-title" ng-if="tab.tambah">Tambah Surat Keterangan Cerai
+                </h4>
+                <h4 class="card-title" ng-if="tab.edit">Ubah Surat </h4>
             </div>
             <div class="card-body">
                 <form ng-submit="Simpan()">
@@ -137,9 +135,9 @@
                     </div>
                     <div class="card-footer">
                         <button type="button" class="btn btn-warning float-right" ng-click="Batal()">Kembali</button>
-                        <button type="button" ng-if="UserRole !== 'admin' && item.SetButtonApproved"
+                        <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
                             class="btn btn-danger float-right" ng-click="TampilPesan(item)">Tolak</button>
-                        <button ng-if="item.SetButtonApproved" type="button" class="btn btn-primary float-right"
+                        <button ng-if="model.SetButtonApproved" type="button" class="btn btn-primary float-right"
                             ng-click="Setuju()">Setuju</button>
                         <button type="submit" class="btn btn-success float-right">Simpan</button>
                     </div>

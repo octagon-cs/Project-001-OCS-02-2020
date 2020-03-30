@@ -39,10 +39,6 @@ angular.module('account.router', ['ui.router']).config(function ($stateProvider,
 			url: '/about',
 			parent: 'account',
 			templateUrl: 'apps/views/accounts/about.html'
-		}).state('inbox', {
-			url: '/inbox',
-			controller: 'InboxController',
-			templateUrl: 'apps/views/inbox.html'
 		});
 
 });

@@ -9,9 +9,12 @@ angular.module('lurah.router', ['ui.router']).config(function ($stateProvider, $
             parent: 'lurah',
             controller: 'lurahHomeController',
             templateUrl: 'apps/views/lurah/home.html'
-        })
-
-        .state('lurah-datakepaladesa', {
+        }).state('lurah-inbox', {
+			url: '/inbox',
+			parent: 'lurah',
+			controller: 'InboxController',
+			templateUrl: 'apps/views/inbox.html'
+		}).state('lurah-datakepaladesa', {
             url: '/datakepaladesa',
             parent: 'lurah',
             controller: 'admindatakepaladesaController',
@@ -61,11 +64,6 @@ angular.module('lurah.router', ['ui.router']).config(function ($stateProvider, $
             parent: 'lurah-surat',
             controller: 'adminsuratketdomisiliController',
             templateUrl: 'apps/views/admin/suratketdomisili.html'
-        }).state('lurah-inbox', {
-            url: '/inbox',
-            parent: 'lurah',
-            controller: 'InboxController',
-            templateUrl: 'apps/views/inbox.html'
         }).state('lurah-permohonan', {
             url: '/permohonan',
             parent: 'lurah',

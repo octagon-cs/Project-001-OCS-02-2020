@@ -209,6 +209,11 @@
     text-transform: uppercase;
   }
 }
-.select2-container .select2-selection--single {
-  height: 35px !important; 
+
+.card-footer {
+  button{
+    min-width: 75px;
+    margin: 0px 5px;
+    font-size: inherit;
+  }
 }

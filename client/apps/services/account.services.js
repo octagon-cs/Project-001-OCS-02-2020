@@ -12,7 +12,7 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		userInRole: userInRole,
 		getHeader: getHeader,
 		getToken: getToken,
-		url: service.url,
+		// url: service.url,
 		profile: profile,
 		Init: Init,
 		registrasi: registrasi,

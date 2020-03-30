@@ -12,7 +12,7 @@ angular
 				}, 500);
 			};
 		},
-		template: `<a href="" class="nav-link" data-toggle="modal" data-target="#logout">Logout</a>
+		template: `<a href="" class="btn btn-info btn-tool" data-toggle="modal" data-target="#logout">Logout</a>
 					<div class="modal fade" data-backdrop="false" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" 132164165411651511>
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
