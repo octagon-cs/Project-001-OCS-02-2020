@@ -18,21 +18,21 @@
           <table datatable="ng" class="table table-head-fixed text-nowrap">
             <thead>
               <tr>
-                <th>No</th>
+                <th style="width: 1%;">No</th>
                 <th>Jenis Permohonan</th>
-                <th>Keteangan</th>
-                <th>Persyaratan</th>
-                <th>Action</th>
+                <th style="width: 35%;">Keterangan</th>
+                <th style="width: 20%;">Persyaratan</th>
+                <th style="width: 10%;">Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="item in DatasJenisPermohonan">
+              <tr ng-repeat="item in Datas">
                 <td>{{$index+1}}</td>
                 <td>{{item.nama}}</td>
                 <td>{{item.deskripsi}}</td>
                 <td>
                   <ol>
-                    <li ng-repeat="persyaratan in item.persyaratan">{{persyaratan}}</li>
+                    <li ng-repeat="persyaratan in item.persyaratan">{{persyaratan.nama}}</li>
                   </ol>
                 </td>
                 <td>
@@ -42,6 +42,8 @@
                   </button>
                   <button class="btn btn-warning" ng-click="SelectedItemJenisPermohonan(item)"> <i
                       class="fas fa-edit"></i></button>
+                  <button class="btn btn-success" ng-click="ShowPersyaratan(item)" title="Kelolah Persyaratan"> <i
+                      class="fas fa-plus"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -82,25 +84,6 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-4 col-form-label">Persyaratan</label>
-                  <div class="col-sm-8">
-                    <div class="input-group input-group-sm">
-                      <input type="text" class="form-control" ng-model="syarat">
-                      <span><button type="button" ng-click="add(syarat)" class="btn btn-primary">+</button></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-4 col-form-label">&nbsp;</label>
-                  <div class="col-sm-8">
-                    <ol>
-                      <li ng-repeat="item in JenisPermohonan.persyaratan">{{item}}</li>
-                    </ol>
-                  </div>
-                </div>
-              </div>
             </div>
             <div class="card-header"></div><br>
           </div>
@@ -113,3 +96,33 @@
     </div>
   </div>
 </section>
+
+<div class="modal fade" id="TambahPersyaratan">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Default Modal</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group list-group-unbordered mb-3">
+          <li class="list-group-item" ng-repeat="item in Persyaratan">
+            <b>{{item.nama}}</b>
+            <div class="float-right">
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="{{item.idpersyaratan}}"
+                  ng-model="item.itemsyarat" ng-change="addSyarat(item)">
+                <label class="custom-control-label" for="{{item.idpersyaratan}}"></label>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

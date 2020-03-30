@@ -6,7 +6,7 @@ Persyaratan.get = async () => {
 		pool.query(
 			`SELECT *
 		  FROM
-			Persyaratan`,
+			persyaratan`,
 			(err, result) => {
 				if (err) {
 					return reject(err);
@@ -36,7 +36,7 @@ Persyaratan.post = async (data) => {
 	return new Promise((resolve, reject) => {
 		try {
 			pool.query(
-				'insert into Persyaratan  (nama, deskripsi, status) values(?,?,?)',
+				'insert into persyaratan  (nama, deskripsi, status) values(?,?,?)',
 				[ data.nama, data.deskripsi, data.status ],
 				(err, result) => {
 					if (err) {
@@ -57,7 +57,7 @@ Persyaratan.put = async (data) => {
 	return new Promise((resolve, reject) => {
 		try {
 			pool.query(
-				'update Persyaratan set nama=?, deskripsi=?, status=? where idpersyaratan=? ',
+				'update persyaratan set nama=?, deskripsi=?, status=? where idpersyaratan=? ',
 				[ data.nama, data.deskripsi, data.status, data.idpersyaratan ],
 				(err, result) => {
 					if (err) {
