@@ -11,20 +11,10 @@ angular
 	.controller('admintambahpermohonanController', admintambahpermohonanController)
 	.controller('adminpermohonanController', adminpermohonanController)
 	.controller('adminSuratController', adminSuratController)
-	.controller('adminSuratAllController', adminSuratAllController)
 	.controller('adminpejabatController', adminpejabatController)
 	.controller('adminpersyaratanController', adminpersyaratanController);
 
-function adminSuratController($scope, $state, helperServices, loaderService) {
-	$scope.DatasJenis = [];
-	$scope.UserRole;
-
-	$scope.Init = function() {
-		loaderService.setValue(false);
-	};
-}
-
-function adminSuratAllController(
+function adminSuratController(
 	$scope,
 	PermohonanService,
 	helperServices,
@@ -51,9 +41,9 @@ function adminSuratAllController(
 	});
 
 	$scope.go = (permohonan) => {
-		var state = helperServices.state(permohonan.jenis, $scope.UserRole);
+		var state = helperServices.stateEdit(permohonan.jenis, $scope.UserRole);
 		$rootScope.permohonan = permohonan;
-		$state.go(state);
+		$state.go(state, { id: permohonan.idpermohonan });
 	};
 
 	$scope.pad = (number) => {

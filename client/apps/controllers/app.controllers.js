@@ -6,7 +6,8 @@ angular
 		'seklur.controller',
 		'lurah.controller',
 		'approved.controller',
-		'grafik.controller'
+		'grafik.controller',
+		'admin.surat.param.controller'
 	])
 	.controller('LoaderController', LoaderController);
 

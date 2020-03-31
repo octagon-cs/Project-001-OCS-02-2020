@@ -125,12 +125,6 @@ angular.module('admin.router', [ 'ui.router' ]).config(function($stateProvider, 
 			controller: 'adminsuratketceraiController',
 			templateUrl: 'apps/views/admin/suratketcerai.html'
 		})
-		.state('admin-suratketcerai-edit', {
-			url: '/suratketcerai/:id',
-			parent: 'admin',
-			controller: 'adminsuratketceraiController',
-			templateUrl: 'apps/views/admin/suratketcerai.html'
-		})
 		.state('admin-suratketdesa', {
 			url: '/suratketdesa',
 			parent: 'admin',
@@ -172,12 +166,6 @@ angular.module('admin.router', [ 'ui.router' ]).config(function($stateProvider, 
 			parent: 'admin',
 			controller: 'InboxController',
 			templateUrl: 'apps/views/inbox.html'
-		})
-		.state('admin-suratall', {
-			url: '/suratall',
-			parent: 'admin',
-			controller: 'adminSuratAllController',
-			templateUrl: 'apps/views/admin/suratall.html'
 		})
 		.state('admin-surat', {
 			url: '/surat',

@@ -13,7 +13,7 @@ angular
 		'ngLocale',
 		'chart.js'
 	])
-	.config(function (ChartJsProvider) {
+	.config(function(ChartJsProvider) {
 		Chart.defaults.global.colors = [
 			'#97bbcd',
 			'#dcdcdc',
@@ -31,30 +31,30 @@ angular
 			'#4D5360'
 		];
 		ChartJsProvider.setOptions({
-			colors: ['#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']
+			colors: [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360' ]
 		});
 		ChartJsProvider.setOptions('doughnut', {
 			cutoutPercentage: 60
 		});
 	})
-	.directive('chooseFile', function () {
+	.directive('chooseFile', function() {
 		return {
-			link: function (scope, elem, attrs) {
+			link: function(scope, elem, attrs) {
 				var button = elem.find('#output');
 				var input = angular.element(elem[0].querySelector('input#fileInput'));
-				button.bind('click', function () {
+				button.bind('click', function() {
 					input[0].click();
 				});
-				input.bind('change', function (e) {
-					scope.$apply(function () {
+				input.bind('change', function(e) {
+					scope.$apply(function() {
 						var files = e.target.files;
 						if (files[0]) {
 							var f = files[0];
 							var foto = {};
 							foto.fileName = f.name;
 							r = new FileReader();
-							r.onload = (function (theFile) {
-								return function (e) {
+							r.onload = (function(theFile) {
+								return function(e) {
 									//var binaryData = e.target.result;
 									var img = document.createElement('img');
 									img.src = e.target.result;
@@ -102,11 +102,11 @@ angular
 			}
 		};
 	})
-	.directive('select', function ($interpolate) {
+	.directive('select', function($interpolate) {
 		return {
 			restrict: 'E',
 			require: 'ngModel',
-			link: function (scope, elem, attrs, ctrl) {
+			link: function(scope, elem, attrs, ctrl) {
 				var defaultOptionTemplate;
 				scope.defaultOptionText = attrs.defaultOption || 'Pilih...';
 				defaultOptionTemplate =
@@ -115,43 +115,43 @@ angular
 			}
 		};
 	})
-	.directive("select2", function($timeout, $parse) {
+	.directive('select2', function($timeout, $parse) {
 		return {
-		  restrict: 'AC',
-		  require: 'ngModel',
-		  link: function(scope, element, attrs) {
-			console.log(attrs);
-			$timeout(function() {
-			  element.select2();
-			  element.select2Initialized = true;
-			});
-	  
-			var refreshSelect = function() {
-			  if (!element.select2Initialized) return;
-			  $timeout(function() {
-				element.trigger('change');
-			  });
-			};
-			
-			var recreateSelect = function () {
-			  if (!element.select2Initialized) return;
-			  $timeout(function() {
-				element.select2('destroy');
-				element.select2();
-			  });
-			};
-	  
-			scope.$watch(attrs.ngModel, refreshSelect);
-	  
-			if (attrs.ngOptions) {
-			  var list = attrs.ngOptions.match(/ in ([^ ]*)/)[1];
-			  // watch for option list change
-			  scope.$watch(list, recreateSelect);
+			restrict: 'AC',
+			require: 'ngModel',
+			link: function(scope, element, attrs) {
+				//console.log(attrs);
+				$timeout(function() {
+					element.select2();
+					element.select2Initialized = true;
+				});
+
+				var refreshSelect = function() {
+					if (!element.select2Initialized) return;
+					$timeout(function() {
+						element.trigger('change');
+					});
+				};
+
+				var recreateSelect = function() {
+					if (!element.select2Initialized) return;
+					$timeout(function() {
+						element.select2('destroy');
+						element.select2();
+					});
+				};
+
+				scope.$watch(attrs.ngModel, refreshSelect);
+
+				if (attrs.ngOptions) {
+					var list = attrs.ngOptions.match(/ in ([^ ]*)/)[1];
+					// watch for option list change
+					scope.$watch(list, recreateSelect);
+				}
+
+				if (attrs.ngDisabled) {
+					scope.$watch(attrs.ngDisabled, refreshSelect);
+				}
 			}
-	  
-			if (attrs.ngDisabled) {
-			  scope.$watch(attrs.ngDisabled, refreshSelect);
-			}
-		  }
 		};
-	  });
+	});

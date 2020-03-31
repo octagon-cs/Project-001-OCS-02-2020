@@ -201,39 +201,47 @@ function helperServices() {
 	}
 
 	function getState(state, role) {
+		return role + '-' + getStateName(state);
+	}
+
+	function getStateEdit(state, role) {
+		return role + '-edit-' + getStateName(state);
+	}
+
+	function getStateName(state) {
 		switch (state) {
 			case 'Pengantar KTP':
-				return role + '-suratpengantarktp';
+				return 'suratpengantarktp';
 			case 'Tidak Mampu':
-				return role + '-surattidakmampu';
+				return 'surattidakmampu';
 			case 'Pengantar KK':
 				return null;
 			case 'Keterangan Domisili':
-				return role + '-suratketdomisili';
+				return 'suratketdomisili';
 			case 'Keterangan SKCK':
-				return role + '-suratskck';
+				return 'suratskck';
 			case 'Keterangan Usaha':
-				return role + '-suratketusaha';
+				return 'suratketusaha';
 			case 'Penguasaan Tanah':
-				return role + '-suratpenguasaantanah';
+				return 'suratpenguasaantanah';
 			case 'Keterangan Desa':
-				return role + '-suratketdesa';
+				return 'suratketdesa';
 			case 'Keterangan Cerai':
-				return role + '-suratketcerai';
+				return 'suratketcerai';
 			case 'Keterangan eKTP':
-				return role + '-suratketektp';
+				return 'suratketektp';
 			case 'Keterangan Nikah':
-				return role + '-suratketnikah';
+				return 'suratketnikah';
 			case 'Kelahiran':
-				return role + '-suratkelahiran';
+				return 'suratkelahiran';
 			case 'Sudah Menikah':
-				return role + '-suratketmenikah';
+				return 'suratketmenikah';
 			case 'Belum Menikah':
-				return role + '-suratbelummenikah';
+				return 'suratbelummenikah';
 			case 'Kematian':
-				return role + '-suratkematian';
+				return 'suratkematian';
 			case 'Pindah':
-				return role + '-suratpindah';
+				return 'suratpindah';
 			default:
 				return null;
 		}
@@ -260,6 +268,7 @@ function helperServices() {
 		source: source,
 		print: print,
 		state: getState,
+		stateEdit: getStateEdit,
 		pad: pad,
 		stringnumber: stringnumber
 	};
@@ -283,12 +292,15 @@ function tabServices() {
 			case 'tambah':
 				service.tambah = true;
 				return;
+
 			case 'edit':
 				service.edit = true;
 				return;
+
 			case 'list':
 				service.list = true;
 				return;
+
 			case 'approved':
 				service.approved = true;
 				return;
@@ -346,8 +358,42 @@ function approvedService(helperServices) {
 		}
 	};
 
+	approvedModel = function(value, userRole) {
+		if (value) {
+			if (value.persetujuan && value.persetujuan.length > 0) {
+				var lastPersetujuan = value.persetujuan[value.persetujuan.length - 1];
+				if (lastPersetujuan.role == 'lurah' && lastPersetujuan.status == 'selesai') {
+					value.SetButtonPrint = true;
+					value.SetButtonApproved = false;
+				} else {
+					var lastindex = helperServices.source.Roles.indexOf(lastPersetujuan.role);
+					var nextRole =
+						lastPersetujuan.status == 'dikembalikan'
+							? helperServices.source.Roles[lastindex - 1]
+							: helperServices.source.Roles[lastindex + 1];
+					if (nextRole == userRole) {
+						value.SetButtonPrint = false;
+						value.SetButtonApproved = true;
+					} else {
+						value.SetButtonPrint = false;
+						value.SetButtonApproved = false;
+					}
+				}
+			} else {
+				if (userRole == 'admin') {
+					value.SetButtonPrint = false;
+					value.SetButtonApproved = true;
+				} else {
+					value.SetButtonPrint = false;
+					value.SetButtonApproved = false;
+				}
+			}
+		}
+	};
+
 	return {
-		approvedView: approvedAction
+		approvedView: approvedAction,
+		approvedModel: approvedModel
 	};
 }
 

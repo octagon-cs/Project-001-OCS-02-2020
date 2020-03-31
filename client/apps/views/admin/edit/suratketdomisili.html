@@ -1,0 +1,69 @@
+<section class="content-header" ng-init="Init()">
+  <div class="card card-warning">
+    <div class="card-header">
+      <h3 class="card-title">Surat Keterangan Domisili</h3>
+    </div>
+    <div class="card-body">
+      <form ng-submit="Simpan(model)">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>NIK/Nama</label>
+            <select class="form-control" data-ng-model="model.penduduk" select2
+              ng-change="model.idpenduduk=model.penduduk.idpenduduk"
+              ng-options="item as item.nik+' - '+item.nama for item in ListPenduduk" data-placeholder="Pilih Penduduk">
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label>Nomor Surat</label>
+            <input type="text" class="form-control" ng-model="model.nomorsurat" placeholder="Nomor Surat">
+          </div>
+          <div class="form-group col-md-6">
+            <label>Nama Pejabat Pengesah</label>
+            <select class="form-control" select2 data-ng-model="model.pejabat"
+              ng-change="model.idpejabat=model.pejabat.idpejabat"
+              ng-options="item as item.nama+' - '+item.namajabatan for item in dataPejabat"
+              data-placeholder="Pilih Pejabat"></select>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-warning float-right" ng-click="Batal()">Kembali</button>
+          <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
+            class="btn btn-danger float-right" ng-click="TampilPesan(model)">Tolak</button>
+          <button ng-if="model.SetButtonApproved" type="button" class="btn btn-primary float-right"
+            ng-click="Setuju()">Setuju</button>
+          <button type="submit" class="btn btn-success float-right">Simpan</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<div id="suratDomisili" class="printing">
+  <div ng-include="'../../../apps/views/admin/formatsurat/formatketdomisili.html'"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="Pesan" tabindex="-1" role="dialog" aria-labelledby="Pesan" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Pesan">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <textarea id="" cols="30" rows="10" ng-model="model.message" class="form-control"></textarea>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-warning float-right" ng-click="Batal()">Kembali</button>
+        <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved" class="btn btn-danger float-right"
+          ng-click="TampilPesan(model)">Tolak</button>
+        <button ng-if="model.SetButtonApproved" type="button" class="btn btn-primary float-right"
+          ng-click="Setuju()">Setuju</button>
+        <button type="submit" class="btn btn-success float-right">Simpan</button>
+      </div>
+    </div>
+  </div>
+</div>

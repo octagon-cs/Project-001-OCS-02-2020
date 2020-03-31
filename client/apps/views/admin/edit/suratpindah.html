@@ -1,0 +1,638 @@
+<section class="content-header" ng-init="Init()">
+    <div class="col">
+        <!-- <div class="card-tools">
+        <h4>Surat Pindah</h4>
+      </div> -->
+        <div class="card card-warning" ng-if="tab.list">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-list"></i>
+                    List Surat Keterangan Pindah
+                </h3>
+                <div class="card-tools">
+                    <button class="btn btn-primary float-right" ng-click="tab.show('tambah')"><i
+                            class="fa fa-plus"></i></button>
+                </div>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+                <div class="table-responsive p-0">
+                    <table datatable="ng" class="table table-head-fixed text-nowrap" id="table">
+                        <thead>
+                            <tr>
+                                <th width="2px">ID</th>
+                                <th>Kode</th>
+                                <th>NIK</th>
+                                <th>Nama</th>
+                                <th>No.Surat</th>
+                                <th>Pejabat Pengesah</th>
+                                <th width="10px">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in Datas">
+                                <td>{{$index+1}}</td>
+                                <td>{{pad(item.idpermohonan)}}</td>
+                                <td>{{item.nik}}</td>
+                                <td>{{item.nama}}</td>
+                                <td>{{item.nomorsurat}}</td>
+                                <td>{{item.namapejabat}}</td>
+                                <td>
+                                    <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'"
+                                        class="btn btn-primary" ng-click="Print('suratTidakMampu', item)">
+                                        <i class="fas fa-print"></i></a>
+                                    <a href="javascript:void(0)" title="Detail Permohonan" class="btn btn-warning"
+                                        ng-click="Edit(item)"><i class="fas fa-eye"></i></a>
+                                    <a href="javascript:void(0)" ng-if="item.SetButtonApproved"
+                                        title="Setujui Permohonan" ng-class="item.SetButtonApproved?'':'disabled'"
+                                        class="btn btn-success" ng-click="Setuju(item)"><i class="fas fa-check"></i></a>
+                                    <a href="javascript:void(0)" ng-if="UserRole !== 'admin' && item.SetButtonApproved"
+                                        title="Tolak Permohonan" class="btn btn-danger" ng-click="TampilPesan(item)"><i
+                                            class="fas fa-ban"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div ng-if="tab.tambah || tab.edit" class="card card-warning">
+            <div class="card-header">
+                <h3 class="card-title" ng-if="tab.tambah"><i class="fas fa-plus"></i>Tambah Surat Keterangan Pindah</h3>
+                <h3 class="card-title" ng-if="tab.edit"><i class="fas fa-plus"></i>Detail Permohonan </h3>
+            </div>
+            <div class="card-body">
+                <form ng-submit="Simpan()">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class=" col-md-5">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Nomor Surat</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="model.nomorsurat"
+                                            placeholder="Nomor Surat">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">NIK</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">No Kartu Keluarga</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">RT</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">RW</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Provinsi</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <select class="#" ng-model="#" ng-options="#"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Kecamatan</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <select class="#" ng-model="#" ng-options="#"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Kode Pos</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Nama</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Nama Kepala Keluarga</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Alamat</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <textarea class="form-control" ng-model="model.data.alamat"
+                                                rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Kota/kabupaten</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <select class="#" ng-model="#" ng-options="#"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Kelurahan</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <select class="#" ng-model="#" ng-options="#"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">No Telepon</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header"></div><br>
+                        <div class="row">
+                            <div class=" col-md-5">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Status KK Pindah</label>
+                                    <div class="col-sm-8">
+                                        <select class="#" ng-model="#" ng-options="#"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">NIK Kepala Keluarga</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">RT</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">RW</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Provinsi</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <select class="#" ng-model="#" ng-options="#"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Kecamatan</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <select class="#" ng-model="#" ng-options="#"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Kode Pos</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Tanggal Kedatangan</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Nama Kepala Keluarga</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Alamat</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <textarea class="form-control" ng-model="model.data.alamat"
+                                                rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Kota/kabupaten</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <select class="#" ng-model="#" ng-options="#"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Kelurahan</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <select class="#" ng-model="#" ng-options="#"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">No Telepon</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Jenis Kepindahan</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <select class="#" ng-model="#" ng-options="#"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header"></div><br>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">KK yang ditumpangi</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose
+                                                        file</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="">Upload</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Surat Keterangan Pindah WNI</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose
+                                                        file</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="">Upload</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Akta Nikah</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose
+                                                        file</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="">Upload</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Surat Jaminan Tempat Tinggal</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose
+                                                        file</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="">Upload</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Surat Jaminan Pekerjaan / Sekolah</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose
+                                                        file</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="">Upload</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Berita Acara Verifikasi Pekerjaan / Sekolah</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose
+                                                        file</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="">Upload</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Foto Berita Acara Ver. Pekerjaan</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose
+                                                        file</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="">Upload</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Berita Acara Verifikasi Tempat Tinggal</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose
+                                                        file</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="">Upload</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Foto Berita Acara Ver. Tempat Tinggal</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose
+                                                        file</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="">Upload</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header"></div><br>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">NIK</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">SHDK</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <select class="#" ng-model="#" ng-options="#"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Nama</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-group autoComplete">
+                                            <input type="text" ng-model="model.idpenduduk"
+                                                placeholder="Cari NIK/Nama Warga"
+                                                uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Tanggal Lahir</label>
+                                    <div class="col-sm-8">
+                                        <p class="input-group">
+                                            <input type="text" class="form-control"
+                                                uib-datepicker-popup="EEEE, dd MMMM yyyy "
+                                                ng-model="model.data.tanggallahir" is-open="popup1.opened"
+                                                ng-required="true" close-text="Close"
+                                                alt-input-formats="altInputFormats" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-secondary"
+                                                    ng-click="popup1.opened=!popup1.opened">
+                                                    <i class="fa-svg-icon">
+                                                        <svg width="1792" height="1792" viewBox="0 0 1792 1792"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M192 1664h288v-288h-288v288zm352 0h320v-288h-320v288zm-352-352h288v-320h-288v320zm352 0h320v-320h-320v320zm-352-384h288v-288h-288v288zm736 736h320v-288h-320v288zm-384-736h320v-288h-320v288zm768 736h288v-288h-288v288zm-384-352h320v-320h-320v320zm-352-864v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm736 864h288v-320h-288v320zm-384-384h320v-288h-320v288zm384 0h288v-288h-288v288zm32-480v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm384-64v1280q0 52-38 90t-90 38h-1408q-52 0-90-38t-38-90v-1280q0-52 38-90t90-38h128v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h384v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h128q52 0 90 38t38 90z" />
+                                                        </svg>
+                                                    </i>
+                                                </button>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header"></div><br>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
+                                    <div class="col-sm-8 autoComplete">
+                                        <input type="text" placeholder="Cari Pejabat" ng-model="model.idpejabat"
+                                            uib-typeahead="state as state.nama+' - '+state.namajabatan for state in dataPejabat | 
+                          filter:$viewValue
+                          | limitTo:8" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header"></div><br>
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-warning float-right"
+                                ng-click="Batal()">Kembali</button>
+                            <button type="button" ng-if="UserRole !== 'admin' && item.SetButtonApproved"
+                                class="btn btn-danger float-right" ng-click="TampilPesan(item)">Tolak</button>
+                            <button ng-if="item.SetButtonApproved" type="button" class="btn btn-primary float-right"
+                                ng-click="Setuju()">Setuju</button>
+                            <button type="submit" class="btn btn-success float-right">Simpan</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="suratTidakMampu" class="printing">
+        <div ng-include="'../../../apps/views/admin/formatsurat/formattidakmampu.html'"></div>
+    </div>
+</section>
+
+<div class="modal fade" id="Pesan">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h4 class="modal-title">Pesan Penolakan</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><textarea id="#" cols="30" rows="10" ng-model="model.message" class="form-control"></textarea>
+                    &hellip;</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                    ng-click="pesanbatal.errorText('Proses Penolakan di batalkan!!!')">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="Tolak()">Tolak</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

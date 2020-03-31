@@ -6,7 +6,8 @@ angular
 		'ui.router',
 		'seklur.router',
 		'lurah.router',
-		'grafik.router'
+		'grafik.router',
+		'admin.surat.param.router'
 	])
 	.config(function($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise('/');
