@@ -14,7 +14,7 @@ angular
 	.controller('adminsurateditskckController', adminsurateditskckController)
 	.controller('adminsurateditpindahController', adminsurateditpindahController);
 
-function adminsurateditpindahController($stateParams) {}
+function adminsurateditpindahController($stateParams) { }
 
 function adminsuratedittidakmampuController(
 	$stateParams,
@@ -31,7 +31,8 @@ function adminsuratedittidakmampuController(
 	PermohonanService,
 	PendudukService,
 	PejabatService,
-	PersetujuanService
+	PersetujuanService,
+	loaderService
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.ItemPenduduk = '';
@@ -45,7 +46,7 @@ function adminsuratedittidakmampuController(
 	$scope.IdJenis;
 	$scope.UserRole;
 
-	$scope.Edit = function(data) {
+	$scope.Edit = function (data) {
 		$scope.model = angular.copy(data);
 		$rootScope.permohonan = null;
 		PendudukService.getById(data.idpenduduk).then((penduduk) => {
@@ -54,7 +55,7 @@ function adminsuratedittidakmampuController(
 			$scope.tab.show('edit');
 		});
 	};
-	$scope.Batal = function() {
+	$scope.Batal = function () {
 		$scope.model = {};
 		$scope.model.data = {};
 		$scope.Init();
@@ -63,7 +64,7 @@ function adminsuratedittidakmampuController(
 	$scope.pad = (number) => {
 		return helperServices.pad(number);
 	};
-	$scope.Init = function() {
+	$scope.Init = function () {
 		AuthService.profile().then((param) => {
 			$scope.UserRole = param.rolename;
 			PendudukService.get().then((penduduk) => {
@@ -79,18 +80,19 @@ function adminsuratedittidakmampuController(
 							if ($rootScope.permohonan) {
 								$scope.Edit($rootScope.permohonan);
 							}
+							loaderService.setValue(false);
 						});
 					});
 				});
 			});
 		});
 	};
-	$scope.SelectedPenduduk = function() {
+	$scope.SelectedPenduduk = function () {
 		var a = JSON.parse(angular.copy($scope.ItemPenduduk));
 		$scope.model.idpenduduk = a.idpenduduk;
 		$scope.model.nama = a.nama;
 	};
-	$scope.Simpan = function() {
+	$scope.Simpan = function () {
 		message.dialog('Anda Yakin Ingin Menyimpan', 'Simpan', 'Batal').then(
 			(x) => {
 				var Method;
@@ -145,7 +147,7 @@ function adminsuratedittidakmampuController(
 			}
 		);
 	};
-	$scope.Selecteddata = function(id, item) {
+	$scope.Selecteddata = function (id, item) {
 		$http({
 			method: 'get',
 			url: helperServices.url + '/api/penduduk/' + item.idpenduduk,
@@ -155,12 +157,12 @@ function adminsuratedittidakmampuController(
 			$scope.dataPrint = angular.copy(item);
 			var a = new Date(item.persetujuan[item.persetujuan.length - 1].created);
 			$scope.dataPrint.tampiltanggal = getTanggalIndonesia(a);
-			setTimeout(function() {
+			setTimeout(function () {
 				$scope.Print(id, item);
 			}, 1300);
 		});
 	};
-	$scope.Print = function(id, item) {
+	$scope.Print = function (id, item) {
 		$scope.dataPrint = angular.copy(item);
 		PendudukService.getById(item.idpenduduk, true).then((param) => {
 			PejabatService.getById(item.idpejabat).then((datapejabat) => {
@@ -170,13 +172,13 @@ function adminsuratedittidakmampuController(
 					new Date(item.persetujuan[item.persetujuan.length - 1].created)
 				);
 				$scope.dataPrint.pejabat = datapejabat;
-				setTimeout(function() {
+				setTimeout(function () {
 					helperServices.print(id);
 				}, 900);
 			});
 		});
 	};
-	$scope.Setuju = function(item) {
+	$scope.Setuju = function (item) {
 		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
 			(x) => {
 				PersetujuanService.get(item.idpermohonan).then(
@@ -195,7 +197,7 @@ function adminsuratedittidakmampuController(
 		);
 	};
 	$scope.pesanbatal = message;
-	$scope.TampilPesan = function(item) {
+	$scope.TampilPesan = function (item) {
 		message.dialog('Anda Yakin menolak permohonan???', 'Ya', 'Batal').then(
 			(x) => {
 				$scope.model.idpermohonan = item.idpermohonan;
@@ -206,7 +208,7 @@ function adminsuratedittidakmampuController(
 			}
 		);
 	};
-	$scope.Tolak = function() {
+	$scope.Tolak = function () {
 		$('#TampilPesan').modal('hide');
 		PersetujuanService.tolak($scope.model).then(
 			(x) => {
@@ -249,7 +251,7 @@ function adminsurateditketnikahController(
 	$scope.dataPrint = {};
 	$scope.IdJenis;
 	$scope.UserRole;
-	$scope.Init = function() {
+	$scope.Init = function () {
 		AuthService.profile().then((param) => {
 			$scope.UserRole = param.rolename;
 			PendudukService.get().then((penduduk) => {
@@ -272,7 +274,7 @@ function adminsurateditketnikahController(
 		});
 	};
 
-	$scope.Edit = function(data) {
+	$scope.Edit = function (data) {
 		$scope.model = angular.copy(data);
 		$rootScope.permohonan = null;
 		$scope.model.data.idpenduduksuami = $scope.ListPenduduk.find(
@@ -288,20 +290,20 @@ function adminsurateditketnikahController(
 		return helperServices.pad(number);
 	};
 
-	$scope.Batal = function() {
+	$scope.Batal = function () {
 		$scope.tab.show('list');
 		$scope.model = {};
 		$scope.model.data = {};
 		$scope.Init();
 	};
 
-	$scope.SelectedPenduduk = function() {
+	$scope.SelectedPenduduk = function () {
 		var a = JSON.parse(angular.copy($scope.ItemPenduduk));
 		$scope.model.idpenduduk = a.idpenduduk;
 		$scope.model.nama = a.nama;
 	};
 
-	$scope.Simpan = function() {
+	$scope.Simpan = function () {
 		var Method;
 		if ($scope.tab.tambah) {
 			Method = 'post';
@@ -351,7 +353,7 @@ function adminsurateditketnikahController(
 			}
 		);
 	};
-	$scope.Selecteddata = function(id, item) {
+	$scope.Selecteddata = function (id, item) {
 		$http({
 			method: 'get',
 			url: helperServices.url + '/api/penduduk/' + item.idpenduduk,
@@ -361,12 +363,12 @@ function adminsurateditketnikahController(
 			$scope.dataPrint = angular.copy(item);
 			var a = new Date(item.persetujuan[item.persetujuan.length - 1].created);
 			$scope.dataPrint.tampiltanggal = getTanggalIndonesia(a);
-			setTimeout(function() {
+			setTimeout(function () {
 				$scope.Print(id, item);
 			}, 1300);
 		});
 	};
-	$scope.Print = function(id, item) {
+	$scope.Print = function (id, item) {
 		$scope.dataPrint = angular.copy(item);
 		PendudukService.getById(item.idpenduduk, true).then((param) => {
 			PejabatService.getById(item.idpejabat).then((datapejabat) => {
@@ -376,13 +378,13 @@ function adminsurateditketnikahController(
 					new Date(item.persetujuan[item.persetujuan.length - 1].created)
 				);
 				$scope.dataPrint.pejabat = datapejabat;
-				setTimeout(function() {
+				setTimeout(function () {
 					helperServices.print(id);
 				}, 900);
 			});
 		});
 	};
-	$scope.Setuju = function(item) {
+	$scope.Setuju = function (item) {
 		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
 			(x) => {
 				PersetujuanService.get(item.idpermohonan).then(
@@ -401,7 +403,7 @@ function adminsurateditketnikahController(
 		);
 	};
 	$scope.pesanbatal = message;
-	$scope.TampilPesan = function(item) {
+	$scope.TampilPesan = function (item) {
 		message.dialog('Anda Yakin menolak permohonan???', 'Ya', 'Batal').then(
 			(x) => {
 				$scope.model.idpermohonan = item.idpermohonan;
@@ -412,7 +414,7 @@ function adminsurateditketnikahController(
 			}
 		);
 	};
-	$scope.Tolak = function() {
+	$scope.Tolak = function () {
 		$('#TampilPesan').modal('hide');
 		PersetujuanService.tolak($scope.model).then(
 			(x) => {
@@ -442,7 +444,8 @@ function adminsurateditketdomisiliController(
 	loaderService,
 	message,
 	tabService,
-	PersetujuanService
+	PersetujuanService,
+	$state
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.ItemPenduduk = '';
@@ -455,7 +458,7 @@ function adminsurateditketdomisiliController(
 	$scope.IdJenis;
 	$scope.UserRole;
 
-	$scope.Init = function() {
+	$scope.Init = function () {
 		AuthService.profile().then((profile) => {
 			$scope.UserRole = profile.rolename;
 			PendudukService.get().then((penduduk) => {
@@ -473,7 +476,12 @@ function adminsurateditketdomisiliController(
 							});
 						});
 					} else {
-						loaderService.setValue(false);
+						JenisPermohonanService.getByJenis('Keterangan Domisili').then((jenis) => {
+							$scope.model.idjenispermohonan = jenis.idjenispermohonan;
+							$scope.model.pejabat = $scope.dataPejabat.find((x) => x.namajabatan == 'Lurah');
+							loaderService.setValue(false);
+						})
+
 					}
 				});
 			});
@@ -484,70 +492,37 @@ function adminsurateditketdomisiliController(
 		return helperServices.pad(number);
 	};
 
-	$scope.Batal = function() {
+	$scope.Batal = function () {
 		$scope.tab.show('list');
 		$scope.model = {};
 		$scope.model.data = {};
 		$scope.Init();
 	};
 
-	$scope.Simpan = function() {
-		var Method;
-		if ($scope.tab.tambah) {
-			Method = 'post';
-		} else {
-			Method = 'put';
-		}
-		var today = new Date();
-		$scope.model.tanggalpengajuan =
-			today.getFullYear() +
-			'-' +
-			(today.getMonth() + 1) +
-			'-' +
-			today.getDate() +
-			' ' +
-			today.getHours() +
-			':' +
-			today.getMinutes() +
-			':' +
-			today.getSeconds();
-		// $scope.model.data.pejabat = $scope.model.pejabat
-		$scope.model.data.idpenduduk = angular.copy($scope.model.idpenduduk.idpenduduk);
-		$scope.model.nama = angular.copy($scope.model.idpenduduk.nama);
-		$scope.model.nik = angular.copy($scope.model.idpenduduk.nik);
-		$scope.model.nkk = angular.copy($scope.model.idpenduduk.nkk);
-		$scope.model.idpenduduk = angular.copy($scope.model.idpenduduk.idpenduduk);
+	$scope.Simpan = function () {
+		$scope.model.data.idpenduduk = angular.copy($scope.model.penduduk.idpenduduk);
+		$scope.model.nama = angular.copy($scope.model.penduduk.nama);
+		$scope.model.nik = angular.copy($scope.model.penduduk.nik);
+		$scope.model.nkk = angular.copy($scope.model.penduduk.nkk);
+		$scope.model.idpenduduk = angular.copy($scope.model.penduduk.idpenduduk);
 		$scope.model.jenis = 'Keterangan Domisili';
-		$scope.model.namapejabat = angular.copy($scope.model.idpejabat.nama);
-		$scope.model.nip = angular.copy($scope.model.idpejabat.nip);
-		$scope.model.namajabatan = angular.copy($scope.model.idpejabat.namajabatan);
-		$scope.model.idpejabat = angular.copy($scope.model.idpejabat.idpejabat);
-		$http({
-			method: Method,
-			url: helperServices.url + '/api/permohonan',
-			headers: AuthService.getHeader(),
-			data: $scope.model
-		}).then(
-			(param) => {
-				if ($scope.tab.tambah) {
-					$scope.model.SetButtonPrint = true;
-					$scope.model.idpermohonan = param.idpermohonan;
-					$scope.Datas.push(angular.copy($scope.model));
-					$scope.tab.show('list');
-					$scope.Init();
-					message.info('Berhasil Menyimpan');
-				} else {
-					message.info('Berhasil Mengubah');
-					$scope.Init();
-				}
-			},
-			(error) => {
-				message.errorText(error.message);
-			}
-		);
+		$scope.model.namapejabat = angular.copy($scope.model.pejabat.nama);
+		$scope.model.nip = angular.copy($scope.model.pejabat.nip);
+		$scope.model.namajabatan = angular.copy($scope.model.pejabat.namajabatan);
+		$scope.model.idpejabat = angular.copy($scope.model.pejabat.idpejabat);
+		if ($stateParams.id) {
+			PermohonanService.put($scope.model).then((permohonan) => {
+				message.info('Berhasil Menyimpan');
+			});
+		} else {
+			PermohonanService.post($scope.model).then((permohonan) => {
+				message.info('Berhasil Mengubah');
+				$state.go(helperServices.state('Keterangan Domisili', $scope.UserRole));
+			});
+		}
 	};
 
-	$scope.Print = function(id, item) {
+	$scope.Print = function (id, item) {
 		$scope.dataPrint = angular.copy(item);
 		PendudukService.getById(item.idpenduduk).then((param) => {
 			$scope.dataPrint.penduduk = param.data;
@@ -556,12 +531,12 @@ function adminsurateditketdomisiliController(
 				new Date(item.persetujuan[item.persetujuan.length - 1].created)
 			);
 
-			setTimeout(function() {
+			setTimeout(function () {
 				helperServices.print(id);
 			}, 1300);
 		});
 	};
-	$scope.Setuju = function(item) {
+	$scope.Setuju = function (item) {
 		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
 			(x) => {
 				PersetujuanService.get(item.idpermohonan).then(
@@ -580,7 +555,7 @@ function adminsurateditketdomisiliController(
 		);
 	};
 	$scope.pesanbatal = message;
-	$scope.TampilPesan = function(item) {
+	$scope.TampilPesan = function (item) {
 		message.dialog('Anda Yakin menolak permohonan???', 'Ya', 'Batal').then(
 			(x) => {
 				$scope.model.idpermohonan = item.idpermohonan;
@@ -591,7 +566,7 @@ function adminsurateditketdomisiliController(
 			}
 		);
 	};
-	$scope.Tolak = function() {
+	$scope.Tolak = function () {
 		$('#TampilPesan').modal('hide');
 		PersetujuanService.tolak($scope.model).then(
 			(x) => {
@@ -637,7 +612,7 @@ function adminsurateditketmenikahController(
 	$scope.IdJenis;
 	$scope.ItemAyah = '';
 	$scope.ItemIbu = '';
-	$scope.Init = function() {
+	$scope.Init = function () {
 		AuthService.profile().then((param) => {
 			$scope.UserRole = param.rolename;
 			PendudukService.get().then((penduduk) => {
@@ -661,11 +636,11 @@ function adminsurateditketmenikahController(
 		});
 	};
 
-	$scope.setHari = function(item) {
+	$scope.setHari = function (item) {
 		$scope.model.data.hari = item.getDay();
 	};
 
-	$scope.Edit = function(data) {
+	$scope.Edit = function (data) {
 		$scope.model = angular.copy(data);
 		$rootScope.permohonan = null;
 		$scope.model.data.tanggaladminsurateditpengantar = new Date(
@@ -675,13 +650,13 @@ function adminsurateditketmenikahController(
 		$scope.tab.show('edit');
 	};
 
-	$scope.Approved = function(data) {
+	$scope.Approved = function (data) {
 		$scope.model = data;
 		data.data.tanggallahir = new Date(data.data.tanggallahir);
 		$scope.tab.show('approved');
 	};
 
-	$scope.SelectedRT = function() {
+	$scope.SelectedRT = function () {
 		$scope.model.data.RT = $scope.ListRT.find(
 			(x) =>
 				x.data.nomorrt == $scope.model.data.idpenduduk.rt && x.data.nomorrw == $scope.model.data.idpenduduk.rw
@@ -691,14 +666,14 @@ function adminsurateditketmenikahController(
 		return helperServices.pad(number);
 	};
 
-	$scope.Batal = function() {
+	$scope.Batal = function () {
 		$scope.tab.show('list');
 		$scope.model = {};
 		$scope.model.data = {};
 		$scope.Init();
 	};
 
-	$scope.Simpan = function() {
+	$scope.Simpan = function () {
 		var Method;
 		if ($scope.tab.tambah) {
 			Method = 'post';
@@ -753,7 +728,7 @@ function adminsurateditketmenikahController(
 			}
 		);
 	};
-	$scope.Selecteddata = function(id, item) {
+	$scope.Selecteddata = function (id, item) {
 		$http({
 			method: 'get',
 			url: helperServices.url + '/api/penduduk/' + item.idpenduduk,
@@ -763,12 +738,12 @@ function adminsurateditketmenikahController(
 			$scope.dataPrint = angular.copy(item);
 			var a = new Date(item.persetujuan[item.persetujuan.length - 1].created);
 			$scope.dataPrint.tampiltanggal = getTanggalIndonesia(a);
-			setTimeout(function() {
+			setTimeout(function () {
 				$scope.Print(id);
 			}, 1300);
 		});
 	};
-	$scope.Print = function(id, item) {
+	$scope.Print = function (id, item) {
 		$scope.dataPrint = angular.copy(item);
 		PendudukService.getById(item.idpenduduk).then((param) => {
 			$scope.dataPrint.penduduk = param.data;
@@ -777,12 +752,12 @@ function adminsurateditketmenikahController(
 				new Date(item.persetujuan[item.persetujuan.length - 1].created)
 			);
 
-			setTimeout(function() {
+			setTimeout(function () {
 				helperServices.print(id);
 			}, 1300);
 		});
 	};
-	$scope.Setuju = function(item) {
+	$scope.Setuju = function (item) {
 		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
 			(x) => {
 				PersetujuanService.get(item.idpermohonan).then(
@@ -801,7 +776,7 @@ function adminsurateditketmenikahController(
 		);
 	};
 	$scope.pesanbatal = message;
-	$scope.TampilPesan = function(item) {
+	$scope.TampilPesan = function (item) {
 		message.dialog('Anda Yakin menolak permohonan???', 'Ya', 'Batal').then(
 			(x) => {
 				$scope.model.idpermohonan = item.idpermohonan;
@@ -812,7 +787,7 @@ function adminsurateditketmenikahController(
 			}
 		);
 	};
-	$scope.Tolak = function() {
+	$scope.Tolak = function () {
 		$('#TampilPesan').modal('hide');
 		PersetujuanService.tolak($scope.model).then(
 			(x) => {
@@ -857,7 +832,7 @@ function adminsurateditbelummenikahController(
 	$scope.IdJenis;
 	$scope.ItemAyah = '';
 	$scope.ItemIbu = '';
-	$scope.Init = function() {
+	$scope.Init = function () {
 		AuthService.profile().then((param) => {
 			$scope.UserRole = param.rolename;
 			PendudukService.get().then((penduduk) => {
@@ -881,11 +856,11 @@ function adminsurateditbelummenikahController(
 		});
 	};
 
-	$scope.setHari = function(item) {
+	$scope.setHari = function (item) {
 		$scope.model.data.hari = item.getDay();
 	};
 
-	$scope.Edit = function(data) {
+	$scope.Edit = function (data) {
 		$scope.model = angular.copy(data);
 		$rootScope.permohonan = null;
 		$scope.model.data.tanggaladminsurateditpengantar = new Date(
@@ -896,19 +871,19 @@ function adminsurateditbelummenikahController(
 		$scope.tab.show('edit');
 	};
 
-	$scope.Approved = function(data) {
+	$scope.Approved = function (data) {
 		$scope.model = data;
 		data.data.tanggallahir = new Date(data.data.tanggallahir);
 		$scope.tab.show('approved');
 	};
 
-	$scope.SelectedRT = function() {
+	$scope.SelectedRT = function () {
 		$scope.model.data.RT = $scope.ListRT.find(
 			(x) =>
 				x.data.nomorrt == $scope.model.data.idpenduduk.rt && x.data.nomorrw == $scope.model.data.idpenduduk.rw
 		);
 	};
-	$scope.Simpan = function() {
+	$scope.Simpan = function () {
 		var Method;
 		if ($scope.tab.tambah) {
 			Method = 'post';
@@ -943,18 +918,18 @@ function adminsurateditbelummenikahController(
 		);
 	};
 
-	$scope.Print = function(id, item) {
+	$scope.Print = function (id, item) {
 		$scope.dataPrint = angular.copy(item);
 		PendudukService.getById(item.idpenduduk).then((param) => {
 			$scope.dataPrint.penduduk = param.data;
 			var a = new Date(item.persetujuan[item.persetujuan.length - 1].created);
 			$scope.dataPrint.tampiltanggal = getTanggalIndonesia(a);
-			setTimeout(function() {
+			setTimeout(function () {
 				helperServices.print(id);
 			}, 1300);
 		});
 	};
-	$scope.SelectTanggalLahir = function() {
+	$scope.SelectTanggalLahir = function () {
 		var a = $scope.TanggalLahir.split('-');
 		$scope.model.data.tanggallahir = JSON.stringify(new Date(a[0], parseInt(a[1]) - 1, a[2]));
 		$scope.model.data.harilahir = GetHariIndonesia(new Date(a[0], parseInt(a[1]) - 1, a[2]));
@@ -962,13 +937,13 @@ function adminsurateditbelummenikahController(
 	$scope.pad = (number) => {
 		return helperServices.pad(number);
 	};
-	$scope.Batal = function() {
+	$scope.Batal = function () {
 		$scope.tab.show('list');
 		$scope.model = {};
 		$scope.model.data = {};
 		$scope.Init();
 	};
-	$scope.Setuju = function(item) {
+	$scope.Setuju = function (item) {
 		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
 			(x) => {
 				PersetujuanService.get(item.idpermohonan).then(
@@ -987,7 +962,7 @@ function adminsurateditbelummenikahController(
 		);
 	};
 	$scope.pesanbatal = message;
-	$scope.TampilPesan = function(item) {
+	$scope.TampilPesan = function (item) {
 		message.dialog('Anda Yakin menolak permohonan???', 'Ya', 'Batal').then(
 			(x) => {
 				$scope.model.idpermohonan = item.idpermohonan;
@@ -998,7 +973,7 @@ function adminsurateditbelummenikahController(
 			}
 		);
 	};
-	$scope.Tolak = function() {
+	$scope.Tolak = function () {
 		$('#TampilPesan').modal('hide');
 		PersetujuanService.tolak($scope.model).then(
 			(x) => {
@@ -1041,7 +1016,7 @@ function adminsurateditkelahiranController(
 	$scope.IdJenis;
 	$scope.ItemAyah = '';
 	$scope.ItemIbu = '';
-	$scope.Init = function() {
+	$scope.Init = function () {
 		AuthService.profile().then((param) => {
 			$scope.UserRole = param.rolename;
 			PendudukService.get().then((penduduk) => {
@@ -1070,11 +1045,11 @@ function adminsurateditkelahiranController(
 		});
 	};
 
-	$scope.setHari = function(item) {
+	$scope.setHari = function (item) {
 		$scope.model.data.hari = item.getDay();
 	};
 
-	$scope.Edit = function(data) {
+	$scope.Edit = function (data) {
 		$scope.model = angular.copy(data);
 		$rootScope.permohonan = null;
 		$scope.model.data.tanggallahir = new Date(angular.copy($scope.model.data.tanggallahir));
@@ -1090,13 +1065,13 @@ function adminsurateditkelahiranController(
 		$scope.tab.show('edit');
 	};
 
-	$scope.Approved = function(data) {
+	$scope.Approved = function (data) {
 		$scope.model = data;
 		data.data.tanggallahir = new Date(data.data.tanggallahir);
 		$scope.tab.show('approved');
 	};
 
-	$scope.SelectedOrtu = function(item) {
+	$scope.SelectedOrtu = function (item) {
 		if (item == 'Ayah') {
 			var a = JSON.parse(angular.copy($scope.ItemAyah));
 			$scope.model.idpenduduk = a.idpenduduk;
@@ -1107,7 +1082,7 @@ function adminsurateditkelahiranController(
 			$scope.model.data.namaibu = a.nama;
 		}
 	};
-	$scope.Simpan = function() {
+	$scope.Simpan = function () {
 		var Method;
 		if ($scope.tab.tambah) {
 			Method = 'post';
@@ -1143,18 +1118,18 @@ function adminsurateditkelahiranController(
 		);
 	};
 
-	$scope.Print = function(id, item) {
+	$scope.Print = function (id, item) {
 		$scope.dataPrint = angular.copy(item);
 		PendudukService.getById(item.idpenduduk).then((param) => {
 			$scope.dataPrint.penduduk = param.data;
 			var a = new Date(item.persetujuan[item.persetujuan.length - 1].created);
 			$scope.dataPrint.tampiltanggal = getTanggalIndonesia(a);
-			setTimeout(function() {
+			setTimeout(function () {
 				helperServices.print(id);
 			}, 1300);
 		});
 	};
-	$scope.SelectTanggalLahir = function() {
+	$scope.SelectTanggalLahir = function () {
 		var a = $scope.TanggalLahir.split('-');
 		$scope.model.data.tanggallahir = JSON.stringify(new Date(a[0], parseInt(a[1]) - 1, a[2]));
 		$scope.model.data.harilahir = GetHariIndonesia(new Date(a[0], parseInt(a[1]) - 1, a[2]));
@@ -1162,13 +1137,13 @@ function adminsurateditkelahiranController(
 	$scope.pad = (number) => {
 		return helperServices.pad(number);
 	};
-	$scope.Batal = function() {
+	$scope.Batal = function () {
 		$scope.tab.show('list');
 		$scope.model = {};
 		$scope.model.data = {};
 		$scope.Init();
 	};
-	$scope.Setuju = function(item) {
+	$scope.Setuju = function (item) {
 		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
 			(x) => {
 				PersetujuanService.get(item.idpermohonan).then(
@@ -1187,7 +1162,7 @@ function adminsurateditkelahiranController(
 		);
 	};
 	$scope.pesanbatal = message;
-	$scope.TampilPesan = function(item) {
+	$scope.TampilPesan = function (item) {
 		message.dialog('Anda Yakin menolak permohonan???', 'Ya', 'Batal').then(
 			(x) => {
 				$scope.model.idpermohonan = item.idpermohonan;
@@ -1198,7 +1173,7 @@ function adminsurateditkelahiranController(
 			}
 		);
 	};
-	$scope.Tolak = function() {
+	$scope.Tolak = function () {
 		$('#TampilPesan').modal('hide');
 		PersetujuanService.tolak($scope.model).then(
 			(x) => {
@@ -1241,7 +1216,7 @@ function adminsurateditketceraiController(
 	$scope.dataPrint = {};
 	$scope.IdJenis;
 	$scope.UserRole;
-	$scope.Init = function() {
+	$scope.Init = function () {
 		AuthService.profile().then((param) => {
 			$scope.UserRole = param.rolename;
 			PendudukService.get().then((penduduk) => {
@@ -1267,7 +1242,7 @@ function adminsurateditketceraiController(
 		});
 	};
 
-	$scope.Edit = function(data) {
+	$scope.Edit = function (data) {
 		$scope.model = angular.copy(data);
 		$rootScope.permohonan = null;
 		$scope.model.data.idpenduduksuami = $scope.ListPenduduk.find(
@@ -1280,13 +1255,13 @@ function adminsurateditketceraiController(
 		$scope.tab.show('edit');
 	};
 
-	$scope.SelectedPenduduk = function() {
+	$scope.SelectedPenduduk = function () {
 		var a = JSON.parse(angular.copy($scope.ItemPenduduk));
 		$scope.model.idpenduduk = a.idpenduduk;
 		$scope.model.nama = a.nama;
 	};
 
-	$scope.Simpan = function() {
+	$scope.Simpan = function () {
 		var Method;
 		if ($scope.tab.tambah) {
 			Method = 'post';
@@ -1336,7 +1311,7 @@ function adminsurateditketceraiController(
 			}
 		);
 	};
-	$scope.Selecteddata = function(id, item) {
+	$scope.Selecteddata = function (id, item) {
 		$http({
 			method: 'get',
 			url: helperServices.url + '/api/penduduk/' + item.idpenduduk,
@@ -1346,12 +1321,12 @@ function adminsurateditketceraiController(
 			$scope.dataPrint = angular.copy(item);
 			var a = new Date(item.persetujuan[item.persetujuan.length - 1].created);
 			$scope.dataPrint.tampiltanggal = getTanggalIndonesia(a);
-			setTimeout(function() {
+			setTimeout(function () {
 				$scope.Print(id, item);
 			}, 1300);
 		});
 	};
-	$scope.Print = function(id, item) {
+	$scope.Print = function (id, item) {
 		$scope.dataPrint = angular.copy(item);
 		PendudukService.getById(item.idpenduduk, true).then((param) => {
 			PejabatService.getById(item.idpejabat).then((datapejabat) => {
@@ -1361,7 +1336,7 @@ function adminsurateditketceraiController(
 					new Date(item.persetujuan[item.persetujuan.length - 1].created)
 				);
 				$scope.dataPrint.pejabat = datapejabat;
-				setTimeout(function() {
+				setTimeout(function () {
 					helperServices.print(id);
 				}, 900);
 			});
@@ -1370,13 +1345,13 @@ function adminsurateditketceraiController(
 	$scope.pad = (number) => {
 		return helperServices.pad(number);
 	};
-	$scope.Batal = function() {
+	$scope.Batal = function () {
 		$scope.tab.show('list');
 		$scope.model = {};
 		$scope.model.data = {};
 		$scope.Init();
 	};
-	$scope.Setuju = function(item) {
+	$scope.Setuju = function (item) {
 		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
 			(x) => {
 				PersetujuanService.get(item.idpermohonan).then(
@@ -1395,7 +1370,7 @@ function adminsurateditketceraiController(
 		);
 	};
 	$scope.pesanbatal = message;
-	$scope.TampilPesan = function(item) {
+	$scope.TampilPesan = function (item) {
 		message.dialog('Anda Yakin menolak permohonan???', 'Ya', 'Batal').then(
 			(x) => {
 				$scope.model.idpermohonan = item.idpermohonan;
@@ -1406,7 +1381,7 @@ function adminsurateditketceraiController(
 			}
 		);
 	};
-	$scope.Tolak = function() {
+	$scope.Tolak = function () {
 		$('#TampilPesan').modal('hide');
 		PersetujuanService.tolak($scope.model).then(
 			(x) => {
@@ -1449,7 +1424,7 @@ function adminsurateditketdesaController(
 	$scope.model.data = {};
 	$scope.adminSurateditKetDesa.data = {};
 	$scope.dataPrint = {};
-	$scope.Init = function() {
+	$scope.Init = function () {
 		AuthService.profile().then((param) => {
 			$scope.UserRole = param.rolename;
 			PendudukService.get().then((penduduk) => {
@@ -1472,7 +1447,7 @@ function adminsurateditketdesaController(
 		});
 	};
 
-	$scope.Edit = function(data) {
+	$scope.Edit = function (data) {
 		$scope.model = angular.copy(data);
 		$rootScope.permohonan = null;
 		$scope.model.data.idpenduduk = $scope.ListPenduduk.find(
@@ -1481,13 +1456,13 @@ function adminsurateditketdesaController(
 		$scope.tab.show('edit');
 	};
 
-	$scope.SelectedPenduduk = function() {
+	$scope.SelectedPenduduk = function () {
 		var a = JSON.parse(angular.copy($scope.ItemPenduduk));
 		$scope.adminSurateditKetDesa.idpenduduk = a.idpenduduk;
 		$scope.adminSurateditKetDesa.nama = a.nama;
 	};
 
-	$scope.Simpan = function() {
+	$scope.Simpan = function () {
 		var Method;
 		if ($scope.tab.tambah) {
 			Method = 'post';
@@ -1534,16 +1509,16 @@ function adminsurateditketdesaController(
 		);
 	};
 
-	$scope.Selecteddata = function(id, item) {
+	$scope.Selecteddata = function (id, item) {
 		$scope.dataPrint = angular.copy(item);
 		var a = new Date(item.persetujuan[item.persetujuan.length - 1].created);
 		$scope.dataPrint.tampiltanggal = getTanggalIndonesia(a);
-		setTimeout(function() {
+		setTimeout(function () {
 			$scope.Print(id);
 		}, 1300);
 	};
 
-	$scope.Print = function(id) {
+	$scope.Print = function (id) {
 		var innerContents = document.getElementById(id).innerHTML;
 		var popupWinindow = window.open(
 			'',
@@ -1553,21 +1528,21 @@ function adminsurateditketdesaController(
 		popupWinindow.document.open();
 		popupWinindow.document.write(
 			'<html><head><title>Cetak adminSuratedit</title></head><body onload="window.print()"><div>' +
-				innerContents +
-				'</html>'
+			innerContents +
+			'</html>'
 		);
 		popupWinindow.document.close();
 	};
 	$scope.pad = (number) => {
 		return helperServices.pad(number);
 	};
-	$scope.Batal = function() {
+	$scope.Batal = function () {
 		$scope.tab.show('list');
 		$scope.model = {};
 		$scope.model.data = {};
 		$scope.Init();
 	};
-	$scope.Setuju = function(item) {
+	$scope.Setuju = function (item) {
 		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
 			(x) => {
 				PersetujuanService.get(item.idpermohonan).then(
@@ -1586,7 +1561,7 @@ function adminsurateditketdesaController(
 		);
 	};
 	$scope.pesanbatal = message;
-	$scope.TampilPesan = function(item) {
+	$scope.TampilPesan = function (item) {
 		message.dialog('Anda Yakin menolak permohonan???', 'Ya', 'Batal').then(
 			(x) => {
 				$scope.model.idpermohonan = item.idpermohonan;
@@ -1597,7 +1572,7 @@ function adminsurateditketdesaController(
 			}
 		);
 	};
-	$scope.Tolak = function() {
+	$scope.Tolak = function () {
 		$('#TampilPesan').modal('hide');
 		PersetujuanService.tolak($scope.model).then(
 			(x) => {
@@ -1640,7 +1615,7 @@ function adminsurateditketektpController(
 	$scope.model.data = {};
 	$scope.adminSurateditKetDesa.data = {};
 	$scope.dataPrint = {};
-	$scope.Init = function() {
+	$scope.Init = function () {
 		AuthService.profile().then((param) => {
 			$scope.UserRole = param.rolename;
 			PendudukService.get().then((penduduk) => {
@@ -1663,7 +1638,7 @@ function adminsurateditketektpController(
 		});
 	};
 
-	$scope.Edit = function(data) {
+	$scope.Edit = function (data) {
 		$scope.model = angular.copy(data);
 		$rootScope.permohonan = null;
 		$scope.model.data.idpenduduk = $scope.ListPenduduk.find(
@@ -1672,13 +1647,13 @@ function adminsurateditketektpController(
 		$scope.tab.show('edit');
 	};
 
-	$scope.SelectedPenduduk = function() {
+	$scope.SelectedPenduduk = function () {
 		var a = JSON.parse(angular.copy($scope.ItemPenduduk));
 		$scope.adminSurateditKetDesa.idpenduduk = a.idpenduduk;
 		$scope.adminSurateditKetDesa.nama = a.nama;
 	};
 
-	$scope.Simpan = function() {
+	$scope.Simpan = function () {
 		var Method;
 		if ($scope.tab.tambah) {
 			Method = 'post';
@@ -1725,16 +1700,16 @@ function adminsurateditketektpController(
 		);
 	};
 
-	$scope.Selecteddata = function(id, item) {
+	$scope.Selecteddata = function (id, item) {
 		$scope.dataPrint = angular.copy(item);
 		var a = new Date(item.persetujuan[item.persetujuan.length - 1].created);
 		$scope.dataPrint.tampiltanggal = getTanggalIndonesia(a);
-		setTimeout(function() {
+		setTimeout(function () {
 			$scope.Print(id);
 		}, 1300);
 	};
 
-	$scope.Print = function(id) {
+	$scope.Print = function (id) {
 		var innerContents = document.getElementById(id).innerHTML;
 		var popupWinindow = window.open(
 			'',
@@ -1744,21 +1719,21 @@ function adminsurateditketektpController(
 		popupWinindow.document.open();
 		popupWinindow.document.write(
 			'<html><head><title>Cetak adminSuratedit</title></head><body onload="window.print()"><div>' +
-				innerContents +
-				'</html>'
+			innerContents +
+			'</html>'
 		);
 		popupWinindow.document.close();
 	};
 	$scope.pad = (number) => {
 		return helperServices.pad(number);
 	};
-	$scope.Batal = function() {
+	$scope.Batal = function () {
 		$scope.tab.show('list');
 		$scope.model = {};
 		$scope.model.data = {};
 		$scope.Init();
 	};
-	$scope.Setuju = function(item) {
+	$scope.Setuju = function (item) {
 		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
 			(x) => {
 				PersetujuanService.get(item.idpermohonan).then(
@@ -1777,7 +1752,7 @@ function adminsurateditketektpController(
 		);
 	};
 	$scope.pesanbatal = message;
-	$scope.TampilPesan = function(item) {
+	$scope.TampilPesan = function (item) {
 		message.dialog('Anda Yakin menolak permohonan???', 'Ya', 'Batal').then(
 			(x) => {
 				$scope.model.idpermohonan = item.idpermohonan;
@@ -1788,7 +1763,7 @@ function adminsurateditketektpController(
 			}
 		);
 	};
-	$scope.Tolak = function() {
+	$scope.Tolak = function () {
 		$('#TampilPesan').modal('hide');
 		PersetujuanService.tolak($scope.model).then(
 			(x) => {
@@ -1804,9 +1779,9 @@ function adminsurateditketektpController(
 	};
 }
 
-function adminsurateditketusahaController($stateParams) {}
+function adminsurateditketusahaController($stateParams) { }
 
-function adminsurateditpenguasaantanahController($stateParams) {}
+function adminsurateditpenguasaantanahController($stateParams) { }
 
 function adminsurateditskckController(
 	$stateParams,
@@ -1835,7 +1810,7 @@ function adminsurateditskckController(
 	$scope.model.data = {};
 	$scope.adminSurateditKetDesa.data = {};
 	$scope.dataPrint = {};
-	$scope.Init = function() {
+	$scope.Init = function () {
 		AuthService.profile().then((param) => {
 			$scope.UserRole = param.rolename;
 			PendudukService.get().then((penduduk) => {
@@ -1858,7 +1833,7 @@ function adminsurateditskckController(
 		});
 	};
 
-	$scope.Edit = function(data) {
+	$scope.Edit = function (data) {
 		$scope.model = angular.copy(data);
 		$rootScope.permohonan = null;
 		$scope.model.data.idpenduduk = $scope.ListPenduduk.find(
@@ -1867,13 +1842,13 @@ function adminsurateditskckController(
 		$scope.tab.show('edit');
 	};
 
-	$scope.SelectedPenduduk = function() {
+	$scope.SelectedPenduduk = function () {
 		var a = JSON.parse(angular.copy($scope.ItemPenduduk));
 		$scope.adminSurateditKetDesa.idpenduduk = a.idpenduduk;
 		$scope.adminSurateditKetDesa.nama = a.nama;
 	};
 
-	$scope.Simpan = function() {
+	$scope.Simpan = function () {
 		var Method;
 		if ($scope.tab.tambah) {
 			Method = 'post';
@@ -1920,16 +1895,16 @@ function adminsurateditskckController(
 		);
 	};
 
-	$scope.Selecteddata = function(id, item) {
+	$scope.Selecteddata = function (id, item) {
 		$scope.dataPrint = angular.copy(item);
 		var a = new Date(item.persetujuan[item.persetujuan.length - 1].created);
 		$scope.dataPrint.tampiltanggal = getTanggalIndonesia(a);
-		setTimeout(function() {
+		setTimeout(function () {
 			$scope.Print(id);
 		}, 1300);
 	};
 
-	$scope.Print = function(id) {
+	$scope.Print = function (id) {
 		var innerContents = document.getElementById(id).innerHTML;
 		var popupWinindow = window.open(
 			'',
@@ -1939,21 +1914,21 @@ function adminsurateditskckController(
 		popupWinindow.document.open();
 		popupWinindow.document.write(
 			'<html><head><title>Cetak adminSuratedit</title></head><body onload="window.print()"><div>' +
-				innerContents +
-				'</html>'
+			innerContents +
+			'</html>'
 		);
 		popupWinindow.document.close();
 	};
 	$scope.pad = (number) => {
 		return helperServices.pad(number);
 	};
-	$scope.Batal = function() {
+	$scope.Batal = function () {
 		$scope.tab.show('list');
 		$scope.model = {};
 		$scope.model.data = {};
 		$scope.Init();
 	};
-	$scope.Setuju = function(item) {
+	$scope.Setuju = function (item) {
 		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
 			(x) => {
 				PersetujuanService.get(item.idpermohonan).then(
@@ -1972,7 +1947,7 @@ function adminsurateditskckController(
 		);
 	};
 	$scope.pesanbatal = message;
-	$scope.TampilPesan = function(item) {
+	$scope.TampilPesan = function (item) {
 		message.dialog('Anda Yakin menolak permohonan???', 'Ya', 'Batal').then(
 			(x) => {
 				$scope.model.idpermohonan = item.idpermohonan;
@@ -1983,7 +1958,7 @@ function adminsurateditskckController(
 			}
 		);
 	};
-	$scope.Tolak = function() {
+	$scope.Tolak = function () {
 		$('#TampilPesan').modal('hide');
 		PersetujuanService.tolak($scope.model).then(
 			(x) => {

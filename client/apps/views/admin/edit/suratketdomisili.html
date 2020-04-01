@@ -2,7 +2,11 @@
   <div class="card card-warning">
     <div class="card-header">
       <h3 class="card-title">Surat Keterangan Domisili</h3>
+      <div class="card-tools">
+        <button class="btn btn-primary btn-tool" ng-click="go('Tambah')"><i class="fa fa-backward"></i></button>
+      </div>
     </div>
+    
     <div class="card-body">
       <form ng-submit="Simpan(model)">
         <div class="form-row">
@@ -34,16 +38,14 @@
           <button type="submit" class="btn btn-success float-right">Simpan</button>
         </div>
       </form>
+
+      <uploaddocument value="model"></uploaddocument>
     </div>
 
   </div>
 </section>
 
-<div id="suratDomisili" class="printing">
-  <div ng-include="'../../../apps/views/admin/formatsurat/formatketdomisili.html'"></div>
-</div>
 
-<!-- Modal -->
 <div class="modal fade" id="Pesan" tabindex="-1" role="dialog" aria-labelledby="Pesan" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

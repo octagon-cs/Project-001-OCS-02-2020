@@ -1,5 +1,6 @@
 <section class="content-header" ng-init="Init()">
   <div class="col">
+    <searchsurat value='mo'></searchsurat>
     <div class="card card-warning" ng-if="tab.list">
       <div class="card-header">
         <h3 class="card-title">
@@ -7,7 +8,7 @@
           List Permohonan Keterangan Domisi
         </h3>
         <div class="card-tools">
-          <button class="btn btn-primary float-right" ng-click="tab.show('tambah')"><i class="fa fa-plus"></i></button>
+          <button class="btn btn-primary btn-tools" ng-click="go('Tambah')"><i class="fa fa-plus"></i></button>
         </div>
       </div><!-- /.card-header -->
       <div class="card-body">
@@ -25,7 +26,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="item in Datas">
+              <tr ng-repeat="item in Datas | orderBy:'-tanggalpengajuan'">
                 <td>{{$index+1}}</td>
                 <td>{{pad(item.idpermohonan)}}</td>
                 <td>{{item.nik}}</td>
@@ -51,7 +52,7 @@
         </div>
       </div>
     </div>
-    <div ng-if="tab.tambah || tab.edit" class="card card-warning">
+    <!-- <div ng-if="tab.tambah || tab.edit" class="card card-warning">
       <div class="card-header">
         <h3 class="card-title" ng-if="tab.tambah"><i class="fas fa-plus"></i>Tambah Surat Keterangan Domisili</h3>
         <h3 class="card-title" ng-if="tab.edit"><i class="fas fa-plus"></i>Ubah Surat </h3>
@@ -105,7 +106,7 @@
           </div>
         </form>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <div id="suratDomisili" class="printing">
