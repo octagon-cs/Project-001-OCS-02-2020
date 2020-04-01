@@ -25,7 +25,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="item in datas">
+              <tr ng-repeat="item in datas | orderBy:'-tanggalpengajuan'">
                 <td>{{$index+1}}</td>
                 <td>{{pad(item.idpermohonan)}}</td>
                 <td>{{item.nik}}</td>

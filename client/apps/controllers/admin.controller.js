@@ -43,7 +43,7 @@ function adminSuratController(
 	$scope.go = (permohonan) => {
 		var state = helperServices.stateEdit(permohonan.jenis, $scope.UserRole);
 		$rootScope.permohonan = permohonan;
-		$state.go(state, { id: permohonan.idpermohonan });
+		$state.go(state, { id: permohonan.idpermohonan }, {reload: true});
 	};
 
 	$scope.pad = (number) => {
