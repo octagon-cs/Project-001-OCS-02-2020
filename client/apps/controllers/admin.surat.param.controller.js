@@ -397,6 +397,11 @@ function adminsurateditketdomisiliController(
 		return helperServices.pad(number);
 	};
 
+	$scope.files;
+
+	$scope.Upload = function(){
+		console.log($scope.files);
+	}
 
 	$scope.Batal = function (item) {
 		if (item == 'batal') {

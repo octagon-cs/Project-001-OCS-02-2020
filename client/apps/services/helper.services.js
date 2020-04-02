@@ -334,6 +334,7 @@ function approvedService(helperServices) {
 					if (lastPersetujuan.role == 'lurah' && lastPersetujuan.status == 'selesai') {
 						value.SetButtonPrint = true;
 						value.SetButtonApproved = false;
+						value.progress='Selesai'
 					} else {
 						var lastindex = helperServices.source.Roles.indexOf(lastPersetujuan.role);
 						var nextRole =
@@ -347,7 +348,9 @@ function approvedService(helperServices) {
 							value.SetButtonPrint = false;
 							value.SetButtonApproved = false;
 						}
+						lastPersetujuan.data.to == 'admin' ? value.progress='Admin':lastPersetujuan.data.to == 'seklur' ? value.progress='Sekertaris Lurah': value.progress='Lurah';
 					}
+					
 				} else {
 					if (userRole == 'admin') {
 						value.SetButtonPrint = false;
@@ -356,6 +359,7 @@ function approvedService(helperServices) {
 						value.SetButtonPrint = false;
 						value.SetButtonApproved = false;
 					}
+					value.progress='Admin';
 				}
 			});
 		}

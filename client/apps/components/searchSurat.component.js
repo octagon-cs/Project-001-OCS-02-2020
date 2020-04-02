@@ -14,8 +14,8 @@ angular.module('searchSurat.component', []).component('searchsurat', {
 					$state.go(state);
 				} else {
 					$scope.UserRole == 'admin'
-						? $state.go('admin-suratall')
-						: $scope.UserRole == 'seklur' ? $state.go('seklur-suratall') : $state.go('lurah-suratall');
+						? $state.go('admin-surat')
+						: $scope.UserRole == 'seklur' ? $state.go('seklur-surat') : $state.go('lurah-surat');
 				}
 			}, 300);
 		};
