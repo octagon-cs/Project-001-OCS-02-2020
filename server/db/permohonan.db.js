@@ -219,6 +219,73 @@ db.delete = (id) => {
 	});
 };
 
+db.getDocument = async (idpenduduk, idpermohonan) => {
+	return new Promise((resolve, reject) => {
+		try {
+			pool.query(
+				`SELECT
+				detailpersyaratan.idjenispermohonan,
+				persyaratan.idpersyaratan,
+				persyaratan.nama,
+				persyaratan.status,
+				dokumenpenduduk.iddokumenpenduduk,
+				dokumenpenduduk.idpenduduk,
+				dokumenpenduduk.file,
+				dokumenpenduduk.typefile,
+				dokumenpenduduk.idpermohonan,
+				dokumenpenduduk.jenis
+			  FROM
+				detailpersyaratan
+				LEFT JOIN persyaratan ON detailpersyaratan.idpersyaratan =
+			  persyaratan.idpersyaratan
+				LEFT JOIN dokumenpenduduk ON persyaratan.idpersyaratan =
+			  dokumenpenduduk.idpersyaratan and ( dokumenpenduduk.idpermohonan=? or dokumenpenduduk.idpersyaratan is null)
+			  and ( dokumenpenduduk.idpenduduk=? or dokumenpenduduk.idpenduduk is null)
+			  where idjenispermohonan=? `,
+				[ idpermohonan, idpenduduk, idpermohonan ],
+				(err, result) => {
+					if (err) {
+						return reject(err);
+					} else {
+						var kk = result.find((x) => x.status == 2);
+						if (kk) {
+							pool.query(
+								`SELECT
+							dokumenpenduduk.*,
+							penduduk.nkk,
+							penduduk.statusdalamkeluarga
+						  FROM
+							penduduk
+							LEFT JOIN dokumenpenduduk ON penduduk.idpenduduk =
+						  dokumenpenduduk.idpenduduk 
+						  where statusdalamkeluarga='kepala keluarga' and nkk = (select nkk from penduduk where idpenduduk=?) and iddokumenpenduduk is not null`,
+								[ idpenduduk ],
+								(err, data) => {
+									if (data && data.length > 0) {
+										var item = data[0];
+										(kk.iddokumenpenduduk = item.iddokumenpenduduk),
+											(kk.idpenduduk = item.idpenduduk),
+											(kk.file = item.file),
+											(kk.typefile = item.typefile),
+											(kk.idpermohonan = item.idpermohonan),
+											(kk.jenis = item.jenis),
+											(kk.idpersyaratan = item.idpersyaratan);
+									}
+									resolve(result);
+								}
+							);
+						} else {
+							resolve(result);
+						}
+					}
+				}
+			);
+		} catch (err) {
+			return reject(err);
+		}
+	});
+};
+
 db.postDocument = async (data) => {
 	return new Promise((resolve, reject) => {
 		try {

@@ -3,6 +3,8 @@ const router = express.Router();
 const contextDb = require('../db');
 const authJwt = require('../auth/verifyToken');
 const permit = require('../auth/permission');
+const uuid = require('uuid');
+const fs = require('fs');
 
 router.get('/', async (req, res) => {
 	try {
@@ -132,28 +134,60 @@ router.delete('/:id', async (req, res) => {
 	}
 });
 
+router.get('/dokumen/:idpenduduk', async (req, res) => {
+	try {
+		var document = await contextDb.Penduduk.getDocument(req.params.idpenduduk);
+		if (document) {
+			res.status(200).json(document);
+		} else {
+			throw new Error('Dokument Tidak Ditemukan');
+		}
+	} catch (err) {
+		res.status(400).json({
+			message: err.message
+		});
+	}
+});
+
 router.post('/dokumen', [ authJwt.verifyToken ], async (req, res) => {
 	try {
 		var data = req.body;
-		var fileType = data.jenis === 'ktp' ? 'ktp' : data.jenis === 'kk' ? 'kk' : 'lain';
-		var filename = 'client\\document\\' + fileType + '\\' + uuid.v1() + '.' + data.extention;
+		var folder = 'client\\document\\';
+		var filename = uuid.v1() + '.' + data.extention;
 		data.file = filename;
-		fs.writeFile(filename, data.data, 'base64', async function(err) {
+
+		fs.writeFile(folder + filename, data.data, 'base64', async function(err) {
 			if (err) {
 				res.status(400).json({
 					message: 'document tidak tersimpan'
 				});
 			} else {
-				var document = await contextDb.Penduduk.getDocument(model.idpenduduk);
-				var docExist = document.find((x) => x.jenis == fileType && x.jenis !== 'lain');
-				if (docExist) {
-					fs.unlink(docExist.file, function(err) {});
-					docExist.file = data.file;
-					data = await contextDb.Penduduk.updateDocument(docExist);
+				var documents = await contextDb.Penduduk.getDocument(data.idpenduduk);
+				var doc = documents.find((x) => x.idpersyaratan == data.idpersyaratan && data.status > 0);
+				if (doc) {
+					var docFIle = doc.file;
+					doc.file = filename;
+					var document = await contextDb.Penduduk.updateDocument(doc);
+					if (document) {
+						fs.unlinkSync(folder + docFIle);
+						res.status(200).json(document);
+					} else {
+						fs.unlinkSync(folder + filename);
+						res.status(400).json({
+							message: 'document tidak tersimpan'
+						});
+					}
 				} else {
-					data = await contextDb.Penduduk.insertDocuemnt(data);
+					var document = await contextDb.Penduduk.insertDocument(data);
+					if (document) {
+						res.status(200).json(document);
+					} else {
+						fs.unlinkSync(folder + filename);
+						res.status(400).json({
+							message: 'document tidak tersimpan'
+						});
+					}
 				}
-				res.status(200).json(data);
 			}
 		});
 	} catch (err) {

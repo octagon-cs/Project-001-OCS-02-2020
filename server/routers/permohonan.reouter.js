@@ -391,6 +391,23 @@ router.post('/reject/:id', [ authJwt.verifyToken ], async (req, res) => {
 	}
 });
 
+router.get('/dokumen/:idpermohonan', async (req, res) => {
+	try {
+		var id = req.params.idpermohonan;
+		var permohonan = await contextDb.Permohonan.getById(id);
+		if (permohonan) {
+			var data = await contextDb.Permohonan.getDocument(permohonan.idpenduduk, id);
+			res.status(200).json(data);
+		} else {
+			throw new Error('Permohonan tidak ditemukan');
+		}
+	} catch (err) {
+		res.status(400).json({
+			message: err.message
+		});
+	}
+});
+
 UpdateStatusPenduduk = async (permohonan) => {
 	var jenisPermohonan = await contextDb.JenisPermohonan.getById(permohonan.idjenispermohonan);
 	if (jenisPermohonan) {
