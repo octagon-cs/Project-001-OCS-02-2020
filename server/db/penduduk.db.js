@@ -286,12 +286,48 @@ db.delete = (id) => {
 	});
 };
 
+db.getDocument = (idpenduduk) => {
+	return new Promise((resolve, reject) => {
+		try {
+			pool.query(
+				`SELECT
+				dokumenpenduduk.*,
+				persyaratan.nama,
+				persyaratan.deskripsi,
+				persyaratan.status
+			  FROM
+				dokumenpenduduk
+				LEFT JOIN persyaratan ON dokumenpenduduk.idpersyaratan =
+			  persyaratan.idpersyaratan
+			   where idpenduduk=?`,
+				[ idpenduduk ],
+				(err, result) => {
+					if (err) {
+						return reject(err);
+					} else {
+						resolve(result);
+					}
+				}
+			);
+		} catch (err) {
+			return reject(err);
+		}
+	});
+};
+
 db.updateDocument = (model) => {
 	return new Promise((resolve, reject) => {
 		try {
 			pool.query(
-				'update dokumenpenduduk set file=?, jenis=?, typefile=?  where iddokumenpenduduk=? ',
-				[ model.file, model.jenis, model.typefile, model.iddokumenpenduduk ],
+				'update dokumenpenduduk set file=?, jenis=?, typefile=?, idpersyaratan=?, idpermohonan=?  where iddokumenpenduduk=? ',
+				[
+					model.file,
+					model.jenis,
+					model.typefile,
+					model.idpersyaratan,
+					model.idpermohonan,
+					model.iddokumenpenduduk
+				],
 				(err, result) => {
 					if (err) {
 						return reject(err);
@@ -308,8 +344,8 @@ db.insertDocument = (model) => {
 	return new Promise((resolve, reject) => {
 		try {
 			pool.query(
-				'insert into dokumenpenduduk (idpenduduk, file, jenis,typefile) values(?,?,?,?)',
-				[ model.idpenduduk, model.file, model.jenis, model.typefile ],
+				'insert into dokumenpenduduk (idpenduduk, file, jenis,typefile, idpersyaratan, idpermohonan) values(?,?,?,?,?,?)',
+				[ model.idpenduduk, model.file, model.jenis, model.typefile, model.idpersyaratan, model.idpermohonan ],
 				(err, result) => {
 					if (err) {
 						return reject(err);
