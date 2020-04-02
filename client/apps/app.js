@@ -13,7 +13,7 @@ angular
 		'ngLocale',
 		'chart.js'
 	])
-	.config(function(ChartJsProvider) {
+	.config(function (ChartJsProvider) {
 		Chart.defaults.global.colors = [
 			'#97bbcd',
 			'#dcdcdc',
@@ -31,30 +31,30 @@ angular
 			'#4D5360'
 		];
 		ChartJsProvider.setOptions({
-			colors: [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360' ]
+			colors: ['#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']
 		});
 		ChartJsProvider.setOptions('doughnut', {
 			cutoutPercentage: 60
 		});
 	})
-	.directive('chooseFile', function() {
+	.directive('chooseFile', function () {
 		return {
-			link: function(scope, elem, attrs) {
+			link: function (scope, elem, attrs) {
 				var button = elem.find('#output');
 				var input = angular.element(elem[0].querySelector('input#fileInput'));
-				button.bind('click', function() {
+				button.bind('click', function () {
 					input[0].click();
 				});
-				input.bind('change', function(e) {
-					scope.$apply(function() {
+				input.bind('change', function (e) {
+					scope.$apply(function () {
 						var files = e.target.files;
 						if (files[0]) {
 							var f = files[0];
 							var foto = {};
 							foto.fileName = f.name;
 							r = new FileReader();
-							r.onload = (function(theFile) {
-								return function(e) {
+							r.onload = (function (theFile) {
+								return function (e) {
 									//var binaryData = e.target.result;
 									var img = document.createElement('img');
 									img.src = e.target.result;
@@ -102,11 +102,11 @@ angular
 			}
 		};
 	})
-	.directive('select', function($interpolate) {
+	.directive('select', function ($interpolate) {
 		return {
 			restrict: 'E',
 			require: 'ngModel',
-			link: function(scope, elem, attrs, ctrl) {
+			link: function (scope, elem, attrs, ctrl) {
 				var defaultOptionTemplate;
 				scope.defaultOptionText = attrs.defaultOption || 'Pilih...';
 				defaultOptionTemplate =
@@ -115,27 +115,27 @@ angular
 			}
 		};
 	})
-	.directive('select2', function($timeout, $parse) {
+	.directive('select2', function ($timeout, $parse) {
 		return {
 			restrict: 'AC',
 			require: 'ngModel',
-			link: function(scope, element, attrs) {
+			link: function (scope, element, attrs) {
 				//console.log(attrs);
-				$timeout(function() {
+				$timeout(function () {
 					element.select2();
 					element.select2Initialized = true;
 				});
 
-				var refreshSelect = function() {
+				var refreshSelect = function () {
 					if (!element.select2Initialized) return;
-					$timeout(function() {
+					$timeout(function () {
 						element.trigger('change');
 					});
 				};
 
-				var recreateSelect = function() {
+				var recreateSelect = function () {
 					if (!element.select2Initialized) return;
-					$timeout(function() {
+					$timeout(function () {
 						element.select2('destroy');
 						element.select2();
 					});
@@ -152,6 +152,54 @@ angular
 				if (attrs.ngDisabled) {
 					scope.$watch(attrs.ngDisabled, refreshSelect);
 				}
+			}
+		};
+	})
+	.filter('capitalize', function () {
+		return function (input) {
+			if (input.indexOf(' ') !== -1) {
+				var inputPieces,
+					i;
+
+				input = input.toLowerCase();
+				inputPieces = input.split(' ');
+
+				for (i = 0; i < inputPieces.length; i++) {
+					inputPieces[i] = capitalizeString(inputPieces[i]);
+				}
+
+				return inputPieces.toString().replace(/,/g, ' ');
+			}
+			else {
+				input = input.toLowerCase();
+				return capitalizeString(input);
+			}
+
+			function capitalizeString(inputString) {
+				return inputString.substring(0, 1).toUpperCase() + inputString.substring(1);
+			}
+		};
+	})
+	.directive('capitalizee', function () {
+		return {
+			require: 'ngModel',
+			link: function (scope, element, attrs, modelCtrl) {
+				var capitalize = function (inputValue) {
+					if (inputValue == undefined) inputValue = '';
+					var capitalized = inputValue.toUpperCase();
+					if (capitalized !== inputValue) {
+						// see where the cursor is before the update so that we can set it back
+						var selection = element[0].selectionStart;
+						modelCtrl.$setViewValue(capitalized);
+						modelCtrl.$render();
+						// set back the cursor after rendering
+						element[0].selectionStart = selection;
+						element[0].selectionEnd = selection;
+					}
+					return capitalized;
+				}
+				modelCtrl.$parsers.push(capitalize);
+				capitalize(scope[attrs.ngModel]); // capitalize initial value
 			}
 		};
 	});

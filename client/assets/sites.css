@@ -220,4 +220,12 @@
 .select2-container .select2-selection--single {
   height: 39px !important;
 }
+
+h6, .h6 {
+  font-size: inherit;
+}
+
+.btn-sm, .btn-group-sm > .btn {
+  font-size: inherit;
+}
 /*# sourceMappingURL=sites.css.map */

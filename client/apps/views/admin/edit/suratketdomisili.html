@@ -3,7 +3,7 @@
     <div class="card-header">
       <h3 class="card-title">Surat Keterangan Domisili</h3>
       <div class="card-tools">
-        <button class="btn btn-primary btn-tool" ng-click="go('Tambah')"><i class="fa fa-backward"></i></button>
+        <button class="btn btn-primary btn-tool" title="Kembali Ke List Permohonan" ng-click="Batal('kembali')"><i class="fa fa-backward"></i></button>
       </div>
     </div>
 
@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="card-footer">
-          <button type="button" class="btn btn-warning float-right" ng-click="Batal()">Kembali</button>
+          <button type="button" class="btn btn-warning float-right" ng-click="Batal('batal')">Kembali</button>
           <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
             class="btn btn-danger float-right" ng-click="TampilPesan(model)">Tolak</button>
           <button ng-if="model.SetButtonApproved" type="button" class="btn btn-primary float-right"
