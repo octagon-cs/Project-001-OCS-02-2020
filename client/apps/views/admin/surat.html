@@ -25,7 +25,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="item in datas | orderBy:'-tanggalpengajuan'">
+              <tr ng-repeat="item in datas | orderBy: ['-SetButtonApproved', '-idpermohonan']">
                 <td>{{$index+1}}</td>
                 <td>{{pad(item.idpermohonan)}}</td>
                 <td>{{item.nik}}</td>

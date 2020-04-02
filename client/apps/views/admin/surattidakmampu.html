@@ -11,7 +11,7 @@
           List Surat Keterangan Tidak Mampu
         </h3>
         <div class="card-tools">
-          <button class="btn btn-primary float-right" ng-click="tab.show('tambah')"><i class="fa fa-plus"></i></button>
+          <button class="btn btn-primary float-right" ng-click="go('Tambah')"><i class="fa fa-plus"></i></button>
         </div>
       </div><!-- /.card-header -->
       <div class="card-body">
@@ -29,7 +29,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="item in Datas">
+              <tr ng-repeat="item in Datas | orderBy: ['-SetButtonApproved', 'idpermohonan']">
                 <td>{{$index+1}}</td>
                 <td>{{pad(item.idpermohonan)}}</td>
                 <td>{{item.nik}}</td>
@@ -41,7 +41,7 @@
                     ng-click="Print('suratTidakMampu', item)">
                     <i class="fas fa-print"></i></a>
                   <a href="javascript:void(0)" title="Detail Permohonan" class="btn btn-warning"
-                    ng-click="Edit(item)"><i class="fas fa-eye"></i></a>
+                    ng-click="go(item)"><i class="fas fa-eye"></i></a>
                   <a href="javascript:void(0)" ng-if="item.SetButtonApproved" title="Setujui Permohonan"
                     ng-class="item.SetButtonApproved?'':'disabled'" class="btn btn-success" ng-click="Setuju(item)"><i
                       class="fas fa-check"></i></a>

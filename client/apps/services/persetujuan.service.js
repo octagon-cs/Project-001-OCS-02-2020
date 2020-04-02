@@ -19,6 +19,7 @@ function PersetujuanService($http, $q, helperServices, AuthService) {
             headers: AuthService.getHeader()
         }).then(
             (res) => {
+                
                 def.resolve(res.data);
             },
             (err) => {

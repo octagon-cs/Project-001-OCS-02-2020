@@ -23,7 +23,6 @@ function adminsurattidakmampuController(
 	$scope,
 	message,
 	$state,
-	$rootScope,
 	tabService,
 	approvedService,
 	JenisPermohonanService,
@@ -33,6 +32,7 @@ function adminsurattidakmampuController(
 	PersetujuanService,
 	loaderService
 ) {
+	loaderService.setValue(true);
 	$scope.tab = tabService.createTab();
 	$scope.ItemPenduduk = '';
 	$scope.dataPejabat = [];
@@ -45,24 +45,6 @@ function adminsurattidakmampuController(
 	$scope.IdJenis;
 	$scope.UserRole;
 
-	$scope.Edit = function (data) {
-		$scope.model = angular.copy(data);
-		$rootScope.permohonan = null;
-		PendudukService.getById(data.idpenduduk).then((penduduk) => {
-			$scope.model.idpenduduk = penduduk;
-			$scope.model.idpejabat = angular.copy($scope.dataPejabat.find((x) => x.idpejabat == data.idpejabat));
-			$scope.tab.show('edit');
-		});
-	};
-	$scope.Batal = function () {
-		$scope.model = {};
-		$scope.model.data = {};
-		$scope.Init();
-		$scope.tab.show('list');
-	};
-	$scope.pad = (number) => {
-		return helperServices.pad(number);
-	};
 	$scope.Init = function () {
 		AuthService.profile().then((param) => {
 			$scope.UserRole = param.rolename;
@@ -76,9 +58,6 @@ function adminsurattidakmampuController(
 						PermohonanService.getByJenis(jenis.idjenispermohonan).then((param) => {
 							approvedService.approvedView(param, $scope.UserRole);
 							$scope.Datas = param.filter((x) => x.status != 'selesai' && x.status != 'ditolak');
-							if ($rootScope.permohonan) {
-								$scope.Edit($rootScope.permohonan);
-							}
 							loaderService.setValue(false)
 						});
 					});
@@ -86,11 +65,21 @@ function adminsurattidakmampuController(
 			});
 		});
 	};
-	$scope.SelectedPenduduk = function () {
-		var a = JSON.parse(angular.copy($scope.ItemPenduduk));
-		$scope.model.idpenduduk = a.idpenduduk;
-		$scope.model.nama = a.nama;
+
+	$scope.pad = (number) => {
+		return helperServices.pad(number);
 	};
+
+	$scope.go = function (item) {
+		var state = helperServices.stateEdit('Tidak Mampu', $scope.UserRole);
+		// $rootScope.permohonan = permohonan;
+		if (item == "Tambah") {
+			$state.go(state, { id: null });
+		} else {
+			$state.go(state, { id: item.idpermohonan });
+		}
+	}
+
 	$scope.Simpan = function () {
 		message.dialog('Anda Yakin Ingin Menyimpan', 'Simpan', 'Batal').then(
 			(x) => {
@@ -237,8 +226,10 @@ function adminsuratketnikahController(
 	PermohonanService,
 	PendudukService,
 	PejabatService,
-	PersetujuanService
+	PersetujuanService,
+	loaderService
 ) {
+	loaderService.setValue(true);
 	$scope.tab = tabService.createTab();
 	$scope.ItemPenduduk = '';
 	$scope.dataPejabat = [];
@@ -262,9 +253,7 @@ function adminsuratketnikahController(
 						PermohonanService.getByJenis(jenis.idjenispermohonan).then((permohonan) => {
 							approvedService.approvedView(permohonan, $scope.UserRole);
 							$scope.Datas = angular.copy(permohonan);
-							if ($rootScope.permohonan) {
-								$scope.Edit($rootScope.permohonan);
-							}
+							loaderService.setValue(false);
 						});
 					});
 				});
@@ -272,34 +261,19 @@ function adminsuratketnikahController(
 		});
 	};
 
-	$scope.Edit = function (data) {
-		$scope.model = angular.copy(data);
-		$rootScope.permohonan = null;
-		$scope.model.data.idpenduduksuami = $scope.ListPenduduk.find(
-			(x) => x.idpenduduk == angular.copy(data.data.idpenduduksuami)
-		);
-		$scope.model.data.idpendudukistri = $scope.ListPenduduk.find(
-			(x) => x.idpenduduk == angular.copy(data.data.idpendudukistri)
-		);
-		$scope.model.idpejabat = $scope.dataPejabat.find((x) => x.idpejabat == angular.copy(data.idpejabat));
-		$scope.tab.show('edit');
-	};
 	$scope.pad = (number) => {
 		return helperServices.pad(number);
 	};
 
-	$scope.Batal = function () {
-		$scope.tab.show('list');
-		$scope.model = {};
-		$scope.model.data = {};
-		$scope.Init();
-	};
-
-	$scope.SelectedPenduduk = function () {
-		var a = JSON.parse(angular.copy($scope.ItemPenduduk));
-		$scope.model.idpenduduk = a.idpenduduk;
-		$scope.model.nama = a.nama;
-	};
+	$scope.go = function (item) {
+		var state = helperServices.stateEdit('Keterangan Nikah', $scope.UserRole);
+		// $rootScope.permohonan = permohonan;
+		if (item == "Tambah") {
+			$state.go(state, { id: null });
+		} else {
+			$state.go(state, { id: item.idpermohonan });
+		}
+	}
 
 	$scope.Simpan = function () {
 		var Method;
@@ -455,27 +429,6 @@ function adminsuratketdomisiliController(
 	$scope.dataPrint = {};
 	$scope.IdJenis;
 	$scope.UserRole;
-
-	$scope.Edit = function (data) {
-		$scope.model = angular.copy(data);
-		$rootScope.permohonan = null;
-		PendudukService.getById(data.idpenduduk).then((penduduk) => {
-			$scope.model.idpenduduk = penduduk;
-			$scope.model.idpejabat = angular.copy($scope.dataPejabat.find((x) => x.idpejabat == data.idpejabat));
-			$scope.tab.show('edit');
-		});
-	};
-
-	$scope.go = function (item) {
-		var state = helperServices.stateEdit('Keterangan Domisili', $scope.UserRole);
-		// $rootScope.permohonan = permohonan;
-		if (item == "Tambah") {
-			$state.go(state, {id: null});
-		} else {
-			$state.go(state, { id: permohonan.idpermohonan });
-		}
-	}
-
 	$scope.Init = function () {
 		AuthService.profile().then((param) => {
 			$scope.UserRole = param.rolename;
@@ -499,6 +452,16 @@ function adminsuratketdomisiliController(
 			});
 		});
 	};
+
+	$scope.go = function (item) {
+		var state = helperServices.stateEdit('Keterangan Domisili', $scope.UserRole);
+		// $rootScope.permohonan = permohonan;
+		if (item == "Tambah") {
+			$state.go(state, { id: null });
+		} else {
+			$state.go(state, { id: item.idpermohonan });
+		}
+	}
 
 	$scope.SelectedPenduduk = function () {
 		var a = JSON.parse(angular.copy($scope.ItemPenduduk));
@@ -661,9 +624,11 @@ function adminsuratketmenikahController(
 	$scope,
 	message,
 	tabService,
-	$rootScope,
-	PersetujuanService
+	PersetujuanService,
+	loaderService,
+	$state
 ) {
+	loaderService.setValue(true);
 	$scope.JenisKelamin = helperServices.JenisKelamin;
 	$scope.ListRT = [];
 	$scope.tab = tabService.createTab();
@@ -690,9 +655,8 @@ function adminsuratketmenikahController(
 						PermohonanService.getByJenis(jenis.idjenispermohonan).then((param) => {
 							approvedService.approvedView(param, $scope.UserRole);
 							$scope.Datas = angular.copy(param);
-							if ($rootScope.permohonan) {
-								$scope.Edit($rootScope.permohonan);
-							}
+							loaderService.setValue(false);
+
 						});
 					});
 				});
@@ -704,15 +668,15 @@ function adminsuratketmenikahController(
 		$scope.model.data.hari = item.getDay();
 	};
 
-	$scope.Edit = function (data) {
-		$scope.model = angular.copy(data);
-		$rootScope.permohonan = null;
-		$scope.model.data.tanggaladminsuratpengantar = new Date(
-			angular.copy($scope.model.data.tanggaladminsuratpengantar)
-		);
-		$scope.model.data.idpenduduk = $scope.ListPenduduk.find((x) => x.idpenduduk == data.data.idpenduduk);
-		$scope.tab.show('edit');
-	};
+	$scope.go = function (item) {
+		var state = helperServices.stateEdit('Sudah Menikah', $scope.UserRole);
+		// $rootScope.permohonan = permohonan;
+		if (item == "Tambah") {
+			$state.go(state, { id: null });
+		} else {
+			$state.go(state, { id: item.idpermohonan });
+		}
+	}
 
 	$scope.Approved = function (data) {
 		$scope.model = data;
@@ -720,23 +684,10 @@ function adminsuratketmenikahController(
 		$scope.tab.show('approved');
 	};
 
-	$scope.SelectedRT = function () {
-		$scope.model.data.RT = $scope.ListRT.find(
-			(x) =>
-				x.data.nomorrt == $scope.model.data.idpenduduk.rt && x.data.nomorrw == $scope.model.data.idpenduduk.rw
-		);
-	};
 	$scope.pad = (number) => {
 		return helperServices.pad(number);
 	};
-
-	$scope.Batal = function () {
-		$scope.tab.show('list');
-		$scope.model = {};
-		$scope.model.data = {};
-		$scope.Init();
-	};
-
+	
 	$scope.Simpan = function () {
 		var Method;
 		if ($scope.tab.tambah) {
@@ -881,8 +832,11 @@ function adminsuratbelummenikahController(
 	message,
 	tabService,
 	$rootScope,
-	PersetujuanService
+	PersetujuanService,
+	loaderService,
+	$state
 ) {
+	loaderService.setValue(true);
 	$scope.JenisKelamin = helperServices.JenisKelamin;
 	$scope.ListRT = [];
 	$scope.tab = tabService.createTab();
@@ -909,9 +863,7 @@ function adminsuratbelummenikahController(
 						PermohonanService.getByJenis(jenis.idjenispermohonan).then((param) => {
 							approvedService.approvedView(param, $scope.UserRole);
 							$scope.Datas = angular.copy(param);
-							if ($rootScope.permohonan) {
-								$scope.Edit($rootScope.permohonan);
-							}
+							loaderService.setValue(false);
 						});
 					});
 				});
@@ -919,19 +871,18 @@ function adminsuratbelummenikahController(
 		});
 	};
 
+	$scope.go = function (item) {
+		var state = helperServices.stateEdit('Belum Menikah', $scope.UserRole);
+		// $rootScope.permohonan = permohonan;
+		if (item == "Tambah") {
+			$state.go(state, { id: null }, {reload: true});
+		} else {
+			$state.go(state, { id: item.idpermohonan }, {reload: true});
+		}
+	}
+
 	$scope.setHari = function (item) {
 		$scope.model.data.hari = item.getDay();
-	};
-
-	$scope.Edit = function (data) {
-		$scope.model = angular.copy(data);
-		$rootScope.permohonan = null;
-		$scope.model.data.tanggaladminsuratpengantar = new Date(
-			angular.copy($scope.model.data.tanggaladminsuratpengantar)
-		);
-		$scope.model.data.idpenduduk = $scope.ListPenduduk.find((x) => x.idpenduduk == data.data.idpenduduk);
-		// data.data.tanggallahir = new Date(data.data.tanggallahir);
-		$scope.tab.show('edit');
 	};
 
 	$scope.Approved = function (data) {

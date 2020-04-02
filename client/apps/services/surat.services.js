@@ -179,7 +179,8 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 		put: put,
 		getById: getById,
 		getByJenis: getByJenis,
-		clean: clean
+		clean: clean,
+		approved:approved
 	};
 
 	function get() {
@@ -295,4 +296,26 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 		service.data = [];
 		service.instance = false;
 	}
+
+	function approved(id) {
+        var def = $q.defer();
+        $http({
+            method: 'get',
+            url: helperServices.url + controller + "/approve/" + id,
+            headers: AuthService.getHeader()
+        }).then(
+            (res) => {
+                var item = service.data.find((x) => (x.idpermohonan == id));
+				if (item) {
+					item.SetButtonApproved =false;
+				}
+                def.resolve(res.data);
+            },
+            (err) => {
+                def.reject(err);
+                message.error(err);
+            }
+        );
+        return def.promise;
+    }
 }
