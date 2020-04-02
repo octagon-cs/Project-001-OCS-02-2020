@@ -1,15 +1,13 @@
 <section class="content-header" ng-init="Init()">
+    <searchsurat></searchsurat>
     <div class="col">
-        <!-- <div class="card-tools">
-            <h4>Surat Keterangan Cerai</h4>
-        </div> -->
-        <div class="card card-warning" ng-if="tab.list">
+        <div class="card card-warning">
             <div class="card-header">
                 <h3 class="card-title">List Permohonan Keterangan Cerai
                 </h3>
                 <div class="card-tools">
-                    <button class="btn btn-primary float-right" ng-click="tab.show('tambah')"><i
-                            class="fa fa-plus"></i></button>
+                    <button class="btn btn-primary float-right" ng-click="go('Tambah')"><i
+                        class="fa fa-plus"></i></button>
                 </div>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -32,16 +30,16 @@
                                 <td>{{$index+1}}</td>
                                 <td>{{pad(item.idpermohonan)}}</td>
                                 <td>{{item.nik}}</td>
-                                <td>{{item.nama}}</td>
+                                <td>{{item.nama | capitalize}}</td>
                                 <td>{{item.nomorsurat}}</td>
                                 <td>{{item.data.keterangan}}</td>
-                                <td>{{item.namapejabat}}<br>({{item.namajabatan}})</td>
+                                <td align="center">{{item.namapejabat}}<br>(<b>{{item.namajabatan}}</b>)</td>
                                 <td>
                                     <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'"
                                         class="btn btn-primary" ng-click="Print('suratTidakMampu', item)">
                                         <i class="fas fa-print"></i></a>
                                     <a href="javascript:void(0)" title="Detail Permohonan" class="btn btn-warning"
-                                        ng-click="Edit(item)"><i class="fas fa-eye"></i></a>
+                                        ng-click="go(item)"><i class="fas fa-eye"></i></a>
                                     <a href="javascript:void(0)" ng-if="item.SetButtonApproved"
                                         title="Setujui Permohonan" ng-class="item.SetButtonApproved?'':'disabled'"
                                         class="btn btn-success" ng-click="Setuju(item)"><i class="fas fa-check"></i></a>
@@ -55,103 +53,11 @@
                 </div>
             </div>
         </div>
-        <div ng-if="tab.tambah || tab.edit" class="card card-warning">
-            <div class="card-header">
-                <h4 class="card-title" ng-if="tab.tambah">Tambah Surat Keterangan Cerai
-                </h4>
-                <h4 class="card-title" ng-if="tab.edit">Ubah Surat </h4>
-            </div>
-            <div class="card-body">
-                <form ng-submit="Simpan()">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Nomor Surat</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" ng-model="model.nomorsurat"
-                                            placeholder="Nomor Surat">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-header"></div><br>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">NIK Suami</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control" select2="" name="country" data-ng-model="model.data.idpenduduksuami" ng-options="state as state.nik+' - '+state.nama for state in ListPenduduk">
-                                            <option value="">Select Country</option>
-                                          </select>
-                                        <!-- <input type="text" ng-model="model.data.idpenduduksuami"
-                                            placeholder="Pilih Data Suami"
-                                            uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
-                                            class="form-control"> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2"></div>
-                            <div class="col-md-5">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">NIK Istri</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control" select2="" name="country" data-ng-model="model.data.idpendudukistri" ng-options="state as state.nik+' - '+state.nama for state in ListPenduduk">
-                                            <option value="">Select Country</option>
-                                          </select>
-                                        <!-- <input type="text" ng-model="model.data.idpendudukistri"
-                                            placeholder="Pilih Data Istri"
-                                            uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
-                                            class="form-control"> -->
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Keterangan Cerai</label>
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" ng-model="model.data.keterangan" rows="2"
-                                            placeholder="Cerai Hidup/Mati dari tahuan ....">Testing
-                                            </textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-header"></div><br>
-
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
-                                    <div class="col-sm-8 autoComplete">
-                                        <input type="text" placeholder="Cari Pejabat" ng-model="model.idpejabat"
-                                            uib-typeahead="state as state.nama+' - '+state.namajabatan for state in dataPejabat | 
-                                          filter:$viewValue
-                                          | limitTo:8" class="form-control">
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </div>
-                        <div class="card-header"></div><br>
-                    </div>
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-warning float-right" ng-click="Batal()">Kembali</button>
-                        <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
-                            class="btn btn-danger float-right" ng-click="TampilPesan(item)">Tolak</button>
-                        <button ng-if="model.SetButtonApproved" type="button" class="btn btn-primary float-right"
-                            ng-click="Setuju()">Setuju</button>
-                        <button type="submit" class="btn btn-success float-right">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
-
     <div id="suratKetCerai" class="printing">
         <div ng-include="'../../../apps/views/admin/formatsurat/formatketcerai.html'"></div>
     </div>
 </section>
-
-
 <div class="modal fade" id="Pesan">
     <div class="modal-dialog">
         <div class="modal-content">

@@ -1,16 +1,12 @@
 <section class="content-header" ng-init="Init()">
+    <searchsurat></searchsurat>
     <div class="col">
-        <!-- <div class="card-tools">
-            <h4>Surat Kelahiran</h4>
-        </div> -->
-        <div ng-if="tab.list" class="card card-warning">
+        <div class="card card-warning">
             <div class="card-header">
-                <h3 class="card-title">
-                    <i class="fas fa-list"></i>
-                    List Permohonan Keterangan Kelahiran
+                <h3 class="card-title">List Permohonan Keterangan Belum Menikah
                 </h3>
                 <div class="card-tools">
-                    <button class="btn btn-primary float-right" ng-click="tab.show('tambah')"><i
+                    <button class="btn btn-primary float-right" ng-click="go('Tambah')"><i
                             class="fa fa-plus"></i></button>
                 </div>
             </div><!-- /.card-header -->
@@ -25,29 +21,29 @@
                                 <th>No.Surat</th>
                                 <th>Hari</th>
                                 <th>Nama Anak</th>
-                                <th>Keterangan Ibu</th>
+                                <th>Nama Ibu</th>
                                 <th>Nama Ayah</th>
                                 <th>Pejabat</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in Datas">
+                            <tr ng-repeat="item in Datas | orderBy: ['-SetButtonApproved', '-idpermohonan']">
                                 <td>{{$index+1}}</td>
                                 <td>{{pad(item.idpermohonan)}}</td>
-                                <td>{{item.nama}}</td>
-                                <td>{{item.data.nomorsurat}}</td>
-                                <td>{{item.data.harilahir}}</td>
-                                <td>{{item.data.namaanak}}</td>
-                                <td>{{item.data.namaibu}}</td>
-                                <td>{{item.data.namaayah}}</td>
-                                <td>{{item.namapejabat}} &nbsp;({{item.namajabatan}})</td>
+                                <td>{{item.nama | capitalize}}</td>
+                                <td>{{item.nomorsurat}}</td>
+                                <td>{{item.data.tanggallahir | date: 'EEEE'}}</td>
+                                <td>{{item.data.namaanak | capitalize}}</td>
+                                <td>{{item.data.namaibu | capitalize}}</td>
+                                <td>{{item.data.namaayah | capitalize}}</td>
+                                <td align="center">{{item.namapejabat}}<br>(<b>{{item.namajabatan}}</b>)</td>
                                 <td>
                                     <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'"
-                                        class="btn btn-primary" ng-click="Print('suratTidakMampu', item)">
+                                        class="btn btn-primary" ng-click="Print('suratKelahiran', item)">
                                         <i class="fas fa-print"></i></a>
                                     <a href="javascript:void(0)" title="Detail Permohonan" class="btn btn-warning"
-                                        ng-click="Edit(item)"><i class="fas fa-eye"></i></a>
+                                        ng-click="go(item)"><i class="fas fa-eye"></i></a>
                                     <a href="javascript:void(0)" ng-if="item.SetButtonApproved"
                                         title="Setujui Permohonan" ng-class="item.SetButtonApproved?'':'disabled'"
                                         class="btn btn-success" ng-click="Setuju(item)"><i class="fas fa-check"></i></a>
@@ -59,142 +55,9 @@
                         </tbody>
                     </table>
                 </div>
-            </div><!-- /.card-body -->
-        </div>
-        <div ng-if="tab.tambah || tab.edit" class="card card-warning">
-            <div class="card-header">
-                <h3 class="card-title" ng-if="tab.tambah"><i class="fas fa-plus"></i>Tambah Surat Keterangan Kelahiran
-                </h3>
-                <h3 class="card-title" ng-if="tab.edit"><i class="fas fa-eye"></i>&nbsp;Detail Permohonan</h3>
-            </div>
-            <div class="card-body">
-                <form ng-submit="Simpan()">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">No Surat</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control  " ng-model="model.nomorsurat"
-                                            value="021/KEL-WAENA/KH/III/2000" placeholder="No Surat">
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="card-header"></div><br>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Hari Tanggal Lahir</label>
-                                    <div class="col-sm-8">
-                                        <p class="input-group">
-                                            <input type="text" class="form-control"
-                                                uib-datepicker-popup="EEEE, dd MMMM yyyy "
-                                                ng-model="model.data.tanggallahir" is-open="popup1.opened"
-                                                ng-required="true" close-text="Close"
-                                                alt-input-formats="altInputFormats" />
-                                            <span class="input-group-btn">
-                                                <button type="button" class="btn btn-secondary"
-                                                    ng-click="popup1.opened=!popup1.opened">
-                                                    <i class="fa-svg-icon">
-                                                        <svg width="1792" height="1792" viewBox="0 0 1792 1792"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M192 1664h288v-288h-288v288zm352 0h320v-288h-320v288zm-352-352h288v-320h-288v320zm352 0h320v-320h-320v320zm-352-384h288v-288h-288v288zm736 736h320v-288h-320v288zm-384-736h320v-288h-320v288zm768 736h288v-288h-288v288zm-384-352h320v-320h-320v320zm-352-864v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm736 864h288v-320h-288v320zm-384-384h320v-288h-320v288zm384 0h288v-288h-288v288zm32-480v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm384-64v1280q0 52-38 90t-90 38h-1408q-52 0-90-38t-38-90v-1280q0-52 38-90t90-38h128v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h384v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h128q52 0 90 38t38 90z" />
-                                                        </svg>
-                                                    </i>
-                                                </button>
-                                            </span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Tempat Lahir</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" ng-model="model.data.tempatlahir"
-                                            placeholder="Tempat Lahir">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2"></div>
-                            <div class="col-md-5">
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Nama Anak</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" ng-model="model.data.namaanak"
-                                            placeholder="Bernama">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Jenis
-                                        Kelamin</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control" ng-model="model.data.jeniskelamin"
-                                            ng-options="item as item for item in JenisKelamin"></select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-header"></div><br>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Nama Ayah</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" ng-model="model.data.idpendudukayah"
-                                            placeholder="Cari NIK/Nama Warga"
-                                            uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
-                                            class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2"></div>
-                            <div class="col-md-5">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Nama Ibu</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" ng-model="model.data.idpendudukibu"
-                                            placeholder="Cari NIK/Nama Warga"
-                                            uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
-                                            class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Alamat</label>
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" ng-model="model.data.alamat" rows="2"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-header"></div><br>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
-                                    <div class="col-sm-8 autoComplete">
-                                        <input type="text" placeholder="Cari Pejabat" ng-model="model.idpejabat" uib-typeahead="state as state.nama+' - '+state.namajabatan for state in dataPejabat | filter:$viewValue | limitTo:8" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-header"></div><br>
-                    </div>
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-warning float-right" ng-click="Batal()">Kembali</button>
-                        <button type="button" ng-if="UserRole !== 'admin' && item.SetButtonApproved"
-                            class="btn btn-danger float-right" ng-click="TampilPesan(item)">Tolak</button>
-                        <button ng-if="item.SetButtonApproved" type="button" class="btn btn-primary float-right"
-                            ng-click="Setuju()">Setuju</button>
-                        <button type="submit" class="btn btn-success float-right">Simpan</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
-
     <div id="suratKelahiran" class="printing">
         <div ng-include="'../../../apps/views/admin/formatsurat/formatkelahiran.html'"></div>
     </div>
@@ -219,7 +82,5 @@
                 <button type="button" class="btn btn-primary" ng-click="Tolak()">Tolak</button>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
