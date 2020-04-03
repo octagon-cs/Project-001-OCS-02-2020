@@ -180,7 +180,8 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 		getById: getById,
 		getByJenis: getByJenis,
 		clean: clean,
-		approved:approved
+		approved:approved,
+		getDocument:getDocument
 	};
 
 	function get() {
@@ -197,6 +198,30 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 					service.instance = true;
 					service.data = res.data;
 					def.resolve(service.data);
+				},
+				(err) => {
+					def.reject(err);
+					message.error(err);
+				}
+			);
+		}
+		return def.promise;
+	}
+
+	function getDocument(id) {
+		var def = $q.defer();
+		var data = service.data.find((x) => x.idpermohonan == id);
+		if (data.persyaratan) {
+			def.resolve(data);
+		}else{
+			$http({
+				method: 'get',
+				url: helperServices.url + controller + '/dokumen/:idpermohonan',
+				headers: AuthService.getHeader()
+			}).then(
+				(res) => {
+					data.persyaratan = res.data
+					def.resolve(data);
 				},
 				(err) => {
 					def.reject(err);
@@ -250,7 +275,24 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 		var def = $q.defer();
 		if (service.instance) {
 			var data = service.data.find((x) => x.idpermohonan == id);
-			def.resolve(data);
+			if (data.persyaratan) {
+				def.resolve(data);
+			}else{
+				$http({
+					method: 'get',
+					url: helperServices.url + controller + '/dokumen/'+ id,
+					headers: AuthService.getHeader()
+				}).then(
+					(res) => {
+						data.persyaratan = res.data
+						def.resolve(data);
+					},
+					(err) => {
+						def.reject(err);
+						message.error(err);
+					}
+				);
+			}
 		} else {
 			$http({
 				method: 'get',
@@ -258,7 +300,21 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 				headers: AuthService.getHeader()
 			}).then(
 				(res) => {
-					def.resolve(res.data);
+					var data= res.data;
+					$http({
+						method: 'get',
+						url: helperServices.url + controller + '/dokumen/'+ id,
+						headers: AuthService.getHeader()
+					}).then(
+						(pers) => {
+							data.persyaratan = pers.data
+							def.resolve(data);
+						},
+						(err) => {
+							def.reject(err);
+							message.error(err);
+						}
+					);
 				},
 				(err) => {
 					def.reject(err);

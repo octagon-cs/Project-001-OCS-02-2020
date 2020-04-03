@@ -21,6 +21,7 @@
                 <th>No Surat</th>
                 <th>Tanggal Pengajuan</th>
                 <th>Jenis Permohonan</th>
+                <th>Progress</th>
                 <th width="10px">Option</th>
               </tr>
             </thead>
@@ -33,6 +34,7 @@
                 <td>{{item.nomorsurat}}</td>
                 <td>{{item.tanggalpengajuan | date: format: 'dd MMMM yyyy'}}</td>
                 <td>{{item.namapermohonan}}</td>
+                <td>{{item.progress}}</td>
                 <td>
                   <a href="javascript:void(0)" class="btn btn-warning" ng-click="go(item)"><i
                       class="fas fa-eye"></i></a>

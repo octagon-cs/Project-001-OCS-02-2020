@@ -12,7 +12,8 @@ function PendudukServices($http, $q, helperServices, AuthService) {
 		put: put,
 		getById: getById,
 		getByNIK: getByNIK,
-		getByNKK: getByNKK
+		getByNKK: getByNKK,
+		upload:upload
 	};
 
 	function get() {
@@ -44,6 +45,34 @@ function PendudukServices($http, $q, helperServices, AuthService) {
 		$http({
 			method: 'post',
 			url: helperServices.url + controller,
+			headers: AuthService.getHeader(),
+			data: data
+		}).then(
+			(res) => {
+				service.data.push(res.data);
+				def.resolve(res.data);
+			},
+			(err) => {
+				def.reject(err);
+				message.error(err);
+			}
+		);
+		return def.promise;
+	}
+
+	function upload(file, data) {
+		var def = $q.defer();
+		var a = {};
+		var b = file.filename.split(".");
+		a.idpenduduk = data.idpenduduk;
+		a.idpersyaratan = data.idpersyaratan;
+		a.typefile = file.filetype;
+		a.data = file.base64;
+		a.extention = b[1];
+
+		$http({
+			method: 'post',
+			url: helperServices.url + controller + '/dokumen',
 			headers: AuthService.getHeader(),
 			data: data
 		}).then(

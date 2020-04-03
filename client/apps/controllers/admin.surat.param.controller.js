@@ -378,6 +378,7 @@ function adminsurateditketdomisiliController(
 								approvedService.approvedModel(data, $scope.UserRole);
 								$scope.model = data;
 								loaderService.setValue(false);
+								
 							});
 						});
 					} else {
@@ -397,6 +398,19 @@ function adminsurateditketdomisiliController(
 		return helperServices.pad(number);
 	};
 
+	$scope.files;
+
+	$scope.Upload = function () {
+		message.dialog('Anda Yakin Ingin Menyimpan', 'Simpan', 'Batal').then(
+			(x)=>{
+				PendudukService.upload($scope.files[0],$scope.model).then(file=>{
+					message.info("Berhasil Upload")
+				})
+			}, (err)=>{
+				message.errorText("Batal");
+				$scope.files={};
+			});
+	}
 
 	$scope.Batal = function (item) {
 		if (item == 'batal') {
@@ -1503,7 +1517,7 @@ function adminsurateditketektpController(
 							data.data.tanggalsuratpengantar = new Date(data.data.tanggalsuratpengantar);
 							$scope.model = data;
 							loaderService.setValue(false);
-	
+
 						});
 					} else {
 						$scope.title = "TAMBAH SURAT KETERANGAN E-KTP";
@@ -1513,7 +1527,7 @@ function adminsurateditketektpController(
 							$scope.model.idpejabat = $scope.model.pejabat.idpejabat;
 							loaderService.setValue(false);
 						})
-	
+
 					}
 				});
 			});
