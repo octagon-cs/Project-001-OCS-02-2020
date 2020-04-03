@@ -1,14 +1,15 @@
 <section class="content-header" ng-init="Init()">
-  <div class="card card-warning">
-    <div class="card-header">
-      <h3 class="card-title">Surat Keterangan Domisili</h3>
-      <div class="card-tools">
-        <button class="btn btn-primary btn-tool" title="Kembali Ke List Permohonan" ng-click="Batal('kembali')"><i class="fa fa-backward"></i></button>
+  <form ng-submit="Simpan(model)">
+    <div class="card card-warning">
+      <div class="card-header">
+        <h3 class="card-title">Surat Keterangan Domisili</h3>
+        <div class="card-tools">
+          <button class="btn btn-primary btn-tool" title="Kembali Ke List Permohonan" ng-click="Batal('kembali')"><i
+              class="fa fa-backward"></i></button>
+        </div>
       </div>
-    </div>
 
-    <div class="card-body">
-      <form ng-submit="Simpan(model)">
+      <div class="card-body">
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>NIK/Nama</label>
@@ -29,24 +30,30 @@
               data-placeholder="Pilih Pejabat"></select>
           </div>
         </div>
-        <div class="card-footer">
-          <button type="button" class="btn btn-warning float-right" ng-click="Batal('batal')">Kembali</button>
-          <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
-            class="btn btn-danger float-right" ng-click="TampilPesan(model)">Tolak</button>
-          <button ng-if="model.SetButtonApproved" type="button" class="btn btn-primary float-right"
-            ng-click="Setuju()">Setuju</button>
+
+      </div>
+      <div class="card-header">
+        <h3 class="card-title">Document persyartan</h3>
+      </div>
+      <div class="card-body">
+        <div class="form-row">
+
+          <input type="file" ng-model="files" name="files" multiple accept="image/*, application/*" maxsize="5000"
+            required base-sixty-four-input ng-change="Upload()">
+          <span ng-show="form.files.$error.maxsize">Files must not exceed 5000 KB</span>
           <button type="submit" class="btn btn-success float-right">Simpan</button>
         </div>
-      </form>
-
-      <form name="form" ng-submit="Upload()">
-        <input type="file" ng-model="files" name="files" multiple accept="image/*, application/*" maxsize="5000" required base-sixty-four-input ng-change="Upload()">
-        <span ng-show="form.files.$error.maxsize">Files must not exceed 5000 KB</span>
-        <button type="submit" class="btn btn-success float-right">Simpan</button>
-      </form>
+      </div>
     </div>
-
-  </div>
+    <div class="card-footer">
+      <button type="button" class="btn btn-warning float-right" ng-click="Batal('batal')">Kembali</button>
+      <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved" class="btn btn-danger float-right"
+        ng-click="TampilPesan(model)">Tolak</button>
+      <button ng-if="model.SetButtonApproved" type="button" class="btn btn-primary float-right"
+        ng-click="Setuju()">Setuju</button>
+      <button type="submit" class="btn btn-success float-right">Simpan</button>
+    </div>
+  </form>
 </section>
 
 
