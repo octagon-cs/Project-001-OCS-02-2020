@@ -219,7 +219,7 @@ db.delete = (id) => {
 	});
 };
 
-db.getDocument = async (idpenduduk, idpermohonan) => {
+db.getDocument = async (idpenduduk, idpermohonan, idjenispermohonan) => {
 	return new Promise((resolve, reject) => {
 		try {
 			pool.query(
@@ -242,7 +242,7 @@ db.getDocument = async (idpenduduk, idpermohonan) => {
 			  dokumenpenduduk.idpersyaratan and ( dokumenpenduduk.idpermohonan=? or dokumenpenduduk.idpersyaratan is null)
 			  and ( dokumenpenduduk.idpenduduk=? or dokumenpenduduk.idpenduduk is null)
 			  where idjenispermohonan=? `,
-				[ idpermohonan, idpenduduk, idpermohonan ],
+				[ idpermohonan, idpenduduk, idjenispermohonan ],
 				(err, result) => {
 					if (err) {
 						return reject(err);

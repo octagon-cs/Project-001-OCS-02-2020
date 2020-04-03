@@ -40,7 +40,7 @@
       </form>
 
       <form name="form" ng-submit="Upload()">
-        <input type="file" ng-model="files" name="files" multiple accept="image/*, application/*" maxsize="5000" required base-sixty-four-input>
+        <input type="file" ng-model="files" name="files" multiple accept="image/*, application/*" maxsize="5000" required base-sixty-four-input ng-change="Upload()">
         <span ng-show="form.files.$error.maxsize">Files must not exceed 5000 KB</span>
         <button type="submit" class="btn btn-success float-right">Simpan</button>
       </form>
