@@ -396,7 +396,7 @@ router.get('/dokumen/:idpermohonan', async (req, res) => {
 		var id = req.params.idpermohonan;
 		var permohonan = await contextDb.Permohonan.getById(id);
 		if (permohonan) {
-			var data = await contextDb.Permohonan.getDocument(permohonan.idpenduduk, id);
+			var data = await contextDb.Permohonan.getDocument(permohonan.idpenduduk, id, permohonan.idjenispermohonan);
 			res.status(200).json(data);
 		} else {
 			throw new Error('Permohonan tidak ditemukan');

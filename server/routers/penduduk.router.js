@@ -163,7 +163,7 @@ router.post('/dokumen', [ authJwt.verifyToken ], async (req, res) => {
 				});
 			} else {
 				var documents = await contextDb.Penduduk.getDocument(data.idpenduduk);
-				var doc = documents.find((x) => x.idpersyaratan == data.idpersyaratan && data.status > 0);
+				var doc = documents.find((x) => x.idpersyaratan == data.idpersyaratan && x.status > 0);
 				if (doc) {
 					var docFIle = doc.file;
 					doc.file = filename;
