@@ -26,6 +26,7 @@ angular.module('uploadDoc.component', []).component('uploaddocument', {
 						syarat.iddokumenpenduduk = file.iddokumenpenduduk;
 						syarat.idpenduduk = file.idpenduduk;
 						syarat.typefile = file.typefile;
+						syarat.upload=false
 					});
 				},
 				(err) => {

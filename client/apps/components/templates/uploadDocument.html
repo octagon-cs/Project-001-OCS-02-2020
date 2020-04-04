@@ -10,7 +10,8 @@
                     <td width="1%"><input id="documentinput{{syarat.idpersyaratan}}" type="file" ng-model="syarat.files"
                             name="files" multiple accept="image/*, application/*" maxsize="100" required
                             base-sixty-four-input style="display:none" ng-change="Upload(syarat, $ctrl.value)">
-                        <i class="fas fa-upload" ng-click="openFile(syarat.idpersyaratan)"></i>
+                            <a href="" class="btn btn-secondary" ng-click="openFile(syarat.idpersyaratan)"><i class="fas fa-file-upload fa-1x"></i></a>
+                        
                     </td>
                 </tr>
             </tbody>

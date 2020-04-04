@@ -284,6 +284,9 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 					headers: AuthService.getHeader()
 				}).then(
 					(res) => {
+						res.data.forEach(status => {
+							status.file? status.upload=true : status.upload=false
+						});
 						data.persyaratan = res.data;
 						def.resolve(data);
 					},
@@ -307,6 +310,9 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 						headers: AuthService.getHeader()
 					}).then(
 						(pers) => {
+							pers.data.forEach(status => {
+								status.file? status.upload=true : status.upload=false
+							});
 							data.persyaratan = pers.data;
 							service.data.push(data);
 							def.resolve(data);
