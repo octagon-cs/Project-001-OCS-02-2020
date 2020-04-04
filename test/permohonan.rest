@@ -19,7 +19,7 @@ Authorization: bearer {{token}}
 
 
 ####
-GET {{host}}/document/2 HTTP/1.1
+GET {{host}}/dokumen/2 HTTP/1.1
 Content-Type: application/json
 Authorization: bearer {{token}}
 ####

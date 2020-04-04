@@ -180,8 +180,8 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 		getById: getById,
 		getByJenis: getByJenis,
 		clean: clean,
-		approved:approved,
-		getDocument:getDocument
+		approved: approved,
+		getDocument: getDocument
 	};
 
 	function get() {
@@ -213,14 +213,14 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 		var data = service.data.find((x) => x.idpermohonan == id);
 		if (data.persyaratan) {
 			def.resolve(data);
-		}else{
+		} else {
 			$http({
 				method: 'get',
 				url: helperServices.url + controller + '/dokumen/:idpermohonan',
 				headers: AuthService.getHeader()
 			}).then(
 				(res) => {
-					data.persyaratan = res.data
+					data.persyaratan = res.data;
 					def.resolve(data);
 				},
 				(err) => {
@@ -277,14 +277,14 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 			var data = service.data.find((x) => x.idpermohonan == id);
 			if (data.persyaratan) {
 				def.resolve(data);
-			}else{
+			} else {
 				$http({
 					method: 'get',
-					url: helperServices.url + controller + '/dokumen/'+ id,
+					url: helperServices.url + controller + '/dokumen/' + id,
 					headers: AuthService.getHeader()
 				}).then(
 					(res) => {
-						data.persyaratan = res.data
+						data.persyaratan = res.data;
 						def.resolve(data);
 					},
 					(err) => {
@@ -300,14 +300,15 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 				headers: AuthService.getHeader()
 			}).then(
 				(res) => {
-					var data= res.data;
+					var data = res.data;
 					$http({
 						method: 'get',
-						url: helperServices.url + controller + '/dokumen/'+ id,
+						url: helperServices.url + controller + '/dokumen/' + id,
 						headers: AuthService.getHeader()
 					}).then(
 						(pers) => {
-							data.persyaratan = pers.data
+							data.persyaratan = pers.data;
+							service.data.push(data);
 							def.resolve(data);
 						},
 						(err) => {
@@ -354,24 +355,24 @@ function PermohonanService($http, $q, helperServices, AuthService, message) {
 	}
 
 	function approved(id) {
-        var def = $q.defer();
-        $http({
-            method: 'get',
-            url: helperServices.url + controller + "/approve/" + id,
-            headers: AuthService.getHeader()
-        }).then(
-            (res) => {
-                var item = service.data.find((x) => (x.idpermohonan == id));
+		var def = $q.defer();
+		$http({
+			method: 'get',
+			url: helperServices.url + controller + '/approve/' + id,
+			headers: AuthService.getHeader()
+		}).then(
+			(res) => {
+				var item = service.data.find((x) => x.idpermohonan == id);
 				if (item) {
-					item.SetButtonApproved =false;
+					item.SetButtonApproved = false;
 				}
-                def.resolve(res.data);
-            },
-            (err) => {
-                def.reject(err);
-                message.error(err);
-            }
-        );
-        return def.promise;
-    }
+				def.resolve(res.data);
+			},
+			(err) => {
+				def.reject(err);
+				message.error(err);
+			}
+		);
+		return def.promise;
+	}
 }

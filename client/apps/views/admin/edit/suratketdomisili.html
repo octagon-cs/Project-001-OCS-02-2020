@@ -30,19 +30,9 @@
               data-placeholder="Pilih Pejabat"></select>
           </div>
         </div>
-
       </div>
-      <div class="card-header">
-        <h3 class="card-title">Document persyartan</h3>
-      </div>
-      <div class="card-body">
-        <div class="form-row">
-
-          <input type="file" ng-model="files" name="files" multiple accept="image/*, application/*" maxsize="5000"
-            required base-sixty-four-input ng-change="Upload()">
-          <span ng-show="form.files.$error.maxsize">Files must not exceed 5000 KB</span>
-          <button type="submit" class="btn btn-success float-right">Simpan</button>
-        </div>
+      <div>
+        <uploaddocument value="model"></uploaddocument>
       </div>
     </div>
     <div class="card-footer">

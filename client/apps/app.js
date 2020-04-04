@@ -14,7 +14,7 @@ angular
 		'chart.js',
 		'naif.base64'
 	])
-	.config(function (ChartJsProvider) {
+	.config(function(ChartJsProvider) {
 		Chart.defaults.global.colors = [
 			'#97bbcd',
 			'#dcdcdc',
@@ -32,17 +32,17 @@ angular
 			'#4D5360'
 		];
 		ChartJsProvider.setOptions({
-			colors: ['#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']
+			colors: [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360' ]
 		});
 		ChartJsProvider.setOptions('doughnut', {
 			cutoutPercentage: 60
 		});
 	})
-	.directive('select', function ($interpolate) {
+	.directive('select', function($interpolate) {
 		return {
 			restrict: 'E',
 			require: 'ngModel',
-			link: function (scope, elem, attrs, ctrl) {
+			link: function(scope, elem, attrs, ctrl) {
 				var defaultOptionTemplate;
 				scope.defaultOptionText = attrs.defaultOption || 'Pilih...';
 				defaultOptionTemplate =
@@ -51,27 +51,27 @@ angular
 			}
 		};
 	})
-	.directive('select2', function ($timeout, $parse) {
+	.directive('select2', function($timeout, $parse) {
 		return {
 			restrict: 'AC',
 			require: 'ngModel',
-			link: function (scope, element, attrs) {
+			link: function(scope, element, attrs) {
 				//console.log(attrs);
-				$timeout(function () {
+				$timeout(function() {
 					element.select2();
 					element.select2Initialized = true;
 				});
 
-				var refreshSelect = function () {
+				var refreshSelect = function() {
 					if (!element.select2Initialized) return;
-					$timeout(function () {
+					$timeout(function() {
 						element.trigger('change');
 					});
 				};
 
-				var recreateSelect = function () {
+				var recreateSelect = function() {
 					if (!element.select2Initialized) return;
-					$timeout(function () {
+					$timeout(function() {
 						element.select2('destroy');
 						element.select2();
 					});
@@ -91,11 +91,10 @@ angular
 			}
 		};
 	})
-	.filter('capitalize', function () {
-		return function (input) {
+	.filter('capitalize', function() {
+		return function(input) {
 			if (input.indexOf(' ') !== -1) {
-				var inputPieces,
-					i;
+				var inputPieces, i;
 
 				input = input.toLowerCase();
 				inputPieces = input.split(' ');
@@ -105,8 +104,7 @@ angular
 				}
 
 				return inputPieces.toString().replace(/,/g, ' ');
-			}
-			else {
+			} else {
 				input = input.toLowerCase();
 				return capitalizeString(input);
 			}
@@ -116,11 +114,11 @@ angular
 			}
 		};
 	})
-	.directive('capitalizee', function () {
+	.directive('capitalizee', function() {
 		return {
 			require: 'ngModel',
-			link: function (scope, element, attrs, modelCtrl) {
-				var capitalize = function (inputValue) {
+			link: function(scope, element, attrs, modelCtrl) {
+				var capitalize = function(inputValue) {
 					if (inputValue == undefined) inputValue = '';
 					var capitalized = inputValue.toUpperCase();
 					if (capitalized !== inputValue) {
@@ -133,39 +131,9 @@ angular
 						element[0].selectionEnd = selection;
 					}
 					return capitalized;
-				}
+				};
 				modelCtrl.$parsers.push(capitalize);
 				capitalize(scope[attrs.ngModel]); // capitalize initial value
 			}
 		};
-	})
-	.directive('fileModel', function ($parse) {
-		return {
-            restrict: "A",
-            link: function (scope, element, attrs) {
-                var model = $parse(attrs.fileModel),
-                    modelSetter = model.assign;
-                element.bind("change", function () {
-                    scope.$apply(function () {
-                        var file = element[0].files[0];
-                        getFileBuffer(file).then(function (resp) {
-                            modelSetter(scope, resp);
-                        });
-                    });
-                });
-            }
-        };
-        function getFileBuffer(file) {
-            var deferred = new $q.defer();
-            var reader = new FileReader();
-            reader.onloadend = function (e) {
-                deferred.resolve(e.target.result);
-            };
-            reader.onerror = function (e) {
-                deferred.reject(e.target.error);
-            };
-            reader.readAsDataURL(file);
-            return deferred.promise;
-        }
-	})
-	;
+	});

@@ -43,7 +43,7 @@ function adminSuratController(
 	$scope.go = (permohonan) => {
 		var state = helperServices.stateEdit(permohonan.jenis, $scope.UserRole);
 		$rootScope.permohonan = permohonan;
-		$state.go(state, { id: permohonan.idpermohonan }, {reload: true});
+		$state.go(state, { id: permohonan.idpermohonan }, { reload: true });
 	};
 
 	$scope.pad = (number) => {
@@ -150,6 +150,7 @@ function adminpersyaratanController(
 	};
 
 	$scope.Simpan = function() {
+		$scope.model.status = false;
 		if ($scope.tab.tambah) {
 			PersyaratanService.post($scope.model).then((x) => {
 				$scope.model = {};
