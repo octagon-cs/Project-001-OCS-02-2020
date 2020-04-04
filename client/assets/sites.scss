@@ -10,8 +10,10 @@
 
 .logowon {
   margin: 20px;
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.082);
+  border-radius: 20px;
 }
 
 .login-footer {
@@ -218,18 +220,75 @@
   }
 }
 
-.select2-container .select2-selection--single{
+.select2-container .select2-selection--single {
   height: 39px !important;
 }
 
-h6, .h6 {
+h6,
+.h6 {
   font-size: inherit;
 }
 
-.btn-sm, .btn-group-sm > .btn {
+.btn-sm,
+.btn-group-sm > .btn {
   font-size: inherit;
 }
 
 // .btn {
 //   font-size: inherit;
 // }
+
+.login-box {
+  background: #e9ecef;
+  .card {
+    border-radius: 20px;
+    box-shadow: 13px 13px 20px rgba(0, 0, 0, 0.24), -13px -13px 20px rgba(255, 255, 255, 1);
+    background: transparent;
+    margin-bottom: 0;
+    .login-card-body {
+      padding: 40px;
+      background: #e9ecef;
+      border-radius: 40px;
+    }
+  }
+}
+
+input {
+  box-shadow: 5px 5px 5px #e9ecef;
+  border-radius: 25px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.login-card-body {
+  .input-group {
+    input {
+      border-radius: 25px;
+      background: #ffffff;
+      box-shadow: inset 5px 5px 10px #b9c1c6, inset -5px -5px 10px #ffffff;
+    }
+  }
+}
+
+.form-group {
+  border: none;
+  input {
+    border-radius: 10px;
+    border: none;
+    background: #ffffff;
+    box-shadow: inset 5px 5px 10px #b9c1c6, inset -5px -5px 10px #ffffff;
+    color: rgb(17, 27, 34);
+    margin-right: 100px !important;
+  }
+}
