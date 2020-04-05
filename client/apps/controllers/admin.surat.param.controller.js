@@ -427,23 +427,25 @@ function adminsurateditketdomisiliController(
 	};
 
 	$scope.Setuju = function(item) {
-		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
-			(x) => {
-				PersetujuanService.get(item.idpermohonan).then(
-					(x) => {
-						item.SetButtonApproved = false;
-						message.info('Permohonan di setujui!!!');
-						$window.history.back();
-					},
-					(error) => {
-						message.errorText(error.data);
-					}
-				);
-			},
-			(error) => {
-				message.errorText('Persetujuan di batalkan');
-			}
-		);
+		if(model.SetButtonApproved){
+			message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
+				(x) => {
+					PersetujuanService.get(item.idpermohonan).then(
+						(x) => {
+							item.SetButtonApproved = false;
+							message.info('Permohonan di setujui!!!');
+							$window.history.back();
+						},
+						(error) => {
+							message.errorText(error.data);
+						}
+					);
+				},
+				(error) => {
+					message.errorText('Persetujuan di batalkan');
+				}
+			);
+		}
 	};
 	$scope.pesanbatal = message;
 	$scope.Setting = '';

@@ -1,60 +1,61 @@
-<section class="content-header" ng-init="Init()">
-  <div class="col">
-    <searchsurat value='mo'></searchsurat>
-    <div class="card card-warning">
-      <div class="card-header">
-        <h3 class="card-title">
-          <i class="fas fa-list"></i>
-          List Permohonan Keterangan Domisi
-        </h3>
-        <div class="card-tools">
-          <button class="btn btn-primary btn-tools" ng-click="go('Tambah')"><i class="fa fa-plus"></i></button>
-        </div>
-      </div><!-- /.card-header -->
-      <div class="card-body">
-        <div class="table-responsive p-0">
-          <table datatable="" class="table table-head-fixed text-nowrap">
-            <thead>
-              <tr>
-                <th width="2%">No</th>
-                <th>Kode</th>
-                <th>NIK</th>
-                <th>Nama</th>
-                <th>No.Surat</th>
-                <th>Pejabat</th>
-                <th>Progress</th>
-                <th width="10%">Option</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="item in Datas | orderBy:'-tanggalpengajuan'">
-                <td>{{$index+1}}</td>
-                <td>{{pad(item.idpermohonan)}}</td>
-                <td>{{item.nik}}</td>
-                <td>{{item.nama}}</td>
-                <td>{{item.nomorsurat}}</td>
-                <td>{{item.namapejabat}}</td>
-                <td>{{item.progress}}</td>
-                <td>
-                  <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'" class="btn btn-primary"
-                    ng-click="Print('suratTidakMampu', item)">
-                    <i class="fas fa-print"></i></a>
-                  <a href="javascript:void(0)" title="Detail Permohonan" class="{{item.btncollor}}"
-                    ng-click="go(item)"><i class="fas fa-eye"></i></a>
-                  <!-- <a href="javascript:void(0)" ng-if="item.SetButtonApproved" title="Setujui Permohonan"
+<div class="card card-warning">
+  <section class="content-header" ng-init="Init()">
+    <div class="col">
+      <searchsurat value='mo'></searchsurat>
+      <div class="card card-warning">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-list"></i>
+            List Permohonan Keterangan Domisi
+          </h3>
+          <div class="card-tools">
+            <button class="btn btn-primary btn-tools" ng-click="go('Tambah')"><i class="fa fa-plus"></i></button>
+          </div>
+        </div><!-- /.card-header -->
+        <div class="card-body">
+          <div class="table-responsive p-0">
+            <table datatable="" class="table table-head-fixed text-nowrap">
+              <thead>
+                <tr>
+                  <th width="2%">No</th>
+                  <th>Kode</th>
+                  <th>NIK</th>
+                  <th>Nama</th>
+                  <th>No.Surat</th>
+                  <th>Pejabat</th>
+                  <th>Progress</th>
+                  <th width="10%">Option</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in Datas | orderBy:'-tanggalpengajuan'">
+                  <td>{{$index+1}}</td>
+                  <td>{{pad(item.idpermohonan)}}</td>
+                  <td>{{item.nik}}</td>
+                  <td>{{item.nama}}</td>
+                  <td>{{item.nomorsurat}}</td>
+                  <td>{{item.namapejabat}}</td>
+                  <td>{{item.progress}}</td>
+                  <td>
+                    <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'" class="btn btn-primary"
+                      ng-click="Print('suratTidakMampu', item)">
+                      <i class="fas fa-print"></i></a>
+                    <a href="javascript:void(0)" title="Detail Permohonan" class="{{item.btncollor}}"
+                      ng-click="go(item)"><i class="fas fa-eye"></i></a>
+                    <!-- <a href="javascript:void(0)" ng-if="item.SetButtonApproved" title="Setujui Permohonan"
                     ng-class="item.SetButtonApproved?'':'disabled'" class="btn btn-success" ng-click="Setuju(item)"><i
                       class="fas fa-check"></i></a>
                   <a href="javascript:void(0)" ng-if="UserRole !== 'admin' && item.SetButtonApproved"
                     title="Tolak Permohonan" class="btn btn-danger" ng-click="TampilPesan(item)"><i
                       class="fas fa-ban"></i></a> -->
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- <div ng-if="tab.tambah || tab.edit" class="card card-warning">
+      <!-- <div ng-if="tab.tambah || tab.edit" class="card card-warning">
       <div class="card-header">
         <h3 class="card-title" ng-if="tab.tambah"><i class="fas fa-plus"></i>Tambah Surat Keterangan Domisili</h3>
         <h3 class="card-title" ng-if="tab.edit"><i class="fas fa-plus"></i>Ubah Surat </h3>
@@ -109,12 +110,13 @@
         </form>
       </div>
     </div> -->
-  </div>
+    </div>
 
-  <div id="suratDomisili" class="printing">
-    <div ng-include="'../../../apps/views/admin/formatsurat/formatketdomisili.html'"></div>
-  </div>
-</section>
+    <div id="suratDomisili" class="printing">
+      <div ng-include="'../../../apps/views/admin/formatsurat/formatketdomisili.html'"></div>
+    </div>
+  </section>
+</div>
 
 <div class="modal fade" id="Pesan">
   <div class="modal-dialog">
