@@ -11,10 +11,10 @@ function helperServices() {
 
 	// service.url = 'https://waena-desa.id';
 	service.url = 'http://localhost:3000';
-	source.KepemilikanKTP = ['Sudah Memiliki KTP', 'Belum Memiliki KTP', 'Pembuatan KTP Dalam Proses'];
-	source.GolonganDarah = ['O', 'A', 'A-', 'A+', 'AB', 'AB-', 'AB+', 'B', 'B-', 'O-', 'O+', 'TIDAK TAHU'];
-	source.Agama = ['ISLAM', 'KATOLIK', 'KRISTEN', 'HINDU', 'BUDHA', 'KONGHUCHU', 'LAINNYA'];
-	source.JenisKelamin = ['LAKI-LAKI', 'PEREMPUAN'];
+	source.KepemilikanKTP = [ 'Sudah Memiliki KTP', 'Belum Memiliki KTP', 'Pembuatan KTP Dalam Proses' ];
+	source.GolonganDarah = [ 'O', 'A', 'A-', 'A+', 'AB', 'AB-', 'AB+', 'B', 'B-', 'O-', 'O+', 'TIDAK TAHU' ];
+	source.Agama = [ 'ISLAM', 'KATOLIK', 'KRISTEN', 'HINDU', 'BUDHA', 'KONGHUCHU', 'LAINNYA' ];
+	source.JenisKelamin = [ 'LAKI-LAKI', 'PEREMPUAN' ];
 	source.PendidikanTerakhir = [
 		'Tidak/Belum Sekolah',
 		'Belum Tamat SD/Sederajat',
@@ -33,7 +33,7 @@ function helperServices() {
 		'Lebih Dari Rp 500.000 s/d Rp 750.000',
 		'Rp 500.000 atau Kurang'
 	];
-	source.Kewarganegaraan = ['Warga Negara Indonesia (WNI)', 'Warga Negara Asing (WNA)', 'Lainnya...'];
+	source.Kewarganegaraan = [ 'Warga Negara Indonesia (WNI)', 'Warga Negara Asing (WNA)', 'Lainnya...' ];
 	source.StatusTT = [
 		'Rumah Milik Sendiri',
 		'Kontrak Rumah',
@@ -46,7 +46,7 @@ function helperServices() {
 		'Tidak Memiliki Rumah',
 		'Lainnya...'
 	];
-	source.StatusKIS = ['Sudah Memiliki KIS', 'Belum Memiliki KIS', 'KIS Masih Dalam Proses'];
+	source.StatusKIS = [ 'Sudah Memiliki KIS', 'Belum Memiliki KIS', 'KIS Masih Dalam Proses' ];
 	source.StatusSosial = [
 		'Penduduk Sangat Miskin',
 		'Penduduk Miskin',
@@ -55,8 +55,8 @@ function helperServices() {
 		'Penduduk Tidak Miskin',
 		'Tidak Tahu'
 	];
-	source.StatusKK = ['Sudah Memiliki KK', 'belum Memiliki KK', 'KK Masih Dalam Proses'];
-	source.StatusKIP = ['Sudah Memiliki KIP', 'Belum Memiliki KIP', 'KIP Masih Dalam Proses'];
+	source.StatusKK = [ 'Sudah Memiliki KK', 'belum Memiliki KK', 'KK Masih Dalam Proses' ];
+	source.StatusKIP = [ 'Sudah Memiliki KIP', 'Belum Memiliki KIP', 'KIP Masih Dalam Proses' ];
 	source.StatusKeluarga = [
 		'Kepala Keluarga',
 		'Orang Tua',
@@ -70,8 +70,8 @@ function helperServices() {
 		'Pembantu',
 		'Lainnya...'
 	];
-	source.StatusPerkawinan = ['BELUM KAWIN', 'KAWIN', 'DUDA', 'JANDA', 'CERAI HIDUP', 'CERAI MATI'];
-	source.Kewarganegawaan = ['WNI', 'WNA'];
+	source.StatusPerkawinan = [ 'BELUM KAWIN', 'KAWIN', 'DUDA', 'JANDA', 'CERAI HIDUP', 'CERAI MATI' ];
+	source.Kewarganegawaan = [ 'WNI', 'WNA' ];
 
 	source.BacaHuruf = [
 		'Tidak Dapat Membaca (Buta Huruf)',
@@ -154,8 +154,8 @@ function helperServices() {
 		'Pindah',
 		'Surat All'
 	];
-	source.Roles = ['pemohon', 'admin', 'seklur', 'lurah'];
-	source.Hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+	source.Roles = [ 'pemohon', 'admin', 'seklur', 'lurah' ];
+	source.Hari = [ 'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu' ];
 
 	source.colors = [
 		'#97bbcd',
@@ -195,8 +195,8 @@ function helperServices() {
 		popupWinindow.document.open();
 		popupWinindow.document.write(
 			'<html><head><title>Cetak Surat</title></head><body onload="window.print()"><div>' +
-			innerContents +
-			'</html>'
+				innerContents +
+				'</html>'
 		);
 		popupWinindow.document.close();
 	}
@@ -279,7 +279,7 @@ function helperServices() {
 
 function tabServices() {
 	var service = {};
-	service.show = function (item, item1, item2, item3) {
+	service.show = function(item, item1, item2, item3) {
 		service.list = false;
 		service.tambah = false;
 		service.edit = false;
@@ -320,13 +320,22 @@ function tabServices() {
 		return service;
 	}
 
+	function ceksyarat(syarat) {
+		syarat.forEach((x) => {
+			if (!x.file) {
+				service.approved = false;
+			}
+		});
+	}
+
 	return {
-		createTab: getService
+		createTab: getService,
+		ceksyarat: ceksyarat
 	};
 }
 
 function approvedService(helperServices) {
-	approvedAction = function (param, userRole) {
+	approvedAction = function(param, userRole) {
 		if (param.length !== 0) {
 			param.forEach((value) => {
 				if (value.persetujuan && value.persetujuan.length > 0) {
@@ -334,7 +343,8 @@ function approvedService(helperServices) {
 					if (lastPersetujuan.role == 'lurah' && lastPersetujuan.status == 'selesai') {
 						value.SetButtonPrint = true;
 						value.SetButtonApproved = false;
-						value.progress='Selesai'
+						value.progress = 'Selesai';
+						value.btncollor = 'btn btn-success';
 					} else {
 						var lastindex = helperServices.source.Roles.indexOf(lastPersetujuan.role);
 						var nextRole =
@@ -344,13 +354,24 @@ function approvedService(helperServices) {
 						if (nextRole == userRole) {
 							value.SetButtonPrint = false;
 							value.SetButtonApproved = true;
+							if (lastPersetujuan.status == 'disetujui') value.btncollor = 'btn btn-primary';
+							else if (lastPersetujuan.status == 'dikembalikan') value.btncollor = 'btn btn-warning';
+							else if (lastPersetujuan.status == 'ditolak') value.btncollor = 'btn btn-danger';
+							else value.btncollor = 'btn btn-default';
 						} else {
 							value.SetButtonPrint = false;
 							value.SetButtonApproved = false;
+							if (lastPersetujuan.status == 'disetujui') value.btncollor = 'btn btn-primary';
+							else if (lastPersetujuan.status == 'dikembalikan') value.btncollor = 'btn btn-warning';
+							else if (lastPersetujuan.status == 'ditolak') value.btncollor = 'btn btn-danger';
+							else value.btncollor = 'btn btn-default';
 						}
-						lastPersetujuan.data.to == 'admin' ? value.progress='Admin':lastPersetujuan.data.to == 'seklur' ? value.progress='Sekertaris Lurah': value.progress='Lurah';
+						lastPersetujuan.data.to == 'admin'
+							? (value.progress = 'Admin')
+							: lastPersetujuan.data.to == 'seklur'
+								? (value.progress = 'Sekertaris Lurah')
+								: (value.progress = 'Lurah');
 					}
-					
 				} else {
 					if (userRole == 'admin') {
 						value.SetButtonPrint = false;
@@ -359,13 +380,15 @@ function approvedService(helperServices) {
 						value.SetButtonPrint = false;
 						value.SetButtonApproved = false;
 					}
-					value.progress='Admin';
+					value.progress = 'Admin';
+					value.btncollor = 'btn btn-default';
 				}
 			});
 		}
 	};
 
-	approvedModel = function (value, userRole) {
+	approvedModel = function(value, userRole) {
+		var a = true;
 		if (value) {
 			if (value.persetujuan && value.persetujuan.length > 0) {
 				var lastPersetujuan = value.persetujuan[value.persetujuan.length - 1];
@@ -394,6 +417,12 @@ function approvedService(helperServices) {
 					value.SetButtonPrint = false;
 					value.SetButtonApproved = false;
 				}
+				value.persyaratan.forEach((x) => {
+					if (!x.file) {
+						a = false;
+					}
+				});
+				if (!a && value.SetButtonApproved) value.SetButtonApproved = false;
 			}
 		}
 	};

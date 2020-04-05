@@ -349,8 +349,10 @@ function adminsurateditketdomisiliController(
 	message,
 	tabService,
 	PersetujuanService,
-	$state
+	$state,
+	$window
 ) {
+	loaderService.setValue(true);
 	$scope.tab = tabService.createTab();
 	$scope.ItemPenduduk = '';
 	$scope.dataPejabat = [];
@@ -399,36 +401,22 @@ function adminsurateditketdomisiliController(
 
 	$scope.files;
 
-	$scope.Batal = function(item) {
-		if (item == 'batal') {
-			$state.go(helperServices.state('Keterangan Domisili', $scope.UserRole));
-		} else {
-			$state.go(helperServices.state('Surat All', $scope.UserRole));
-		}
+	$scope.Batal = function() {
+		$window.history.back();
 	};
 
 	$scope.Simpan = function() {
 		message.dialog('Anda Yakin Ingin Menyimpan', 'Simpan', 'Batal').then(
 			(x) => {
-				$scope.model.data.idpenduduk = angular.copy($scope.model.penduduk.idpenduduk);
-				$scope.model.nama = angular.copy($scope.model.penduduk.nama);
-				$scope.model.nik = angular.copy($scope.model.penduduk.nik);
-				$scope.model.nkk = angular.copy($scope.model.penduduk.nkk);
-				$scope.model.idpenduduk = angular.copy($scope.model.penduduk.idpenduduk);
-				$scope.model.jenis = 'Keterangan Domisili';
-				$scope.model.namapejabat = angular.copy($scope.model.pejabat.nama);
-				$scope.model.nip = angular.copy($scope.model.pejabat.nip);
-				$scope.model.namajabatan = angular.copy($scope.model.pejabat.namajabatan);
-				$scope.model.idpejabat = angular.copy($scope.model.pejabat.idpejabat);
 				if ($stateParams.id) {
 					PermohonanService.put($scope.model).then((permohonan) => {
 						message.info('Berhasil Mengubah');
-						$state.go(helperServices.state('Keterangan Domisili', $scope.UserRole));
+						$state.go(helperServices.state('Belum Menikah', $scope.UserRole));
 					});
 				} else {
 					PermohonanService.post($scope.model).then((permohonan) => {
 						message.info('Berhasil Menyimpan');
-						$state.go(helperServices.state('Keterangan Domisili', $scope.UserRole));
+						$state.go(helperServices.state('Belum Menikah', $scope.UserRole));
 					});
 				}
 			},
@@ -445,6 +433,7 @@ function adminsurateditketdomisiliController(
 					(x) => {
 						item.SetButtonApproved = false;
 						message.info('Permohonan di setujui!!!');
+						$window.history.back();
 					},
 					(error) => {
 						message.errorText(error.data);
@@ -457,10 +446,12 @@ function adminsurateditketdomisiliController(
 		);
 	};
 	$scope.pesanbatal = message;
-	$scope.TampilPesan = function(item) {
-		message.dialog('Anda Yakin menolak permohonan???', 'Ya', 'Batal').then(
+	$scope.Setting = '';
+	$scope.TampilPesan = function(item, set) {
+		message.dialog('Anda Yakin???', 'Ya', 'Batal').then(
 			(x) => {
 				$scope.model.idpermohonan = item.idpermohonan;
+				$scope.Setting = set;
 				$('#Pesan').modal('show');
 			},
 			(error) => {
@@ -472,15 +463,23 @@ function adminsurateditketdomisiliController(
 		$('#TampilPesan').modal('hide');
 		PersetujuanService.tolak($scope.model).then(
 			(x) => {
-				var item = $scope.Datas.find((x) => x.idpermohonan == $scope.model.idpermohonan);
-				var index = $scope.Datas.indexOf(item);
-				$scope.Datas.splice(index, 1);
+				$scope.model = null;
 				message.info('Anda berhasil menolak permohonan!!!');
+				$window.history.back();
 			},
 			(error) => {
 				message.errorText('Penolakan Gagal, Sistem Error');
 			}
 		);
+	};
+
+	$scope.Kembali = function() {
+		$('#TampilPesan').modal('hide');
+		PersetujuanService.kembalikan($scope.model).then((kembalikan) => {
+			$scope.model.SetButtonApproved = false;
+			message.info('Berhasil!!!');
+			$window.history.back();
+		});
 	};
 }
 
