@@ -47,7 +47,7 @@ router.get('/byname/:nama', async (req, res) => {
 router.get('/bynkk/:nkk', async (req, res) => {
 	var nkk = req.params.nkk;
 	try {
-		contextDb.Penduduk.get(nkk).then((data) => {
+		contextDb.Penduduk.getByNKK(nkk).then((data) => {
 			res.status(200).json(data);
 		});
 	} catch (err) {
@@ -60,7 +60,7 @@ router.get('/bynkk/:nkk', async (req, res) => {
 router.get('/bynik/:nik', async (req, res) => {
 	var nik = req.params.nik;
 	try {
-		contextDb.Penduduk.get(nik).then((data) => {
+		contextDb.Penduduk.getByNIK(nik).then((data) => {
 			res.status(200).json(data);
 		});
 	} catch (err) {

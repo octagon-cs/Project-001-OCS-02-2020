@@ -25,7 +25,7 @@ Authorization: bearer {{token}}
 ####
 
 
-@nkk = 12525252
+@nkk = 12
 GET {{host}}/bynkk/{{nkk}} HTTP/1.1
 Content-Type: application/json
 Authorization: bearer {{token}}
