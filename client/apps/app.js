@@ -136,4 +136,38 @@ angular
 				capitalize(scope[attrs.ngModel]); // capitalize initial value
 			}
 		};
+	})
+	.factory('fileToBase64', function($http, AuthService) {
+		function convertToBase64(url, callback) {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', url, true);
+			xhr.responseType = 'blob';
+			xhr.onload = function(e) {
+				console.log(this.response);
+				var reader = new FileReader();
+				reader.onload = function(event) {
+					var res = event.target.result;
+					callback(res);
+				};
+				var file = this.response;
+				reader.readAsDataURL(file);
+			};
+			xhr.send();
+			// var img = new Image();
+			// var a = new
+			// img.crossOrigin = 'Anonymous';
+			// img.onload = function() {
+			// 	var canvas = document.createElement('CANVAS');
+			// 	var ctx = canvas.getContext('2d');
+			// 	var dataURL;
+			// 	canvas.height = this.height;
+			// 	canvas.width = this.width;
+			// 	ctx.drawImage(this, 0, 0);
+			// 	dataURL = canvas.toDataURL();
+			//
+			// 	canvas = null;
+			// };
+			// img.src = url;
+		}
+		return { convert: convertToBase64 };
 	});

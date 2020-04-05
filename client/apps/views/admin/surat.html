@@ -36,14 +36,14 @@
                 <td>{{item.namapermohonan}}</td>
                 <td>{{item.progress}}</td>
                 <td>
-                  <a href="javascript:void(0)" class="btn btn-warning" ng-click="go(item)"><i
+                  <a href="javascript:void(0)" class="{{item.btncollor}}" ng-click="go(item)"><i
                       class="fas fa-eye"></i></a>
-                  <a href="javascript:void(0)" ng-if="item.SetButtonApproved" class="btn btn-info"
+                  <!-- <a href="javascript:void(0)" ng-if="item.SetButtonApproved" class="btn btn-info"
                     ng-click="Setuju(item)"><i class="fas fa-check"></i></a>
                   <a href="javascript:void(0)" ng-if="item.SetButtonApproved && UserRole !== 'admin'"
                     class="btn btn-danger" ng-click="TampilPesan(item, 'tolak')"><i class="fas fa-ban"></i></a>
                   <a href="javascript:void(0)" ng-if="item.SetButtonApproved && UserRole !== 'admin'"
-                    class="btn btn-secondary" ng-click="TampilPesan(item, 'kembali')"><i class="fas fa-undo"></i></a>
+                    class="btn btn-secondary" ng-click="TampilPesan(item, 'kembali')"><i class="fas fa-undo"></i></a> -->
                 </td>
               </tr>
             </tbody>

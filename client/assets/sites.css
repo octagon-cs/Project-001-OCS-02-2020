@@ -10,8 +10,11 @@
 
 .logowon {
   margin: 20px;
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.082);
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.082);
+  border-radius: 20px;
 }
 
 .login-footer {
@@ -221,11 +224,72 @@
   height: 39px !important;
 }
 
-h6, .h6 {
+h6,
+.h6 {
   font-size: inherit;
 }
 
-.btn-sm, .btn-group-sm > .btn {
+.btn-sm,
+.btn-group-sm > .btn {
   font-size: inherit;
+}
+
+.login-box {
+  background: #e9ecef;
+}
+
+.login-box .card {
+  border-radius: 20px;
+  -webkit-box-shadow: 13px 13px 20px rgba(0, 0, 0, 0.24), -13px -13px 20px white;
+          box-shadow: 13px 13px 20px rgba(0, 0, 0, 0.24), -13px -13px 20px white;
+  background: transparent;
+  margin-bottom: 0;
+}
+
+.login-box .card .login-card-body {
+  padding: 40px;
+  background: #e9ecef;
+  border-radius: 40px;
+}
+
+input {
+  -webkit-box-shadow: 5px 5px 5px #e9ecef;
+          box-shadow: 5px 5px 5px #e9ecef;
+  border-radius: 25px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.login-card-body .input-group input {
+  border-radius: 25px;
+  background: #ffffff;
+  -webkit-box-shadow: inset 5px 5px 10px #b9c1c6, inset -5px -5px 10px #ffffff;
+          box-shadow: inset 5px 5px 10px #b9c1c6, inset -5px -5px 10px #ffffff;
+}
+
+.form-group {
+  border: none;
+}
+
+.form-group input {
+  border-radius: 10px;
+  border: none;
+  background: #ffffff;
+  -webkit-box-shadow: inset 5px 5px 10px #b9c1c6, inset -5px -5px 10px #ffffff;
+          box-shadow: inset 5px 5px 10px #b9c1c6, inset -5px -5px 10px #ffffff;
+  color: #111b22;
+  margin-right: 100px !important;
 }
 /*# sourceMappingURL=sites.css.map */
