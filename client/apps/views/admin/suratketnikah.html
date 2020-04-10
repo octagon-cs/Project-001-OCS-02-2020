@@ -19,7 +19,9 @@
                                 <th>No.Surat</th>
                                 <th>NIK Pemohon</th>
                                 <th>Nama Pemohon</th>
-                                <th>Keterangan Nikah</th>
+                                <th>Nama Suami</th>
+                                <th>Nama Istri</th>
+                                <th>Keterangan</th>
                                 <th>Pejabat</th>
                                 <th>Progress</th>
                                 <th width="10%">Option</th>
@@ -29,9 +31,11 @@
                             <tr ng-repeat="item in Datas | orderBy: ['-SetButtonApproved', '-idpermohonan']">
                                 <td>{{$index+1}}</td>
                                 <td>{{pad(item.idpermohonan)}}</td>
+                                <td>{{item.nomorsurat}}</td>
                                 <td>{{item.nik}}</td>
                                 <td>{{item.nama}}</td>
-                                <td>{{item.nomorsurat}}</td>
+                                <td>{{item.suami.nama}}</td>
+                                <td>{{item.istri.nama}}</td>
                                 <td>{{item.data.keterangan}}</td>
                                 <td>{{item.namapejabat}}</td>
                                 <td>{{item.progress}}</td>

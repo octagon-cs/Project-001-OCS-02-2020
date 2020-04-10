@@ -32,7 +32,8 @@ function adminsuratedittidakmampuController(
 	PendudukService,
 	PejabatService,
 	PersetujuanService,
-	loaderService
+	loaderService,
+	$window
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.ItemPenduduk = '';
@@ -76,7 +77,9 @@ function adminsuratedittidakmampuController(
 			});
 		});
 	};
-
+	$scope.Batal = function() {
+		$window.history.back();
+	};
 	$scope.Batal = function(item) {
 		if (item == 'batal') {
 			$state.go(helperServices.state('Tidak Mampu', $scope.UserRole));
@@ -225,6 +228,46 @@ function adminsurateditketnikahController(
 		});
 	};
 
+	$scope.Pemohon = function(item) {
+		if (item == 'penduduk1') {
+			if ($scope.model.p1) {
+				if ($scope.model.pemohon1) {
+					$scope.model.idpenduduk = $scope.model.pemohon1.idpenduduk;
+				}
+			} else {
+				$scope.model.idpenduduk = null;
+			}
+		} else if (item == 'penduduk2') {
+			if ($scope.model.p2) {
+				if ($scope.model.pemohon2) {
+					$scope.model.idpenduduk = $scope.model.pemohon2.idpenduduk;
+				}
+			} else {
+				$scope.model.idpenduduk = null;
+			}
+		} else if (item == 'pemohon1') {
+			if ($scope.model.p1) {
+				if ($scope.model.pemohon1) {
+					$scope.model.idpenduduk = $scope.model.pemohon1.idpenduduk;
+				}
+			} else if ($scope.model.p2) {
+				if ($scope.model.pemohon2) {
+					$scope.model.idpenduduk = $scope.model.pemohon2.idpenduduk;
+				}
+			}
+		} else if (item == 'pemohon2') {
+			if ($scope.model.p2) {
+				if ($scope.model.pemohon2) {
+					$scope.model.idpenduduk = $scope.model.pemohon2.idpenduduk;
+				}
+			} else if ($scope.model.p1) {
+				if ($scope.model.pemohon1) {
+					$scope.model.idpenduduk = $scope.model.pemohon1.idpenduduk;
+				}
+			}
+		}
+	};
+
 	$scope.Batal = function() {
 		$window.history.back();
 	};
@@ -240,12 +283,12 @@ function adminsurateditketnikahController(
 				if ($stateParams.id) {
 					PermohonanService.put($scope.model).then((permohonan) => {
 						message.info('Berhasil Mengubah');
-						$state.go(helperServices.state('Belum Menikah', $scope.UserRole));
+						$state.go(helperServices.state('Keterangan Nikah', $scope.UserRole));
 					});
 				} else {
 					PermohonanService.post($scope.model).then((permohonan) => {
 						message.info('Berhasil Menyimpan');
-						$state.go(helperServices.state('Belum Menikah', $scope.UserRole));
+						$state.go(helperServices.state('Keterangan Nikah', $scope.UserRole));
 					});
 				}
 			},
@@ -408,12 +451,12 @@ function adminsurateditketdomisiliController(
 				if ($stateParams.id) {
 					PermohonanService.put($scope.model).then((permohonan) => {
 						message.info('Berhasil Mengubah');
-						$state.go(helperServices.state('Belum Menikah', $scope.UserRole));
+						$state.go(helperServices.state('Keterangan Domisili', $scope.UserRole));
 					});
 				} else {
 					PermohonanService.post($scope.model).then((permohonan) => {
 						message.info('Berhasil Menyimpan');
-						$state.go(helperServices.state('Belum Menikah', $scope.UserRole));
+						$state.go(helperServices.state('Keterangan Domisili', $scope.UserRole));
 					});
 				}
 			},
@@ -1625,7 +1668,155 @@ function adminsurateditketektpController(
 	};
 }
 
-function adminsurateditketusahaController($stateParams) {}
+function adminsurateditketusahaController($stateParams,
+	$http,
+	helperServices,
+	AuthService,
+	$scope,
+	PejabatService,
+	PendudukService,
+	JenisPermohonanService,
+	approvedService,
+	PermohonanService,
+	loaderService,
+	message,
+	tabService,
+	PersetujuanService,
+	$state,
+	$window
+) {
+	loaderService.setValue(true);
+	$scope.tab = tabService.createTab();
+	$scope.ItemPenduduk = '';
+	$scope.dataPejabat = [];
+	$scope.ListPenduduk = [];
+	$scope.Datas = [];
+	$scope.model = {};
+	$scope.model.data = {};
+	$scope.dataPrint = {};
+	$scope.IdJenis;
+	$scope.UserRole;
+
+	$scope.Init = function() {
+		AuthService.profile().then((profile) => {
+			$scope.UserRole = profile.rolename;
+			PendudukService.get().then((penduduk) => {
+				$scope.ListPenduduk = penduduk;
+				PejabatService.get().then((pejabat) => {
+					$scope.dataPejabat = pejabat.filter((x) => x.status == 1);
+					if ($stateParams.id) {
+						PermohonanService.getById($stateParams.id).then((data) => {
+							data.pejabat = $scope.dataPejabat.find((x) => x.idpejabat == data.idpejabat);
+							PendudukService.getById(data.idpenduduk).then((penduduk) => {
+								data.penduduk = penduduk;
+								approvedService.approvedModel(data, $scope.UserRole);
+								$scope.model = data;
+								loaderService.setValue(false);
+								$scope.tab.show('edit');
+							});
+						});
+					} else {
+						$scope.tab.show('tambah');
+						JenisPermohonanService.getByJenis('Keterangan Usaha').then((jenis) => {
+							$scope.model.idjenispermohonan = jenis.idjenispermohonan;
+							$scope.model.pejabat = $scope.dataPejabat.find((x) => x.namajabatan == 'Lurah');
+							loaderService.setValue(false);
+						});
+					}
+				});
+			});
+		});
+	};
+
+	$scope.pad = (number) => {
+		return helperServices.pad(number);
+	};
+
+	$scope.files;
+
+	$scope.Batal = function() {
+		$window.history.back();
+	};
+
+	$scope.Simpan = function() {
+		message.dialog('Anda Yakin Ingin Menyimpan', 'Simpan', 'Batal').then(
+			(x) => {
+				if ($stateParams.id) {
+					PermohonanService.put($scope.model).then((permohonan) => {
+						message.info('Berhasil Mengubah');
+						$state.go(helperServices.state('Keterangan Usaha', $scope.UserRole));
+					});
+				} else {
+					PermohonanService.post($scope.model).then((permohonan) => {
+						message.info('Berhasil Menyimpan');
+						$state.go(helperServices.state('Keterangan Usaha', $scope.UserRole));
+					});
+				}
+			},
+			(error) => {
+				message.errorText('Batal');
+			}
+		);
+	};
+
+	$scope.Setuju = function(item) {
+		if(model.SetButtonApproved){
+			message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
+				(x) => {
+					PersetujuanService.get(item.idpermohonan).then(
+						(x) => {
+							item.SetButtonApproved = false;
+							message.info('Permohonan di setujui!!!');
+							$window.history.back();
+						},
+						(error) => {
+							message.errorText(error.data);
+						}
+					);
+				},
+				(error) => {
+					message.errorText('Persetujuan di batalkan');
+				}
+			);
+		}
+	};
+	$scope.pesanbatal = message;
+	$scope.Setting = '';
+	$scope.TampilPesan = function(item, set) {
+		message.dialog('Anda Yakin???', 'Ya', 'Batal').then(
+			(x) => {
+				$scope.model.idpermohonan = item.idpermohonan;
+				$scope.Setting = set;
+				$('#Pesan').modal('show');
+			},
+			(error) => {
+				message.errorText('Proses Penolakan di batalkan!!!');
+			}
+		);
+	};
+	$scope.Tolak = function() {
+		$('#TampilPesan').modal('hide');
+		PersetujuanService.tolak($scope.model).then(
+			(x) => {
+				$scope.model = null;
+				message.info('Anda berhasil menolak permohonan!!!');
+				$window.history.back();
+			},
+			(error) => {
+				message.errorText('Penolakan Gagal, Sistem Error');
+			}
+		);
+	};
+
+	$scope.Kembali = function() {
+		$('#TampilPesan').modal('hide');
+		PersetujuanService.kembalikan($scope.model).then((kembalikan) => {
+			$scope.model.SetButtonApproved = false;
+			message.info('Berhasil!!!');
+			$window.history.back();
+		});
+	};
+}
 
 function adminsurateditpenguasaantanahController($stateParams) {}
 
