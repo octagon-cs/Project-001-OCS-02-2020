@@ -9,7 +9,7 @@
                     <td>{{syarat.nama}}</td>
                     <td width="1%">
                         <input id="documentinput{{syarat.idpersyaratan}}" type="file" ng-model="syarat.files"
-                            name="files" multiple accept="image/*, application/*" maxsize="100" required
+                            name="files" multiple accept="image/*, application/*" maxsize="100"
                             base-sixty-four-input style="display:none" ng-change="Upload(syarat, $ctrl.value)">
                         <a href="" class="btn" ng-class="syarat.file? 'btn-primary': 'btn-secondary'"
                             ng-click="openFile(syarat)"><i class="fas fa-file-upload fa-sm"></i></a>
