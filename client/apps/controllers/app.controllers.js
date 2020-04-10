@@ -2,6 +2,7 @@ angular
 	.module('app.controllers', [
 		'account.controller',
 		'admin.controller',
+		'admin.param.controller',
 		'admin.surat.controller',
 		'seklur.controller',
 		'lurah.controller',

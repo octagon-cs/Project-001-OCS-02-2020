@@ -13,7 +13,8 @@ function PendudukServices($http, $q, helperServices, AuthService) {
 		getById: getById,
 		getByNIK: getByNIK,
 		getByNKK: getByNKK,
-		upload: upload
+		upload: upload,
+		getDocById:getDocById
 	};
 
 	function get() {
@@ -164,6 +165,25 @@ function PendudukServices($http, $q, helperServices, AuthService) {
 		$http({
 			method: 'get',
 			url: helperServices.url + controller + '/bynkk/' + nkk,
+			headers: AuthService.getHeader()
+		}).then(
+			(res) => {
+				service.data.push(res.data);
+				def.resolve(res.data);
+			},
+			(err) => {
+				def.reject(err);
+				message.error(err);
+			}
+		);
+
+		return def.promise;
+	}
+	function getDocById(id) {
+		var def = $q.defer();
+		$http({
+			method: 'get',
+			url: helperServices.url + controller + '/dokumen/' + id,
 			headers: AuthService.getHeader()
 		}).then(
 			(res) => {

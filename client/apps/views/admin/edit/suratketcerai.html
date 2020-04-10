@@ -11,7 +11,7 @@
             <div class="card-body">
                 <form ng-submit="Simpan()">
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-5">
                             <label>Nomor Surat</label>
                             <input type="text" class="form-control" ng-model="model.nomorsurat"
                                 placeholder="Nomor Surat">
@@ -19,7 +19,7 @@
                     </div>
                     <div class="card-header"></div><br>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-5">
                             <label>NIK Suami</label>
                             <select class="form-control" data-ng-model="model.pemohon1" select2
                                 ng-change="model.data.idpenduduksuami = model.pemohon1.idpenduduk; Pemohon('pemohon1')"
@@ -33,7 +33,8 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-2"></div>
+                        <div class="form-group col-md-5">
                             <label>NIK Istri</label>
                             <select class="form-control" data-ng-model="model.pemohon2" select2
                                 ng-change="model.data.idpendudukistri = model.pemohon2.idpenduduk; Pemohon('pemohon2')"
@@ -47,7 +48,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-5">
                             <label>Keterangan Cerai</label>
                             <textarea class="form-control" ng-model="model.data.keterangan" rows="2"
                                 placeholder="Cerai Hidup/Mati dari tahuan ...."></textarea>
@@ -55,7 +56,7 @@
                     </div>
                     <div class="card-header"></div><br>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-5">
                             <label>Nama Pejabat Pengesah</label>
                             <div class="col-sm-8 autoComplete">
                                 <select class="form-control" select2 data-ng-model="model.pejabat"

@@ -1,0 +1,3 @@
+<input id="photoProfile" type="file" ng-model="$ctrl.value.photo.files" name="files" multiple accept="image/*" maxsize="100" required
+    base-sixty-four-input style="display:none" ng-change="Upload($ctrl.value)">
+<img style="width: 150px; height: 175px;" src="../../../document/{{$ctrl.value.photo.file}}" ng-click="openFile($ctrl.value)">

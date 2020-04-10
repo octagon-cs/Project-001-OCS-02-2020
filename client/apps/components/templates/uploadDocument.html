@@ -7,7 +7,8 @@
             <tbody>
                 <tr ng-repeat="syarat in $ctrl.value.persyaratan">
                     <td>{{syarat.nama}}</td>
-                    <td width="1%"><input id="documentinput{{syarat.idpersyaratan}}" type="file" ng-model="syarat.files"
+                    <td width="1%">
+                        <input id="documentinput{{syarat.idpersyaratan}}" type="file" ng-model="syarat.files"
                             name="files" multiple accept="image/*, application/*" maxsize="100" required
                             base-sixty-four-input style="display:none" ng-change="Upload(syarat, $ctrl.value)">
                         <a href="" class="btn" ng-class="syarat.file? 'btn-primary': 'btn-secondary'"

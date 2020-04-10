@@ -2,6 +2,7 @@ angular
 	.module('app.routers', [
 		'account.router',
 		'admin.router',
+		'admin.param.routes',
 		'approved.router',
 		'ui.router',
 		'seklur.router',
