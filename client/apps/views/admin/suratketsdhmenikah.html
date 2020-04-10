@@ -3,27 +3,31 @@
     <div class="col">
         <div class="card card-warning">
             <div class="card-header">
-                <h3 class="card-title">List Permohonan Keterangan Belum Menikah
-                </h3>
+                <h3 class="card-title">List Surat Keterangan Sudah Menikah</h3>
                 <div class="card-tools">
                     <button class="btn btn-primary float-right" ng-click="go('Tambah')"><i
                             class="fa fa-plus"></i></button>
                 </div>
-            </div><!-- /.card-header -->
+            </div>
             <div class="card-body">
                 <div class="table-responsive p-0">
                     <table datatable="ng" class="table table-head-fixed text-nowrap">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Kode</th>
-                                <th>No.Surat</th>
-                                <th>Pemohon</th>
-                                <th>Hari dan Tanggal</th>
-                                <th>Nama Anak</th>
-                                <th>Nama Ayah</th>
-                                <th>Nama Ibu</th>
-                                <th>Pejabat</th>
+                                <th width="1%">No</th>
+                                <th width="5%">Kode</th>
+                                <th>No Surat</th>
+                                <th>NIK</th>
+                                <th>Nama </th>
+                                <th>Tempat Tanggal Lahir</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Pekerjaan</th>
+                                <th>Agama</th>
+                                <th>Status Perkawinan</th>
+                                <th>Pendidikan Terakhir</th>
+                                <th>Alamat</th>
+                                <th width="10%">Tanggal Pengajuan</th>
+                                <th width="10%">Pejabat</th>
                                 <th>Progress</th>
                                 <th width="10%">Option</th>
                             </tr>
@@ -33,11 +37,9 @@
                                 <td>{{$index+1}}</td>
                                 <td>{{pad(item.idpermohonan)}}</td>
                                 <td>{{item.nomorsurat}}</td>
-                                <td>{{item.nama | capitalize}}</td>
-                                <td>{{item.data.tanggallahir | date: 'EEEE'}}</td>
-                                <td>{{item.data.namaanak | capitalize}}</td>
-                                <td>{{item.data.namaayah | capitalize}}</td>
-                                <td>{{item.data.namaibu | capitalize}}</td>
+                                <td>{{item.nik}}</td>
+                                <td>{{item.nama}}</td>
+                                <td>{{item.tanggalpengajuan | date:  'dd MMMM yyyy'}}</td>
                                 <td align="center">{{item.namapejabat}}<br>(<b>{{item.namajabatan}}</b>)</td>
                                 <td>{{item.progress}}</td>
                                 <td>
@@ -47,7 +49,7 @@
                                     <a href="javascript:void(0)" title="Detail Permohonan" class="{{item.btncollor}}"
                                         ng-click="go(item)"><i class="fas fa-eye"></i></a>
                                     <!-- <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'"
-                                        class="btn btn-primary" ng-click="Print('suratKelahiran', item)">
+                                        class="btn btn-primary" ng-click="Print('suratTidakMampu', item)">
                                         <i class="fas fa-print"></i></a>
                                     <a href="javascript:void(0)" title="Detail Permohonan" class="btn btn-warning"
                                         ng-click="go(item)"><i class="fas fa-eye"></i></a>
@@ -65,8 +67,8 @@
             </div>
         </div>
     </div>
-    <div id="suratKelahiran" class="printing">
-        <div ng-include="'../../../apps/views/admin/formatsurat/formatkelahiran.html'"></div>
+    <div id="suratDomisili" class="printing">
+        <div ng-include="'../../../apps/views/admin/formatsurat/formatketsudahmenikah.html'"></div>
     </div>
 </section>
 
@@ -89,5 +91,7 @@
                 <button type="button" class="btn btn-primary" ng-click="Tolak()">Tolak</button>
             </div>
         </div>
+        <!-- /.modal-content -->
     </div>
+    <!-- /.modal-dialog -->
 </div>

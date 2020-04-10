@@ -18,33 +18,56 @@
               <tr>
                 <th width="2px">ID</th>
                 <th>Kode</th>
+                <th>No.Surat</th>
+                <th>Tanggal Surat</th>
                 <th>NIK</th>
                 <th>Nama</th>
-                <th>No.Surat</th>
-                <th>Pejabat Pengesah</th>
-                <th width="10px">Aksi</th>
+                <th>Tempat Tanggal Lahir</th>
+                <th>Jenis Kelamin</th>
+                <th>Pekerjaan</th>
+                <th>Agama</th>
+                <th>Status Perkawinan</th>
+                <th>Pendidikan Terakhir</th>
+                <th>Alamat</th>
+                <th>Pejabat</th>
+                <th>Progress</th>
+                <th width="10px">Option</th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="item in Datas | orderBy: ['-SetButtonApproved', 'idpermohonan']">
                 <td>{{$index+1}}</td>
                 <td>{{pad(item.idpermohonan)}}</td>
+                <td>{{item.nomorsurat}}</td>
+                <td></td>
                 <td>{{item.nik}}</td>
                 <td>{{item.nama}}</td>
-                <td>{{item.nomorsurat}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td>{{item.namapejabat}}</td>
+                <td>{{item.progress}}</td>
                 <td>
                   <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'" class="btn btn-primary"
                     ng-click="Print('suratTidakMampu', item)">
                     <i class="fas fa-print"></i></a>
-                  <a href="javascript:void(0)" title="Detail Permohonan" class="btn btn-warning"
+                  <a href="javascript:void(0)" title="Detail Permohonan" class="{{item.btncollor}}"
                     ng-click="go(item)"><i class="fas fa-eye"></i></a>
+                  <!-- <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'" class="btn btn-primary"
+                    ng-click="Print('suratTidakMampu', item)">
+                    <i class="fas fa-print"></i></a>
+                  <a href="javascript:void(0)" title="Detail Permohonan" class="btn btn-warning" ng-click="go(item)"><i
+                      class="fas fa-eye"></i></a>
                   <a href="javascript:void(0)" ng-if="item.SetButtonApproved" title="Setujui Permohonan"
                     ng-class="item.SetButtonApproved?'':'disabled'" class="btn btn-success" ng-click="Setuju(item)"><i
                       class="fas fa-check"></i></a>
                   <a href="javascript:void(0)" ng-if="UserRole !== 'admin' && item.SetButtonApproved"
                     title="Tolak Permohonan" class="btn btn-danger" ng-click="TampilPesan(item)"><i
-                      class="fas fa-ban"></i></a>
+                      class="fas fa-ban"></i></a> -->
                 </td>
               </tr>
             </tbody>
@@ -52,7 +75,7 @@
         </div>
       </div>
     </div>
-    <div ng-if="tab.tambah || tab.edit" class="card card-warning">
+    <!-- <div ng-if="tab.tambah || tab.edit" class="card card-warning">
       <div class="card-header">
         <h3 class="card-title" ng-if="tab.tambah"><i class="fas fa-plus"></i>Tambah Surat Keterangan Tidak Mampu</h3>
         <h3 class="card-title" ng-if="tab.edit"><i class="fas fa-plus"></i>Detail Permohonan </h3>
@@ -108,7 +131,7 @@
           </div>
         </form>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <div id="suratTidakMampu" class="printing">

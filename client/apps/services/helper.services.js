@@ -245,6 +245,8 @@ function helperServices() {
 				return 'suratpindah';
 			case 'Surat All':
 				return 'surat';
+			case 'Keterangan Lainnya':
+				return 'suratketlainnya';
 			default:
 				return null;
 		}

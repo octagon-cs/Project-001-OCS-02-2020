@@ -1,6 +1,6 @@
 <section class="content-header" ng-init="Init()">
-    <searchsurat></searchsurat>
     <div class="col">
+        <searchsurat value='mo'></searchsurat>
         <div class="card card-warning">
             <div class="card-header">
                 <h3 class="card-title">List Surat Keterangan Nikah</h3>
@@ -16,11 +16,12 @@
                             <tr>
                                 <th width="1%">No</th>
                                 <th>Kode</th>
+                                <th>No.Surat</th>
                                 <th>NIK Pemohon</th>
                                 <th>Nama Pemohon</th>
-                                <th>No.Surat</th>
                                 <th>Keterangan Nikah</th>
                                 <th>Pejabat</th>
+                                <th>Progress</th>
                                 <th width="10%">Option</th>
                             </tr>
                         </thead>
@@ -33,8 +34,14 @@
                                 <td>{{item.nomorsurat}}</td>
                                 <td>{{item.data.keterangan}}</td>
                                 <td>{{item.namapejabat}}</td>
+                                <td>{{item.progress}}</td>
                                 <td>
                                     <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'"
+                                        class="btn btn-primary" ng-click="Print('suratTidakMampu', item)">
+                                        <i class="fas fa-print"></i></a>
+                                    <a href="javascript:void(0)" title="Detail Permohonan" class="{{item.btncollor}}"
+                                        ng-click="go(item)"><i class="fas fa-eye"></i></a>
+                                    <!-- <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'"
                                         class="btn btn-primary" ng-click="Print('suratTidakMampu', item)">
                                         <i class="fas fa-print"></i></a>
                                     <a href="javascript:void(0)" title="Detail Permohonan" class="btn btn-warning"
@@ -44,7 +51,7 @@
                                         class="btn btn-success" ng-click="Setuju(item)"><i class="fas fa-check"></i></a>
                                     <a href="javascript:void(0)" ng-if="UserRole !== 'admin' && item.SetButtonApproved"
                                         title="Tolak Permohonan" class="btn btn-danger" ng-click="TampilPesan(item)"><i
-                                            class="fas fa-ban"></i></a>
+                                            class="fas fa-ban"></i></a> -->
                                 </td>
                             </tr>
                         </tbody>
