@@ -29,7 +29,16 @@
                                     ng-options="item as item.nik+' - '+item.nama for item in ListPenduduk"
                                     data-placeholder="Pilih Penduduk">
                                 </select>
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="checkbox" id="customCheckbox1" ng-model="model.p1" ng-change="Pemohon('penduduk1')">
+                                    <label for="customCheckbox1" class="custom-control-label">
+                                        Checklist Jika yang bersangkutan sebagai pemohon
+                                    </label>
+                                </div>
                             </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>NIK Istri</label>
                                 <select class="form-control" data-ng-model="model.pendudukpasangan" select2
@@ -37,17 +46,14 @@
                                     ng-options="item as item.nik+' - '+item.nama for item in ListPenduduk"
                                     data-placeholder="Pilih Penduduk">
                                 </select>
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="checkbox" id="customCheckbox1" ng-model="model.p1" ng-change="Pemohon('penduduk1')">
+                                    <label for="customCheckbox1" class="custom-control-label">
+                                        Checklist Jika yang bersangkutan sebagai pemohon
+                                    </label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-2"></div>
-                        <div class="col-md-5">
-
-                            <div class="form-group">
-                                <label>Keterangan Nikah</label>
-                                <textarea class="form-control" ng-model="model.data.keterangan" rows="4"
-                                    placeholder="Keterangan Nikah">
-                                            </textarea>
-                            </div>
+                           
                         </div>
                     </div>
                     <div class="card-header"></div><br>
