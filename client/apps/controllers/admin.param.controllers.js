@@ -43,6 +43,7 @@ function editadmindatapendudukController(
 						PendudukService.getDocById($stateParams.id).then((berkas) => {
 							var a = berkas.find(x=>x.idpersyaratan==3);
 							$scope.model.photo = a;
+							$scope.model.persyaratan = berkas.filter((dx)=>dx.status >0);
 						})
 					})
 				}

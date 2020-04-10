@@ -169,7 +169,7 @@ router.post('/dokumen', [ authJwt.verifyToken ], async (req, res) => {
 						: documents.find(
 								(x) => x.idpersyaratan == data.idpersyaratan && x.idpermohonan == data.idpermohonan
 							);
-				if (doc) {
+				if (doc && doc.iddokumenpenduduk) {
 					var docFIle = doc.file;
 					doc.file = filename;
 					var document = await contextDb.Penduduk.updateDocument(doc);

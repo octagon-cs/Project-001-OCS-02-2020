@@ -72,7 +72,7 @@ angular.module('uploadDoc.component', [])
 			var b = item[0].filename.split('.');
 			var a = {
 				idpenduduk: model.idpenduduk,
-				// idpersyaratan: syarat.idpersyaratan,
+				idpersyaratan: model.photo.idpersyaratan,
 				typefile: item[0].filetype,
 				data: item[0].base64,
 				extention: b[1],

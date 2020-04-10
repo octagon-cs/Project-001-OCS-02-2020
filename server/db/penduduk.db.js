@@ -291,15 +291,20 @@ db.getDocument = (idpenduduk) => {
 		try {
 			pool.query(
 				`SELECT
-				dokumenpenduduk.*,
+				persyaratan.idpersyaratan,
 				persyaratan.nama,
-				persyaratan.deskripsi,
-				persyaratan.status
-			  FROM
-				dokumenpenduduk
-				LEFT JOIN persyaratan ON dokumenpenduduk.idpersyaratan =
-			  persyaratan.idpersyaratan
-			   where idpenduduk=?`,
+				persyaratan.status,
+				dokumenpenduduk.iddokumenpenduduk,
+				dokumenpenduduk.idpenduduk,
+				dokumenpenduduk.file,
+				dokumenpenduduk.typefile,
+				dokumenpenduduk.idpermohonan,
+				dokumenpenduduk.jenis
+			  FROM       
+				persyaratan
+				LEFT JOIN dokumenpenduduk ON persyaratan.idpersyaratan= dokumenpenduduk.idpersyaratan AND ( dokumenpenduduk.idpenduduk=? or dokumenpenduduk.idpenduduk is null)
+			  WHERE
+				persyaratan.status IN (1, 2, 3)`,
 				[ idpenduduk ],
 				(err, result) => {
 					if (err) {
