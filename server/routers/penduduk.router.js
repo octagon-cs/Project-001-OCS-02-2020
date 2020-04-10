@@ -136,7 +136,8 @@ router.delete('/:id', async (req, res) => {
 
 router.get('/dokumen/:idpenduduk', async (req, res) => {
 	try {
-		var document = await contextDb.Penduduk.getDocument(req.params.idpenduduk);
+		var penduduk = await contextDb.Penduduk.getById(req.params.idpenduduk);
+		var document = await contextDb.Penduduk.getDocument(penduduk);
 		if (document) {
 			res.status(200).json(document);
 		} else {
@@ -162,7 +163,7 @@ router.post('/dokumen', [ authJwt.verifyToken ], async (req, res) => {
 					message: 'document tidak tersimpan'
 				});
 			} else {
-				var documents = await contextDb.Penduduk.getDocument(data.idpenduduk);
+				var documents = await contextDb.Penduduk.getDocument(data);
 				var doc =
 					data.status > 0
 						? documents.find((x) => x.idpersyaratan == data.idpersyaratan && x.status > 0)

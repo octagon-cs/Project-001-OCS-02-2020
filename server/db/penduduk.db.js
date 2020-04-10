@@ -286,7 +286,7 @@ db.delete = (id) => {
 	});
 };
 
-db.getDocument = (idpenduduk) => {
+db.getDocument = (data) => {
 	return new Promise((resolve, reject) => {
 		try {
 			pool.query(
@@ -299,13 +299,18 @@ db.getDocument = (idpenduduk) => {
 				dokumenpenduduk.file,
 				dokumenpenduduk.typefile,
 				dokumenpenduduk.idpermohonan,
-				dokumenpenduduk.jenis
-			  FROM       
+				dokumenpenduduk.jenis,
+				 penduduk.statusdalamkeluarga,
+				penduduk.nkk AS nokk
+				FROM       
 				persyaratan
-				LEFT JOIN dokumenpenduduk ON persyaratan.idpersyaratan= dokumenpenduduk.idpersyaratan AND ( dokumenpenduduk.idpenduduk=? or dokumenpenduduk.idpenduduk is null)
-			  WHERE
-				persyaratan.status IN (1, 2, 3)`,
-				[ idpenduduk ],
+				LEFT JOIN dokumenpenduduk ON persyaratan.idpersyaratan= dokumenpenduduk.idpersyaratan and (dokumenpenduduk.idpenduduk=? or   persyaratan.status=2) 
+				
+				LEFT JOIN penduduk ON penduduk.idpenduduk = dokumenpenduduk.idpenduduk  
+					
+				WHERE
+				persyaratan.status IN (1, 2, 3)  And( IF(penduduk.nkk=? and (penduduk.idpenduduk=? or penduduk.statusdalamkeluarga='Kepala Keluarga'),1,0)=1 or  penduduk.nkk is null)`,
+				[ data.idpenduduk, data.nkk, data.idpenduduk ],
 				(err, result) => {
 					if (err) {
 						return reject(err);
