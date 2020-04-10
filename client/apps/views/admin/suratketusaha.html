@@ -1,50 +1,70 @@
-<section class="content-header">
+<div class="card card-warning">
+  <section class="content-header" ng-init="Init()">
     <div class="col">
-      <div class="card-tools">
-        <h4>Surat Keterangan Usaha</h4>
-      </div>
-      <div class="card card-primary card-outline card-tabs">
-        <div class="card-header p-0 pt-1 border-bottom-0">
-          <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href=""
-                data-target="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home"
-                aria-selected="true">Lihat Data</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href=""
-                data-target="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile"
-                aria-selected="false">Tambah Data
-                Surat
-              </a>
-            </li>
-          </ul>
-        </div>
+      <searchsurat value='mo'></searchsurat>
+      <div class="card card-warning">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-list"></i>
+            List Permohonan Keterangan Usaha
+          </h3>
+          <div class="card-tools">
+            <button class="btn btn-primary btn-tools" ng-click="go('Tambah')"><i class="fa fa-plus"></i></button>
+          </div>
+        </div><!-- /.card-header -->
         <div class="card-body">
-          <div class="tab-content" id="custom-tabs-two-tabContent">
-            <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel"
-              aria-labelledby="custom-tabs-two-home-tab">
-              <div class="card-body table-responsive p-0" style="height: 550px;">
+              <div class="card-body table-responsive p-0">
                 <table datatable="" class="table table-head-fixed text-nowrap">
                   <thead>
                     <tr>
                       <th>ID</th>
+                      <th>No.Surat</th>
                       <th>NIK</th>
                       <th>Nama</th>
-                      <th>No.Surat</th>
-                      <th>Atas Nama</th>
+                      <th>Tempat Tanggal Lahir</th>
+                      <th>Jenis Kelamin</th>
+                      <th>Pekerjaan</th>
+                      <th>Agama</th>
+                      <th>Status Perkawinan</th>
+                      <th>Pendidikan Terakhir</th>
+                      <th>Alamat</th>
+                      <th>Nama Usaha</th>
+                      <th>Jenis Usaha</th>
+                      <th>Lamanya Usaha</th>
+                      <th>Alamat Usaha</th>
+                      <th>Berlaku Sejak</th>
+                      <th>Pejabat</th>
+                      <th>Progress</th>
                       <th>Option</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr ng-repeat="">
                       <td>{{$index+1}}</td>
-                      <td>{{item.NIK}}</td>
-                      <td>{{item.Nama}}</td>
                       <td>{{item.No.Surat}}</td>
-                      <td>{{item.Atas Nama}}</td>
+                      <td>{{item.nik}}</td>
+                      <td>{{item.nama}}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>{{item.namapejabat}}</td>
+                      <td>{{item.progress}}</td>
                       <td>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'"
+                          class="btn btn-primary" ng-click="Print('suratTidakMampu', item)">
+                          <i class="fas fa-print"></i></a>
+                        <a href="javascript:void(0)" title="Detail Permohonan" class="{{item.btncollor}}"
+                          ng-click="go(item)"><i class="fas fa-eye"></i></a>
+                        <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
                           <label class="btn btn-secondary">
                             <input type="radio" name="options" id="option1" autocomplete="off"> <i
                               class="fas fa-edit"></i>
@@ -55,20 +75,17 @@
                           </label>
                           <label class="btn btn-secondary">
                             <input type="radio" name="options" id="option3" autocomplete="off"><i
-                              class="fas fa-search"></i>
-                          </label>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                              class="fas fa-search"></i> -->
+                        </label>
               </div>
-            </div>
-            <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel"
+              </td>
+              </tr>
+              </tbody>
+              </table>
+                      <!-- <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel"
               aria-labelledby="custom-tabs-two-profile-tab">
               <div class="tab-content" id="custom-tabs-one-tabContent">
                 <div class="card card-default">
-                  <!-- /.card-header -->
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-6">
@@ -220,23 +237,20 @@
                       <button type="submit" class="btn btn-danger float-right">Cancel</button>
                     </div>
                   </div>
-                   <!-- /.row -->
                   </div>
                 </div>
                 </div>
               </div>
-              <!-- /.row -->
-            </div>
-            <!-- /.card-body -->
-          </div>
+            </div> -->
         </div>
       </div>
     </div>
-    </div>
-    <!-- /.card -->
-    </div>
-    <!-- /.card -->
-    </div>
-    </div>
-    </div>
-  </section>
+</div>
+</div>
+<!-- /.card -->
+</div>
+<!-- /.card -->
+</div>
+</div>
+</div>
+</section>

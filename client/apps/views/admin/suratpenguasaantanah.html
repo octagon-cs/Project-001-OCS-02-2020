@@ -1,50 +1,69 @@
-<section class="content-header">
+<div class="card card-warning">
+  <section class="content-header" ng-init="Init()">
     <div class="col">
-      <div class="card-tools">
-        <h4>Surat Keterangan Penguasaan Tanah</h4>
-      </div>
-      <div class="card card-primary card-outline card-tabs">
-        <div class="card-header p-0 pt-1 border-bottom-0">
-          <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href=""
-                data-target="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home"
-                aria-selected="true">Lihat Data</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href=""
-                data-target="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile"
-                aria-selected="false">Tambah Data
-                Surat
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="card-body">
-          <div class="tab-content" id="custom-tabs-two-tabContent">
-            <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel"
-              aria-labelledby="custom-tabs-two-home-tab">
-              <div class="card-body table-responsive p-0" style="height: 550px;">
-                <table datatable="" class="table table-head-fixed text-nowrap">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>NIK</th>
-                      <th>Nama</th>
-                      <th>No.Surat</th>
-                      <th>Atas Nama</th>
-                      <th>Option</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="">
-                      <td>{{$index+1}}</td>
-                      <td>{{item.NIK}}</td>
-                      <td>{{item.Nama}}</td>
-                      <td>{{item.No.Surat}}</td>
-                      <td>{{item.Atas Nama}}</td>
-                      <td>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <searchsurat value='mo'></searchsurat>
+      <div class="card card-warning">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-list"></i>
+            List Permohonan Keterangan Penguasaan Tanah
+          </h3>
+          <div class="card-tools">
+            <button class="btn btn-primary btn-tools" ng-click="go('Tambah')"><i class="fa fa-plus"></i></button>
+          </div>
+        </div><!-- /.card-header -->
+      <div class="card-body">
+        <div class="tab-content" id="custom-tabs-two-tabContent">
+          <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel"
+            aria-labelledby="custom-tabs-two-home-tab">
+            <div class="card-body table-responsive p-0" style="height: 550px;">
+              <table datatable="" class="table table-head-fixed text-nowrap">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>No.Surat</th>
+                    <th>NIK</th>
+                    <th>Nama</th>
+                    <th>Tempat Tanggal Lahir</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Pekerjaan</th>
+                    <th>Agama</th>
+                    <th>Status Perkawinan</th>
+                    <th>Pendidikan Terakhir</th>
+                    <th>Alamat</th>
+                    <th>Luas Tanah</th>
+                    <th>Batas Wilayah</th>
+                    <th>Tanggal Perolehan Tanah</th>
+                    <th>Pejabat</th>
+                    <th>Progress</th>
+                    <th>Option</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="">
+                    <td>{{$index+1}}</td>
+                    <td>{{item.No.Surat}}</td>
+                    <td>{{item.nik}}</td>
+                    <td>{{item.nama}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{item.namapejabat}}</td>
+                    <td>{{item.progress}}</td>
+                    <td>
+                      <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'" class="btn btn-primary"
+                        ng-click="Print('suratTidakMampu', item)">
+                        <i class="fas fa-print"></i></a>
+                      <a href="javascript:void(0)" title="Detail Permohonan" class="{{item.btncollor}}"
+                        ng-click="go(item)"><i class="fas fa-eye"></i></a>
+                      <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
                           <label class="btn btn-secondary">
                             <input type="radio" name="options" id="option1" autocomplete="off"> <i
                               class="fas fa-edit"></i>
@@ -57,188 +76,188 @@
                             <input type="radio" name="options" id="option3" autocomplete="off"><i
                               class="fas fa-search"></i>
                           </label>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                        </div> -->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel"
-              aria-labelledby="custom-tabs-two-profile-tab">
-              <div class="tab-content" id="custom-tabs-one-tabContent">
-                <div class="card card-default">
-                  <!-- /.card-header -->
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">NIK</label>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="" placeholder="Nama">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">Nama</label>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="" placeholder="Nama">
-                          </div>
+          </div>
+          <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel"
+            aria-labelledby="custom-tabs-two-profile-tab">
+            <div class="tab-content" id="custom-tabs-one-tabContent">
+              <div class="card card-default">
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">NIK</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="Nama">
                         </div>
                       </div>
                     </div>
-                    <div class="card-header"></div><br>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">Nomor Surat</label>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="" placeholder="Nomor Surat">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">Footer Cetak Data</label>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="" placeholder="Footer Cetak Data">
-                          </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Nama</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="Nama">
                         </div>
                       </div>
                     </div>
-                    <div class="card-header"></div><br>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">Sebidang Tanah</label>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="" placeholder="Sebidang Tanah">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">Luas M</label>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="" placeholder="Luas M">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label">Digunakan Untuk</label>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="" placeholder="Digunakan Untuk">
-                          </div>
+                  </div>
+                  <div class="card-header"></div><br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Nomor Surat</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="Nomor Surat">
                         </div>
                       </div>
                     </div>
-                    <div class="card-header"></div><br>
-                    <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Sebelah Utara</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control" ng-model="" placeholder="Sebelah Utara">
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Sebelah Selatan</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control" ng-model="" placeholder="Sebelah Selatan">
-                            </div>
-                          </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Footer Cetak Data</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="Footer Cetak Data">
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Sebelah Timur</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control" ng-model="" placeholder="Sebelah Timur">
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Sebelah Barat</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" ng-model="" placeholder="Sebelah Barat">
-                            </div>
-                          </div>
-                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-header"></div><br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Sebidang Tanah</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="Sebidang Tanah">
                         </div>
-                      
-                      <div class="card-header"></div><br>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Terjadi Pada Tahun</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control" ng-model="" placeholder="Terjadi Pada Tahun">
-                            </div>
-                          </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Luas M</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="Luas M">
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                              <label class="col-sm-4 col-form-label">Diusahakan Sebagai</label>
-                              <div class="col-sm-8">
-                                <textarea class="form-control" ng-model="" rows="1" placeholder="Diusahakan Sebagai">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Digunakan Untuk</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="Digunakan Untuk">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-header"></div><br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Sebelah Utara</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="Sebelah Utara">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Sebelah Selatan</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="Sebelah Selatan">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Sebelah Timur</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="Sebelah Timur">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Sebelah Barat</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="Sebelah Barat">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card-header"></div><br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Terjadi Pada Tahun</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="Terjadi Pada Tahun">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Diusahakan Sebagai</label>
+                        <div class="col-sm-8">
+                          <textarea class="form-control" ng-model="" rows="1" placeholder="Diusahakan Sebagai">
                                 </textarea>
-                              </div>
-                            </div>
-                          </div>
-                      </div>
-                      <div class="card-header"></div><br>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Judul Atas Nama</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control" ng-model="" placeholder="">
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Nama Atas Nama</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control" ng-model="" placeholder="">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Jabatan Atas Nama</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control" ng-model="" placeholder="">
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">NIP/NIAP Atas Nama</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control" ng-model="" placeholder="">
-                            </div>
-                          </div>
                         </div>
                       </div>
-                      <div class="card-header"></div><br>
-                    </div>
-                    <div class="card-footer">
-                      <button type="submit" class="btn btn-success">Submit</button>
-                      <button type="submit" class="btn btn-danger float-right">Cancel</button>
                     </div>
                   </div>
-                   <!-- /.row -->
+                  <div class="card-header"></div><br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Judul Atas Nama</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Nama Atas Nama</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Jabatan Atas Nama</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">NIP/NIAP Atas Nama</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="" placeholder="">
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                  <div class="card-header"></div><br>
                 </div>
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-success">Submit</button>
+                  <button type="submit" class="btn btn-danger float-right">Cancel</button>
                 </div>
               </div>
               <!-- /.row -->
             </div>
-            <!-- /.card-body -->
           </div>
         </div>
       </div>
+      <!-- /.row -->
     </div>
-    </div>
-    <!-- /.card -->
-    </div>
-    <!-- /.card -->
-    </div>
-    </div>
-    </div>
-  </section>
+    <!-- /.card-body -->
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <!-- /.card -->
+  </div>
+  <!-- /.card -->
+  </div>
+  </div>
+  </div>
+</section>

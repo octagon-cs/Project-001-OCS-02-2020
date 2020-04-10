@@ -4,9 +4,9 @@
             <div class="card-header">
                 <h3 class="card-title">{{title}}</h3>
                 <div class="card-tools">
-                    <button class="btn btn-primary btn-tool" title="Kembali Ke List Permohonan" ng-click="Batal('kembali')"><i
-                        class="fa fa-backward"></i></button>
-                </div>
+                    <button type="button" class="btn btn-primary btn-tool" title="Kembali Ke List Permohonan"
+                      ng-click="Batal()"><i class="fa fa-backward"></i></button>
+                  </div>
             </div>
             <div class="card-body">
                 <form ng-submit="Simpan()">
@@ -63,15 +63,18 @@
 
                         </div>
                     </div>
+                    <div ng-if="tab.edit">
+                        <uploaddocument value="model"></uploaddocument>
+                      </div>
                     <div class="card-footer">
-                        <button type="button" class="btn btn-warning float-right"
-                            ng-click="Batal('batal')">Kembali</button>
-                        <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
-                            class="btn btn-danger float-right" ng-click="TampilPesan(model)">Tolak</button>
-                        <button ng-if="model.SetButtonApproved" type="button" class="btn btn-primary float-right"
-                            ng-click="Setuju()">Setuju</button>
+                        <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved" class="btn btn-warning float-right"
+                          ng-click="TampilPesan(model, 'kembali')">Kembalikan</button>
+                        <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved" class="btn btn-danger float-right"
+                          ng-click="TampilPesan(model, 'tolak')">Tolak</button>
+                        <button type="button" ng-if="tab.edit" ng-class="model.SetButtonApproved ? '': 'disabled'" type="button" class="btn btn-primary float-right"
+                          ng-click="Setuju(model)">Setuju</button>
                         <button type="submit" class="btn btn-success float-right">Simpan</button>
-                    </div>
+                      </div>
                 </form>
             </div>
         </div>

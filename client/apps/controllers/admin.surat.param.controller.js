@@ -177,7 +177,8 @@ function adminsurateditketnikahController(
 	PendudukService,
 	PejabatService,
 	PersetujuanService,
-	loaderService
+	loaderService,
+	$window
 ) {
 	loaderService.setValue(true);
 	$scope.tab = tabService.createTab();
@@ -207,6 +208,7 @@ function adminsurateditketnikahController(
 							);
 							approvedService.approvedModel(data, $scope.UserRole);
 							$scope.model = data;
+							$scope.tab.show('edit');
 							loaderService.setValue(false);
 						});
 					} else {
@@ -223,14 +225,9 @@ function adminsurateditketnikahController(
 		});
 	};
 
-	$scope.Batal = function(item) {
-		if (item == 'batal') {
-			$state.go(helperServices.state('Keterangan Nikah', $scope.UserRole));
-		} else {
-			$state.go(helperServices.state('Surat All', $scope.UserRole));
-		}
+	$scope.Batal = function() {
+		$window.history.back();
 	};
-
 	$scope.SelectedPenduduk = function() {
 		var a = JSON.parse(angular.copy($scope.ItemPenduduk));
 		$scope.model.idpenduduk = a.idpenduduk;
@@ -243,12 +240,12 @@ function adminsurateditketnikahController(
 				if ($stateParams.id) {
 					PermohonanService.put($scope.model).then((permohonan) => {
 						message.info('Berhasil Mengubah');
-						$state.go(helperServices.state('Keterangan Nikah', $scope.UserRole));
+						$state.go(helperServices.state('Belum Menikah', $scope.UserRole));
 					});
 				} else {
 					PermohonanService.post($scope.model).then((permohonan) => {
 						message.info('Berhasil Menyimpan');
-						$state.go(helperServices.state('Keterangan Nikah', $scope.UserRole));
+						$state.go(helperServices.state('Belum Menikah', $scope.UserRole));
 					});
 				}
 			},
