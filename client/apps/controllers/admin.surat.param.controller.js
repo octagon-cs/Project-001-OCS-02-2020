@@ -1836,7 +1836,8 @@ function adminsurateditpenguasaantanahController(
 	$rootScope,
 	PersetujuanService,
 	loaderService,
-	$state
+	$state,
+	$window
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.ItemPenduduk = '';
@@ -1890,10 +1891,7 @@ function adminsurateditpenguasaantanahController(
 	};
 
 	$scope.Batal = function() {
-		$scope.tab.show('list');
-		$scope.model = {};
-		$scope.model.data = {};
-		$scope.Init();
+		$window.history.back();
 	};
 
 		$scope.Selecteddata = function(id, item) {

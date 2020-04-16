@@ -67,14 +67,17 @@
                         </div>
 
                     </div>
-                    <div class="card-header"></div><br>
+                    <div ng-if="tab.edit">
+                        <uploaddocument value="model"></uploaddocument>
+                    </div>
                     <div class="card-footer">
-                        <button type="button" class="btn btn-warning float-right"
-                            ng-click="Batal('batal')">Kembali</button>
                         <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
-                            class="btn btn-danger float-right" ng-click="TampilPesan(model)">Tolak</button>
-                        <button ng-if="model.SetButtonApproved" type="button" class="btn btn-primary float-right"
-                            ng-click="Setuju()">Setuju</button>
+                            class="btn btn-warning float-right"
+                            ng-click="TampilPesan(model, 'kembali')">Kembalikan</button>
+                        <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
+                            class="btn btn-danger float-right" ng-click="TampilPesan(model, 'tolak')">Tolak</button>
+                        <button type="button" ng-if="tab.edit" ng-class="model.SetButtonApproved ? '': 'disabled'"
+                            type="button" class="btn btn-primary float-right" ng-click="Setuju(model)">Setuju</button>
                         <button type="submit" class="btn btn-success float-right">Simpan</button>
                     </div>
                 </form>
