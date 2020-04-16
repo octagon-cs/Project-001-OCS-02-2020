@@ -90,7 +90,7 @@ function PendudukServices($http, $q, helperServices, AuthService) {
 			data: data
 		}).then(
 			(res) => {
-				var item = services.data.find((x) => (x.idpenduduk = data.idpenduduk));
+				var item = service.data.find((x) => (x.idpenduduk = data.idpenduduk));
 				if (item) {
 					item.nama = data.nama;
 					item.nik = data.nik;
@@ -187,7 +187,7 @@ function PendudukServices($http, $q, helperServices, AuthService) {
 			headers: AuthService.getHeader()
 		}).then(
 			(res) => {
-				service.data.push(res.data);
+				// service.data.push(res.data);
 				def.resolve(res.data);
 			},
 			(err) => {

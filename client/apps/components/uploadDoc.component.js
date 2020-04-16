@@ -27,7 +27,9 @@ angular.module('uploadDoc.component', [])
 				typefile: item[0].filetype,
 				data: item[0].base64,
 				extention: b[1],
-				status: syarat.status
+				status: syarat.status,
+				statusdalamkeluarga: model.statusdalamkeluarga,
+				nkk: model.nkk
 			};
 			a.idpermohonan = a.status > 0 ? null : model.idpermohonan;
 			message.dialog('Anda Yakin Ingin Menyimpan', 'Simpan', 'Batal').then(
@@ -66,7 +68,6 @@ angular.module('uploadDoc.component', [])
 			document.getElementById('photoProfile').click();
 		};
 
-
 		$scope.Upload = (model) => {
 			var item = model.photo.files;
 			var b = item[0].filename.split('.');
@@ -76,7 +77,9 @@ angular.module('uploadDoc.component', [])
 				typefile: item[0].filetype,
 				data: item[0].base64,
 				extention: b[1],
-				status: model.photo.status
+				status: model.photo.statusm,
+				statusdalamkeluarga: model.statusdalamkeluarga,
+				nkk: model.nkk
 			};
 			a.idpermohonan = a.status > 0 ? null : model.idpermohonan;
 			message.dialog('Anda Yakin Ingin Menyimpan', 'Simpan', 'Batal').then(

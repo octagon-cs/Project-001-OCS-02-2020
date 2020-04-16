@@ -1,3 +1,4 @@
-<input id="photoProfile" type="file" ng-model="$ctrl.value.photo.files" name="files" multiple accept="image/*" maxsize="100" required
+<input id="photoProfile" type="file" ng-model="$ctrl.value.photo.files" name="files" multiple accept="image/*" maxsize="100"
     base-sixty-four-input style="display:none" ng-change="Upload($ctrl.value)">
-<img style="width: 150px; height: 175px;" src="../../../document/{{$ctrl.value.photo.file}}" ng-click="openFile($ctrl.value)">
+<img ng-if="$ctrl.value.photo.file" style="width: 150px; height: 175px;" src="../../../document/{{$ctrl.value.photo.file}}" ng-click="openFile($ctrl.value)">
+<img ng-if="!$ctrl.value.photo.file" style="width: 150px; height: 175px;" src="../../../assets/images/avatar.png" ng-click="openFile($ctrl.value)">

@@ -25,7 +25,7 @@ function AccountController(AuthService, $state, loaderService) {
 }
 
 function LoginController($scope, $state, AuthService, FcmService, loaderService) {
-	$scope.login = function(user) {
+	$scope.login = function (user) {
 		$scope.isBusy = true;
 		loaderService.setValue(true);
 		AuthService.login(user).then((x) => {
@@ -41,11 +41,11 @@ function LoginController($scope, $state, AuthService, FcmService, loaderService)
 		});
 	};
 
-	$scope.registrasi = function(user) {};
+	$scope.registrasi = function (user) { };
 }
 
 function RegisterController($scope, $state, AuthService) {
-	$scope.registrasi = function(user) {
+	$scope.registrasi = function (user) {
 		AuthService.registrasi(user).then((x) => {
 			$state.go('login');
 		});
@@ -62,14 +62,14 @@ function ResetPasswordController($scope, AuthService, message) {
 
 function NewPasswordController($scope, $stateParams, AuthService, message) {
 	var token = $stateParams.token;
-	$scope.changePassword = function(data) {
+	$scope.changePassword = function (data) {
 		AuthService.changePassword(data, token).then((res) => {
 			message.info('Password Anda Berhasil Diubah, Silahkan Login Dengan Password Yang Baru');
 		});
 	};
 }
 
-function ConfirmPasswordController() {}
+function ConfirmPasswordController() { }
 
 function ConfirmEmailController($state, $stateParams, AuthService) {
 	var token = $stateParams.token;
@@ -78,7 +78,10 @@ function ConfirmEmailController($state, $stateParams, AuthService) {
 	});
 }
 
-function InboxController(AuthService, $state, $scope, InboxService, loaderService) {
+function InboxController(AuthService, $state, $scope, InboxService, loaderService, helperServices, PermohonanService, message, loaderService) {
+	AuthService.profile().then((profile) => {
+		$scope.Role = profile.rolename
+	})
 	InboxService.get().then((res) => {
 		$scope.messages = res;
 		loaderService.setValue(false);
@@ -92,21 +95,53 @@ function InboxController(AuthService, $state, $scope, InboxService, loaderServic
 
 	$scope.delete = (messages) => {
 		var datas = messages.filter((x) => x.isChecked);
+		loaderService.setValue(true)
 		$scope.deleteBusy = true;
-		InboxService.delete(datas).then((res) => {
-			if (res.data) {
-				datas.forEach((element) => {
-					var index = messages.indexOf(element);
-					datas.splice(index, 1);
+		if(datas.length>0){
+			message.dialog('Anda Yakin Ingin Menyimpan', 'Simpan', 'Batal').then(x=>{
+				InboxService.delete(datas).then((res) => {
+					if (res.data) {
+						datas.forEach((element) => {
+							var index = messages.indexOf(element);
+							datas.splice(index, 1);
+						});
+					}
+					$scope.deleteBusy = false;
+					loaderService.setValue(false)
 				});
-			}
+			},
+			(error) => {
+				message.errorText('Batal');
+				$scope.deleteBusy = false;
+				loaderService.setValue(false)
+			})
+		}else{
+			message.errorText('Pilih Pesan');
 			$scope.deleteBusy = false;
-		});
+			loaderService.setValue(false)
+		}
+		
 	};
+	$scope.checkAll= false;
+	$scope.Checklist=()=>{
+		if($scope.checkAll==true){
+			$scope.messages.forEach((x)=>{
+				x.isChecked=true;
+			})
+		}else{
+			$scope.messages.forEach((x)=>{
+				x.isChecked=false;
+			})
+		}
+	}
 
-	$scope.read = (data) => {
-		InboxService.read(data).then((res) => {
-			//messages.info()
+	$scope.read = (item) => {
+		loaderService.setValue(true);
+		PermohonanService.getById(item.data.iddata).then(x => {
+			var state = helperServices.stateEdit(x.jenis, $scope.Role);
+			InboxService.read(item).then(unread=>{
+				$state.go(state, { id: item.data.iddata }, { reload: true });
+			})
 		});
 	};
 

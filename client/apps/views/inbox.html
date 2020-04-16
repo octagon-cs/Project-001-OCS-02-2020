@@ -9,7 +9,6 @@
           <div class="card-tools">
             <div class="input-group input-group-sm">
               <input type="text" class="form-control" ng-model="search" placeholder="Search Mail">
-
             </div>
           </div>
           <!-- /.card-tools -->
@@ -18,8 +17,8 @@
         <div class="card-body p-0">
           <div class="mailbox-controls">
             <!-- Check all button -->
-            <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
-            </button>
+            <!-- <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
+            </button> -->
             <div class="btn-group">
               <button type="button" ng-click="delete(messages)" class="btn btn-danger btn-sm">
                 <i ng-show="!deleteBusy" class="far fa-trash-alt"></i>
@@ -33,16 +32,23 @@
             <!-- /.float-right -->
           </div>
           <div class="table-responsive mailbox-messages">
-            <table datatable="ng" class="table table-hover table-striped">
+            <table class="table table-hover table-striped">
+              <thead>
+                <tr>
+                  <th>
+                    <input type="checkbox" ng-model="checkAll" ng-change="Checklist()" >
+                  </th>
+                </tr>
+              </thead>
               <tbody>
                 <tr ng-repeat="item in messages|filter : search | orderBy: '-created'">
-                  <td style="width: 2%;">
+                  <td style="width: 1%;">
                     <div class="icheck-primary">
                       <input type="checkbox" value="" id="check1" ng-model="item.isChecked">
                       <label for="check1"></label>
                     </div>
                   </td>
-                  <td ng-click="read(item)" class="mailbox-name" style="width: 15%;"><b>{{item.data.from}}</b></td>
+                  <td ng-click="read(item)" ng-class="item.readed?'': 'font-weight-bold'" class="mailbox-name" style="width: 15%;">{{item.data.from}}</td>
                   <td ng-click="read(item)" class="mailbox-subject">
                     <b ng-if="!item.readed">{{item.message |limitTo:100}} {{item.message.length >100 ?"....":""}}</b>
                     <span ng-if="item.readed">{{item.message}}</span>

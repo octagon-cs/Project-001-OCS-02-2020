@@ -70,25 +70,22 @@ function InboxService($http, $q, AuthService, message, helperServices) {
 
     read = (data) => {
         var def = $q.defer();
-        if (service.instance) {
-            def.resolve(service.data);
-        } else {
-            $http({
-                method: 'put',
-                url: helperServices.url + '/api/inbox',
-                headers: AuthService.getHeader(),
-                data: data
-            }).then(
-                (res) => {
-                    data.readed = 1;
-                    def.resolve(res.data);
-                },
-                (err) => {
-                    def.reject();
-                    message.error(err);
-                }
-            );
-        }
+        $http({
+            method: 'put',
+            url: helperServices.url + '/api/inbox',
+            headers: AuthService.getHeader(),
+            data: data
+        }).then(
+            (res) => {
+                var item = service.data.find(x=>x.idinbox==data.idinbox);
+                item.readed = 1;
+                def.resolve(res.data);
+            },
+            (err) => {
+                def.reject();
+                message.error(err);
+            }
+        );
         return def.promise;
     }
 

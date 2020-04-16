@@ -1,15 +1,12 @@
 <section class="content-header">
     <div class="card card-warning">
         <div class="card-header">
-            <h3 class="card-title">
-                <i class="fas fa-list"></i>
-                &nbsp; {{Title}}
-            </h3>
+            <h3 class="card-title"> {{Title}}</h3>
             <div class="card-tools">
                 <button ng-hide="TampilData" class="btn btn-info btn-tool" ng-click="TampilData=true"><i class="fas fa-table"></i></button>
                 <button ng-show="TampilData" class="btn btn-info btn-tool" ng-click="TampilData=false"><i
                         class="fas fa-chart-pie"></i></button>
-                <button class="btn btn-primary btn-tool" ng-click="tab.show('tambah')"><i
+                <button class="btn btn-primary btn-tool" ng-click="Print()"><i
                         class="fas fa-print"></i></button>
             </div>
         </div><!-- /.card-header -->

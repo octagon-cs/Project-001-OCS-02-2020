@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="/assets/sites.css">
+<div class="surat">
+    <div class="header">
+        <img class="logo" src="assets/images/logojayapura.png">
+        <div>
+            <b>PEMERINTAH KOTA JAYAPURA<br>
+                KELURAHAN WAENA<br>
+                DISTRIK HERAM</b><br>
+                LAPORAN DATA STATISTIK KEPENDUDUKAN MENURUT {{type | uppercase}}
+        </div>
+    </div>
+    <hr id="hr-formatSurat" />
+    <div class="subheader">
+        <p style="font-size:14pt; margin-bottom: -18px;"><b><u>{{dataPrint.namapermohonan | uppercase}}</u></b></p>
+        <br>Nomor : {{dataPrint.nomorsurat}}<br></br>
+    </div>
+    <div class="body">
+        <table class="border thick data">
+            <thead>
+                <tr>
+                    <th class="thick" style="width: 2px; text-align: center;">No</th>
+                    <th class="thick">Statistik</th>
+                    <th class="thick">Jumlah</th>
+                    <th class="thick">Laki-Laki</th>
+                    <th class="thick">Perempuan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in Data">
+                    <td class="thick">{{$index+1}}</td>
+                    <td class="thick">{{item.label}}</td>
+                    <td class="thick">{{item.jumlah}}</td>
+                    <td class="thick">{{item.pria}}</td>
+                    <td class="thick">{{item.wanita}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="footer">
+        <p> Jayapura, {{dataPrint.tampiltanggalsurat}}</p>
+        <p ng-if="dataPrint.pejabat.namajabatan==Lurah">LURAH WAENA</p>
+        <p ng-if="dataPrint.pejabat.namajabatan!=Lurah">an. LURAH WAENA</p>
+        <p> {{dataPrint.data.pejabat.jabatan}}</p>
+        <p class="nama">{{dataPrint.data.pejabat.nama}}</p>
+        <p> NIK. {{dataPrint.data.pejabat.data.nik}}</p>
+    </div>
+</div>

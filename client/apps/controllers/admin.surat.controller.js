@@ -793,9 +793,6 @@ function adminsuratketdomisiliController(
 						PermohonanService.getByJenis(jenis.idjenispermohonan).then((param) => {
 							approvedService.approvedView(param, $scope.UserRole);
 							$scope.Datas = angular.copy(param);
-							if ($rootScope.permohonan) {
-								$scope.Edit($rootScope.permohonan);
-							}
 							loaderService.setValue(false);
 						});
 					});
@@ -830,62 +827,7 @@ function adminsuratketdomisiliController(
 		$scope.model.data = {};
 		$scope.Init();
 	};
-
-	$scope.Simpan = function() {
-		var Method;
-		if ($scope.tab.tambah) {
-			Method = 'post';
-		} else {
-			Method = 'put';
-		}
-		var today = new Date();
-		$scope.model.tanggalpengajuan =
-			today.getFullYear() +
-			'-' +
-			(today.getMonth() + 1) +
-			'-' +
-			today.getDate() +
-			' ' +
-			today.getHours() +
-			':' +
-			today.getMinutes() +
-			':' +
-			today.getSeconds();
-		// $scope.model.data.pejabat = $scope.model.pejabat
-		$scope.model.data.idpenduduk = angular.copy($scope.model.idpenduduk);
-		$scope.model.nama = angular.copy($scope.model.idpenduduk.nama);
-		$scope.model.nik = angular.copy($scope.model.idpenduduk.nik);
-		$scope.model.nkk = angular.copy($scope.model.idpenduduk.nkk);
-		// $scope.model.idpenduduk = angular.copy($scope.model.idpenduduk.idpenduduk);
-		$scope.model.jenis = 'Keterangan Domisili';
-		$scope.model.namapejabat = angular.copy($scope.model.idpejabat.nama);
-		$scope.model.nip = angular.copy($scope.model.idpejabat.nip);
-		$scope.model.namajabatan = angular.copy($scope.model.idpejabat.namajabatan);
-		$scope.model.idpejabat = angular.copy($scope.model.idpejabat.idpejabat);
-		$http({
-			method: Method,
-			url: helperServices.url + '/api/permohonan',
-			headers: AuthService.getHeader(),
-			data: $scope.model
-		}).then(
-			(param) => {
-				if ($scope.tab.tambah) {
-					$scope.model.SetButtonPrint = true;
-					$scope.model.idpermohonan = param.idpermohonan;
-					$scope.Datas.push(angular.copy($scope.model));
-					$scope.tab.show('list');
-					$scope.Init();
-					message.info('Berhasil Menyimpan');
-				} else {
-					message.info('Berhasil Mengubah');
-					$scope.Init();
-				}
-			},
-			(error) => {
-				message.errorText(error.message);
-			}
-		);
-	};
+	
 	$scope.Selecteddata = function(id, item) {
 		$http({
 			method: 'get',
@@ -901,15 +843,17 @@ function adminsuratketdomisiliController(
 			}, 1300);
 		});
 	};
+	
 	$scope.Print = function(id, item) {
 		$scope.dataPrint = angular.copy(item);
-		PendudukService.getById(item.idpenduduk).then((param) => {
-			$scope.dataPrint.penduduk = param.data;
-			$scope.dataPrint.tampiltanggallahir = getTanggalIndonesia(new Date(angular.copy(param.data.tanggallahir)));
+		PendudukService.getById(item.idpenduduk, true).then((param) => {
+			$scope.dataPrint.penduduk = param;
+			$scope.dataPrint.tampiltanggallahir = getTanggalIndonesia(new Date(angular.copy(param.tanggallahir)));
 			$scope.dataPrint.tampiltanggaladminsurat = getTanggalIndonesia(
 				new Date(item.persetujuan[item.persetujuan.length - 1].created)
 			);
-
+			var namapejabat = $scope.dataPrint.namapejabat.split(', ');
+			$scope.dataPrint.namapejabat = namapejabat[0].toUpperCase() + ", " + namapejabat[1];
 			setTimeout(function() {
 				helperServices.print(id);
 			}, 1300);

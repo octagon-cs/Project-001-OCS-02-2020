@@ -171,6 +171,7 @@ router.post('/dokumen', [ authJwt.verifyToken ], async (req, res) => {
 								(x) => x.idpersyaratan == data.idpersyaratan && x.idpermohonan == data.idpermohonan
 							);
 				if (doc && doc.iddokumenpenduduk) {
+					
 					var docFIle = doc.file;
 					doc.file = filename;
 					var document = await contextDb.Penduduk.updateDocument(doc);
@@ -184,8 +185,14 @@ router.post('/dokumen', [ authJwt.verifyToken ], async (req, res) => {
 						});
 					}
 				} else {
-					var document = await contextDb.Penduduk.insertDocument(data);
+					a = Object.assign({}, data);
+					if(doc.status==2 && data.statusdalamkeluarga!=='Kepala Keluarga'){
+						var penduduk = await contextDb.Penduduk.getByNKK(data.nkk);
+						a.idpenduduk = penduduk.find(itempenduduk => itempenduduk.statusdalamkeluarga=='Kepala Keluarga').idpenduduk;
+					}
+					var document = await contextDb.Penduduk.insertDocument(a);
 					if (document) {
+						document.idpenduduk=data.idpenduduk;
 						res.status(200).json(document);
 					} else {
 						fs.unlinkSync(folder + filename);

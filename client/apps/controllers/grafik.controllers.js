@@ -3,16 +3,17 @@ angular
 	.controller('grafikPieController', PieController)
 	.controller('grafikBarController', BarController);
 
-function PieController($scope, $http, loaderService, AuthService, helperServices, $stateParams) {
-	var type = $stateParams.param;
+function PieController($scope, $http, loaderService, AuthService, helperServices, $stateParams, PejabatService) {
+	$scope.type = $stateParams.param;
 	loaderService.setValue(false);
-	$scope.Title = 'Data Berdasarkan ' + type;
+	$scope.Title = 'Data Berdasarkan ' + $scope.type;
 	$scope.colors = helperServices.source.colors;
-	$scope.include = "../../../apps/views/grafik/data/" + type +".html";
+	$scope.include = "../../../apps/views/grafik/data/" + $scope.type.replace(/\s+/g, '') +".html";
 	$scope.Data=[];
 	$scope.TampilData = true;
+	$scope.Pejabat={};
 	$http({
-		url: helperServices.url + '/api/resume/kelompok/' + type,
+		url: helperServices.url + '/api/resume/kelompok/' + $scope.type,
 		method: 'get',
 		headers: AuthService.getHeader()
 	}).then(
@@ -24,9 +25,19 @@ function PieController($scope, $http, loaderService, AuthService, helperServices
 				$scope.labels.push(data.label);
 				$scope.data.push(data.jumlah);
 			});
+			PejabatService.getByJabatanName('Lurah', 1).then((x)=>{
+				$scope.Pejabat = x;
+				$scope.Pejabat.tanggal = getTanggalIndonesia(new Date());
+			})
 		},
 		(err) => {}
 	);
+
+	$scope.Print = function() {
+		setTimeout(function() {
+			helperServices.print($scope.type.replace(/\s+/g, ''));
+		}, 900);
+	};
 }
 
 function BarController() {}

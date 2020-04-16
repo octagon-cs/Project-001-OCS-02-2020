@@ -223,7 +223,7 @@ db.put = async (data) => {
 				`update penduduk set nama=?, nik=?, nkk=?, statusdalamkeluarga=?, statuskepemilikanktp=?, tanggallahir=?, tempatlahir=?, aktalahir=?, dusun=?,
 				rt=?, rw=?, kodepost=?, email=?, alamatlangkap=?, kontakhp=?, golongandarah=?, statusperkawinan=?, agama=?, pekerjaan=?, 
 				pendidikanterakhir=?, suku=?, kewarganegawaan=?, tempattinggal=?, statussosial=?, statuskip=?, jeniskelamin=?, bacahuruf=?, 
-				penghasilantetap=?, statuskis=?, statuskk=?, namaayah=?, keterangan=?, status=? where idpenduduk=?`,
+				penghasilantetap=?, statuskis=?, statuskk=?, namaayah=?, namaibu=?, keterangan=?, status=? where idpenduduk=?`,
 				[
 					data.nama,
 					data.nik,
@@ -256,6 +256,7 @@ db.put = async (data) => {
 					data.statuskis,
 					data.statuskk,
 					data.namaayah,
+					data.namaibu,
 					data.keterangan,
 					data.status,
 					data.idpenduduk
