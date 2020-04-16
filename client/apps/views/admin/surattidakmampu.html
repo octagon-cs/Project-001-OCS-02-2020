@@ -19,7 +19,6 @@
                 <th width="2px">ID</th>
                 <th>Kode</th>
                 <th>No.Surat</th>
-                <th>Tanggal Surat</th>
                 <th>NIK</th>
                 <th>Nama</th>
                 <th>Pejabat</th>
@@ -32,10 +31,9 @@
                 <td>{{$index+1}}</td>
                 <td>{{pad(item.idpermohonan)}}</td>
                 <td>{{item.nomorsurat}}</td>
-                <td></td>
                 <td>{{item.nik}}</td>
                 <td>{{item.nama}}</td>
-                <td>{{item.namapejabat}}</td>
+                <td align="center">{{item.namapejabat}}<br>(<b>{{item.namajabatan}}</b>)</td>
                 <td>{{item.progress}}</td>
                 <td>
                   <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'" class="btn btn-primary"

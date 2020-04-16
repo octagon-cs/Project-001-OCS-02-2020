@@ -23,7 +23,7 @@
                     <div class="row">
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label>NIK Suami</label>
+                                <label>NIK/Nama Suami</label>
                                 <select class="form-control" data-ng-model="model.penduduk" select2
                                     ng-change="model.data.idpenduduksuami=model.penduduk.idpenduduk; model.idpenduduk=model.penduduk.idpenduduk;"
                                     ng-options="item as item.nik+' - '+item.nama for item in ListPenduduk"
@@ -40,7 +40,7 @@
                         <div class="col-md-2"></div>
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label>NIK Istri</label>
+                                <label>NIK/Nama Istri</label>
                                 <select class="form-control" data-ng-model="model.pendudukpasangan" select2
                                     ng-change="model.data.idpendudukistri=model.pendudukpasangan.idpenduduk"
                                     ng-options="item as item.nik+' - '+item.nama for item in ListPenduduk"

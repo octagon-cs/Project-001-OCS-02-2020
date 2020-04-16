@@ -1,73 +1,91 @@
 <section class="content-header" ng-init="Init()">
-  <form ng-submit="Simpan(model)">
+  <div class="col">
     <div class="card card-warning">
       <div class="card-header">
         <h3 class="card-title">{{title}}</h3>
         <div class="card-tools">
-          <button type="button" class="btn btn-primary btn-tool" title="Kembali Ke List Permohonan"
-            ng-click="Batal()"><i class="fa fa-backward"></i></button>
+          <button class="btn btn-primary btn-tool" title="Kembali Ke List Permohonan" ng-click="Batal('kembali')"><i
+              class="fa fa-backward"></i></button>
         </div>
       </div>
-
       <div class="card-body">
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label>NIK/Nama</label>
-            <select class="form-control" data-ng-model="model.penduduk" select2
-              ng-change="model.idpenduduk=model.penduduk.idpenduduk"
-              ng-options="item as item.nik+' - '+item.nama for item in ListPenduduk" data-placeholder="Pilih Penduduk">
-            </select>
+        <form ng-submit="Simpan()">
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label>Nomor Surat</label>
+              <input type="text" class="form-control" ng-model="model.nomorsurat" placeholder="Nomor Surat">
+            </div>
           </div>
-          <div class="form-group col-md-6">
-            <label>Nomor Surat</label>
-            <input type="text" class="form-control" ng-model="model.nomorsurat" placeholder="Nomor Surat">
+          <div class="card-header"></div><br>
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label>NIK/Nama</label>
+              <select class="form-control" data-ng-model="model.penduduk" select2
+                ng-change="model.idpenduduk=model.penduduk.idpenduduk"
+                ng-options="item as item.nik+' - '+item.nama for item in ListPenduduk"
+                data-placeholder="Pilih Penduduk">
+              </select>
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="customCheckbox1" ng-model="model.p1"
+                  ng-change="Pemohon('penduduk1')">
+                <label for="customCheckbox1" class="custom-control-label">
+                  Checklist Jika yang bersangkutan sebagai pemohon
+                </label>
+              </div>
+            </div>
           </div>
-          <div class="form-group col-md-6">
-            <label>Nama Pejabat Pengesah</label>
-            <select class="form-control" select2 data-ng-model="model.pejabat"
-              ng-change="model.idpejabat=model.pejabat.idpejabat"
-              ng-options="item as item.nama+' - '+item.namajabatan for item in dataPejabat"
-              data-placeholder="Pilih Pejabat"></select>
+          <div class="card-header"></div><br>
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label>Nama Pejabat Pengesah</label>
+              <div class="col-sm-8 autoComplete">
+                <select class="form-control" select2 data-ng-model="model.pejabat"
+                  ng-change="model.idpejabat=model.pejabat.idpejabat"
+                  ng-options="item as item.nama+' - '+item.namajabatan for item in dataPejabat"
+                  data-placeholder="Pilih Pejabat"></select>
+              </div>
+            </div>
+
           </div>
-        </div>
-      </div>
-      <div ng-if="tab.edit">
-        <uploaddocument value="model"></uploaddocument>
-      </div>
-      <div class="card-footer">
-        <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved" class="btn btn-warning float-right"
-          ng-click="TampilPesan(model, 'kembali')">Kembalikan</button>
-        <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved" class="btn btn-danger float-right"
-          ng-click="TampilPesan(model, 'tolak')">Tolak</button>
-        <button type="button" ng-if="tab.edit" ng-class="model.SetButtonApproved ? '': 'disabled'" type="button" class="btn btn-primary float-right"
-          ng-click="Setuju(model)">Setuju</button>
-        <button type="submit" class="btn btn-success float-right">Simpan</button>
+          <div ng-if="tab.edit">
+            <uploaddocument value="model"></uploaddocument>
+          </div>
+          <div class="card-footer">
+            <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
+              class="btn btn-warning float-right" ng-click="TampilPesan(model, 'kembali')">Kembalikan</button>
+            <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
+              class="btn btn-danger float-right" ng-click="TampilPesan(model, 'tolak')">Tolak</button>
+            <button type="button" ng-if="tab.edit" ng-class="model.SetButtonApproved ? '': 'disabled'" type="button"
+              class="btn btn-primary float-right" ng-click="Setuju(model)">Setuju</button>
+            <button type="submit" class="btn btn-success float-right">Simpan</button>
+          </div>
+        </form>
       </div>
     </div>
-    
-  </form>
+  </div>
 </section>
 
 
-<div class="modal fade" id="Pesan" tabindex="-1" role="dialog" aria-labelledby="Pesan" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="Pesan">
+  <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="Pesan">Modal title</h5>
+      <div class="modal-header bg-warning">
+        <h4 class="modal-title">Pesan Penolakan</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <textarea id="" cols="30" rows="10" ng-model="model.message" class="form-control"></textarea>
+        <p><textarea id="" cols="30" rows="10" ng-model="model.message" class="form-control"></textarea>
+          &hellip;</p>
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" data-dismiss="modal"
           ng-click="pesanbatal.errorText('Proses Penolakan di batalkan!!!')">Close</button>
-        <button type="button" ng-if="Setting=='tolak'" class="btn btn-primary" ng-click="Tolak()">Tolak</button>
-        <button type="button" ng-if="Setting=='kembali'" class="btn btn-primary"
-          ng-click="Kembali()">Kembalikan</button>
+        <button type="button" class="btn btn-primary" ng-click="Tolak()">Tolak</button>
       </div>
     </div>
+    <!-- /.modal-content -->
   </div>
+  <!-- /.modal-dialog -->
 </div>

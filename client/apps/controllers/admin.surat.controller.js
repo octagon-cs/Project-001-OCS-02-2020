@@ -1410,16 +1410,18 @@ function adminsuratkelahiranController(
 			$scope.dataPrint.penduduk = param.data;
 			var a = new Date(item.persetujuan[item.persetujuan.length - 1].created);
 			$scope.dataPrint.tampiltanggal = getTanggalIndonesia(a);
+			var b = new Date(item.data.tanggallahir);
+			$scope.dataPrint.harilahir = getHariIndonesia(b);
 			setTimeout(function() {
 				helperServices.print(id);
 			}, 1300);
 		});
 	};
-	$scope.SelectTanggalLahir = function() {
-		var a = $scope.TanggalLahir.split('-');
-		$scope.model.data.tanggallahir = JSON.stringify(new Date(a[0], parseInt(a[1]) - 1, a[2]));
-		$scope.model.data.harilahir = GetHariIndonesia(new Date(a[0], parseInt(a[1]) - 1, a[2]));
-	};
+	// $scope.SelectTanggalLahir = function() {
+	// 	var a = $scope.TanggalLahir.split('-');
+	// 	$scope.model.data.tanggallahir = JSON.stringify(new Date(a[0], parseInt(a[1]) - 1, a[2]));
+	// 	$scope.model.data.harilahir = GetHariIndonesia(new Date(a[0], parseInt(a[1]) - 1, a[2]));
+	// };
 	$scope.pad = (number) => {
 		return helperServices.pad(number);
 	};

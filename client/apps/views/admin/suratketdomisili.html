@@ -1,90 +1,77 @@
-<div class="card card-warning">
-  <section class="content-header" ng-init="Init()">
-    <div class="col">
-      <searchsurat value='mo'></searchsurat>
+<section class="content-header" ng-init="Init()">
+  <searchsurat></searchsurat>
+  <div class="col">
       <div class="card card-warning">
-        <div class="card-header">
-          <h3 class="card-title">
-            <i class="fas fa-list"></i>
-            List Permohonan Keterangan Domisili
-          </h3>
-          <div class="card-tools">
-            <button class="btn btn-primary btn-tools" ng-click="go('Tambah')"><i class="fa fa-plus"></i></button>
+          <div class="card-header">
+              <h3 class="card-title">List Permohonan Keterangan Domisili
+              </h3>
+              <div class="card-tools">
+                  <button class="btn btn-primary float-right" ng-click="go('Tambah')"><i
+                      class="fa fa-plus"></i></button>
+              </div>
+          </div><!-- /.card-header -->
+          <div class="card-body">
+              <div class="table-responsive p-0">
+                  <table datatable="ng" class="table table-head-fixed text-nowrap">
+                      <thead>
+                          <tr>
+                              <th>No</th>
+                              <th>Kode</th>
+                              <th>No.Surat</th>
+                              <th>NIK</th>
+                              <th>Nama</th>
+                              <th>Pejabat</th>
+                              <th>Progress</th>
+                              <th>Option</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr ng-repeat="item in Datas">
+                              <td>{{$index+1}}</td>
+                              <td>{{pad(item.idpermohonan)}}</td>
+                              <td>{{item.nomorsurat}}</td>
+                              <td>{{item.nik}}</td>
+                              <td>{{item.nama}}</td>
+                              <td align="center">{{item.namapejabat}}<br>(<b>{{item.namajabatan}}</b>)</td>
+                              <td>{{item.progress}}</td>
+                              <td>
+                                  <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'"
+                                      class="btn btn-primary" ng-click="Print('suratTidakMampu', item)">
+                                      <i class="fas fa-print"></i></a>
+                                  <a href="javascript:void(0)" title="Detail Permohonan" class="{{item.btncollor}}"
+                                      ng-click="go(item)"><i class="fas fa-eye"></i></a>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
           </div>
-        </div><!-- /.card-header -->
-        <div class="card-body">
-          <div class="table-responsive p-0">
-            <table datatable="" class="table table-head-fixed text-nowrap">
-              <thead>
-                <tr>
-                  <th width="2%">No</th>
-                  <th>Kode</th>
-                  <th>No.Surat</th>
-                  <th>NIK</th>
-                  <th>Nama</th>
-                  <th>Pejabat</th>
-                  <th>Progress</th>
-                  <th width="10%">Option</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="item in Datas | orderBy:'-tanggalpengajuan'">
-                  <td>{{$index+1}}</td>
-                  <td>{{pad(item.idpermohonan)}}</td>
-                  <td>{{item.nomorsurat}}</td>
-                  <td>{{item.nik}}</td>
-                  <td>{{item.nama}}</td>
-                  <td>{{item.namapejabat}}</td>
-                  <td>{{item.progress}}</td>
-                  <td>
-                    <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'" class="btn btn-primary"
-                      ng-click="Print('suratDomisili', item)">
-                      <i class="fas fa-print"></i></a>
-                    <a href="javascript:void(0)" title="Detail Permohonan" class="{{item.btncollor}}"
-                      ng-click="go(item)"><i class="fas fa-eye"></i></a>
-                    <!-- <a href="javascript:void(0)" ng-if="item.SetButtonApproved" title="Setujui Permohonan"
-                    ng-class="item.SetButtonApproved?'':'disabled'" class="btn btn-success" ng-click="Setuju(item)"><i
-                      class="fas fa-check"></i></a>
-                  <a href="javascript:void(0)" ng-if="UserRole !== 'admin' && item.SetButtonApproved"
-                    title="Tolak Permohonan" class="btn btn-danger" ng-click="TampilPesan(item)"><i
-                      class="fas fa-ban"></i></a> -->
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
       </div>
-    </div>
-
-    <div id="suratDomisili" class="printing">
-      <div ng-include="'../../../apps/views/admin/formatsurat/formatketdomisili.html'"></div>
-    </div>
-  </section>
-</div>
-
+  </div>
+  <div id="suratKetCerai" class="printing">
+      <div ng-include="'../../../apps/views/admin/formatsurat/formatketcerai.html'"></div>
+  </div>
+</section>
 <div class="modal fade" id="Pesan">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-warning">
-        <h4 class="modal-title">Pesan Penolakan</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="modal-content">
+          <div class="modal-header bg-warning">
+              <h4 class="modal-title">Pesan Penolakan</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <p><textarea id="" cols="30" rows="10" ng-model="model.message" class="form-control"></textarea>
+                  &hellip;</p>
+          </div>
+          <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal"
+                  ng-click="pesanbatal.errorText('Proses Penolakan di batalkan!!!')">Close</button>
+              <button type="button" class="btn btn-primary" ng-click="Tolak()">Tolak</button>
+          </div>
       </div>
-      <div class="modal-body">
-        <p><textarea id="" cols="30" rows="10" ng-model="model.message" class="form-control"></textarea> &hellip;</p>
-      </div>
-      <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-warning float-right" ng-click="Batal()">Kembali</button>
-        <button type="button" ng-if="UserRole !== 'admin' && item.SetButtonApproved" class="btn btn-danger float-right"
-          ng-click="TampilPesan(item)">Tolak</button>
-        <button ng-if="item.SetButtonApproved" type="button" class="btn btn-primary float-right"
-          ng-click="Setuju()">Setuju</button>
-        <button type="submit" class="btn btn-success float-right">Simpan</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
+      <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->
 </div>

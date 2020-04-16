@@ -924,7 +924,8 @@ function adminsurateditkelahiranController(
 	$rootScope,
 	PersetujuanService,
 	loaderService,
-	$state
+	$state,
+	$window
 ) {
 	$scope.JenisKelamin = helperServices.source.JenisKelamin;
 	$scope.tab = tabService.createTab();
@@ -956,6 +957,7 @@ function adminsurateditkelahiranController(
 							data.data.tanggalsuratpengantar = new Date(data.data.tanggalsuratpengantar);
 							$scope.model = data;
 							loaderService.setValue(false);
+							$scope.tab.edit = true;
 						});
 					} else {
 						$scope.title = 'TAMBAH SURAT KETERANGAN KELAHIRAN';
@@ -975,14 +977,9 @@ function adminsurateditkelahiranController(
 		$scope.model.data.hari = item.getDay();
 	};
 
-	$scope.Batal = function(item) {
-		if (item == 'batal') {
-			$state.go(helperServices.state('Kelahiran', $scope.UserRole));
-		} else {
-			$state.go(helperServices.state('Surat All', $scope.UserRole));
-		}
+	$scope.Batal = function() {
+		$window.history.back();
 	};
-
 	$scope.Simpan = function() {
 		message.dialog('Anda Yakin Ingin Menyimpan', 'Simpan', 'Batal').then(
 			(x) => {
@@ -1043,22 +1040,24 @@ function adminsurateditkelahiranController(
 	};
 
 	$scope.Setuju = function(item) {
-		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
-			(x) => {
-				PersetujuanService.get(item.idpermohonan).then(
-					(x) => {
-						item.SetButtonApproved = false;
-						message.info('Permohonan di setujui!!!');
-					},
-					(error) => {
-						message.errorText(error.data);
-					}
-				);
-			},
-			(error) => {
-				message.errorText('Persetujuan di batalkan');
-			}
-		);
+		if(model.SetButtonApproved){
+			message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
+				(x) => {
+					PersetujuanService.get(item.idpermohonan).then(
+						(x) => {
+							item.SetButtonApproved = false;
+							message.info('Permohonan di setujui!!!');
+						},
+						(error) => {
+							message.errorText(error.data);
+						}
+					);
+				},
+				(error) => {
+					message.errorText('Persetujuan di batalkan');
+				}
+			);
+		}
 	};
 	$scope.pesanbatal = message;
 	$scope.TampilPesan = function(item) {
@@ -1104,7 +1103,8 @@ function adminsurateditketceraiController(
 	PersetujuanService,
 	$stateParams,
 	loaderService,
-	$state
+	$state,
+	$window
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.ItemPenduduk = '';
@@ -1139,6 +1139,7 @@ function adminsurateditketceraiController(
 							approvedService.approvedModel(data, $scope.UserRole);
 							$scope.model = data;
 							loaderService.setValue(false);
+							$scope.tab.edit = true;
 						});
 					} else {
 						$scope.title = 'TAMBAH SURAT KETERANGAN CERAI';
@@ -1194,12 +1195,8 @@ function adminsurateditketceraiController(
 		}
 	};
 
-	$scope.Batal = function(item) {
-		if (item == 'batal') {
-			$state.go(helperServices.state('Keterangan Cerai', $scope.UserRole));
-		} else {
-			$state.go(helperServices.state('Surat All', $scope.UserRole));
-		}
+	$scope.Batal = function() {
+		$window.history.back();
 	};
 
 	$scope.Simpan = function() {
@@ -1258,22 +1255,24 @@ function adminsurateditketceraiController(
 		return helperServices.pad(number);
 	};
 	$scope.Setuju = function(item) {
-		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
-			(x) => {
-				PersetujuanService.get(item.idpermohonan).then(
-					(x) => {
-						item.SetButtonApproved = false;
-						message.info('Permohonan di setujui!!!');
-					},
-					(error) => {
-						message.errorText(error.data);
-					}
-				);
-			},
-			(error) => {
-				message.errorText('Persetujuan di batalkan');
-			}
-		);
+		if(model.SetButtonApproved){
+			message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
+				(x) => {
+					PersetujuanService.get(item.idpermohonan).then(
+						(x) => {
+							item.SetButtonApproved = false;
+							message.info('Permohonan di setujui!!!');
+						},
+						(error) => {
+							message.errorText(error.data);
+						}
+					);
+				},
+				(error) => {
+					message.errorText('Persetujuan di batalkan');
+				}
+			);
+		}
 	};
 	$scope.pesanbatal = message;
 	$scope.TampilPesan = function(item) {
@@ -1699,6 +1698,7 @@ function adminsurateditketusahaController($stateParams,
 	$scope.dataPrint = {};
 	$scope.IdJenis;
 	$scope.UserRole;
+	$scope.showPemohon= false;
 
 	$scope.Init = function() {
 		AuthService.profile().then((profile) => {
@@ -1741,6 +1741,12 @@ function adminsurateditketusahaController($stateParams,
 		$window.history.back();
 	};
 
+	// // $scope.Pemohon = (item)=>{
+	// // 	if(item){
+	// // 		$scope.showPemohon= true;
+	// // 	}else
+	// // 	$scope.showPemohon= false;
+	// }
 	$scope.Simpan = function() {
 		message.dialog('Anda Yakin Ingin Menyimpan', 'Simpan', 'Batal').then(
 			(x) => {
