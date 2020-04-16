@@ -21,5 +21,5 @@ function GetHariIndonesia(params) {
     bulan = bulan[params.getMonth()];
     var result =hari+", " + params.getDate()+" " + bulan + " " +params.getFullYear();
 
-    return result; 
+    return hari; 
 }

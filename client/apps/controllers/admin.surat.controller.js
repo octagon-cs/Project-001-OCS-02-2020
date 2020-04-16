@@ -1411,7 +1411,7 @@ function adminsuratkelahiranController(
 			var a = new Date(item.persetujuan[item.persetujuan.length - 1].created);
 			$scope.dataPrint.tampiltanggal = getTanggalIndonesia(a);
 			var b = new Date(item.data.tanggallahir);
-			$scope.dataPrint.harilahir = getHariIndonesia(b);
+			$scope.dataPrint.harilahir = GetHariIndonesia(b);
 			setTimeout(function() {
 				helperServices.print(id);
 			}, 1300);
