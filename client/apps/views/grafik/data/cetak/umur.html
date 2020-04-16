@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="/assets/sites.css">
+<div class="surat">
+    <div class="header">
+        <img class="logo" src="assets/images/logojayapura.png">
+        <div>
+            <b>PEMERINTAH KOTA JAYAPURA<br>
+                KELURAHAN WAENA<br>
+                DISTRIK HERAM</b><br>
+                DATA KEPENDUDUKAN MENURUT {{type | uppercase}}
+        </div>
+    </div>
+    <hr id="hr-formatSurat" />
+    <div class="body">
+        <table class="border thick data">
+            <thead>
+                <tr>
+                    <th class="thick" style="width: 2px; text-align: center;">No</th>
+                    <th class="thick">Statistik</th>
+                    <th class="thick">Jumlah</th>
+                    <th class="thick">Laki-Laki</th>
+                    <th class="thick">Perempuan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in Data">
+                    <td class="thick">{{$index+1}}</td>
+                    <td class="thick">{{item.label}}</td>
+                    <td class="thick">{{item.jumlah}}</td>
+                    <td class="thick">{{item.pria}}</td>
+                    <td class="thick">{{item.wanita}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="footer">
+        <p> Jayapura, {{Pejabat.tanggal}}</p>
+        <p>LURAH WAENA</p>
+        <p class="nama">{{Pejabat.nama}}</p>
+        <p> NIK. {{Pejabat.nip}}</p>
+    </div>
+</div>

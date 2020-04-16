@@ -28,7 +28,7 @@ router.post('/', [ authJwt.verifyToken ], async (req, res) => {
 					var message = {
 						idusers: req.User.userid,
 						data: {
-							from: req.User.email,
+							from: req.User.username,
 							iddata: data.idpermohonan
 						},
 						message: 'Permohonan Anda Telah Dibuat !',
@@ -37,7 +37,7 @@ router.post('/', [ authJwt.verifyToken ], async (req, res) => {
 					};
 
 					let data1 = await contextDb.Inbox.post(message);
-					var device = contextDb.Users.getUserByEmail(req.User.email);
+					var device = contextDb.Users.getUserByEmail(req.User.username);
 					if (device && device.devicetoken) {
 						fcm.sendToDevice(device.devicetoken, data1);
 					}
@@ -47,7 +47,7 @@ router.post('/', [ authJwt.verifyToken ], async (req, res) => {
 							message.idusers = element.idusers;
 							message.message = 'Permohonan Baru Dibuat';
 							let item = await contextDb.Inbox.post(message);
-							device = contextDb.Users.getUserByEmail(req.User.email);
+							device = contextDb.Users.getUserByEmail(req.User.username);
 							if (device && device.devicetoken) {
 								fcm.sendToDevice(device.devicetoken, item);
 							}

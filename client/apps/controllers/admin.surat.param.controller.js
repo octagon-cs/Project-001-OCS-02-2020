@@ -429,6 +429,7 @@ function adminsurateditketdomisiliController(
 						JenisPermohonanService.getByJenis('Keterangan Domisili').then((jenis) => {
 							$scope.model.idjenispermohonan = jenis.idjenispermohonan;
 							$scope.model.pejabat = $scope.dataPejabat.find((x) => x.namajabatan == 'Lurah');
+							$scope.model.idpejabat = $scope.model.pejabat.idpejabat;
 							loaderService.setValue(false);
 						});
 					}

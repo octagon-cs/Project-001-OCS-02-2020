@@ -223,7 +223,7 @@ db.put = async (data) => {
 				`update penduduk set nama=?, nik=?, nkk=?, statusdalamkeluarga=?, statuskepemilikanktp=?, tanggallahir=?, tempatlahir=?, aktalahir=?, dusun=?,
 				rt=?, rw=?, kodepost=?, email=?, alamatlangkap=?, kontakhp=?, golongandarah=?, statusperkawinan=?, agama=?, pekerjaan=?, 
 				pendidikanterakhir=?, suku=?, kewarganegawaan=?, tempattinggal=?, statussosial=?, statuskip=?, jeniskelamin=?, bacahuruf=?, 
-				penghasilantetap=?, statuskis=?, statuskk=?, namaayah=?, keterangan=?, status=? where idpenduduk=?`,
+				penghasilantetap=?, statuskis=?, statuskk=?, namaayah=?, namaibu=?, keterangan=?, status=? where idpenduduk=?`,
 				[
 					data.nama,
 					data.nik,
@@ -256,6 +256,7 @@ db.put = async (data) => {
 					data.statuskis,
 					data.statuskk,
 					data.namaayah,
+					data.namaibu,
 					data.keterangan,
 					data.status,
 					data.idpenduduk
@@ -286,7 +287,7 @@ db.delete = (id) => {
 	});
 };
 
-db.getDocument = (idpenduduk) => {
+db.getDocument = (data) => {
 	return new Promise((resolve, reject) => {
 		try {
 			pool.query(
@@ -299,13 +300,18 @@ db.getDocument = (idpenduduk) => {
 				dokumenpenduduk.file,
 				dokumenpenduduk.typefile,
 				dokumenpenduduk.idpermohonan,
-				dokumenpenduduk.jenis
-			  FROM       
+				dokumenpenduduk.jenis,
+				 penduduk.statusdalamkeluarga,
+				penduduk.nkk AS nokk
+				FROM       
 				persyaratan
-				LEFT JOIN dokumenpenduduk ON persyaratan.idpersyaratan= dokumenpenduduk.idpersyaratan AND ( dokumenpenduduk.idpenduduk=? or dokumenpenduduk.idpenduduk is null)
-			  WHERE
-				persyaratan.status IN (1, 2, 3)`,
-				[ idpenduduk ],
+				LEFT JOIN dokumenpenduduk ON persyaratan.idpersyaratan= dokumenpenduduk.idpersyaratan and (dokumenpenduduk.idpenduduk=? or   persyaratan.status=2) 
+				
+				LEFT JOIN penduduk ON penduduk.idpenduduk = dokumenpenduduk.idpenduduk  
+					
+				WHERE
+				persyaratan.status IN (1, 2, 3)  And( IF(penduduk.nkk=? and (penduduk.idpenduduk=? or penduduk.statusdalamkeluarga='Kepala Keluarga'),1,0)=1 or  penduduk.nkk is null)`,
+				[ data.idpenduduk, data.nkk, data.idpenduduk ],
 				(err, result) => {
 					if (err) {
 						return reject(err);

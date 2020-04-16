@@ -2,11 +2,15 @@
     <div class="col">
         <div class="card card-warning">
             <div class="card-header">
-                <h3 class="card-title">Detail Penduduk
+                <h3 class="card-title">{{title}}
                 </h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-tool" title="Kembali" ng-click="Batal()"><i
+                            class="fa fa-backward"></i></button>
+                </div>
             </div>
             <div class="card-body">
-                <form ng-submit="Simpan()" class="form-horizontal">
+                <form class="form-horizontal" id="quickForm">
                     <div class="card-body">
                         <div class="form-row">
                             <div style="background-color:lightgrey; margin: auto;">
@@ -20,7 +24,7 @@
                                 <label>Status
                                     Kepemilikan KTP</label>
                                 <select class="form-control" ng-model="model.statuskepemilikanktp"
-                                    data-placeholder="Kepemilikanktp">
+                                    data-placeholder="Kepemilikanktp" required>
                                     <option value=""></option>
                                     <option ng-repeat="item in helper.KepemilikanKTP" value="{{item}}">{{item}}
                                     </option>
@@ -28,8 +32,9 @@
                             </div>
                             <div class="form-group col-md-2"></div>
                             <div class="form-group col-md-5">
-                                <label>Nama</label>
-                                <input type="text" class="form-control" ng-model="model.nama" placeholder="Nama">
+                                <label for="namapenduduk">Nama</label>
+                                <input type="text" class="form-control" name="nama" ng-model="model.nama"
+                                    id="namapenduduk" placeholder="Nama" required>
                             </div>
                             <div class="form-group col-md-5">
                                 <label>Tanggal
@@ -37,7 +42,8 @@
                                 <p class="input-group">
                                     <input type="text" class="form-control" uib-datepicker-popup="EEEE, dd MMMM yyyy "
                                         ng-model="model.tanggallahir" is-open="popup1.opened" ng-required="true"
-                                        close-text="Close" alt-input-formats="altInputFormats" />
+                                        close-text="Close" alt-input-formats="altInputFormats" name="tanggallahir"
+                                        required />
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-secondary"
                                             ng-click="popup1.opened=!popup1.opened">
@@ -55,20 +61,64 @@
                             <div class="form-group col-md-2"></div>
                             <div class="form-group col-md-5">
                                 <label>NIK</label>
-                                <input type="text" class="form-control" ng-model="model.nik" placeholder="NIK">
+                                <input type="text" class="form-control" ng-model="model.nik" placeholder="NIK"
+                                    name="nik">
                             </div>
                             <div class="form-group col-md-5">
                                 <label>Tempat
                                     Lahir</label>
                                 <input type="text" class="form-control" ng-model="model.tempatlahir"
-                                    placeholder="Tempat lahir">
+                                    placeholder="Tempat lahir" required name="tempatlahir">
                             </div>
                             <div class="form-group col-md-2"></div>
                             <div class="form-group col-md-5">
                                 <label>Nomor Akta
                                     Lahir</label>
                                 <input type="text" class="form-control" ng-model="model.aktalahir"
-                                    placeholder="No. Akta Lahir">
+                                    placeholder="No. Akta Lahir" name="aktalahir">
+                            </div>
+                        </div>
+                        <div class="card-header">
+                        </div><br>
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label>Status
+                                    Kepemilikan KK</label>
+                                <select ui-select2 class="form-control" ng-model="model.statuskk"
+                                    data-placeholder="Kartu Keluarga" required name="statuskk">
+                                    <option value=""></option>
+                                    <option ng-repeat="item in helper.StatusKK" value="{{item}}">{{item}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2"></div>
+                            <div class="form-group col-md-5">
+                                <label>Nomor KK</label>
+                                <input type="text" class="form-control" ng-model="model.nkk" required name="nkk">
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label>Nama
+                                    Ayah</label>
+                                <input type="text" class="form-control" ng-model="model.namaayah" required
+                                    name="namaayah">
+                            </div>
+                            <div class="form-group col-md-2"></div>
+                            <div class="form-group col-md-5">
+                                <label>Nama
+                                    Ibu</label>
+                                <input type="text" class="form-control" ng-model="model.namaibu" required
+                                    name="namaibu">
+                            </div>
+
+                            <div class="form-group col-md-5">
+                                <label>Status Dalam
+                                    Keluarga</label>
+                                <select ui-select2 class="form-control" ng-model="model.statusdalamkeluarga"
+                                    data-placeholder="Kartu Pilih Status Keluarga">
+                                    <option value=""></option>
+                                    <option ng-repeat="item in helper.StatusKeluarga" value="{{item}}">{{item}}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="card-header">
@@ -76,13 +126,15 @@
                         <div class="form-row">
                             <div class="form-group col-md-5">
                                 <label>Dusun</label>
-                                <input type="text" class="form-control" ng-model="model.dusun" placeholder="Dusun">
+                                <input type="text" class="form-control" ng-model="model.dusun" placeholder="Dusun"
+                                    required name="dusun">
                             </div>
                             <div class="form-group col-md-2"></div>
                             <div class="form-group col-md-5">
                                 <label>RT
                                 </label>
-                                <input type="text" class="form-control" ng-model="model.rt" placeholder="RT">
+                                <input type="text" class="form-control" ng-model="model.rt" placeholder="RT" required
+                                    name="rt">
                             </div>
                             <div class="form-group col-md-5">
                                 <label>Kode Post
@@ -99,18 +151,20 @@
                             <div class="form-group col-md-5">
                                 <label>Alamat
                                     Lengkap</label>
-                                <textarea class="form-control" ng-model="model.alamatlangkap" rows="3"></textarea>
+                                <textarea class="form-control" ng-model="model.alamatlangkap" rows="3" required
+                                    name="alamatlangkap"></textarea>
                             </div>
                             <div class="form-group col-md-2"></div>
                             <div class="form-group col-md-5">
                                 <label>RW</label>
-                                <input type="text" class="form-control" ng-model="model.rw" placeholder="RW">
+                                <input type="text" class="form-control" ng-model="model.rw" placeholder="RW" required
+                                    name="rw">
                             </div>
                             <div class="form-group col-md-5">
                                 <label>Nomor Kontak
                                     HP</label>
                                 <input type="text" class="form-control" ng-model="model.kontakhp"
-                                    placeholder="Nomor Kontak HP">
+                                    placeholder="Nomor Kontak HP" required name="kontakhp">
                             </div>
                         </div>
                         <div class="card-header">
@@ -121,7 +175,7 @@
                                 <label>Golongan
                                     Darah</label>
                                 <select ui-select2 class="form-control" ng-model="model.golongandarah"
-                                    data-placeholder="Golongan Darah">
+                                    data-placeholder="Golongan Darah" required name="golongandarah">
                                     <option value=""></option>
                                     <option ng-repeat="item in helper.GolonganDarah" value="{{item}}">{{item}}
                                     </option>
@@ -132,7 +186,7 @@
                                 <label>Status
                                     Perkawinan</label>
                                 <select ui-select2 class="form-control" ng-model="model.statusperkawinan"
-                                    data-placeholder="Pilih Status Perkawinan">
+                                    data-placeholder="Pilih Status Perkawinan" required name="statusperkawinan">
                                     <option value=""></option>
                                     <option ng-repeat="item in helper.StatusPerkawinan" value="{{item}}">
                                         {{item}}</option>
@@ -141,7 +195,7 @@
                             <div class="form-group col-md-5">
                                 <label>Agama</label>
                                 <select ui-select2 class="form-control" ng-model="model.agama"
-                                    data-placeholder="Pilih Agama">
+                                    data-placeholder="Pilih Agama" required name="agama">
                                     <option value=""></option>
                                     <option ng-repeat="item in helper.Agama" value="{{item}}">{{item}}</option>
                                 </select>
@@ -151,7 +205,7 @@
                                 <label>JENIS
                                     KELAMIN</label>
                                 <select ui-select2 class="form-control" ng-model="model.jeniskelamin"
-                                    data-placeholder="Pilih Jenis Kelamin">
+                                    data-placeholder="Pilih Jenis Kelamin" required name="jeniskelamin">
                                     <option value=""></option>
                                     <option ng-repeat="item in helper.JenisKelamin" value="{{item}}">{{item}}
                                     </option>
@@ -161,7 +215,7 @@
                                 <label>Dapat Membaca
                                     Huruf</label>
                                 <select ui-select2 class="form-control" ng-model="model.bacahuruf"
-                                    data-placeholder="Pilih Huruf">
+                                    data-placeholder="Pilih Huruf" required name="bacahuruf">
                                     <option value=""></option>
                                     <option ng-repeat="item in helper.BacaHuruf" value="{{item}}">{{item}}
                                     </option>
@@ -172,7 +226,7 @@
                                 <label>Penghasilan
                                     Tetap</label>
                                 <select ui-select2 class="form-control" ng-model="model.penghasilantetap"
-                                    data-placeholder="Pilih Penghasilan">
+                                    data-placeholder="Pilih Penghasilan" required name="penghasilantetap">
                                     <option value=""></option>
                                     <option ng-repeat="item in helper.PenghasilanTetap" value="{{item}}">
                                         {{item}}</option>
@@ -181,7 +235,7 @@
                             <div class="form-group col-md-5">
                                 <label>Pekerjaan</label>
                                 <select ui-select2 class="form-control" ng-model="model.pekerjaan"
-                                    data-placeholder="Pilih Pekerjaan">
+                                    data-placeholder="Pilih Pekerjaan" required name="pekerjaan">
                                     <option value=""></option>
                                     <option ng-repeat="item in helper.Pekerjaan" value="{{item}}">{{item}}
                                     </option>
@@ -192,7 +246,7 @@
                                 <label>Pendidikan
                                     Terakhir</label>
                                 <select ui-select2 class="form-control" ng-model="model.pendidikanterakhir"
-                                    data-placeholder="Pilih Pendidikan">
+                                    data-placeholder="Pilih Pendidikan" required name="pendidikanterakhir">
                                     <option value=""></option>
                                     <option ng-repeat="item in helper.PendidikanTerakhir" value="{{item}}">
                                         {{item}}</option>
@@ -200,13 +254,13 @@
                             </div>
                             <div class="form-group col-md-5">
                                 <label>Suku</label>
-                                <input type="text" class="form-control" ng-model="model.suku">
+                                <input type="text" class="form-control" ng-model="model.suku" required name="suku">
                             </div>
                             <div class="form-group col-md-2"></div>
                             <div class="form-group col-md-5">
                                 <label>Kewarganegawaan</label>
                                 <select ui-select2 class="form-control" ng-model="model.kewarganegawaan"
-                                    data-placeholder="Pilih Kewargaan">
+                                    data-placeholder="Pilih Kewargaan" required name="kewarganegawaan">
                                     <option value=""></option>
                                     <option ng-repeat="item in helper.Kewarganegawaan" value="{{item}}">{{item}}
                                     </option>
@@ -216,7 +270,7 @@
                                 <label>Status Tempat
                                     Tinggal</label>
                                 <select ui-select2 class="form-control" ng-model="model.tempattinggal"
-                                    data-placeholder="Pilih Tempat Tinggal">
+                                    data-placeholder="Pilih Tempat Tinggal" required name="tempattinggal">
                                     <option value=""></option>
                                     <option ng-repeat="item in helper.StatusTT" value="{{item}}">{{item}}
                                     </option>
@@ -227,7 +281,7 @@
                                 <label>Status
                                     Sosial</label>
                                 <select ui-select2 class="form-control" ng-model="model.statussosial"
-                                    data-placeholder="Pilih Status Sosial">
+                                    data-placeholder="Pilih Status Sosial" required name="statussosial">
                                     <option value=""></option>
                                     <option ng-repeat="item in helper.StatusSosial" value="{{item}}">{{item}}
                                     </option>
@@ -241,7 +295,7 @@
                                 <label>Status
                                     Kepemilikan KIS</label>
                                 <select ui-select2 class="form-control" ng-model="model.statuskis"
-                                    data-placeholder="Kartu Indonesia Sehat">
+                                    data-placeholder="Kartu Indonesia Sehat" required name="statuskis">
                                     <option value=""></option>
                                     <option ng-repeat="item in helper.StatusKIS" value="{{item}}">{{item}}
                                     </option>
@@ -252,59 +306,26 @@
                                 <label>StatusKepemilikan
                                     KIP</label>
                                 <select ui-select2 class="form-control" ng-model="model.statuskip"
-                                    data-placeholder="Kartu Indonesia Pintar">
+                                    data-placeholder="Kartu Indonesia Pintar" required name="statuskip">
                                     <option value=""></option>
                                     <option ng-repeat="item in helper.StatusKIP" value="{{item}}">{{item}}
                                     </option>
                                 </select>
                             </div>
                         </div>
-                        <div class="card-header">
-                        </div><br>
-                        <div class="form-row">
-                            <div class="form-group col-md-5">
-                                <label>Status
-                                    Kepemilikan KK</label>
-                                <select ui-select2 class="form-control" ng-model="model.statuskk"
-                                    data-placeholder="Kartu Keluarga">
-                                    <option value=""></option>
-                                    <option ng-repeat="item in helper.StatusKK" value="{{item}}">{{item}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2"></div>
-                            <div class="form-group col-md-5">
-                                <label>Nomor KK</label>
-                                <input type="text" class="form-control" ng-model="model.nkk">
-                            </div>
-                            <div class="form-group col-md-5">
-                                <label>Nama
-                                    Ayah</label>
-                                <input type="text" class="form-control" ng-model="model.namaayah">
-                            </div>
-                            <div class="form-group col-md-2"></div>
-                            <div class="form-group col-md-5">
-                                <label>Status Dalam
-                                    Keluarga</label>
-                                <select ui-select2 class="form-control" ng-model="model.statusdalamkeluarga"
-                                    data-placeholder="Kartu Pilih Status Keluarga">
-                                    <option value=""></option>
-                                    <option ng-repeat="item in helper.StatusKeluarga" value="{{item}}">{{item}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
+
                         <div class="card-header">
                         </div><br>
                         <div class="form-row">
                             <div class="form-group col-md-5">
                                 <label>Keterangan</label>
-                                <textarea class="form-control" ng-model="model.keterangan"></textarea>
+                                <textarea class="form-control" ng-model="model.keterangan" name="keterangan" required
+                                    name="keterangan"></textarea>
                             </div>
                         </div>
                         <div class="card-header">
                         </div><br>
-                        <div class="form-row">
+                        <div ng-if="edit" class="form-row">
                             <div class="form-group col-md-5">
                                 <uploaddocument value="model"></uploaddocument>
                             </div>
@@ -312,15 +333,16 @@
                     </div>
                     <div class="card-header">
                     </div><br>
-
-
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button type="button" class="btn btn-danger float-right" ng-click="Batal()">Cancel</button>
+                    </div>
+                </form>
             </div>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-success">Submit</button>
-                <button type="button" class="btn btn-danger float-right" ng-click="tab.show('list')">Cancel</button>
-            </div>
-            </form>
         </div>
     </div>
     </div>
 </section>
+<script type="text/javascript">
+    
+</script>

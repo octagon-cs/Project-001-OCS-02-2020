@@ -38,7 +38,7 @@
                   <td>{{item.progress}}</td>
                   <td>
                     <a href="javascript:void(0)" ng-class="item.SetButtonPrint?'':'disabled'" class="btn btn-primary"
-                      ng-click="Print('suratTidakMampu', item)">
+                      ng-click="Print('suratDomisili', item)">
                       <i class="fas fa-print"></i></a>
                     <a href="javascript:void(0)" title="Detail Permohonan" class="{{item.btncollor}}"
                       ng-click="go(item)"><i class="fas fa-eye"></i></a>
@@ -55,61 +55,6 @@
           </div>
         </div>
       </div>
-      <!-- <div ng-if="tab.tambah || tab.edit" class="card card-warning">
-      <div class="card-header">
-        <h3 class="card-title" ng-if="tab.tambah"><i class="fas fa-plus"></i>Tambah Surat Keterangan Domisili</h3>
-        <h3 class="card-title" ng-if="tab.edit"><i class="fas fa-plus"></i>Ubah Surat </h3>
-      </div>
-      <div class="card-body">
-        <form ng-submit="Simpan()">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-5">
-                <div class="form-group row">
-                  <label class="col-sm-4 col-form-label">NIK/Nama</label>
-                  <div class="col-sm-8">
-                    <input type="text" ng-model="model.idpenduduk" placeholder="Cari NIK/Nama Warga"
-                      uib-typeahead="state as state.nik+' - '+state.nama for state in ListPenduduk | filter:$viewValue   | limitTo:8"
-                      class="form-control">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-2"></div>
-              <div class="col-md-5">
-                <div class="form-group row">
-                  <label class="col-sm-4 col-form-label">Nomor Surat</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control" ng-model="model.nomorsurat" placeholder="Nomor Surat">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-header"></div><br>
-            <div class="row">
-              <div class="col-md-5">
-                <div class="form-group row">
-                  <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
-                  <div class="col-sm-8 autoComplete">
-                    <input type="text" placeholder="Cari Pejabat" ng-model="model.idpejabat" uib-typeahead="state as state.nama+' - '+state.namajabatan for state in dataPejabat | 
-                        filter:$viewValue
-                        | limitTo:8" class="form-control">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-header"></div><br>
-            <div class="card-footer">
-              <button type="button" class="btn btn-warning float-right" ng-click="Batal()">Kembali</button>
-              <button type="button" ng-if="UserRole !== 'admin' && item.SetButtonApproved"
-                class="btn btn-danger float-right" ng-click="TampilPesan(item)">Tolak</button>
-              <button ng-if="item.SetButtonApproved" type="button" class="btn btn-primary float-right"
-                ng-click="Setuju()">Setuju</button>
-              <button type="submit" class="btn btn-success float-right">Simpan</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div> -->
     </div>
 
     <div id="suratDomisili" class="printing">

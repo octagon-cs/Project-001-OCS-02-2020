@@ -32,9 +32,11 @@ db.kelompokUmur = async () => {
 					WHEN umur > 65 THEN '>65'
 					WHEN umur IS NULL THEN '(NULL)'
 				END as label,
-				COUNT(*) AS jumlah
+				COUNT(*) AS jumlah,
+				SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+        		SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			
-			FROM (select nik, nama, tanggallahir, TIMESTAMPDIFF(YEAR, tanggallahir, CURDATE()) AS umur from penduduk where penduduk.status='aktif' )  as dummy_table
+			FROM (select nik, nama, jeniskelamin, tanggallahir, TIMESTAMPDIFF(YEAR, tanggallahir, CURDATE()) AS umur from penduduk where penduduk.status='aktif' )  as dummy_table
 			GROUP BY label
 			ORDER BY label;`,
 			(err, result) => {
@@ -49,7 +51,9 @@ db.kelompokUmur = async () => {
 db.golonganDarah = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`SELECT golongandarah as label, COUNT(*) as jumlah
+			`SELECT golongandarah as label, COUNT(*) as jumlah,
+			SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+			SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			FROM penduduk where penduduk.status='aktif'     
 			GROUP BY golongandarah;`,
 			(err, result) => {
@@ -64,7 +68,9 @@ db.golonganDarah = async () => {
 db.pekerjaan = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`SELECT pekerjaan as label, COUNT(*) as jumlah
+			`SELECT pekerjaan as label, COUNT(*) as jumlah,
+			SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+			SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			FROM penduduk where penduduk.status='aktif'     
 			GROUP BY pekerjaan;`,
 			(err, result) => {
@@ -79,7 +85,9 @@ db.pekerjaan = async () => {
 db.statusPerkawinan = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`SELECT statusperkawinan as label, COUNT(*) as jumlah
+			`SELECT statusperkawinan as label, COUNT(*) as jumlah,
+			SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+			SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			FROM penduduk where penduduk.status='aktif'     
 			GROUP BY statusperkawinan;`,
 			(err, result) => {
@@ -94,7 +102,9 @@ db.statusPerkawinan = async () => {
 db.pendidikan = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`SELECT pendidikanterakhir as label, COUNT(*) as jumlah
+			`SELECT pendidikanterakhir as label, COUNT(*) as jumlah,
+			SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+			SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			FROM penduduk where penduduk.status='aktif'     
 			GROUP BY pendidikanterakhir;`,
 			(err, result) => {
@@ -109,7 +119,9 @@ db.pendidikan = async () => {
 db.agama = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`SELECT agama as label, COUNT(*) as jumlah
+			`SELECT agama as label, COUNT(*) as jumlah,
+			SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+			SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			FROM penduduk where penduduk.status='aktif'     
 			GROUP BY agama;`,
 			(err, result) => {
@@ -124,7 +136,9 @@ db.agama = async () => {
 db.suku = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`SELECT suku as label, COUNT(*) as jumlah
+			`SELECT suku as label, COUNT(*) as jumlah,
+			SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+			SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			FROM penduduk where penduduk.status='aktif'     
 			GROUP BY suku;`,
 			(err, result) => {
@@ -153,7 +167,9 @@ db.jenisKelamin = async () => {
 db.kewargaNegaraan = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`SELECT kewarganegawaan as label, COUNT(*) as jumlah
+			`SELECT kewarganegawaan as label, COUNT(*) as jumlah,
+			SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+			SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			FROM penduduk where penduduk.status='aktif'     
 			GROUP BY kewarganegawaan;`,
 			(err, result) => {
@@ -168,7 +184,9 @@ db.kewargaNegaraan = async () => {
 db.statusKIP = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`SELECT statuskip as label, COUNT(*) as jumlah
+			`SELECT statuskip as label, COUNT(*) as jumlah,
+			SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+			SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			FROM penduduk where penduduk.status='aktif'     
 			GROUP BY statuskip;`,
 			(err, result) => {
@@ -183,7 +201,9 @@ db.statusKIP = async () => {
 db.statusKIS = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`SELECT statuskis as label, COUNT(*) as jumlah
+			`SELECT statuskis as label, COUNT(*) as jumlah,
+			SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+			SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			FROM penduduk where penduduk.status='aktif'     
 			GROUP BY statuskis;`,
 			(err, result) => {
@@ -198,7 +218,9 @@ db.statusKIS = async () => {
 db.penghasilan = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`SELECT penghasilantetap as label, COUNT(*) as jumlah
+			`SELECT penghasilantetap as label, COUNT(*) as jumlah,
+			SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+			SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			FROM penduduk where penduduk.status='aktif'     
 			GROUP BY penghasilantetap;`,
 			(err, result) => {
@@ -213,7 +235,9 @@ db.penghasilan = async () => {
 db.statusKK = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`SELECT statuskk as label, COUNT(*) as jumlah
+			`SELECT statuskk as label, COUNT(*) as jumlah,
+			SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+			SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			FROM penduduk where penduduk.status='aktif'     
 			GROUP BY statuskk;`,
 			(err, result) => {
@@ -228,7 +252,9 @@ db.statusKK = async () => {
 db.kedudukanDalamKeluarga = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`SELECT statusdalamkeluarga as label, COUNT(*) as jumlah
+			`SELECT statusdalamkeluarga as label, COUNT(*) as jumlah,
+			SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+			SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			FROM penduduk where penduduk.status='aktif'     
 			GROUP BY statusdalamkeluarga;`,
 			(err, result) => {
@@ -243,7 +269,9 @@ db.kedudukanDalamKeluarga = async () => {
 db.statusSosial = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`SELECT statussosial as label, COUNT(*) as jumlah
+			`SELECT statussosial as label, COUNT(*) as jumlah,
+			SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+			SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			FROM penduduk where penduduk.status='aktif'     
 			GROUP BY statussosial;`,
 			(err, result) => {
@@ -258,7 +286,9 @@ db.statusSosial = async () => {
 db.tempatTinggal = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`SELECT tempattinggal as label, COUNT(*) as jumlah
+			`SELECT tempattinggal as label, COUNT(*) as jumlah,
+			SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+			SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			FROM penduduk where penduduk.status='aktif'     
 			GROUP BY tempattinggal;`,
 			(err, result) => {
@@ -273,7 +303,9 @@ db.tempatTinggal = async () => {
 db.bacaHuruf = async () => {
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`SELECT bacahuruf as label, COUNT(*) as jumlah
+			`SELECT bacahuruf as label, COUNT(*) as jumlah,
+			SUM(CASE WHEN jeniskelamin = 'LAKI-LAKI' THEN 1 ELSE 0 END) AS pria,
+			SUM(CASE WHEN jeniskelamin = 'PEREMPUAN' THEN 1 ELSE 0 END) AS wanita
 			FROM penduduk where penduduk.status='aktif'     
 			GROUP BY bacahuruf;`,
 			(err, result) => {

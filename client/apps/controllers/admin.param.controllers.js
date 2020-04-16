@@ -13,7 +13,8 @@ function editadmindatapendudukController(
 	PejabatService,
 	loaderService,
 	$state,
-	$stateParams
+	$stateParams,
+	$window
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.Datas = [];
@@ -22,7 +23,7 @@ function editadmindatapendudukController(
 	$scope.RW = [];
 	$scope.helper = helperServices.source;
 	$scope.model = {};
-	$scope.edit = false;
+	$scope.edit = true;
 	$scope.view = false;
 	$scope.UserRole;
 
@@ -37,51 +38,93 @@ function editadmindatapendudukController(
 					);
 				});
 				if ($stateParams.id) {
+					$scope.title = "Detail Penduduk";
 					PendudukService.getById($stateParams.id, true).then((itempenduduk) => {
 						itempenduduk.tanggallahir = new Date(itempenduduk.tanggallahir);
 						$scope.model = itempenduduk;
 						PendudukService.getDocById($stateParams.id).then((berkas) => {
-							var a = berkas.find(x=>x.idpersyaratan==3);
+							var a = berkas.find(x => x.idpersyaratan == 3);
 							$scope.model.photo = a;
-							$scope.model.persyaratan = berkas.filter((dx)=>dx.status >0);
+							$scope.model.persyaratan = berkas.filter((dx) => dx.status > 0);
+							$scope.edit = true;
 						})
 					})
+				} else {
+					$scope.title = "Tambah Penduduk";
+					$scope.edit = false;
 				}
 				loaderService.setValue(false);
 			});
 		})
+		$(document).ready(function () {
+			$.validator.setDefaults({
+				submitHandler: function () {
+					$scope.Simpan();
+				}
+			});
+			$('#quickForm').validate({
+				rules: {
+					email: {
+						required: true,
+						email: true,
+					},
+					password: {
+						required: true,
+						minlength: 5
+					},
+					terms: {
+						required: true
+					},
+				},
+				messages: {
+					email: {
+						required: "Please enter a email address",
+						email: "Please enter a vaild email address"
+					},
+					password: {
+						required: "Please provide a password",
+						minlength: "Your password must be at least 5 characters long"
+					},
+					terms: "Please accept our terms"
+				},
+				errorElement: 'span',
+				errorPlacement: function (error, element) {
+					error.addClass('invalid-feedback');
+					element.closest('.form-group').append(error);
+				},
+				highlight: function (element, errorClass, validClass) {
+					$(element).addClass('is-invalid');
+				},
+				unhighlight: function (element, errorClass, validClass) {
+					$(element).removeClass('is-invalid');
+				}
+			});
+		});
+	};
+	$scope.Batal = function () {
+		$window.history.back();
 	};
 	$scope.stringnumber = (number) => {
 		return helperServices.stringnumber(number);
 	};
 	$scope.Simpan = function () {
-		var m;
-		if ($scope.tab.tambah) {
-			m = 'post';
-		} else {
-			m = 'put';
-		}
-		var today = new Date($scope.Penduduk.tanggallahir);
-		$scope.Penduduk.tanggallahir = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-		$http({
-			method: m,
-			url: helperServices.url + '/api/penduduk',
-			Header: AuthService.getHeader(),
-			data: $scope.Penduduk
-		}).then(
-			(param) => {
-				if ($scope.tab.tambah) {
-					$scope.Datas.push(angular.copy(param.data));
-					$scope.Penduduk = {};
-					$scope.tab.show('list');
-					message.info('Data Berhasil Disimpan');
-				} else {
-					message.info('Data Berhasil Diubah');
-					$scope.tab.show('list');
-				}
-			},
-			(error) => { }
-		);
+		message.dialog("Anda Yakin???", "Yes", "Batal").then((value) => {
+			var today = new Date($scope.model.tanggallahir);
+			$scope.model.tanggallahir = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+			if ($stateParams.id) {
+				PendudukService.put($scope.model).then(status => {
+					message.info("Berhasil");
+					$window.history.back();
+				})
+			} else {
+				PendudukService.post($scope.model).then(status => {
+					message.info("Berhasil");
+					$window.history.back();
+				})
+			}
+		}, error => {
+			// message.info("Bata");
+		})
 	};
 
 	$scope.Ubah = function () {
