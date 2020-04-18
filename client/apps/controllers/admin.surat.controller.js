@@ -2410,6 +2410,16 @@ function adminsuratskckController(
 		});
 	};
 
+	$scope.go = function(item) {
+		var state = helperServices.stateEdit('Keterangan SKCK', $scope.UserRole);
+		// $rootScope.permohonan = permohonan;
+		if (item == 'Tambah') {
+			$state.go(state, { id: null });
+		} else {
+			$state.go(state, { id: item.idpermohonan });
+		}
+	};
+
 	$scope.Edit = function(data) {
 		$scope.model = angular.copy(data);
 		$rootScope.permohonan = null;

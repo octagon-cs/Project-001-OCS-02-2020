@@ -63,6 +63,7 @@ function adminsuratedittidakmampuController(
 								approvedService.approvedModel(data, $scope.UserRole);
 								$scope.model = data;
 								loaderService.setValue(false);
+								$scope.tab.edit = true;
 							});
 						});
 					} else {
@@ -80,13 +81,7 @@ function adminsuratedittidakmampuController(
 	$scope.Batal = function() {
 		$window.history.back();
 	};
-	$scope.Batal = function(item) {
-		if (item == 'batal') {
-			$state.go(helperServices.state('Tidak Mampu', $scope.UserRole));
-		} else {
-			$state.go(helperServices.state('Surat All', $scope.UserRole));
-		}
-	};
+
 	$scope.Simpan = function() {
 		message.dialog('Anda Yakin Ingin Menyimpan', 'Simpan', 'Batal').then(
 			(x) => {
@@ -119,22 +114,25 @@ function adminsuratedittidakmampuController(
 	};
 
 	$scope.Setuju = function(item) {
-		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
-			(x) => {
-				PersetujuanService.get(item.idpermohonan).then(
-					(x) => {
-						item.SetButtonApproved = false;
-						message.info('Permohonan di setujui!!!');
-					},
-					(error) => {
-						message.errorText(error.data);
-					}
-				);
-			},
-			(error) => {
-				message.errorText('Persetujuan di batalkan');
-			}
-		);
+		if(model.SetButtonApproved){
+			message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
+				(x) => {
+					PersetujuanService.get(item.idpermohonan).then(
+						(x) => {
+							item.SetButtonApproved = false;
+							message.info('Permohonan di setujui!!!');
+							$window.history.back();
+						},
+						(error) => {
+							message.errorText(error.data);
+						}
+					);
+				},
+				(error) => {
+					message.errorText('Persetujuan di batalkan');
+				}
+			);
+		}
 	};
 	$scope.pesanbatal = message;
 	$scope.TampilPesan = function(item) {
@@ -329,22 +327,25 @@ function adminsurateditketnikahController(
 		});
 	};
 	$scope.Setuju = function(item) {
-		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
-			(x) => {
-				PersetujuanService.get(item.idpermohonan).then(
-					(x) => {
-						item.SetButtonApproved = false;
-						message.info('Permohonan di setujui!!!');
-					},
-					(error) => {
-						message.errorText(error.data);
-					}
-				);
-			},
-			(error) => {
-				message.errorText('Persetujuan di batalkan');
-			}
-		);
+		if(model.SetButtonApproved){
+			message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
+				(x) => {
+					PersetujuanService.get(item.idpermohonan).then(
+						(x) => {
+							item.SetButtonApproved = false;
+							message.info('Permohonan di setujui!!!');
+							$window.history.back();
+						},
+						(error) => {
+							message.errorText(error.data);
+						}
+					);
+				},
+				(error) => {
+					message.errorText('Persetujuan di batalkan');
+				}
+			);
+		}
 	};
 	$scope.pesanbatal = message;
 	$scope.TampilPesan = function(item) {
@@ -546,7 +547,8 @@ function adminsurateditketmenikahController(
 	$rootScope,
 	PersetujuanService,
 	$state,
-	loaderService
+	loaderService,
+	$window
 ) {
 	$scope.JenisKelamin = helperServices.JenisKelamin;
 	$scope.ListRT = [];
@@ -558,8 +560,6 @@ function adminsurateditketmenikahController(
 	$scope.model.data = {};
 	$scope.dataPrint;
 	$scope.IdJenis;
-	$scope.ItemAyah = '';
-	$scope.ItemIbu = '';
 	$scope.Init = function() {
 		AuthService.profile().then((profile) => {
 			$scope.UserRole = profile.rolename;
@@ -580,6 +580,7 @@ function adminsurateditketmenikahController(
 							data.data.tanggalsuratpengantar = new Date(data.data.tanggalsuratpengantar);
 							$scope.model = data;
 							loaderService.setValue(false);
+							$scope.tab.edit = true;
 						});
 					} else {
 						$scope.title = 'TAMBAH SURAT KETERANGAN SUDAH MENIKAH';
@@ -614,12 +615,8 @@ function adminsurateditketmenikahController(
 		return helperServices.pad(number);
 	};
 
-	$scope.Batal = function(item) {
-		if (item == 'batal') {
-			$state.go(helperServices.state('Sudah Menikah', $scope.UserRole));
-		} else {
-			$state.go(helperServices.state('Surat All', $scope.UserRole));
-		}
+	$scope.Batal = function() {
+		$window.history.back();
 	};
 
 	$scope.Simpan = function() {
@@ -673,22 +670,25 @@ function adminsurateditketmenikahController(
 		});
 	};
 	$scope.Setuju = function(item) {
-		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
-			(x) => {
-				PersetujuanService.get(item.idpermohonan).then(
-					(x) => {
-						item.SetButtonApproved = false;
-						message.info('Permohonan di setujui!!!');
-					},
-					(error) => {
-						message.errorText(error.data);
-					}
-				);
-			},
-			(error) => {
-				message.errorText('Persetujuan di batalkan');
-			}
-		);
+		if(model.SetButtonApproved){
+			message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
+				(x) => {
+					PersetujuanService.get(item.idpermohonan).then(
+						(x) => {
+							item.SetButtonApproved = false;
+							message.info('Permohonan di setujui!!!');
+							$window.history.back();
+						},
+						(error) => {
+							message.errorText(error.data);
+						}
+					);
+				},
+				(error) => {
+					message.errorText('Persetujuan di batalkan');
+				}
+			);
+		}
 	};
 	$scope.pesanbatal = message;
 	$scope.TampilPesan = function(item) {
@@ -759,7 +759,7 @@ function adminsurateditbelummenikahController(
 					$scope.dataPejabat = pejabat.filter((x) => x.status == 1);
 					$scope.ListRT = pejabat.filter((x) => x.status == 1 && x.namajabatan == 'RT');
 					if ($stateParams.id) {
-						$scope.title = 'UBAH SURAT KETERANGAN SUDAH MENIKAH';
+						$scope.title = 'UBAH SURAT KETERANGAN BELUM MENIKAH';
 						PermohonanService.getById($stateParams.id).then((data) => {
 							data.pejabat = $scope.dataPejabat.find((x) => x.idpejabat == data.idpejabat);
 							data.penduduk = $scope.ListPenduduk.find((x) => x.idpenduduk == data.idpenduduk);
@@ -770,9 +770,10 @@ function adminsurateditbelummenikahController(
 							data.data.tanggalsuratpengantar = new Date(data.data.tanggalsuratpengantar);
 							$scope.model = data;
 							loaderService.setValue(false);
+							$scope.tab.edit = true;
 						});
 					} else {
-						$scope.title = 'TAMBAH SURAT KETERANGAN SUDAH MENIKAH';
+						$scope.title = 'TAMBAH SURAT KETERANGAN BELUM MENIKAH';
 						JenisPermohonanService.getByJenis('Belum Menikah').then((jenis) => {
 							$scope.model.idjenispermohonan = jenis.idjenispermohonan;
 							$scope.model.pejabat = $scope.dataPejabat.find((x) => x.namajabatan == 'Lurah');
@@ -804,12 +805,8 @@ function adminsurateditbelummenikahController(
 		return helperServices.pad(number);
 	};
 
-	$scope.Batal = function(item) {
-		if (item == 'batal') {
-			$state.go(helperServices.state('Belum Menikah', $scope.UserRole));
-		} else {
-			$state.go(helperServices.state('Surat All', $scope.UserRole));
-		}
+	$scope.Batal = function() {
+		$window.history.back();
 	};
 
 	$scope.Simpan = function() {
@@ -862,23 +859,26 @@ function adminsurateditbelummenikahController(
 			}, 1300);
 		});
 	};
-	$scope.Setuju = function() {
-		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
-			(x) => {
-				PermohonanService.approved($scope.model.idpermohonan).then(
-					(x) => {
-						message.info('Permohonan di setujui!!!');
-						$window.history.back();
-					},
-					(error) => {
-						message.errorText(error.data);
-					}
-				);
-			},
-			(error) => {
-				message.errorText('Persetujuan di batalkan');
-			}
-		);
+	$scope.Setuju = function(item) {
+		if(model.SetButtonApproved){
+			message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
+				(x) => {
+					PersetujuanService.get(item.idpermohonan).then(
+						(x) => {
+							item.SetButtonApproved = false;
+							message.info('Permohonan di setujui!!!');
+							$window.history.back();
+						},
+						(error) => {
+							message.errorText(error.data);
+						}
+					);
+				},
+				(error) => {
+					message.errorText('Persetujuan di batalkan');
+				}
+			);
+		}
 	};
 	$scope.pesanbatal = message;
 	$scope.TampilPesan = function(item) {
@@ -1047,6 +1047,7 @@ function adminsurateditkelahiranController(
 						(x) => {
 							item.SetButtonApproved = false;
 							message.info('Permohonan di setujui!!!');
+							$window.history.back();
 						},
 						(error) => {
 							message.errorText(error.data);
@@ -1262,6 +1263,7 @@ function adminsurateditketceraiController(
 						(x) => {
 							item.SetButtonApproved = false;
 							message.info('Permohonan di setujui!!!');
+							$window.history.back();
 						},
 						(error) => {
 							message.errorText(error.data);
@@ -1448,22 +1450,25 @@ function adminsurateditketdesaController(
 		$scope.Init();
 	};
 	$scope.Setuju = function(item) {
-		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
-			(x) => {
-				PersetujuanService.get(item.idpermohonan).then(
-					(x) => {
-						item.SetButtonApproved = false;
-						message.info('Permohonan di setujui!!!');
-					},
-					(error) => {
-						message.errorText(error.data);
-					}
-				);
-			},
-			(error) => {
-				message.errorText('Persetujuan di batalkan');
-			}
-		);
+		if(model.SetButtonApproved){
+			message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
+				(x) => {
+					PersetujuanService.get(item.idpermohonan).then(
+						(x) => {
+							item.SetButtonApproved = false;
+							message.info('Permohonan di setujui!!!');
+							$window.history.back();
+						},
+						(error) => {
+							message.errorText(error.data);
+						}
+					);
+				},
+				(error) => {
+					message.errorText('Persetujuan di batalkan');
+				}
+			);
+		}
 	};
 	$scope.pesanbatal = message;
 	$scope.TampilPesan = function(item) {
@@ -1519,8 +1524,6 @@ function adminsurateditketektpController(
 	$scope.model.data = {};
 	$scope.dataPrint;
 	$scope.IdJenis;
-	$scope.ItemAyah = '';
-	$scope.ItemIbu = '';
 	$scope.Init = function() {
 		AuthService.profile().then((profile) => {
 			$scope.UserRole = profile.rolename;
@@ -1530,7 +1533,7 @@ function adminsurateditketektpController(
 					$scope.dataPejabat = pejabat.filter((x) => x.status == 1);
 					$scope.ListRT = pejabat.filter((x) => x.status == 1 && x.namajabatan == 'RT');
 					if ($stateParams.id) {
-						$scope.title = 'UBAH SURAT KETERANGAN SUDAH MENIKAH E-KTP';
+						$scope.title = 'UBAH SURAT KETERANGAN E-KTP';
 						PermohonanService.getById($stateParams.id).then((data) => {
 							data.pejabat = $scope.dataPejabat.find((x) => x.idpejabat == data.idpejabat);
 							data.penduduk = $scope.ListPenduduk.find((x) => x.idpenduduk == data.idpenduduk);
@@ -1538,6 +1541,7 @@ function adminsurateditketektpController(
 							data.data.tanggalsuratpengantar = new Date(data.data.tanggalsuratpengantar);
 							$scope.model = data;
 							loaderService.setValue(false);
+							$scope.tab.edit = true;
 						});
 					} else {
 						$scope.title = 'TAMBAH SURAT KETERANGAN E-KTP';
@@ -1557,12 +1561,8 @@ function adminsurateditketektpController(
 		$scope.model.data.hari = item.getDay();
 	};
 
-	$scope.Batal = function(item) {
-		if (item == 'batal') {
-			$state.go(helperServices.state('Keterangan eKTP', $scope.UserRole));
-		} else {
-			$state.go(helperServices.state('Surat All', $scope.UserRole));
-		}
+	$scope.Batal = function() {
+		$window.history.back();
 	};
 
 	$scope.Simpan = function() {
@@ -1625,22 +1625,25 @@ function adminsurateditketektpController(
 	};
 
 	$scope.Setuju = function(item) {
-		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
-			(x) => {
-				PersetujuanService.get(item.idpermohonan).then(
-					(x) => {
-						item.SetButtonApproved = false;
-						message.info('Permohonan di setujui!!!');
-					},
-					(error) => {
-						message.errorText(error.data);
-					}
-				);
-			},
-			(error) => {
-				message.errorText('Persetujuan di batalkan');
-			}
-		);
+		if(model.SetButtonApproved){
+			message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
+				(x) => {
+					PersetujuanService.get(item.idpermohonan).then(
+						(x) => {
+							item.SetButtonApproved = false;
+							message.info('Permohonan di setujui!!!');
+							$window.history.back();
+						},
+						(error) => {
+							message.errorText(error.data);
+						}
+					);
+				},
+				(error) => {
+					message.errorText('Persetujuan di batalkan');
+				}
+			);
+		}
 	};
 	$scope.pesanbatal = message;
 	$scope.TampilPesan = function(item) {
@@ -1931,22 +1934,25 @@ function adminsurateditpenguasaantanahController(
 		});
 	};
 	$scope.Setuju = function(item) {
-		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
-			(x) => {
-				PersetujuanService.get(item.idpermohonan).then(
-					(x) => {
-						item.SetButtonApproved = false;
-						message.info('Permohonan di setujui!!!');
-					},
-					(error) => {
-						message.errorText(error.data);
-					}
-				);
-			},
-			(error) => {
-				message.errorText('Persetujuan di batalkan');
-			}
-		);
+		if(model.SetButtonApproved){
+			message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
+				(x) => {
+					PersetujuanService.get(item.idpermohonan).then(
+						(x) => {
+							item.SetButtonApproved = false;
+							message.info('Permohonan di setujui!!!');
+							$window.history.back();
+						},
+						(error) => {
+							message.errorText(error.data);
+						}
+					);
+				},
+				(error) => {
+					message.errorText('Persetujuan di batalkan');
+				}
+			);
+		}
 	};
 	$scope.pesanbatal = message;
 	$scope.TampilPesan = function(item) {
@@ -1991,7 +1997,10 @@ function adminsurateditskckController(
 	PejabatService,
 	approvedService,
 	$rootScope,
-	PersetujuanService
+	PersetujuanService,
+	loaderService,
+	$window,
+	$state
 ) {
 	$scope.tab = tabService.createTab();
 	$scope.ListPenduduk = [];
@@ -2004,23 +2013,33 @@ function adminsurateditskckController(
 	$scope.adminSurateditKetDesa.data = {};
 	$scope.dataPrint = {};
 	$scope.Init = function() {
-		AuthService.profile().then((param) => {
-			$scope.UserRole = param.rolename;
+		AuthService.profile().then((profile) => {
+			$scope.UserRole = profile.rolename;
 			PendudukService.get().then((penduduk) => {
 				$scope.ListPenduduk = penduduk;
 				PejabatService.get().then((pejabat) => {
 					$scope.dataPejabat = pejabat.filter((x) => x.status == 1);
-					$scope.model.idpejabat = $scope.dataPejabat.find((x) => x.namajabatan == 'Lurah');
-					JenisPermohonanService.getByJenis('Keterangan SKCK').then((jenis) => {
-						$scope.model.idjenispermohonan = jenis.idjenispermohonan;
-						PermohonanService.getByJenis(jenis.idjenispermohonan).then((param) => {
-							approvedService.approvedView(param, $scope.UserRole);
-							$scope.Datas = angular.copy(param);
-							if ($rootScope.permohonan) {
-								$scope.Edit($rootScope.permohonan);
-							}
+					$scope.ListRT = pejabat.filter((x) => x.status == 1 && x.namajabatan == 'RT');
+					if ($stateParams.id) {
+						$scope.title = 'UBAH SURAT Pengantar SKCK';
+						PermohonanService.getById($stateParams.id).then((data) => {
+							data.pejabat = $scope.dataPejabat.find((x) => x.idpejabat == data.idpejabat);
+							data.penduduk = $scope.ListPenduduk.find((x) => x.idpenduduk == data.idpenduduk);
+							approvedService.approvedModel(data, $scope.UserRole);
+							data.data.tanggalsuratpengantar = new Date(data.data.tanggalsuratpengantar);
+							$scope.model = data;
+							loaderService.setValue(false);
+							$scope.tab.edit = true;
 						});
-					});
+					} else {
+						$scope.title = 'TAMBAH SURAT Pengantar SKCK';
+						JenisPermohonanService.getByJenis('Keterangan SKCK').then((jenis) => {
+							$scope.model.idjenispermohonan = jenis.idjenispermohonan;
+							$scope.model.pejabat = $scope.dataPejabat.find((x) => x.namajabatan == 'Lurah');
+							$scope.model.idpejabat = $scope.model.pejabat.idpejabat;
+							loaderService.setValue(false);
+						});
+					}
 				});
 			});
 		});
@@ -2042,50 +2061,28 @@ function adminsurateditskckController(
 	};
 
 	$scope.Simpan = function() {
-		var Method;
-		if ($scope.tab.tambah) {
-			Method = 'post';
-			var today = new Date();
-			$scope.model.tanggalpengajuan =
-				today.getFullYear() +
-				'-' +
-				(today.getMonth() + 1) +
-				'-' +
-				today.getDate() +
-				' ' +
-				today.getHours() +
-				':' +
-				today.getMinutes() +
-				':' +
-				today.getSeconds();
-		} else {
-			Method = 'put';
-		}
-		$scope.model.namapejabat = angular.copy($scope.model.idpejabat.nama);
-		$scope.model.namajabatan = angular.copy($scope.model.idpejabat.namajabatan);
-		$scope.model.idpejabat = angular.copy($scope.model.idpejabat.idpejabat);
-		$scope.model.nama = angular.copy($scope.model.data.idpenduduk.nama);
-		$scope.model.nik = angular.copy($scope.model.data.idpenduduk.nik);
-		$scope.model.nkk = angular.copy($scope.model.data.idpenduduk.nkk);
-		$scope.model.data.idpenduduk = angular.copy($scope.model.data.idpenduduk.idpenduduk);
-
-		$http({
-			method: 'post',
-			url: helperServices.url + '/api/permohonan',
-			headers: AuthService.getHeader(),
-			data: $scope.adminSurateditKetDesa
-		}).then(
-			(param) => {
-				$scope.adminSurateditKetDesa.idpermohonan = param.idpermohonan;
-				$scope.DatasadminSurateditKetDesa.push(angular.copy($scope.adminSurateditKetDesa));
-				message.info('Berhasil Menyimpan');
-				$scope.adminSurateditKetDesa = {};
-				$scope.ItemPenduduk = '';
+		message.dialog('Anda Yakin Ingin Menyimpan', 'Simpan', 'Batal').then(
+			(x) => {
+				if ($stateParams.id) {
+					PermohonanService.put($scope.model).then((permohonan) => {
+						message.info('Berhasil Mengubah');
+						$window.history.back();
+					});
+				} else {
+					PermohonanService.post($scope.model).then((permohonan) => {
+						message.info('Berhasil Menyimpan');
+						$state.go(helperServices.state('Keterangan SKCK', $scope.UserRole));
+					});
+				}
 			},
 			(error) => {
-				message.errorText(error.message);
+				message.errorText('Batal');
 			}
 		);
+	};
+
+	$scope.Batal = function() {
+		$window.history.back();
 	};
 
 	$scope.Selecteddata = function(id, item) {
@@ -2115,29 +2112,27 @@ function adminsurateditskckController(
 	$scope.pad = (number) => {
 		return helperServices.pad(number);
 	};
-	$scope.Batal = function() {
-		$scope.tab.show('list');
-		$scope.model = {};
-		$scope.model.data = {};
-		$scope.Init();
-	};
+	
 	$scope.Setuju = function(item) {
-		message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
-			(x) => {
-				PersetujuanService.get(item.idpermohonan).then(
-					(x) => {
-						item.SetButtonApproved = false;
-						message.info('Permohonan di setujui!!!');
-					},
-					(error) => {
-						message.errorText(error.data);
-					}
-				);
-			},
-			(error) => {
-				message.errorText('Persetujuan di batalkan');
-			}
-		);
+		if(model.SetButtonApproved){
+			message.dialog('Anda yakin menyetujui permohonan???', 'Setuju', 'Batal').then(
+				(x) => {
+					PersetujuanService.get(item.idpermohonan).then(
+						(x) => {
+							item.SetButtonApproved = false;
+							message.info('Permohonan di setujui!!!');
+							$window.history.back();
+						},
+						(error) => {
+							message.errorText(error.data);
+						}
+					);
+				},
+				(error) => {
+					message.errorText('Persetujuan di batalkan');
+				}
+			);
+		}
 	};
 	$scope.pesanbatal = message;
 	$scope.TampilPesan = function(item) {

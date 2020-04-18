@@ -5,8 +5,8 @@
                 <h3 class="card-title">{{title}}</h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-primary btn-tool" title="Kembali Ke List Permohonan"
-                      ng-click="Batal()"><i class="fa fa-backward"></i></button>
-                  </div>
+                        ng-click="Batal()"><i class="fa fa-backward"></i></button>
+                </div>
             </div>
             <div class="card-body">
                 <form ng-submit="Simpan()">
@@ -30,7 +30,8 @@
                                     data-placeholder="Pilih Penduduk">
                                 </select>
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="customCheckbox1" ng-model="model.p1" ng-change="Pemohon('penduduk1')">
+                                    <input class="custom-control-input" type="checkbox" id="customCheckbox1"
+                                        ng-model="model.p1" ng-change="Pemohon('penduduk1')">
                                     <label for="customCheckbox1" class="custom-control-label">
                                         Checklist Jika yang bersangkutan sebagai pemohon
                                     </label>
@@ -47,13 +48,14 @@
                                     data-placeholder="Pilih Penduduk">
                                 </select>
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="customCheckbox1" ng-model="model.p1" ng-change="Pemohon('penduduk1')">
+                                    <input class="custom-control-input" type="checkbox" id="customCheckbox1"
+                                        ng-model="model.p1" ng-change="Pemohon('penduduk1')">
                                     <label for="customCheckbox1" class="custom-control-label">
                                         Checklist Jika yang bersangkutan sebagai pemohon
                                     </label>
                                 </div>
                             </div>
-                           
+
                         </div>
                     </div>
                     <div class="card-header"></div><br>
@@ -71,16 +73,17 @@
                     </div>
                     <div ng-if="tab.edit">
                         <uploaddocument value="model"></uploaddocument>
-                      </div>
+                    </div>
                     <div class="card-footer">
-                        <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved" class="btn btn-warning float-right"
-                          ng-click="TampilPesan(model, 'kembali')">Kembalikan</button>
-                        <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved" class="btn btn-danger float-right"
-                          ng-click="TampilPesan(model, 'tolak')">Tolak</button>
-                        <button type="button" ng-if="tab.edit" ng-class="model.SetButtonApproved ? '': 'disabled'" type="button" class="btn btn-primary float-right"
-                          ng-click="Setuju(model)">Setuju</button>
+                        <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
+                            class="btn btn-warning float-right"
+                            ng-click="TampilPesan(model, 'kembali')">Kembalikan</button>
+                        <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
+                            class="btn btn-danger float-right" ng-click="TampilPesan(model, 'tolak')">Tolak</button>
+                        <button type="button" ng-if="tab.edit" ng-class="model.SetButtonApproved ? '': 'disabled'"
+                            type="button" class="btn btn-primary float-right" ng-click="Setuju(model)">Setuju</button>
                         <button type="submit" class="btn btn-success float-right">Simpan</button>
-                      </div>
+                    </div>
                 </form>
             </div>
         </div>

@@ -27,7 +27,8 @@
                                 data-placeholder="Pilih Penduduk">
                             </select>
                             <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" type="checkbox" id="customCheckbox1" ng-model="model.p1" ng-change="Pemohon('penduduk1')">
+                                <input class="custom-control-input" type="checkbox" id="customCheckbox1"
+                                    ng-model="model.p1" ng-change="Pemohon('penduduk1')">
                                 <label for="customCheckbox1" class="custom-control-label">
                                     Checklist Jika yang bersangkutan sebagai pemohon
                                 </label>
@@ -42,7 +43,8 @@
                                 data-placeholder="Pilih Penduduk">
                             </select>
                             <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" type="checkbox" id="pemohonistri" ng-model="model.p2" ng-change="Pemohon('penduduk2')">
+                                <input class="custom-control-input" type="checkbox" id="pemohonistri"
+                                    ng-model="model.p2" ng-change="Pemohon('penduduk2')">
                                 <label for="pemohonistri" class="custom-control-label">
                                     Checklist Jika yang bersangkutan sebagai pemohon
                                 </label>
@@ -60,9 +62,9 @@
                             <label>Nama Pejabat Pengesah</label>
                             <div class="col-sm-8 autoComplete">
                                 <select class="form-control" select2 data-ng-model="model.pejabat"
-                                            ng-change="model.idpejabat=model.pejabat.idpejabat"
-                                            ng-options="item as item.nama+' - '+item.namajabatan for item in dataPejabat"
-                                            data-placeholder="Pilih Pejabat"></select>
+                                    ng-change="model.idpejabat=model.pejabat.idpejabat"
+                                    ng-options="item as item.nama+' - '+item.namajabatan for item in dataPejabat"
+                                    data-placeholder="Pilih Pejabat"></select>
                             </div>
                         </div>
 

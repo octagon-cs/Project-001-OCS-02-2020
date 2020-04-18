@@ -10,66 +10,61 @@
       </div>
       <div class="card-body">
         <form ng-submit="Simpan()">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-4 col-form-label">No Surat</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control" ng-model="model.nomorsurat" placeholder="No Surat">
-                  </div>
-                </div>
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label>Nomor Surat</label>
+              <input type="text" class="form-control" ng-model="model.nomorsurat" placeholder="Nomor Surat">
+            </div>
+          </div>
+          <div class="card-header"></div><br>
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label>NIK/Nama</label>
+              <select class="form-control" data-ng-model="model.penduduk" select2
+                ng-change="model.idpenduduk=model.penduduk.idpenduduk"
+                ng-options="item as item.nik+' - '+item.nama for item in ListPenduduk"
+                data-placeholder="Pilih Penduduk">
+              </select>
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="customCheckbox1" ng-model="model.p1"
+                  ng-change="Pemohon('penduduk1')">
+                <label for="customCheckbox1" class="custom-control-label">
+                  Checklist Jika yang bersangkutan sebagai pemohon
+                </label>
               </div>
             </div>
-            <div class="card-header"></div><br>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label for="inputEmail3" class="col-sm-4 col-form-label">NIK</label>
-                  <div class="col-sm-8">
-                    <select class="form-control" data-ng-model="model.penduduk" select2
-                      ng-change="model.idpenduduk=model.penduduk.idpenduduk; model.data.idpenduduk = model.penduduk.idpenduduk; SelectedRT()"
-                      ng-options="item as item.nik+' - '+item.nama for item in ListPenduduk"
-                      data-placeholder="Pilih Penduduk">
-                    </select>
+          </div>
+          <div class="card-header"></div><br>
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label>Nama Pejabat Pengesah</label>
+              <div class="col-sm-8 autoComplete">
+                <select class="form-control" select2 data-ng-model="model.pejabat"
+                  ng-change="model.idpejabat=model.pejabat.idpejabat"
+                  ng-options="item as item.nama+' - '+item.namajabatan for item in dataPejabat"
+                  data-placeholder="Pilih Pejabat"></select>
+              </div>
+            </div>
 
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-header"></div><br>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-4 col-form-label">Nama Pejabat Pengesah</label>
-                  <div class="col-sm-8 autoComplete">
-                    <select class="form-control" select2 data-ng-model="model.pejabat"
-                      ng-change="model.idpejabat=model.pejabat.idpejabat"
-                      ng-options="item as item.nama+' - '+item.namajabatan for item in dataPejabat"
-                      data-placeholder="Pilih Pejabat"></select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-header"></div><br>
+          </div>
+          <div ng-if="tab.edit">
+            <uploaddocument value="model"></uploaddocument>
           </div>
           <div class="card-footer">
-            <button type="button" class="btn btn-warning float-right" ng-click="Batal('batal')">Kembali</button>
             <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
-              class="btn btn-danger float-right" ng-click="TampilPesan(model)">Tolak</button>
-            <button ng-if="model.SetButtonApproved" type="button" class="btn btn-primary float-right"
-              ng-click="Setuju()">Setuju</button>
+              class="btn btn-warning float-right" ng-click="TampilPesan(model, 'kembali')">Kembalikan</button>
+            <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
+              class="btn btn-danger float-right" ng-click="TampilPesan(model, 'tolak')">Tolak</button>
+            <button type="button" ng-if="tab.edit" ng-class="model.SetButtonApproved ? '': 'disabled'" type="button"
+              class="btn btn-primary float-right" ng-click="Setuju(model)">Setuju</button>
             <button type="submit" class="btn btn-success float-right">Simpan</button>
           </div>
         </form>
       </div>
     </div>
   </div>
-
-  <div id="suratKeteKtp" class="printing">
-    <div ng-include="'../../../apps/views/admin/formatsurat/formatketcerai.html'"></div>
-  </div>
 </section>
+
 
 <div class="modal fade" id="Pesan">
   <div class="modal-dialog">

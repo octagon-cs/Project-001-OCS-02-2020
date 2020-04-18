@@ -21,10 +21,11 @@
             <div class="form-row">
               <div class="form-group col-md-5">
                 <label>NIK/Nama</label>
-            <select class="form-control" data-ng-model="model.penduduk" select2
-              ng-change="model.idpenduduk=model.penduduk.idpenduduk"
-              ng-options="item as item.nik+' - '+item.nama for item in ListPenduduk" data-placeholder="Pilih Penduduk">
-            </select>
+                <select class="form-control" data-ng-model="model.penduduk" select2
+                  ng-change="model.idpenduduk=model.penduduk.idpenduduk"
+                  ng-options="item as item.nik+' - '+item.nama for item in ListPenduduk"
+                  data-placeholder="Pilih Penduduk">
+                </select>
               </div>
             </div>
             <div class="card-header"></div><br>
@@ -37,25 +38,28 @@
               <div class="col-md-2"></div>
               <div class="form-group col-md-5">
                 <label>Batas Wilayah</label>
-                <input type="text" class="form-control" ng-model="model.data.bataswilayah" placeholder="Utara, Selatan, Barat, Timur">
+                <input type="text" class="form-control" ng-model="model.data.bataswilayah"
+                  placeholder="Utara, Selatan, Barat, Timur">
               </div>
 
               <div class="form-group col-md-5">
                 <label>Digunakan Untuk</label>
-                <input type="text" class="form-control" ng-model="model.data.digunakanuntuk" placeholder="Digunakan Untuk">
+                <input type="text" class="form-control" ng-model="model.data.digunakanuntuk"
+                  placeholder="Digunakan Untuk">
               </div>
               <div class="col-md-2"></div>
               <div class="form-group col-md-5">
                 <label>Diusahakan Sebagai</label>
-                <input type="text" class="form-control" ng-model="model.data.diusahakansebagai" placeholder="Diusahakan Sebagai">
+                <input type="text" class="form-control" ng-model="model.data.diusahakansebagai"
+                  placeholder="Diusahakan Sebagai">
               </div>
               <div class="form-group col-md-5">
                 <label class="col-sm-4 col-form-label">tanggal Perolehan Tanah</label>
                 <div class="col-sm-8">
                   <p class="input-group">
                     <input type="text" class="form-control" uib-datepicker-popup="EEEE, dd MMMM yyyy "
-                      ng-model="model.data.tanggalperolehantanah" is-open="popup1.opened" ng-required="true" close-text="Close"
-                      alt-input-formats="altInputFormats" />
+                      ng-model="model.data.tanggalperolehantanah" is-open="popup1.opened" ng-required="true"
+                      close-text="Close" alt-input-formats="altInputFormats" />
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-secondary" ng-click="popup1.opened=!popup1.opened">
                         <i class="fa-svg-icon">
@@ -87,12 +91,12 @@
           <uploaddocument value="model"></uploaddocument>
         </div>
         <div class="card-footer">
-          <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved" class="btn btn-warning float-right"
-            ng-click="TampilPesan(model, 'kembali')">Kembalikan</button>
-          <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved" class="btn btn-danger float-right"
-            ng-click="TampilPesan(model, 'tolak')">Tolak</button>
-          <button type="button" ng-if="tab.edit" ng-class="model.SetButtonApproved ? '': 'disabled'" type="button" class="btn btn-primary float-right"
-            ng-click="Setuju(model)">Setuju</button>
+          <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
+            class="btn btn-warning float-right" ng-click="TampilPesan(model, 'kembali')">Kembalikan</button>
+          <button type="button" ng-if="UserRole !== 'admin' && model.SetButtonApproved"
+            class="btn btn-danger float-right" ng-click="TampilPesan(model, 'tolak')">Tolak</button>
+          <button type="button" ng-if="tab.edit" ng-class="model.SetButtonApproved ? '': 'disabled'" type="button"
+            class="btn btn-primary float-right" ng-click="Setuju(model)">Setuju</button>
           <button type="submit" class="btn btn-success float-right">Simpan</button>
         </div>
         </form>
