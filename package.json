@@ -22,8 +22,8 @@
   "dependencies": {
     "angularjs-datepicker": "^2.1.23",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
     "firebase-admin": "^8.9.2",
     "jsonwebtoken": "^8.3.0",
     "mysql": "^2.17.1",
